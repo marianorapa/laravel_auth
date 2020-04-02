@@ -61,9 +61,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return view('home');
-
-            
+            return redirect(route('main'));          
         }
 
         return back()->withError('mensaje', 'Usuario o password incorrectos');

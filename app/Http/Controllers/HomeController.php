@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Accedo a los roles del usuario y muestro una opcion por cada uno
+
+        return(Auth::user()->roles()->get());
+
         return view('home');
     }
 }

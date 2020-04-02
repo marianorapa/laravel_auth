@@ -36,10 +36,11 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Rutas de usuario
 //Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::get('/admin', 'AdminController@index')->name('admin')->middleware('App\Http\Middleware\IsAdmin');
+Route::get('/main', 'HomeController@index')->name('main');
 
-Route::get('/usuario', 'UserController@index')->name('usuario')->middleware('auth');
+Route::get('/admin', 'AdminController@index')->name('admin');
 
+Route::get('/usuario', 'UserController@index')->name('usuario');
 
 
 // Rutas de errores
