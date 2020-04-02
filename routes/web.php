@@ -40,8 +40,7 @@ Route::get('/main', 'HomeController@index')->name('main');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 
-Route::get('/usuario', 'UserController@index')->name('usuario');
-
+Route::get('/usuario', 'UserController@index')->name('user');
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');

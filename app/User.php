@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function is($roleName){
         foreach($this->Roles()->get() as $role){
-            if (strtoupper($role->nombre) == strtoupper($roleName)){
+            if (strtoupper($role->name) == strtoupper($roleName)){
                 return true;
             }
         }

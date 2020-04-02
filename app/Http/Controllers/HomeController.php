@@ -24,10 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Accedo a los roles del usuario y muestro una opcion por cada uno
+        // Accedo a los roles del usuario y muestro los activos
+        $roles = Auth::user()->roles()->where('activo', 1)->get();//->get()
 
-        return(Auth::user()->roles()->get());
-
-        return view('home');
+        return view('home', compact('roles'));
     }
 }
