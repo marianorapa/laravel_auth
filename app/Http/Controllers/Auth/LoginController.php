@@ -69,12 +69,25 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);        
 
+        // Previo al chequeo de Auth (que seguro se mete con cookies),
+        // reviso si el supuesto username esta activo.
+        $username = $request['username'];
+
+        // Obtengo ese usuario y que este activo
+        $user = User::where('username', $username)->where('activo', 1)->first();
+        
+        // Si es null -> no existe o no esta activo
+        if ($user == null) 
+        {
+            return back()->with('error', 'Usuario o password no corresponden a usuario activo.');
+        }
+
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             return redirect(route('main'));          
         }
 
-        return back()->withError('mensaje', 'Usuario o password incorrectos');
+        return back()->with('error', 'Usuario o password incorrectos');
     }
 
     public function logout(){
