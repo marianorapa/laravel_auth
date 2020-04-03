@@ -34,7 +34,13 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $permiso = new Permiso;
+        $permiso->name = $request['name'];   
+        $permiso->descr = $request['descr'];   
+        $permiso->funcionalidad = $request['funcionalidad'];   
+        $permiso->activo = true;   
+
+        $permiso->save();
     }
 
     /**
