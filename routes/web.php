@@ -27,18 +27,28 @@ Route::post('/register', 'Auth\RegisterController@RegisterUser')->middleware('Ap
 Route::get('/login', 'Auth\LoginController@login')->name('auth.login');
 Route::post('/login', 'Auth\LoginController@authenticate')->name('login');
 
-Route::get('/logout', 'Auth\LoginController@logout')->name('getLogout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     //Auth::routes()->middleware('checkUserExistence');
 
 
-// Rutas de usuario
-//Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-
+// Rutas protegidas
 Route::get('/main', 'HomeController@index')->name('main');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+
+
+Route::resource('users', 'UserController');
+Route::resource('roles', 'RolesController');
+Route::resource('permisos', 'PermisosController');
+Route::resource('personas', 'PersonasController');
+
+
+
+
+
+
 
 Route::get('/usuario', 'UserController@index')->name('user');
 

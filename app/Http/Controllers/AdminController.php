@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+use App\Role;
+use App\Permiso;
 
 class AdminController extends Controller
 {
@@ -14,9 +17,27 @@ class AdminController extends Controller
 
     public function index()
     {
-        
+        return view('admin.index');
     }
     
+    public function users()
+    {
+        
+    }
 
+    public function permisos()
+    {
+        
+    }
+
+    public function roles()
+    {
+        
+    }
+
+    public function personas()
+    {
+        
+    }
 
 }
