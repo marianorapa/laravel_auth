@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Contpersonalers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Persona;
 
-class PersonaContpersonaler extends Contpersonaler
+class PersonaController extends Controller
 {
     /**
      * Display a listing of the resource.
