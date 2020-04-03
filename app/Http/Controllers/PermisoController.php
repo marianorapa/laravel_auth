@@ -11,7 +11,6 @@ class PermisoController extends Controller
         $this->middleware('App\Http\Middleware\IsAdmin');
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +18,8 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        return view('admin.permisos.index');
+        $permisos = Permiso::all();
+        return view('admin.permisos.index', compact('permisos'));
     }
 
     /**
@@ -94,7 +94,6 @@ class PermisoController extends Controller
         $permiso->save();
 
         return back()->with('mensaje', 'Permiso actualizado');
-
     }
 
     /**
@@ -105,6 +104,6 @@ class PermisoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

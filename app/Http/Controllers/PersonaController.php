@@ -20,7 +20,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        return view('admin.personas.index');
+        $personas = Persona::all();
+
+        return view('admin.personas.index', compact('personas'));
     }
 
     /**
@@ -76,7 +78,7 @@ class PersonaController extends Controller
      */
     public function edit($id)
     {
-        $persona = Persona::finda($id);
+        $persona = Persona::find($id);
 
         return view('admin.personas.edit', compact('persona'));
     }
@@ -90,7 +92,6 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $persona = Persona::find($id);
 
         $persona->nombres = $request['nombresPersona'];
