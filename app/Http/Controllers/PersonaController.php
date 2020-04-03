@@ -13,7 +13,7 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        return
+        return view('admin.personas.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class PersonaController extends Controller
      */
     public function create()
     {
-        return view('admin.personas.index');
+        return view('admin.personas.create');
     }
 
     /**
