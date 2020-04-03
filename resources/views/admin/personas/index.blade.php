@@ -3,33 +3,64 @@
 @section('content')
 <section class="container">
 <table class="table">
+          @if ($errors->any())
+          <div class="alert alert-danger">
+             {{$errors->first()}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>        
+          @endif
+
+        @if (session('mensaje'))        
+        <div class="alert alert-success">
+            {{session('mensaje')}}
+        </div>  
+        @endif
+
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>            
-            <th scope="col">Activo</th>      
-            <th scope="col">Acciones</th>      
+            <th scope="col">Apellido</th>            
+            <th scope="col">Descripcion</th>      
+            <th scope="col">FechNac</th>
+            <th scope="col">Domicilio</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Tipo Doc</th>
+            <th scope="col">Nro Doc</th>
+            <th scope="col">Activo</th>         
+            <th scope="col">Acciones</th>   
           </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($roles as $rol)
+            @foreach ($personas as $persona)
                 <tr>
-                    <th scope="row">{{$rol->id}}</th>                
-                    <td>{{$rol->name}}</td>
-                    <td>{{$rol->descr}}</td>                    
-                    <td>{{$rol->activo}}</td>
+                    <th scope="row">{{$persona->id}}</th>               
+                    <td>{{$persona->nombres}}</td>
+                    <td>{{$persona->apellidos}}</td>
+                    <td>{{$persona->descripcion}}</td>
+                    <td>{{$persona->domicilio}}</td>
+                    <td>{{$persona->fechaNacimiento}}</td>
+                    <td>{{$persona->nroDocumento}}</td>
+                    <td>{{$persona->telefono}}</td>
+                    <td>{{$persona->tipoDoc}}</td>                   
+                    <td>{{$persona->activo}}</td>
                     <td>
-                        <a href="{{route('roles.edit', $rol)}}" class="btn btn-warning btn-sm">Editar</a>
-
-                        <form action="{{route('roles.destroy', $rol)}}" method="POST" class="d-inline">
+                        <a href="{{route('roles.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
+                        @if ($persona->activo)
+                            <form action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
+                        </form> 
+                        @else
+                            <a class="btn btn-success btn-sm" href="{{route('users.activate',$persona->id)}}">Activar</a>
+                        @endif
+
                     </td>
                 </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
       </table>
     </section>
