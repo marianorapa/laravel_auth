@@ -53,7 +53,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         // Copio y pego del register controller
         $user = new User();
         $user->username = $request['username'];
@@ -166,13 +165,26 @@ class UserController extends Controller
         if (Auth::id() == $id)
         {
             // Si se intenta eliminar logueado, no lo dejo
-            return Redirect::back()->withErrors(['No se puede eliminar este usuario', 'msg']);
+            return Redirect::back()->withErrors(['No se puede desactivar este usuario', 'msg']);
         }
         else {
             $userEliminar = User::findOrFail($id);
-            $userEliminar->delete();
-
-            return back()->with('mensaje', 'Se eliminó el usuario del sistema :)');
+            //$userEliminar->delete();
+            $userEliminar->activo = false;
+            $userEliminar->save();
+            return back()->with('mensaje', 'Se desactivó al usuario del sistema :)');
         }
+    }
+
+
+    public function activate($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->activo = true;
+
+        $user->save();
+
+        return back()->with('mensaje', 'Se activó al usuario nuevamente :)');
     }
 }

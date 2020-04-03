@@ -40,12 +40,15 @@
                     <td>{{$user->activo}}</td>
                     <td>
                         <a href="{{route('users.edit', $user)}}" class="btn btn-warning btn-sm">Editar</a>
-
-                        <form action="{{route('users.destroy', $user)}}" method="POST" class="d-inline">
-                            @method('DELETE')
-                            @csrf
-                            <button class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
+                        @if ($user->activo)
+                            <form action="{{route('users.destroy', $user)}}" method="POST" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger btn-sm">Desactivar</button>
+                            </form>                        
+                        @else                           
+                            <a class="btn btn-success btn-sm" href="{{route('users.activate',$user->id)}}">Activar</a> 
+                        @endif
                     </td>
                 </tr>
             @endforeach
