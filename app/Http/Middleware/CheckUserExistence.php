@@ -18,7 +18,7 @@ class CheckUserExistence
     public function handle($request, Closure $next)
     {
         if (User::get()->first()){
-            return route('login');
+            return redirect(route('login')); // 03-04 01:21 Agrego redirect, si no pincha
         }
 
         return $next($request);

@@ -19,8 +19,8 @@ Route::get('/', function() {
     return view('welcome');
 });
 
-Route::get('/register', 'Auth\RegisterController@CheckUserExistence')->name('register');
-Route::post('/register', 'Auth\RegisterController@RegisterUser');//>middleware('App\Http\Middleware\CheckUserExistence');
+Route::get('/register', 'Auth\RegisterController@getRegisterUser')->name('register');
+Route::post('/register', 'Auth\RegisterController@RegisterUser')->middleware('checkUserExistence');
 
     //Route::get('/register', 'Auth\RegisterController@CheckUserExistence');
 

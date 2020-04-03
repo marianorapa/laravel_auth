@@ -43,7 +43,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest'); 03-4 00:50 <- Saco xq no me deja registrar si no
+        $this->middleware('App\Http\Middleware\CheckUserExistence');
     }
 
     /**
@@ -88,26 +89,23 @@ class RegisterController extends Controller
         
         $user->save(); 
         
+        // Al unico que se registra le da todos los permisos! -> Dsp cambiar y elegir roles quizas...
         $user->roles()->attach(Role::all());
 
     }
 
-    // Codigo propio
-
-    public function checkUserExistence(){
-
-        if (User::get()->first()){
-            return redirect(route('auth.login'));
-        }
-        
+    /**
+     * Entrega el formulario para registrarse
+     */
+    public function getRegisterUser()
+    {                    
         return view('auth.register');
-
     }
 
     protected function RegisterUser(Request $request){        
         $this->create($request->all());
 
-        return route('admin.index');
+        return route('main');   // despues de entrar redirige al main
     }
 
 }

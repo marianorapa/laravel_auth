@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\User;
 
 class LoginController extends Controller
 {
@@ -37,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // SACO MIDDLEWARE 03-04 XQ NO ME DEJA ENTRAR SI NO
+        // SACO MIDDLEWARE 03-04 00:44 -> NO ME DEJA ENTRAR SI NO
         //$this->middleware('guest')->except('logout');
     }
 
@@ -48,7 +49,10 @@ class LoginController extends Controller
     }
 
 
-    public function login(){        
+    public function login(){  
+        if (!User::get()->first()){
+            return redirect(route('register'));    
+        }      
         return view('auth.login');
     }
 
