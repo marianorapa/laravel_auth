@@ -37,14 +37,14 @@ class PersonaController extends Controller
     public function store(Request $request)
     {
         $persona = new Persona();
-        $persona->nombres = $data['nombresPersona'];
-        $persona->apellidos = $data['apellidos'];
-        $persona->descripcion = $data['descr'];
-        $persona->fechaNacimiento = $data['fechaNac'];        
-        $persona->domicilio = $data['direccion'];
-        $persona->telefono = $data['tel'];
-        $persona->tipoDoc = $data['tipoDoc'];
-        $persona->nroDocumento = $data['nroDocumento'];
+        $persona->nombres = $request['nombresPersona'];
+        $persona->apellidos = $request['apellidos'];
+        $persona->descripcion = $request['descr'];
+        $persona->fechaNacimiento = $request['fechaNac'];        
+        $persona->domicilio = $request['direccion'];
+        $persona->telefono = $request['tel'];
+        $persona->tipoDoc = $request['tipoDoc'];
+        $persona->nroDocumento = $request['nroDocumento'];
         $persona->activo = true;
         
         $persona->save();
