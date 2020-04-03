@@ -57,7 +57,7 @@
                                 </div>  
                             </div>
 
-                           <p>Seleccione los roles del usuario:</p>
+                           <p>Seleccione los permisos de los roles:</p>
                            @foreach ($permisos as $permiso)
                                 <div class="form-check">            
                                     <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">
