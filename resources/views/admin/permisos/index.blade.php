@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-            @foreach ($roles as $rol)
+            {{-- @foreach ($roles as $rol)
                 <tr>
                     <th scope="row">{{$rol->id}}</th>                
                     <td>{{$rol->name}}</td>
@@ -29,7 +29,7 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @endforeach --}}
         </tbody>
       </table>
     </section>

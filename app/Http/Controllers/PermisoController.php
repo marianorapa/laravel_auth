@@ -13,7 +13,7 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -69,6 +69,7 @@ class PermisoController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**

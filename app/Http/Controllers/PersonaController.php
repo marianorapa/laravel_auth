@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Contpersonalers;
 
 use Illuminate\Http\Request;
 
-class PersonaController extends Controller
+use App\Persona;
+
+class PersonaContpersonaler extends Contpersonaler
 {
     /**
      * Display a listing of the resource.
@@ -34,15 +36,20 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        $rol = new Role;
+        $persona = new Persona();
+        $persona->nombres = $data['nombresPersona'];
+        $persona->apellidos = $data['apellidos'];
+        $persona->descripcion = $data['descr'];
+        $persona->fechaNacimiento = $data['fechaNac'];        
+        $persona->domicilio = $data['direccion'];
+        $persona->telefono = $data['tel'];
+        $persona->tipoDoc = $data['tipoDoc'];
+        $persona->nroDocumento = $data['nroDocumento'];
+        $persona->activo = true;
+        
+        $persona->save();
 
-        $rol->name = $request['name'];
-        $rol->descr = $request['descr'];
-        $rol->activo = true;
-
-        $rol->save();
-
-        return back()->with('mensaje', 'Rol registrado');
+        return back()->with('mensaje', 'Persona registrada');
     }
 
     /**
