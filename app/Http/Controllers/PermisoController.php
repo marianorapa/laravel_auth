@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class PermisoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('App\Http\Middleware\IsAdmin');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -41,6 +47,8 @@ class PermisoController extends Controller
         $permiso->activo = true;   
 
         $permiso->save();
+       
+        return back()->with('mensaje', 'Permiso actualizado');
     }
 
     /**
@@ -62,7 +70,9 @@ class PermisoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permiso = Permiso::find($id);
+
+        return view('admin.permisos.edit', compact('permiso'));
     }
 
     /**
@@ -74,7 +84,16 @@ class PermisoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permiso = Permiso::find($id);
+
+        $permiso->name = $request['name'];   
+        $permiso->descr = $request['descr'];   
+        $permiso->funcionalidad = $request['funcionalidad'];   
+        $permiso->activo = true; 
+        
+        $permiso->save();
+
+        return back()->with('mensaje', 'Permiso actualizado');
 
     }
 

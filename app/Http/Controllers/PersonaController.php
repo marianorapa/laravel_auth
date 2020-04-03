@@ -8,6 +8,11 @@ use App\Persona;
 
 class PersonaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('App\Http\Middleware\IsAdmin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -71,7 +76,9 @@ class PersonaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $persona = Persona::finda($id);
+
+        return view('admin.personas.edit', compact('persona'));
     }
 
     /**
@@ -83,7 +90,22 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $persona = Persona::find($id);
+
+        $persona->nombres = $request['nombresPersona'];
+        $persona->apellidos = $request['apellidos'];
+        $persona->descripcion = $request['descr'];
+        $persona->fechaNacimiento = $request['fechaNac'];        
+        $persona->domicilio = $request['direccion'];
+        $persona->telefono = $request['tel'];
+        $persona->tipoDoc = $request['tipoDoc'];
+        $persona->nroDocumento = $request['nroDocumento'];
+        $persona->activo = true;
+        
+        $persona->save();
+
+        return back()->with('mensaje', 'Persona actualizada');
     }
 
     /**

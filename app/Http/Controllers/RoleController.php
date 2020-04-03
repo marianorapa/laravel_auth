@@ -7,6 +7,12 @@ use App\Role;
 
 class RoleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('App\Http\Middleware\IsAdmin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -68,7 +74,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $rol = Role::find($id);
+
+        return view('admin.roles.edit', compact('rol'));
     }
 
     /**
