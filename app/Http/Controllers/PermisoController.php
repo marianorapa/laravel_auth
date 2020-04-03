@@ -13,7 +13,7 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        
+        return view('admin.permisos.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class PermisoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.permisos.create');
     }
 
     /**
