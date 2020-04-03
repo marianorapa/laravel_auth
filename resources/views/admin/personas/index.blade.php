@@ -47,7 +47,7 @@
                     <td>{{$persona->tipoDoc}}</td>                   
                     <td>{{$persona->activo}}</td>
                     <td>
-                        <a href="{{route('roles.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{{route('personas.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
                         @if ($persona->activo)
                             <form action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
                             @method('DELETE')

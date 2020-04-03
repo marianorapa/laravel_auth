@@ -13,23 +13,24 @@
           </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($roles as $rol)
+             @foreach ($permisos as $permiso)
                 <tr>
-                    <th scope="row">{{$rol->id}}</th>                
-                    <td>{{$rol->name}}</td>
-                    <td>{{$rol->descr}}</td>                    
-                    <td>{{$rol->activo}}</td>
+                    <th scope="row">{{$permiso->id}}</th>                
+                    <td>{{$permiso->name}}</td>
+                    <td>{{$permiso->descr}}</td>                    
+                    <td>{{$permiso->activo}}</td>
+                    <td>{{$permiso->funcionalidad}}</td>
                     <td>
-                        <a href="{{route('roles.edit', $rol)}}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{{route('$permisos.edit', $permiso)}}" class="btn btn-warning btn-sm">Editar</a> <!--me tira que permisos.edit no existe -->
 
-                        <form action="{{route('roles.destroy', $rol)}}" method="POST" class="d-inline">
+                        <form action="{{route('$permisos.destroy', $permiso)}}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
                     </td>
                 </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
       </table>
     </section>
