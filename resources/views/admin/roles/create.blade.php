@@ -3,7 +3,7 @@
 @section('content')
       
 <section class="container">
-    <form action="{{route('users.store')}}" method="POST">
+    <form action="{{route('roles.store')}}" method="POST">
         @csrf
         @error('nombre')
         <div class="alert alert-danger">
