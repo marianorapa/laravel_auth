@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Role;
 
@@ -49,11 +50,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $credentials = $this->validate(request(), [
-            'username' => 'required|string',
-            'password' => 'required|string'
-        ]);     
+
+        // Copio y pego del register controller
+        $user = new User();
+        $user->username = $request['username'];
+        $user->password = Hash::make($request['password']);
+        $user->email = $request['email'];
+        $user->descr = $request['descripcion'];
+        $user->activo = true;
+        
+        $user->save(); 
+                
+        $roles = Role::all();
+
+        foreach($roles as $rol){
+            if ($request[$rol->name]){
+                $user->roles()->attach($rol);                
+            }
+        }
+        return 
     }
 
     /**
