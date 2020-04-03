@@ -91,7 +91,9 @@ class RoleController extends Controller
     {
         $rol = Role::find($id);
 
-        return view('admin.roles.edit', compact('rol'));
+        $permisos = Permiso::all();
+
+        return view('admin.roles.edit', compact('rol','permisos'));
     }
 
     /**
@@ -103,7 +105,18 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rol = Role::find($id);
+
+        $permisos = Permisos::all();
+
+        $rol->name = $request['name'];
+        $rol->descr = $request['descr'];
+        $rol->activo = true;
+
+        foreach($permisos as $permiso){
+            // Verifico que permisos estan en el request
+            
+        }
     }
 
     /**
