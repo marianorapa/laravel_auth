@@ -80,7 +80,7 @@
             </div>    
         @endforeach        
         <p>Seleccione a que persona corresponde este usuario:</p>
-        <select name="persona" id="persona" required>
+        <select name="persona" id="persona" class="form-control" required>
             @foreach ($personas as $persona)
                 <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
             @endforeach        

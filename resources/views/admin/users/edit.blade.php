@@ -55,10 +55,8 @@
     
             <div class="form-group">
                 <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                <input id="password-confirm"  type="password" class="form-control" name="password_confirmation">
-                
-            </div>
-    
+                <input id="password-confirm"  type="password" class="form-control" name="password_confirmation">                
+            </div>    
     
             <div class="form-group">
                 <label for="descripcion">Descripción</label>           

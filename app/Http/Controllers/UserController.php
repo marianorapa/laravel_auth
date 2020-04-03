@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Database\QueryException;
 use App\User;
 use App\Role;
 use App\Persona;
@@ -25,7 +26,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
         
         return view('admin.users.index', compact('users'));
@@ -38,7 +38,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
         $roles = Role::all();
         $personas = Persona::all();
 
@@ -65,12 +64,15 @@ class UserController extends Controller
         $persona = Persona::find($request['persona']);
         $user->persona()->associate($persona);
 
-        $user->save(); // Creo que se necesita x algo
+        try {
+            $user->save();
+        }
+        catch (QueryException $e)
+        {
+            return back()->with('error', 'El usuario ya existe.');
+        }
                 
         $roles = Role::all();
-
-        // Primero le saco todos los roles
-        $user->roles()->dettach();
 
         // Ahora le pongo los que vienen en la solicitud
         foreach($roles as $rol){
@@ -81,8 +83,13 @@ class UserController extends Controller
             //     $user->roles()->detach($rol);
             // }
         }
-
-        $user->save(); 
+        try {
+            $user->save();
+        }
+        catch (QueryException $e)
+        {
+            return back()->with('error', 'El usuario ya existe.');
+        }
 
         return back()->with('mensaje', 'Usuario registrado');
     }
@@ -145,7 +152,7 @@ class UserController extends Controller
         $roles = Role::all();
 
         // Primero le saco todos los roles
-        $user->roles()->detach();
+        //$user->roles()->detach();
 
         // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
         foreach($roles as $rol){
@@ -157,9 +164,13 @@ class UserController extends Controller
             //     $user->roles()->detach($rol);
             // }
         }
-        
-        $user->save();
-
+        try {
+            $user->save();
+        }
+        catch (Error $e)
+        {
+            return back()->with('error', 'Se produjo un error al actualizar el usuario');
+        }
         return back()->with('mensaje', 'Usuario actualizado');
     }
 
