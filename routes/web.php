@@ -48,8 +48,7 @@ Route::resource('personas', 'PersonasController');
 
 
 
-
-
+// GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---
 Route::get('/usuario', 'UserController@index')->name('user');
 
 // Rutas de errores

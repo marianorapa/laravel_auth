@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Role;
 
@@ -24,7 +25,6 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-
         
         return view('admin.users.index', compact('users'));
     }
@@ -68,7 +68,7 @@ class UserController extends Controller
                 $user->roles()->attach($rol);                
             }
         }
-        return 
+        return back()->with('mensaje', 'Usuario registrado');
     }
 
     /**
@@ -90,7 +90,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo "okok";
+        $user = User::findOrFail($id);
+        //return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -113,6 +115,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::id() == $id)
+        {
+            // Si se intenta eliminar logueado, no lo dejo
+            return back()->withErrors('eliminarSelf');
+        }
+        else {
+            $userEliminar = User::findOrFail($id);
+            $userEliminar->delete();
+        }
     }
 }
