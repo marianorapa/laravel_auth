@@ -20,7 +20,7 @@ Route::get('/', function() {
 });
 
 Route::get('/register', 'Auth\RegisterController@CheckUserExistence')->name('register');
-Route::post('/register', 'Auth\RegisterController@RegisterUser')->middleware('App\Http\Middleware\CheckUserExistence');
+Route::post('/register', 'Auth\RegisterController@RegisterUser');//>middleware('App\Http\Middleware\CheckUserExistence');
 
     //Route::get('/register', 'Auth\RegisterController@CheckUserExistence');
 
@@ -38,14 +38,10 @@ Route::get('/main', 'HomeController@index')->name('main');
 
 Route::get('/admin', 'AdminController@index')->name('admin');
 
-
 Route::resource('users', 'UserController');
 Route::resource('roles', 'RolesController');
 Route::resource('permisos', 'PermisosController');
 Route::resource('personas', 'PersonasController');
-
-
-
 
 
 // GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---

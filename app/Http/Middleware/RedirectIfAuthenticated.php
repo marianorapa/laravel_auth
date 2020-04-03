@@ -28,6 +28,6 @@ class RedirectIfAuthenticated
         
         //return redirect(RouteServiceProvider::HOME);        
 
-        return $next($request);
+        return back()->withErrors('login', 'Usuario o password incorrectos');
     }
 }

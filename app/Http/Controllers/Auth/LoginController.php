@@ -28,8 +28,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/main';
     /**
      * Create a new controller instance.
      *
@@ -37,7 +37,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // SACO MIDDLEWARE 03-04 XQ NO ME DEJA ENTRAR SI NO
+        //$this->middleware('guest')->except('logout');
     }
 
 
@@ -47,7 +48,7 @@ class LoginController extends Controller
     }
 
 
-    public function login(){
+    public function login(){        
         return view('auth.login');
     }
 

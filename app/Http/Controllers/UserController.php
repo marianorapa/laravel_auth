@@ -123,6 +123,8 @@ class UserController extends Controller
         else {
             $userEliminar = User::findOrFail($id);
             $userEliminar->delete();
+
+            return back()->with('mensaje', 'Se eliminó el usuario del sistema :)');
         }
     }
 }
