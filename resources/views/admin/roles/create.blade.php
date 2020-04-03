@@ -56,7 +56,16 @@
                                     placeholder="Descripcion" class="form-control mb-2" required>
                                 </div>  
                             </div>
-                    
+
+                          
+                            <p>Seleccione los roles del usuario:</p>
+                            @foreach ($permisos as $permiso)
+                                <div class="form-check">            
+                                    <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">
+                                    <label for="{{$permiso->name}}" class="form-check-label text-capitalize mb-3">{{$permiso->name}}</label>
+                                </div>    
+                            @endforeach  
+                           
 
                             <div class="form-group row mb-0">
                                         <div class="col-md-6 offset-md-4">

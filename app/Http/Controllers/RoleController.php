@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
+use App\Permiso;
 
 class RoleController extends Controller
 {
@@ -32,8 +33,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
-        return view ('admin.roles.create');
+        
+        $permisos = Permiso::all();
+        return view ('admin.roles.create',compact('permisos'));
     }
 
     /**
@@ -49,6 +51,19 @@ class RoleController extends Controller
         $rol->name = $request['name'];
         $rol->descr = $request['descr'];
         $rol->activo = true;
+
+       /* $permisos = Permiso::all(); 
+        foreach($permisos as $permiso){
+            if ($request[$permiso->name]){
+                $rol->permisos()->attach($permiso);                
+            }
+            else {
+                $rol->roles()->detach($permiso);
+            }
+        }*/
+
+
+
 
         $rol->save();
 
