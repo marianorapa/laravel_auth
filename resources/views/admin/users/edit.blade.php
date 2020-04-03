@@ -49,8 +49,7 @@
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                @enderror
-               
+                @enderror               
          </div>
     
             <div class="form-group">
@@ -73,11 +72,11 @@
             </div>
                    
             @foreach ($roles as $rol)
-            <div class="form-check">            
-               <input type="checkbox" checked="{{$user->hasRole($rol->name)}}" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
-               <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
-           </div>    
-         @endforeach  
+                <div class="form-check">           
+                    <input type="checkbox" checked="{{$user->hasRole($rol->name)}}" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
+                    <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
+                </div>
+            @endforeach  
 
             <input type="submit" value="Actualizar usuario" class="btn btn-primary btn-block mt-3">
         </form>

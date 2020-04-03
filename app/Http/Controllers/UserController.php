@@ -152,12 +152,12 @@ class UserController extends Controller
         $roles = Role::all();
 
         // Primero le saco todos los roles
-        //$user->roles()->detach();
+        $user->roles()->detach();
 
         // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
         foreach($roles as $rol){
             if ($request[$rol->name]){
-                $user->roles()->attach($rol);                
+                $user->roles()->attach($rol);               
             }
             // Saco esto xq lo hago arriba y aca trae problemas
             // else {
@@ -187,7 +187,8 @@ class UserController extends Controller
             // Si se intenta eliminar logueado, no lo dejo
             return Redirect::back()->withErrors(['No se puede desactivar este usuario', 'msg']);
         }
-        else {
+        else 
+        {
             $userEliminar = User::findOrFail($id);
             //$userEliminar->delete();
             $userEliminar->activo = false;
