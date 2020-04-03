@@ -65,20 +65,24 @@ class UserController extends Controller
         $persona = Persona::find($request['persona']);
         $user->persona()->associate($persona);
 
-        $user->save(); 
+        $user->save(); // Creo que se necesita x algo
                 
         $roles = Role::all();
 
+        // Primero le saco todos los roles
+        $user->roles()->dettach();
+
+        // Ahora le pongo los que vienen en la solicitud
         foreach($roles as $rol){
             if ($request[$rol->name]){
                 $user->roles()->attach($rol);                
             }
-            else {
-                $user->roles()->detach($rol);
-            }
+            // else {
+            //     $user->roles()->detach($rol);
+            // }
         }
 
-        $user->save();
+        $user->save(); 
 
         return back()->with('mensaje', 'Usuario registrado');
     }
@@ -125,12 +129,12 @@ class UserController extends Controller
             'username' => 'required'
         ]);
         
-
+        // Si viene una password, desea cambiarla. Si no viene, no la toco    
         if ($request['password'] != null){
             $this->validate($request, [
                 'password' => 'required|confirmed'
             ]);
-            $user->password = Hash::make($request['password']);
+            $user->password = Hash::make($request['password']); // La tengo que hashear 
         }
 
         $user->username = $request['username'];        
@@ -140,13 +144,18 @@ class UserController extends Controller
         
         $roles = Role::all();
 
+        // Primero le saco todos los roles
+        $user->roles()->detach();
 
-// DEBERIA BORRARLE LOS ROLES Y PONERLE LOS NUEVOS
-
+        // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
         foreach($roles as $rol){
             if ($request[$rol->name]){
                 $user->roles()->attach($rol);                
             }
+            // Saco esto xq lo hago arriba y aca trae problemas
+            // else {
+            //     $user->roles()->detach($rol);
+            // }
         }
         
         $user->save();
@@ -175,7 +184,6 @@ class UserController extends Controller
             return back()->with('mensaje', 'Se desactivó al usuario del sistema :)');
         }
     }
-
 
     public function activate($id)
     {
