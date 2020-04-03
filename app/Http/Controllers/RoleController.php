@@ -38,7 +38,15 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rol = new Role;
+
+        $rol->name = $request['name'];
+        $rol->descr = $request['descr'];
+        $rol->activo = true;
+
+        $rol->save();
+
+        return back()->with('mensaje', 'Rol registrado');
     }
 
     /**
