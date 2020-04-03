@@ -39,13 +39,14 @@ Route::get('/main', 'HomeController@index')->name('main');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::resource('users', 'UserController');
-Route::resource('roles', 'RolesController');
-Route::resource('permisos', 'PermisosController');
-Route::resource('personas', 'PersonasController');
+Route::resource('roles', 'RoleController');
+Route::resource('permisos', 'PermisoController');
+Route::resource('personas', 'PersonaController');
 
 
 // GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---
-Route::get('/usuario', 'UserController@index')->name('user');
+Route::get('/usuario', 'NoAdminController@index')->name('user');
+
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');

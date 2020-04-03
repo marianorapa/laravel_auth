@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
+use App\Persona;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -87,6 +88,22 @@ class RegisterController extends Controller
         $user->descr = $data['descr'];
         $user->activo = true;
         
+        //Creo una persona
+        $persona = new Persona();
+        $persona->nombres = $data['nombresPersona'];
+        $persona->apellidos = $data['apellidos'];
+        $persona->descripcion = $data['descr'];
+        $persona->fechaNacimiento = $data['fechaNac'];        
+        $persona->domicilio = $data['direccion'];
+        $persona->telefono = $data['tel'];
+        $persona->tipoDoc = $data['tipoDoc'];
+        $persona->nroDocumento = $data['nroDocumento'];
+        $persona->activo = true;
+        
+        $persona->save();
+
+        $user->persona()->associate($persona);
+
         $user->save(); 
         
         // Al unico que se registra le da todos los permisos! -> Dsp cambiar y elegir roles quizas...
@@ -105,7 +122,7 @@ class RegisterController extends Controller
     protected function RegisterUser(Request $request){        
         $this->create($request->all());
 
-        return route('main');   // despues de entrar redirige al main
+        return redirect(route('main'));   // despues de entrar redirige al main
     }
 
 }

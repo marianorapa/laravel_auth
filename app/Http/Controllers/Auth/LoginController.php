@@ -53,6 +53,11 @@ class LoginController extends Controller
         if (!User::get()->first()){
             return redirect(route('register'));    
         }      
+        else if (Auth::user())
+        {
+            return redirect(route('main'));
+        }
+
         return view('auth.login');
     }
 

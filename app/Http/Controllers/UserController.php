@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Role;
+use App\Persona;
 
 class UserController extends Controller
 {
@@ -38,8 +40,9 @@ class UserController extends Controller
     {
         //
         $roles = Role::all();
-        
-        return view('admin.users.create', compact('roles'));
+        $personas = Persona::all();
+
+        return view('admin.users.create', compact('roles','personas'));
     }
 
     /**
@@ -59,6 +62,10 @@ class UserController extends Controller
         $user->descr = $request['descripcion'];
         $user->activo = true;
         
+        // Busco la persona que recibi
+        $persona = Persona::find($request['persona']);
+        $user->persona()->associate($persona);
+
         $user->save(); 
                 
         $roles = Role::all();
@@ -67,7 +74,13 @@ class UserController extends Controller
             if ($request[$rol->name]){
                 $user->roles()->attach($rol);                
             }
+            else {
+                $user->roles()->detach($rol);
+            }
         }
+
+        $user->save();
+
         return back()->with('mensaje', 'Usuario registrado');
     }
 
@@ -88,11 +101,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // EL PATH ES users/id/edit
     public function edit($id)
     {
-        echo "okok";
         $user = User::findOrFail($id);
-        //return view('admin.users.edit', compact('user'));
+
+        $roles = Role::all();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -104,7 +120,39 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $this->validate($request, [
+            'username' => 'required'
+        ]);
+        
+
+        if ($request['password'] != null){
+            $this->validate($request, [
+                'password' => 'required|confirmed'
+            ]);
+            $user->password = Hash::make($request['password']);
+        }
+
+        $user->username = $request['username'];        
+        $user->email = $request['email'];
+        $user->descr = $request['descripcion'];
+        $user->activo = true;
+        
+        $roles = Role::all();
+
+
+// DEBERIA BORRARLE LOS ROLES Y PONERLE LOS NUEVOS
+
+        foreach($roles as $rol){
+            if ($request[$rol->name]){
+                $user->roles()->attach($rol);                
+            }
+        }
+        
+        $user->save();
+
+        return back()->with('mensaje', 'Usuario actualizado');
     }
 
     /**
@@ -118,7 +166,7 @@ class UserController extends Controller
         if (Auth::id() == $id)
         {
             // Si se intenta eliminar logueado, no lo dejo
-            return back()->withErrors('eliminarSelf');
+            return Redirect::back()->withErrors(['No se puede eliminar este usuario', 'msg']);
         }
         else {
             $userEliminar = User::findOrFail($id);

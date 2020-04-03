@@ -20,8 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('descr');
             $table->string('email');
             $table->boolean('activo');
+            $table->unsignedBigInteger('persona_id');
             $table->rememberToken();
             $table->timestamps();
+            
+            $table->foreign('persona_id')->references('id')->on('personas');
         });
     }
 
