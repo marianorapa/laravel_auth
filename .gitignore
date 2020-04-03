@@ -10,3 +10,41 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# ====== WINDOWS ===========================================
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# ====== JETBRAINS IDEs ===========================================
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+## Directory-based project format
+.idea/
+# if you remove the above rule, at least ignore user-specific stuff:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# and these sensitive or high-churn files:
+# .idea/dataSources.ids
+# .idea/dataSources.xml
+# .idea/sqlDataSources.xml
+# .idea/dynamic.xml
+
+## File-based project format
+*.ipr
+*.iws
+*.iml
+
+## Additional for IntelliJ
+out/
