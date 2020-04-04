@@ -63,5 +63,6 @@
             @endforeach
         </tbody>
       </table>
+      <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
     </section>
 @endsection

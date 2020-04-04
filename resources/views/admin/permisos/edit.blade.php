@@ -54,6 +54,7 @@
                     
 
                 <input type="submit" value="Actualizar permiso" class="btn btn-primary btn-block mt-3">
+                <a class="btn btn-secondary btn-block mt-4" href="{{route('permisos.index')}}">Volver</a>
             </form>
         </section>
 

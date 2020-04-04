@@ -3,6 +3,7 @@
 @section('content')
     
 <section class="container">
+  
         <form action="{{route('roles.update', $rol->id)}}" method="POST">
             @method('PUT')
             @csrf
@@ -56,7 +57,11 @@
                  @endforeach  
 
             <input type="submit" value="Actualizar rol" class="btn btn-primary btn-block mt-3">
+            <a class="btn btn-secondary btn-block mt-4" href="{{route('roles.index')}}">Volver</a>
         </form>
-    </section>
+
+  
+      
+</section>
 
 @endsection

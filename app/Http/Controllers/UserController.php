@@ -73,7 +73,7 @@ class UserController extends Controller
         }
                 
         $roles = Role::all();
-
+        
         // Ahora le pongo los que vienen en la solicitud
         foreach($roles as $rol){
             if ($request[$rol->name]){
