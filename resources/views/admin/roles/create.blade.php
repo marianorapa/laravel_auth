@@ -4,7 +4,7 @@
       
 <section class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-7">
 
             <div class="card">
                 <div class="card-header">{{ __('Registro de roles') }}</div>
@@ -57,23 +57,27 @@
                                 </div>  
                             </div>
 
-                           <p>Seleccione los permisos de los roles:</p>
+                            
+                            <p>Seleccione los permisos de los roles:</p>
+                            <div class="form-group row offset-md-5">
                            @foreach ($permisos as $permiso)
-                                <div class="form-check">            
+                                <div class="form-check col-md-8">            
                                     <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">
                                     <label for="{{$permiso->name}}" class="form-check-label text-capitalize mb-3">{{$permiso->name}}</label>
                                 </div>
                            @endforeach  
-                           
+                           </div>
 
-                            <div class="form-group row mb-0">
-                                        <div class="col-md-6 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{ __('Registrar') }}
-                                            </button>
-                                        </div>
+                            {{-- <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    
                                 </div>
-                        </form>
+                            </div> --}}
+                            <button type="submit" class="btn btn-primary btn-block mt-3">
+                                {{ __('Registrar') }}
+                            </button>
+                                <a class="btn btn-secondary btn-block mt-3" href="{{route('roles.index')}}">Volver</a>
+                        </form>                        
                 </div>
             </div>
         </div>

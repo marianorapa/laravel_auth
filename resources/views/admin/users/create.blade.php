@@ -129,6 +129,7 @@
 
                             <input type="submit" value="Registrar usuario" class="btn btn-primary btn-block mt-3">
                         </form>
+                        <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
                     </div> 
                 </div> 
             </div> 

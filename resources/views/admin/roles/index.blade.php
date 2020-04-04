@@ -45,12 +45,7 @@
                 </tr>
             @endforeach
         </tbody>
-<<<<<<< HEAD
       </table>
       <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
     </section>
-=======
-    </table>
-</section>
->>>>>>> 83c9c885aaa9fa9cfacd31f250e0455a2990708e
 @endsection

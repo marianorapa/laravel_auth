@@ -8,7 +8,7 @@
                 <h5 class="mb-1">Gestión de usuarios</h5>                
             </div>
             <p class="mb-1">Menú de altas, bajas y modificación de usuarios.</p>            
-        </a>        
+        </a>    
         
         
         <a href="{{route('roles.index')}}" class="list-group-item list-group-item-action flex-column align-items-start">
