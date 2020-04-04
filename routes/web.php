@@ -36,7 +36,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // Rutas protegidas
 Route::get('/main', 'HomeController@index')->name('main');
 
-Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin', 'AdminController@index')->name('admin.menu');
 
 Route::resource('users', 'UserController');
 
@@ -48,7 +48,7 @@ Route::resource('personas', 'PersonaController');
 
 
 // GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---
-Route::get('/usuario', 'NoAdminController@index')->name('user');
+Route::get('/usuario', 'NoAdminController@index')->name('not.admin');
 
 
 // Rutas de errores

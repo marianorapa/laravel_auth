@@ -24,9 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Accedo a los roles del usuario y muestro los activos
-        $roles = Auth::user()->roles()->where('activo', 1)->get();       
+        
+        if (Auth::user()->hasRole('admin'))
+        {
+            return redirect(route('admin.menu'));
+        };                
 
-        return view('home', compact('roles'));
+        return redirect(route('not.admin'));
+
+
     }
 }

@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label for="nombrePersona">Nombre</label>          
     
-                <input type="text" name="nombrePersona" id="nombrePersona" 
+                <input type="text" name="nombresPersona" id="nombresPersona" 
                 value="{{$persona->nombres}}" placeholder="Nombre" 
                 class="form-control mb-2" required>
             </div>
@@ -42,7 +42,7 @@
                 <label for="apellidos">Apellidos</label>          
     
                 <input type="text" name="apellidos" id="apellidos" 
-                value="{{$persona->apellidos}}" placeholder="Nombre" 
+                value="{{$persona->apellidos}}" placeholder="Apellidos" 
                 class="form-control mb-2" required>
             </div>
               

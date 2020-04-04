@@ -9,6 +9,6 @@ class ErrorController extends Controller
     //
 
     public function notAllowed(){
-        return view('error');
+        return view('error.notAllowed');
     }
 }
