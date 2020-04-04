@@ -2,6 +2,7 @@
 
 @section('content')
 <section class="container">
+<a class="btn btn-primary btn-sm m-1" href="{{route('permisos.create')}}">Agregar</a>
 <table class="table">
         <thead>
           <tr>

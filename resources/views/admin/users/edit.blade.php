@@ -93,7 +93,7 @@
             </div>
 
             <input type="submit" value="Actualizar usuario" class="btn btn-primary btn-block mt-3">
-            <a class="btn btn-secondary btn-block mt-4" href="{{route('roles.index')}}">Volver</a>
+            <a class="btn btn-secondary btn-block mt-4" href="{{route('users.index')}}">Volver</a>
         </form>
     </section>
 
