@@ -31,7 +31,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     //Auth::routes()->middleware('checkUserExistence');
 
 // Rutas protegidas
-Route::get('/main', 'HomeController@index')->name('main');
+Route::get('/', 'HomeController@index')->name('main');
 
 Route::get('/admin', 'AdminController@index')->name('admin.menu');
 

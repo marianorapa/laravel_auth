@@ -7,7 +7,7 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Gestión de usuarios</h5>                
             </div>
-            <p class="mb-1">Menu de altas, bajas y modificación de usuarios.</p>            
+            <p class="mb-1">Menú de altas, bajas y modificación de usuarios.</p>            
         </a>        
         
         
@@ -15,7 +15,7 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Gestión de roles</h5>                
             </div>
-            <p class="mb-1">Menu de altas, bajas y modificación de roles.</p>            
+            <p class="mb-1">Menú de altas, bajas y modificación de roles.</p>            
         </a>        
         
         
@@ -23,7 +23,7 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Gestión de permisos</h5>                
             </div>
-            <p class="mb-1">Menu de altas, bajas y modificación de permisos.</p>            
+            <p class="mb-1">Menú de altas, bajas y modificación de permisos.</p>            
         </a>
         
         
@@ -32,7 +32,7 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Gestión de personas</h5>                
             </div>
-            <p class="mb-1">Menu de altas, bajas y modificación de personas.</p>            
+            <p class="mb-1">Menú de altas, bajas y modificación de personas.</p>            
         </a>
 
     </div>
