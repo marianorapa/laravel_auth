@@ -118,7 +118,9 @@ class UserController extends Controller
 
         $roles = Role::all();
 
-        return view('admin.users.edit', compact('user', 'roles'));
+        $userRoles = $user->roles()->get();
+
+        return view('admin.users.edit', compact('user', 'roles', 'userRoles'));
     }
 
     /**
@@ -149,15 +151,14 @@ class UserController extends Controller
         $user->descr = $request['descripcion'];
         $user->activo = true;
         
-        $roles = Role::all();
 
+        $roles = Role::all();               
         // Primero le saco todos los roles
-        $user->roles()->detach();
-
+        $user->roles()->detach();  
         // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
         foreach($roles as $rol){
-            if ($request[$rol->name]){
-                $user->roles()->attach($rol);               
+            if (in_array($rol->name, $request['roles'])){
+                $user->roles()->attach($rol); 
             }
             // Saco esto xq lo hago arriba y aca trae problemas
             // else {
