@@ -65,7 +65,6 @@
                             </div>
 
 
-<<<<<<< HEAD
         <div class="form-group">
             <label for="email">Email</label>
             <input type="text" name="email" id="email" 
@@ -85,7 +84,7 @@
                 <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
             @endforeach        
         </select>
-=======
+
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>           
                                 <input type="text" name="descripcion" id="descripcion"
@@ -120,7 +119,6 @@
             </div> 
         </div> 
     </div> 
->>>>>>> 902fd65887ca8295c72d2cf56cb87bc3032b32ac
 
 </section>
 
