@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="container">
-
+<a class="btn btn-primary btn-sm m-1" href="{{route('users.create')}}">Agregar</a>
     <table class="table">
         @if ($errors->any())
         <div class="alert alert-danger">

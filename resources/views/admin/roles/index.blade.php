@@ -12,7 +12,7 @@
         {{session('error')}}
     </div>  
     @endif
-    
+    <a class="btn btn-primary btn-sm m-1" href="{{route('roles.create')}}">Agregar</a>
     <table class="table">
         <thead>
             <tr>
@@ -45,12 +45,8 @@
                 </tr>
             @endforeach
         </tbody>
-<<<<<<< HEAD
       </table>
       <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
     </section>
-=======
-    </table>
-</section>
->>>>>>> 83c9c885aaa9fa9cfacd31f250e0455a2990708e
+
 @endsection
