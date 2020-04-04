@@ -22,15 +22,15 @@
                     <td>{{$permiso->funcionalidad}}</td>
                     <td>
                         <a href="{{route('permisos.edit', $permiso)}}" class="btn btn-warning btn-sm">Editar</a> <!--me tira que permisos.edit no existe -->
-                      @if ($permiso->activo)  
+                        @if ($permiso->activo)  
                         <form action="{{route('permisos.destroy', $permiso)}}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
-                      @else
-                         <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a> 
-                      @endif
+                        @else
+                          <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a> 
+                        @endif
                     </td>
                 </tr>
             @endforeach

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 // Rutas de autenticacion
 Route::get('/', function() {
@@ -32,7 +30,6 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     //Auth::routes()->middleware('checkUserExistence');
 
-
 // Rutas protegidas
 Route::get('/main', 'HomeController@index')->name('main');
 
@@ -43,6 +40,7 @@ Route::resource('users', 'UserController');
 Route::get('users/activate/{id}', 'UserController@activate')->name('users.activate');
 Route::get('personas/activate/{id}', 'PersonaController@activate')->name('personas.activate');
 Route::get('permisos/activate/{id}', 'PermisoController@activate')->name('permisos.activate');
+Route::get('roles/activate/{id}', 'RoleController@activate')->name('roles.activate');
 
 Route::resource('roles', 'RoleController');
 Route::resource('permisos', 'PermisoController');

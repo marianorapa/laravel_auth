@@ -61,10 +61,6 @@ class RoleController extends Controller
                 $rol->roles()->detach($permiso);
             }
         }*/
-
-
-
-
         $rol->save();
 
         return back()->with('mensaje', 'Rol registrado');
@@ -114,8 +110,7 @@ class RoleController extends Controller
         $rol->activo = true;
 
         foreach($permisos as $permiso){
-            // Verifico que permisos estan en el request
-            
+            // Verifico que permisos estan en el request            
         }
     }
 
@@ -127,6 +122,25 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-     
+        $rol = Role::findOrFail($id);
+
+        if (strtolower($rol->name) == 'admin'){
+            return back()->with('error', 'El rol de administrador no puede eliminarse.');
+        };
+
+        $rol->activo = false;
+        $rol->save();        
+        return back()->with('mensaje', 'Rol desactivado correctamente.');
+    }
+
+    public function activate($id)
+    {
+        $rol = Role::findOrFail($id);
+
+        $rol->activo = true;
+
+        $rol->save();
+
+        return back()->with('mensaje', 'Se activó el rol nuevamente :)');
     }
 }
