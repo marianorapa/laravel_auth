@@ -105,6 +105,22 @@ class PermisoController extends Controller
      */
     public function destroy($id)
     {
+        $permisoEliminar = Permiso::findOrFail($id);
+        //$personaEliminar->delete();
+        $permisoEliminar->activo = false;
+        $permisoEliminar->save();
         
+        return back()->with('mensaje','se elimino el permiso del sistema :)');
+    }
+
+    public function activate($id)
+    {
+        $permiso = Permiso::findOrFail($id);
+
+        $permiso->activo = true;
+
+        $permiso->save();
+
+        return back()->with('mensaje', 'Se activó el permiso nuevamente :)');
     }
 }

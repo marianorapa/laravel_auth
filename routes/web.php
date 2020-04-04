@@ -41,6 +41,8 @@ Route::get('/admin', 'AdminController@index')->name('admin.menu');
 Route::resource('users', 'UserController');
 
 Route::get('users/activate/{id}', 'UserController@activate')->name('users.activate');
+Route::get('personas/activate/{id}', 'PersonaController@activate')->name('personas.activate');
+Route::get('permisos/activate/{id}', 'PermisoController@activate')->name('permisos.activate');
 
 Route::resource('roles', 'RoleController');
 Route::resource('permisos', 'PermisoController');

@@ -55,7 +55,7 @@
                             <button class="btn btn-danger btn-sm">Eliminar</button>
                         </form> 
                         @else
-                            <a class="btn btn-success btn-sm" href="{{route('users.activate',$persona->id)}}">Activar</a>
+                            <a class="btn btn-success btn-sm" href="{{route('personas.activate',$persona->id)}}">Activar</a>
                         @endif
 
                     </td>

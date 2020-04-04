@@ -118,5 +118,22 @@ class PersonaController extends Controller
     public function destroy($id)
     {
         //
+        $personaEliminar = Persona::findOrFail($id);
+        //$personaEliminar->delete();
+        $personaEliminar->activo = false;
+        $personaEliminar->save();
+        return back()->with('mensaje','se elimino a la persona del sistema :)');
+    }
+
+
+    public function activate($id)
+    {
+        $persona = Persona::findOrFail($id);
+
+        $persona->activo = true;
+
+        $persona->save();
+
+        return back()->with('mensaje', 'Se activó a la persona nuevamente :)');
     }
 }
