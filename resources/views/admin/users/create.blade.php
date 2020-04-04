@@ -127,9 +127,9 @@
                                 @endforeach 
                             </select> --}}
 
-                            <input type="submit" value="Registrar usuario" class="btn btn-primary btn-block mt-3">
+                            <input type="submit" value="Registrar usuario" class="btn btn-primary btn-block mt-5">
+                            <a class="btn btn-secondary btn-block mt-4" href="{{route('users.index')}}">Volver</a>
                         </form>
-                        <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
                     </div> 
                 </div> 
             </div> 

@@ -84,10 +84,10 @@
                                 <button type="submit" class="btn btn-primary btn-block">
                                     {{ __('Registrarse') }}
                                 </button>
+                                <a class="btn btn-secondary btn-block" href="{{route('personas.index')}}">Volver</a>
                             </div>
                         </div>
                     </form>
-                    <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
                 </div>
             </div>
         </div>
