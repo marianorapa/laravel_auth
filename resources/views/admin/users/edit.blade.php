@@ -71,12 +71,26 @@
                 class="form-control mb-2" required>
             </div>
                    
-            @foreach ($roles as $rol)
-                <div class="form-check">           
-                    <input type="checkbox" checked="{{$user->hasRole($rol->name)}}" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
+          
+            {{-- @foreach ($roles as $rol)
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
                     <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
-                </div>
-            @endforeach  
+                </div>                
+            @endforeach --}}
+           
+            <div class="form-group">
+                <label for="roles">Roles: Seleccione los que correspondan (tecla shift)</label>
+                <select name="roles[]" id="roles" class="form-control" multiple>
+                    @foreach ($roles as $rol)
+                        @if ($user->hasRole($rol->name))
+                            <option value="{{$rol->name}}" selected>{{$rol->name}}</option>
+                        @else
+                            <option value="{{$rol->name}}">{{$rol->name}}</option>            
+                        @endif
+                    @endforeach
+                </select>
+            </div>
 
             <input type="submit" value="Actualizar usuario" class="btn btn-primary btn-block mt-3">
         </form>
