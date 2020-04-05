@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Role;
 use App\Permiso;
+use Illuminate\Database\QueryException;
+
 
 class RoleController extends Controller
 {
@@ -52,17 +54,19 @@ class RoleController extends Controller
         $rol->descr = $request['descr'];
         $rol->activo = true;
 
-       /* $permisos = Permiso::all(); 
-        foreach($permisos as $permiso){
-            if ($request[$permiso->name]){
-                $rol->permisos()->attach($permiso);                
-            }
-            else {
-                $rol->roles()->detach($permiso);
-            }
-        }*/
-        $rol->save();
+        foreach($request['permiso'] as $permiso){
+            $permiso = Permiso::where('name',$permiso)->first();
+            $rol->permisos()->attach($permiso);          
+        }
 
+        try
+        {
+            $rol->save();
+        }
+        catch (QueryException $e)
+        {
+            return back()->with('error', 'El rol ya existe.');    
+        }
         return back()->with('mensaje', 'Rol registrado');
     }
 
@@ -101,17 +105,39 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rol = Role::find($id);
+        $rol = Role::findOrFail($id);
 
-        $permisos = Permisos::all();
+        // $permisos = Permisos::all();
 
         $rol->name = $request['name'];
-        $rol->descr = $request['descr'];
+        $rol->descr = $request['descripcion'];
         $rol->activo = true;
 
+        // foreach($request['permiso'] as $permiso){
+        //     $permiso = Permiso::where('name',$permiso)->first();
+        //     $rol->permisos()->attach($permiso);          
+        // }
+
+        $permisos = Permiso::all();
+
+        $rol->permisos()->detach();
+
         foreach($permisos as $permiso){
-            // Verifico que permisos estan en el request            
+            if (in_array($permiso->id, $request['permisos'])){
+                $rol->permisos()->attach($permiso); 
+            }
+        }        
+
+        try
+        {
+            $rol->save();
         }
+        catch (QueryException $e)
+        {
+            return back()->with('error', 'El rol ya existe.');    
+        }
+
+        return back()->with('mensaje', 'Rol actualizado correctamente');
     }
 
     /**

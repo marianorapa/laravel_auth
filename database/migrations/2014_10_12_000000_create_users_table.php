@@ -18,12 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();            
             $table->string('password');
             $table->string('descr');
-            $table->string('email');
+            $table->string('email');//->unique();
             $table->boolean('activo');
             $table->unsignedBigInteger('persona_id');
             $table->rememberToken();
-            $table->timestamps();
-            
+            $table->timestamps();            
             //$table->foreign('persona_id')->references('id')->on('personas');
         });
     }

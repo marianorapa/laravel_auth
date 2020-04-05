@@ -48,8 +48,4 @@
       </table>
       <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
     </section>
-<<<<<<< HEAD
-=======
-
->>>>>>> 3c293153384e48e8711978507bf904950127a5b2
 @endsection

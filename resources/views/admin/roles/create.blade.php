@@ -5,7 +5,14 @@
 <section class="container">
     <div class="row justify-content-center">
         <div class="col-md-7">
-
+            @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            @endif
             <div class="card">
                 <div class="card-header">{{ __('Registro de roles') }}</div>
                     <div class="card-body">
@@ -58,15 +65,23 @@
                             </div>
 
                             
-                            <p>Seleccione los permisos de los roles:</p>
+                            <p>Seleccione los permisos del rol:</p>
                             <div class="form-group row offset-md-5">
-                           @foreach ($permisos as $permiso)
+                           {{-- @foreach ($permisos as $permiso)
                                 <div class="form-check col-md-8">            
                                     <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">
                                     <label for="{{$permiso->name}}" class="form-check-label text-capitalize mb-3">{{$permiso->name}}</label>
                                 </div>
-                           @endforeach  
+                           @endforeach   --}}
+
+
+                           <select name="permiso[]" id="permiso" class="form-control" required multiple>
+                            @foreach ($permisos as $permiso)
+                                <option value="{{$permiso->id}}">{{"$permiso->name"}}</option>
+                            @endforeach        
+                            </select>
                            </div>
+                            
 
                             {{-- <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

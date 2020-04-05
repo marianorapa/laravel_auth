@@ -3,7 +3,16 @@
 @section('content')
     
 <section class="container">
-  
+        @if (session('mensaje'))
+        <div class="alert alert-success">
+            {{session('mensaje')}}
+        </div>  
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>  
+    @endif
         <form action="{{route('roles.update', $rol->id)}}" method="POST">
             @method('PUT')
             @csrf
@@ -23,13 +32,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>    
                 </div>  
-            @enderror
-    
-            @if (session('mensaje'))
-                <div class="alert alert-success">
-                    {{session('mensaje')}}
-                </div>  
-            @endif
+            @enderror    
     
             <div class="form-group">
                 <label for="username">Nombre</label>          
@@ -49,12 +52,18 @@
                  
 
             <p>Seleccione los permisos de los roles:</p>
-                @foreach ($permisos as $permiso)
+                {{-- @foreach ($permisos as $permiso)
                     <div class="form-check">            
                         <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">
                         <label for="{{$permiso->name}}" class="form-check-label text-capitalize mb-3">{{$permiso->name}}</label>
                     </div>
-                 @endforeach  
+                 @endforeach   --}}
+                 
+                 <select name="permisos[]" id="permisos" class="form-control" required multiple>
+                    @foreach ($permisos as $permiso)
+                        <option value="{{$permiso->id}}">{{"$permiso->name"}}</option>
+                    @endforeach        
+                </select>
 
             <input type="submit" value="Actualizar rol" class="btn btn-primary btn-block mt-3">
             <a class="btn btn-secondary btn-block mt-4" href="{{route('roles.index')}}">Volver</a>

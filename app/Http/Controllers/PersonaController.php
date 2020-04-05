@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Persona;
@@ -54,9 +54,15 @@ class PersonaController extends Controller
         $persona->nroDocumento = $request['nroDocumento'];
         $persona->activo = true;
         
-        $persona->save();
-
+        try
+        {
+            $persona->save();
+        }
+        catch (QueryException $e){
+            return back()->with('error', 'No puede registrarse el usuario. Nro. doc debe ser único.');
+        }
         return back()->with('mensaje', 'Persona registrada');
+        
     }
 
     /**

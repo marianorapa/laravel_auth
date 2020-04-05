@@ -20,7 +20,7 @@ class CreatePersonasTable extends Migration
             $table->string('descripcion');
             $table->string('domicilio');
             $table->date('fechaNacimiento');
-            $table->string('nroDocumento');
+            $table->string('nroDocumento');//->unique();
             $table->string('telefono');
             $table->string('tipoDoc');
             $table->boolean('activo');

@@ -25,11 +25,11 @@
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>            
             <th scope="col">Descripcion</th>      
-            <th scope="col">FechNac</th>
+            <th scope="col">Fecha Nac</th>
             <th scope="col">Domicilio</th>
             <th scope="col">Telefono</th>
-            <th scope="col">Tipo Doc</th>
             <th scope="col">Nro Doc</th>
+            <th scope="col">Tipo Doc</th>
             <th scope="col">Activo</th>         
             <th scope="col">Acciones</th>   
           </tr>
@@ -41,10 +41,10 @@
                     <td>{{$persona->nombres}}</td>
                     <td>{{$persona->apellidos}}</td>
                     <td>{{$persona->descripcion}}</td>
-                    <td>{{$persona->domicilio}}</td>
                     <td>{{$persona->fechaNacimiento}}</td>
-                    <td>{{$persona->nroDocumento}}</td>
+                    <td>{{$persona->domicilio}}</td>
                     <td>{{$persona->telefono}}</td>
+                    <td>{{$persona->nroDocumento}}</td>
                     <td>{{$persona->tipoDoc}}</td>                   
                     <td>{{$persona->activo}}</td>
                     <td>

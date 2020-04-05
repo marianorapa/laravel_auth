@@ -69,7 +69,7 @@ class UserController extends Controller
         }
         catch (QueryException $e)
         {
-            return back()->with('error', 'El usuario ya existe.');
+            return back()->with('error', 'El usuario o email ya existen.');
         }
                 
         $roles = Role::all();
@@ -88,7 +88,7 @@ class UserController extends Controller
         }
         catch (QueryException $e)
         {
-            return back()->with('error', 'El usuario ya existe.');
+            return back()->with('error', 'Error al asignar roles.');
         }
 
         return back()->with('mensaje', 'Usuario registrado');
