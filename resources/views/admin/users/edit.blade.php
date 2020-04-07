@@ -3,6 +3,16 @@
 @section('content')
     
 <section class="container">
+    <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{route('users.index')}}" >Gestion de usuarios</a></li>
+                <li class="breadcrumb-item active">Editar usuario</li>
+            </ol>
+        </nav>
+    </div>
         <form action="{{route('users.update', $user->id)}}" method="POST">
             @method('PUT')
             @csrf

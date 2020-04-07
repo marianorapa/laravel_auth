@@ -3,6 +3,15 @@
 @section('content')
 
 <section class="container">
+    <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item active">Gestion de usuarios</li>
+            </ol>
+        </nav>
+    </div>
 <a class="btn btn-primary btn-sm m-1" href="{{route('users.create')}}">Agregar</a>
     <table class="table">
         @if ($errors->any())
