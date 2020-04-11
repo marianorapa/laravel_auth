@@ -5,6 +5,7 @@ use App\Persona;
 
 class PersonaTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -25,9 +26,9 @@ class PersonaTableSeeder extends Seeder
         $persona->activo = true;
 
         $persona->save();
+        $persona->delete();
 
         $persona = new Persona();
-
         $persona->apellidos = 'David';
         $persona->nombres = 'Larry';
         $persona->descripcion = 'Accountant';

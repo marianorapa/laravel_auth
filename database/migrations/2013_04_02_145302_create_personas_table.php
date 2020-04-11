@@ -24,6 +24,7 @@ class CreatePersonasTable extends Migration
             $table->string('telefono');
             $table->string('tipoDoc');
             $table->boolean('activo');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
