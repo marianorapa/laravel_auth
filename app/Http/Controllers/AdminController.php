@@ -11,7 +11,8 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('App\Http\Middleware\IsAdmin');
+//        $this->middleware('App\Http\Middleware\IsAdmin');
+        $this->middleware('permission');
     }
 
 
@@ -19,25 +20,25 @@ class AdminController extends Controller
     {
         return view('admin.index');
     }
-    
+
     public function users()
     {
-        
+
     }
 
     public function permisos()
     {
-        
+
     }
 
     public function roles()
     {
-        
+
     }
 
     public function personas()
     {
-        
+
     }
 
 }

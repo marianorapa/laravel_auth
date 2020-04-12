@@ -1,18 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-// Rutas de autenticacion
+/*
+ * Rutas de autenticación
+ */
 Route::get('/', function() {
     return view('welcome');
 });
@@ -30,8 +22,10 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     //Auth::routes()->middleware('checkUserExistence');
 
-// Rutas protegidas
-Route::get('/', 'HomeController@index')->name('main');
+/*
+ * Rutas protegidas
+ */
+Route::get('/main', 'HomeController@index')->name('main');
 
 Route::get('/admin', 'AdminController@index')->name('admin.menu');
 
@@ -46,6 +40,10 @@ Route::resource('roles', 'RoleController');
 Route::resource('permisos', 'PermisoController');
 Route::resource('personas', 'PersonaController');
 
+
+/*
+ * TODO: Rutas de usuario balanza/administración
+ */
 
 // GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---
 Route::get('/usuario', 'NoAdminController@index')->name('not.admin');

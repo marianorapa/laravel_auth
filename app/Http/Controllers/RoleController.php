@@ -13,7 +13,9 @@ class RoleController extends Controller
 
     public function __construct()
     {
-        $this->middleware('App\Http\Middleware\IsAdmin');
+//        $this->middleware('App\Http\Middleware\IsAdmin');
+        $this->middleware('permission');
+
     }
 
     /**
@@ -22,9 +24,9 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        $roles = Role::all();
-
+    {
+//        $roles = Role::all();
+        $roles = Role::withTrashed()->get();
         return view ('admin.roles.index', compact('roles'));
     }
 
@@ -35,7 +37,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        
+
         $permisos = Permiso::all();
         return view ('admin.roles.create',compact('permisos'));
     }
@@ -52,11 +54,11 @@ class RoleController extends Controller
 
         $rol->name = $request['name'];
         $rol->descr = $request['descr'];
-        $rol->activo = true;
+//        $rol->activo = true;
 
         foreach($request['permiso'] as $permiso){
             $permiso = Permiso::where('name',$permiso)->first();
-            $rol->permisos()->attach($permiso);          
+            $rol->permisos()->attach($permiso);
         }
 
         try
@@ -65,7 +67,7 @@ class RoleController extends Controller
         }
         catch (QueryException $e)
         {
-            return back()->with('error', 'El rol ya existe.');    
+            return back()->with('error', 'El rol ya existe.');
         }
         return back()->with('mensaje', 'Rol registrado');
     }
@@ -89,7 +91,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $rol = Role::find($id);
+        $rol = Role::withTrashed()->findOrFail($id);
 
         $permisos = Permiso::all();
 
@@ -105,18 +107,13 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rol = Role::findOrFail($id);
+        $rol = Role::withTrashed()->findOrFail($id);
 
         // $permisos = Permisos::all();
 
         $rol->name = $request['name'];
         $rol->descr = $request['descripcion'];
-        $rol->activo = true;
-
-        // foreach($request['permiso'] as $permiso){
-        //     $permiso = Permiso::where('name',$permiso)->first();
-        //     $rol->permisos()->attach($permiso);          
-        // }
+//        $rol->activo = true;
 
         $permisos = Permiso::all();
 
@@ -124,9 +121,9 @@ class RoleController extends Controller
 
         foreach($permisos as $permiso){
             if (in_array($permiso->id, $request['permisos'])){
-                $rol->permisos()->attach($permiso); 
+                $rol->permisos()->attach($permiso);
             }
-        }        
+        }
 
         try
         {
@@ -134,7 +131,7 @@ class RoleController extends Controller
         }
         catch (QueryException $e)
         {
-            return back()->with('error', 'El rol ya existe.');    
+            return back()->with('error', 'El rol ya existe.');
         }
 
         return back()->with('mensaje', 'Rol actualizado correctamente');
@@ -154,18 +151,21 @@ class RoleController extends Controller
             return back()->with('error', 'El rol de administrador no puede eliminarse.');
         };
 
-        $rol->activo = false;
-        $rol->save();        
+//        $rol->activo = false;
+//        $rol->save();
+        $rol->delete();
         return back()->with('mensaje', 'Rol desactivado correctamente.');
     }
 
     public function activate($id)
     {
-        $rol = Role::findOrFail($id);
+        $rol = Role::withTrashed()->findOrFail($id);
 
-        $rol->activo = true;
+//        $rol->activo = true;
+//
+//        $rol->save();
 
-        $rol->save();
+        $rol->restore();
 
         return back()->with('mensaje', 'Se activó el rol nuevamente :)');
     }

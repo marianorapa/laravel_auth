@@ -49,10 +49,10 @@ class LoginController extends Controller
     }
 
 
-    public function login(){  
+    public function login(){
         if (!User::get()->first()){
-            return redirect(route('register'));    
-        }      
+            return redirect(route('register'));
+        }
         else if (Auth::user())
         {
             return redirect(route('main'));
@@ -63,28 +63,28 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        
+
         $credentials = $this->validate(request(), [
             'username' => 'required|string',
             'password' => 'required|string'
-        ]);        
+        ]);
 
         // Previo al chequeo de Auth (que seguro se mete con cookies),
         // reviso si el supuesto username esta activo.
         $username = $request['username'];
 
         // Obtengo ese usuario y que este activo
-        $user = User::where('username', $username)->where('activo', 1)->first();
-        
+        $user = User::where('username', $username)->first();
+
         // Si es null -> no existe o no esta activo
-        if ($user == null) 
+        if ($user == null)
         {
             return back()->with('error', 'Usuario o password no corresponden a usuario activo.');
         }
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect(route('main'));          
+            return redirect(route('main'));
         }
 
         return back()->with('error', 'Usuario o password incorrectos');

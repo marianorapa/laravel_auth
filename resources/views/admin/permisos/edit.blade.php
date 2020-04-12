@@ -11,47 +11,47 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                     </button>
-                </div>  
+                </div>
                 @enderror
-        
+
                 @error('descripcion')
                     <div class="alert alert-danger">
                         La descripcion es obligatoria!
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>    
-                    </div>  
+                        </button>
+                    </div>
                 @enderror
-        
+
                 @if (session('mensaje'))
                     <div class="alert alert-success">
                         {{session('mensaje')}}
-                    </div>  
+                    </div>
                 @endif
-        
+
                 <div class="form-group">
-                    <label for="name">Nombre</label>          
-        
-                    <input type="text" name="name" id="name" 
-                    value="{{$permiso->name}}" placeholder="Nombre" 
+                    <label for="name">Nombre</label>
+
+                    <input type="text" name="name" id="name"
+                    value="{{$permiso->nombre_ruta}}" placeholder="Nombre"
                     class="form-control mb-2" required>
                 </div>
-                
-        
+
+
                 <div class="form-group">
-                    <label for="descr">Descripción</label>           
+                    <label for="descr">Descripción</label>
                     <input type="text" name="descr" id="descr"
                     value="{{$permiso->descr}}"
                     placeholder="Descripcion" value={{$permiso->descr}} class="form-control mb-2" required>
                 </div>
-        
+
                 <div class="form-group">
                     <label for="funcionalidad">Email</label>
-                    <input type="text" name="funcionalidad" id="funcionalidad" 
-                    value="{{$permiso->funcionalidad}}" placeholder="Acciones" 
+                    <input type="text" name="funcionalidad" id="funcionalidad"
+                    value="{{$permiso->funcionalidad}}" placeholder="Acciones"
                     class="form-control mb-2" required>
                 </div>
-                    
+
 
                 <input type="submit" value="Actualizar permiso" class="btn btn-primary btn-block mt-3">
                 <a class="btn btn-secondary btn-block mt-4" href="{{route('permisos.index')}}">Volver</a>

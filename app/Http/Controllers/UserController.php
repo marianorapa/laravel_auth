@@ -16,7 +16,9 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('App\Http\Middleware\IsAdmin');
+//        $this->middleware('App\Http\Middleware\IsAdmin');
+        $this->middleware('permission');
+
     }
 
     /**
@@ -26,8 +28,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        
+//        $users = User::all();
+        $users = User::withTrashed()->get();
         return view('admin.users.index', compact('users'));
     }
 
@@ -58,8 +60,8 @@ class UserController extends Controller
         $user->password = Hash::make($request['password']);
         $user->email = $request['email'];
         $user->descr = $request['descripcion'];
-        $user->activo = true;
-        
+//        $user->activo = true;
+
         // Busco la persona que recibi
         $persona = Persona::find($request['persona']);
         $user->persona()->associate($persona);
@@ -71,13 +73,13 @@ class UserController extends Controller
         {
             return back()->with('error', 'El usuario o email ya existen.');
         }
-                
+
         $roles = Role::all();
-        
+
         // Ahora le pongo los que vienen en la solicitud
         foreach($roles as $rol){
             if ($request[$rol->name]){
-                $user->roles()->attach($rol);                
+                $user->roles()->attach($rol);
             }
             // else {
             //     $user->roles()->detach($rol);
@@ -114,7 +116,7 @@ class UserController extends Controller
     // EL PATH ES users/id/edit
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->findOrFail($id);
 
         $roles = Role::all();
 
@@ -132,33 +134,33 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->findOrFail($id);
 
         $this->validate($request, [
             'username' => 'required'
         ]);
-        
-        // Si viene una password, desea cambiarla. Si no viene, no la toco    
+
+        // Si viene una password, desea cambiarla. Si no viene, no la toco
         if ($request['password'] != null){
             $this->validate($request, [
                 'password' => 'required|confirmed'
             ]);
-            $user->password = Hash::make($request['password']); // La tengo que hashear 
+            $user->password = Hash::make($request['password']); // La tengo que hashear
         }
 
-        $user->username = $request['username'];        
+        $user->username = $request['username'];
         $user->email = $request['email'];
         $user->descr = $request['descripcion'];
-        $user->activo = true;
-        
+//        $user->activo = true;
 
-        $roles = Role::all();               
+
+        $roles = Role::all();
         // Primero le saco todos los roles
-        $user->roles()->detach();  
+        $user->roles()->detach();
         // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
         foreach($roles as $rol){
             if (in_array($rol->name, $request['roles'])){
-                $user->roles()->attach($rol); 
+                $user->roles()->attach($rol);
             }
             // Saco esto xq lo hago arriba y aca trae problemas
             // else {
@@ -188,23 +190,24 @@ class UserController extends Controller
             // Si se intenta eliminar logueado, no lo dejo
             return Redirect::back()->withErrors(['No se puede desactivar este usuario', 'msg']);
         }
-        else 
+        else
         {
             $userEliminar = User::findOrFail($id);
-            //$userEliminar->delete();
-            $userEliminar->activo = false;
-            $userEliminar->save();
+            $userEliminar->delete();
+//            $userEliminar->activo = false;
+//            $userEliminar->save();
             return back()->with('mensaje', 'Se desactivó al usuario del sistema :)');
         }
     }
 
     public function activate($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->findOrFail($id);
 
-        $user->activo = true;
-
-        $user->save();
+//        $user->activo = true;
+//
+//        $user->save();
+        $user->restore();
 
         return back()->with('mensaje', 'Se activó al usuario nuevamente :)');
     }

@@ -9,7 +9,9 @@ class PermisoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('App\Http\Middleware\IsAdmin');
+//        $this->middleware('App\Http\Middleware\IsAdmin');
+        $this->middleware('permission');
+
     }
 
     /**
@@ -19,7 +21,8 @@ class PermisoController extends Controller
      */
     public function index()
     {
-        $permisos = Permiso::all();
+//        $permisos = Permiso::all();
+        $permisos = Permiso::withTrashed()->get();
         return view('admin.permisos.index', compact('permisos'));
     }
 
@@ -42,13 +45,13 @@ class PermisoController extends Controller
     public function store(Request $request)
     {
         $permiso = new Permiso;
-        $permiso->name = $request['name'];   
-        $permiso->descr = $request['descr'];   
-        $permiso->funcionalidad = $request['funcionalidad'];   
-        $permiso->activo = true;   
+        $permiso->nombre_ruta = $request['name'];
+        $permiso->descr = $request['descr'];
+        $permiso->funcionalidad = $request['funcionalidad'];
+//        $permiso->activo = true;
 
         $permiso->save();
-       
+
         return back()->with('mensaje', 'Permiso actualizado');
     }
 
@@ -71,7 +74,7 @@ class PermisoController extends Controller
      */
     public function edit($id)
     {
-        $permiso = Permiso::find($id);
+        $permiso = Permiso::withTrashed()->findOrFail($id);
 
         return view('admin.permisos.edit', compact('permiso'));
     }
@@ -85,13 +88,13 @@ class PermisoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $permiso = Permiso::find($id);
+        $permiso = Permiso::withTrashed()->findOrFail($id);
 
-        $permiso->name = $request['name'];   
-        $permiso->descr = $request['descr'];   
-        $permiso->funcionalidad = $request['funcionalidad'];   
-        $permiso->activo = true; 
-        
+        $permiso->nombre_ruta = $request['name'];
+        $permiso->descr = $request['descr'];
+        $permiso->funcionalidad = $request['funcionalidad'];
+//        $permiso->activo = true;
+
         $permiso->save();
 
         return back()->with('mensaje', 'Permiso actualizado');
@@ -106,20 +109,21 @@ class PermisoController extends Controller
     public function destroy($id)
     {
         $permisoEliminar = Permiso::findOrFail($id);
-        //$personaEliminar->delete();
-        $permisoEliminar->activo = false;
-        $permisoEliminar->save();
-        
+        $permisoEliminar->delete();
+//        $permisoEliminar->activo = false;
+//        $permisoEliminar->save();
+
         return back()->with('mensaje','se elimino el permiso del sistema :)');
     }
 
     public function activate($id)
     {
-        $permiso = Permiso::findOrFail($id);
+        $permiso = Permiso::withTrashed()->findOrFail($id);
 
-        $permiso->activo = true;
-
-        $permiso->save();
+//        $permiso->activo = true;
+//
+//        $permiso->save();
+        $permiso->restore();
 
         return back()->with('mensaje', 'Se activó el permiso nuevamente :)');
     }

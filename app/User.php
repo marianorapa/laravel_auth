@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 
+        'password',
     ];
     //'remember_token', saco de hidden para probar
 
@@ -35,7 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        
+
     ];
 
 
@@ -57,4 +59,13 @@ class User extends Authenticatable
         return false;
     }
 
+    public function hasPermiso($nombreRuta){
+        $roles = $this->Roles()->get();
+        foreach ($roles as $role){
+            if ($role->hasPermiso($nombreRuta)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

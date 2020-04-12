@@ -15,10 +15,11 @@ class CreatePermisosTable extends Migration
     {
         Schema::create('permisos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre_ruta');
             $table->string('descr');
             $table->string('funcionalidad');
-            $table->boolean('activo');
+//            $table->boolean('activo');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

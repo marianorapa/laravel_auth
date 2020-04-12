@@ -13,19 +13,22 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
+         * El rol 'admin' esta vinculado al primer usuario que se registra (cuidado al cambiarlo)
+         */
         $role = new Role();
         $role->name = 'admin';
         $role->descr = 'Administrator';
-        $role->activo = true;
+//        $role->activo = true;
         //$role->permisos()->attach(Permiso::all()->first());
         $role->save();
-       
 
-        $role = new Role();
-        $role->name = 'user';
-        $role->descr = 'Usuario no administrador';
-        $role->activo = true;
-        //$role->permisos()->attach(Permiso::where('name','Ver menu usuario')->first());
-        $role->save();
+
+//        $role = new Role();
+//        $role->name = 'user';
+//        $role->descr = 'Usuario no administrador';
+//        $role->activo = true;
+//        //$role->permisos()->attach(Permiso::where('name','Ver menu usuario')->first());
+//        $role->save();
     }
 }

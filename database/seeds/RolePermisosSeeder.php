@@ -15,15 +15,13 @@ class RolePermisosSeeder extends Seeder
      */
     public function run()
     {
-       $role = Role::find(1);
+        $role = Role::find(1);
 
-       $role->permisos()->attach(Permiso::all());
-       
-       $role->save();
+        $role->permisos()->attach(Permiso::all());
 
+        //$role->save();
 
-       $role = Role::find(2);
-        $role->permisos()->attach(Permiso::find(4));
+        //$role = Role::find(2);
 
     }
 }

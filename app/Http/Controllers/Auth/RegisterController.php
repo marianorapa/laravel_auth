@@ -8,6 +8,7 @@ use App\User;
 use App\Role;
 use App\Persona;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,43 +73,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // User::create([
-        //     'username' => $data['username'],
-        //     'password' => Hash::make($data['password']),
-        //     'email' => $data['email'],
-        //     'descr' => $data['descr'],
-        //     'activo' => true            
-        // ]);
-        //User::->roles()->attach(Roles::all());
-
+        // TODO Agregar validaciones
         $user = new User();
         $user->username = $data['username'];
         $user->password = Hash::make($data['password']);
         $user->email = $data['email'];
         $user->descr = $data['descr'];
-        $user->activo = true;
-        
-        //Creo una persona
+//        $user->activo = true;
+
+        // Creo una persona con los datos ingresados
         $persona = new Persona();
         $persona->nombres = $data['nombresPersona'];
         $persona->apellidos = $data['apellidos'];
         $persona->descripcion = $data['descr'];
-        $persona->fechaNacimiento = $data['fechaNac'];        
+        $persona->fechaNacimiento = $data['fechaNac'];
         $persona->domicilio = $data['direccion'];
         $persona->telefono = $data['tel'];
         $persona->tipoDoc = $data['tipoDoc'];
         $persona->nroDocumento = $data['nroDocumento'];
-        $persona->activo = true;
-        
+        //$persona->activo = true;
+
         $persona->save();
 
         $user->persona()->associate($persona);
 
-        $user->save(); 
-        
+        $user->save();
 
         // Al unico que se registra le da todos los permisos! -> Dsp cambiar y elegir roles quizas...
         $user->roles()->attach(Role::where('name','admin')->first());
+
+        Auth::setUser($user);
 
     }
 
@@ -116,11 +110,11 @@ class RegisterController extends Controller
      * Entrega el formulario para registrarse
      */
     public function getRegisterUser()
-    {                    
+    {
         return view('auth.register');
     }
 
-    protected function RegisterUser(Request $request){        
+    protected function RegisterUser(Request $request){
         $this->create($request->all());
 
         return redirect(route('main'));   // despues de entrar redirige al main
