@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container">
+        <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{route('permisos.index')}}" >Gestion de permisos</a></li>
+                <li class="breadcrumb-item active">Agregar permiso</li>
+            </ol>
+        </nav>
+        </div>  
     <div class="row justify-content-center">
         <div class="col-md-8">
 

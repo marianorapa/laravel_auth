@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container">
+    <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{route('personas.index')}}" >Gestion de persona</a></li>
+                <li class="breadcrumb-item active">Agregar persona</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             @if (session('error'))

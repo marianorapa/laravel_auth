@@ -3,6 +3,16 @@
 @section('content')
 
 <section class="container">
+    <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{route('roles.index')}}" >Gestion de roles</a></li>
+                <li class="breadcrumb-item active">Editar rol</li>
+            </ol>
+        </nav>
+    </div>
         @if (session('mensaje'))
         <div class="alert alert-success">
             {{session('mensaje')}}

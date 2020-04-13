@@ -2,6 +2,16 @@
 
 @section('content')
     <section class="container">
+        <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{route('permisos.index')}}" >Gestion de permisos</a></li>
+                <li class="breadcrumb-item active">Editar permiso</li>
+            </ol>
+        </nav>
+        </div>
             <form action="{{route('permisos.update', $permiso->id)}}" method="POST">
                 @method('PUT')
                 @csrf

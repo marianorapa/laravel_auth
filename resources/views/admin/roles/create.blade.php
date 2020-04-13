@@ -3,6 +3,16 @@
 @section('content')
       
 <section class="container">
+    <div class="bs-example">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                <li class="breadcrumb-item"><a href="{{route('roles.index')}}" >Gestion de roles</a></li>
+                <li class="breadcrumb-item active">Agregar rol</li>
+            </ol>
+        </nav>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-7">
             @if (session('error'))
@@ -77,7 +87,7 @@
 
                            <select name="permiso[]" id="permiso" class="form-control" required multiple>
                             @foreach ($permisos as $permiso)
-                                <option value="{{$permiso->id}}">{{"$permiso->name"}}</option>
+                                <option value="{{$permiso->id}}">{{"$permiso->nombre_ruta"}}</option>
                             @endforeach        
                             </select>
                            </div>
