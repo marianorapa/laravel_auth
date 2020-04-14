@@ -122,7 +122,7 @@
                                 <input id="tel" type="tel" class="form-control" name="tel" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="tipoDoc" class="col-md-4 col-form-label text-md-right">Tipo Documento</label>
                            <div class="col-md-6">
@@ -133,7 +133,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="nroDocumento" class="col-md-4 col-form-label text-md-right">{{ __('nroDocumento') }}</label>
+                            <label for="nroDocumento" class="col-md-4 col-form-label text-md-right">{{ __('Nro Documento') }}</label>
 
                             <div class="col-md-6">
                                 <input id="nroDocumento" type="text" class="form-control" name="nroDocumento" required>

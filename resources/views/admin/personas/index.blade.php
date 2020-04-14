@@ -55,7 +55,7 @@
                     <td>{{$persona->telefono}}</td>
                     <td>{{$persona->nroDocumento}}</td>
                     <td>{{$persona->tipoDoc}}</td>
-                    <td>{{$persona->activo}}</td>
+                    <td>{{$persona->trashed() ? "No": "Si"}}</td>
                     <td>
                         <a href="{{route('personas.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
                         @if (!$persona->trashed())

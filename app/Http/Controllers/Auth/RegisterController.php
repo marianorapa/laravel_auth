@@ -102,7 +102,7 @@ class RegisterController extends Controller
         // Al unico que se registra le da todos los permisos! -> Dsp cambiar y elegir roles quizas...
         $user->roles()->attach(Role::where('name','admin')->first());
 
-        Auth::setUser($user);
+        Auth::login($user);
 
     }
 

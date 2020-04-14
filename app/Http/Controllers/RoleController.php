@@ -15,7 +15,6 @@ class RoleController extends Controller
     {
 //        $this->middleware('App\Http\Middleware\IsAdmin');
         $this->middleware('permission');
-
     }
 
     /**
@@ -57,7 +56,7 @@ class RoleController extends Controller
 //        $rol->activo = true;
 
         foreach($request['permiso'] as $permiso){
-            $permiso = Permiso::where('name',$permiso)->first();
+            $permiso = Permiso::where('nombre_ruta', $permiso)->first();
             $rol->permisos()->attach($permiso);
         }
 
