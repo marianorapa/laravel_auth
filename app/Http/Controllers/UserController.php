@@ -66,6 +66,18 @@ class UserController extends Controller
         $persona = Persona::find($request['persona']);
         $user->persona()->associate($persona);
 
+//        $userExistente = User::withTrashed()->where('username', $user->username)->get()->first();
+//
+//        // Si no existe, guardo el nuevo
+//        if ($userExistente == null) {
+//            $user->save();
+//            //return back()->with('mensaje', 'Usuario creado');
+//        }
+//
+//        if ($userExistente->trashed()){
+//            $userExistente->restore();
+//        }
+
         try {
             $user->save();
         }

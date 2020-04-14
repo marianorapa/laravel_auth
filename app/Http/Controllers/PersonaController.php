@@ -56,15 +56,20 @@ class PersonaController extends Controller
         $persona->nroDocumento = $request['nroDocumento'];
 //        $persona->activo = true;
 
-        try
-        {
-            $persona->save();
-        }
-        catch (QueryException $e){
-            return back()->with('error', 'No puede registrarse el usuario. Nro. doc debe ser único.');
-        }
-        return back()->with('mensaje', 'Persona registrada');
+        $personaExistente = Persona::withTrashed()->where('nroDocumento', $persona->nroDocumento)->get()->first();
 
+        // Si no existe, guardo el nuevo
+        if ($personaExistente == null) {
+            $persona->save();
+            return back()->with('mensaje', 'Persona creada');
+        }
+
+        if ($personaExistente->trashed()){
+            $personaExistente->restore();
+            return back()->with('mensaje', 'La persona ya existía y ha sido activada nuevamente.');
+        }
+
+        return back()->with('mensaje', 'Ya existe una persona activa con el documento ingresado.');
     }
 
     /**

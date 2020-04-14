@@ -60,6 +60,23 @@ class RoleController extends Controller
             $rol->permisos()->attach($permiso);
         }
 
+        $rolExistente = Role::withTrashed()->where('name', $rol->name)->get()->first();
+
+        // Si no existe, guardo el nuevo
+        if ($rolExistente == null) {
+            $rol->save();
+            return back()->with('mensaje', 'Rol creado');
+        }
+
+        if ($rolExistente->trashed()){
+            $rolExistente->restore();
+            return back()->with('mensaje', 'El rol ya existía y ha sido activado nuevamente.');
+        }
+
+        return back()->with('mensaje', 'Ya existe un rol activo con el nombre ingresado.');
+
+
+
         try
         {
             $rol->save();
