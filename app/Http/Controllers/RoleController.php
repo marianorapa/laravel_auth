@@ -75,17 +75,15 @@ class RoleController extends Controller
 
         return back()->with('mensaje', 'Ya existe un rol activo con el nombre ingresado.');
 
-
-
-        try
-        {
-            $rol->save();
-        }
-        catch (QueryException $e)
-        {
-            return back()->with('error', 'El rol ya existe.');
-        }
-        return back()->with('mensaje', 'Rol registrado');
+//        try
+//        {
+//            $rol->save();
+//        }
+//        catch (QueryException $e)
+//        {
+//            return back()->with('error', 'El rol ya existe.');
+//        }
+//        return back()->with('mensaje', 'Rol registrado');
     }
 
     /**

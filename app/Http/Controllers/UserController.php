@@ -62,28 +62,31 @@ class UserController extends Controller
         $user->descr = $request['descripcion'];
 //        $user->activo = true;
 
+
+        $userExistente = User::withTrashed()->where('username', $user->username)->get()->first();
+
+        if ($userExistente != null) {
+            if ($userExistente->trashed()) {
+                $userExistente->restore();
+                return back()->with('mensaje', 'Usuario ya existía. Se ha reactivado con éxito.');
+            }
+            else {
+                return back()->with('mensaje', 'Usuario ya existe.');
+            }
+        }
+
+        // Si no existe el usuario
+
         // Busco la persona que recibi
         $persona = Persona::find($request['persona']);
         $user->persona()->associate($persona);
-
-//        $userExistente = User::withTrashed()->where('username', $user->username)->get()->first();
-//
-//        // Si no existe, guardo el nuevo
-//        if ($userExistente == null) {
-//            $user->save();
-//            //return back()->with('mensaje', 'Usuario creado');
-//        }
-//
-//        if ($userExistente->trashed()){
-//            $userExistente->restore();
-//        }
 
         try {
             $user->save();
         }
         catch (QueryException $e)
         {
-            return back()->with('error', 'El usuario o email ya existen.');
+            return back()->with('error', 'El email ya existe.');
         }
 
         $roles = Role::all();

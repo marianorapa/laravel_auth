@@ -66,7 +66,7 @@ class PersonaController extends Controller
 
         if ($personaExistente->trashed()){
             $personaExistente->restore();
-            return back()->with('mensaje', 'La persona ya existía y ha sido activada nuevamente.');
+            return back()->with('mensaje', 'La persona con ese documento ya existía y ha sido activada nuevamente.');
         }
 
         return back()->with('mensaje', 'Ya existe una persona activa con el documento ingresado.');

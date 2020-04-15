@@ -74,6 +74,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // TODO Agregar validaciones
+        $this->validator($data);
+
         $user = new User();
         $user->username = $data['username'];
         $user->password = Hash::make($data['password']);
@@ -103,7 +105,6 @@ class RegisterController extends Controller
         $user->roles()->attach(Role::where('name','admin')->first());
 
         Auth::login($user);
-
     }
 
     /**
