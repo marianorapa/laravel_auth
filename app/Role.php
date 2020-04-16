@@ -27,4 +27,18 @@ class Role extends Model
         }
         return false;
     }
+
+    public function scopeName($query, $name){ //FILTRO POR NOMBRE
+
+        if($name){
+            return $query->where('name', 'LIKE',"%$name%"); //esta query devuelve semejanzas.
+        }
+    }
+
+    public function scopeDescr($query, $descr){ //FILTRO POR DESCRIPCION
+
+        if($descr){
+            return $query->where('descr', 'LIKE',"%$descr%"); //esta query devuelve semejanzas.
+        }
+    }
 }

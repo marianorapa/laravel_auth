@@ -15,15 +15,25 @@ class PersonaController extends Controller
         $this->middleware('permission');
 
     }
-    /**
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *  @param  \Illuminate\Http\Request  $request
      */
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->get('name');
+        $nrdoc= $request->get('nrodocumento');
+        $apellido = $request->get('apellido');
 //        $personas = Persona::all();
-        $personas = Persona::withTrashed()->get();
+
+        
+        $personas = Persona::withTrashed()
+                            ->name($name)
+                            ->apellido($apellido)
+                            ->nrodoc($nrdoc)
+                            ->get();
         return view('admin.personas.index', compact('personas'));
     }
 

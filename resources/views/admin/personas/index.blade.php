@@ -11,6 +11,15 @@
             </ol>
         </nav>
     </div>
+
+    <nav class="navbar navbar-light float-right">
+        <form class="form-inline">
+            <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
+            <input name='apellido' class="form-control mr-sm-2" type="search" placeholder="Apellido" aria-label="buscar por apellido">
+            <input name='nrodocumento' class="form-control mr-sm-2" type="search" placeholder="NroDoc" aria-label="buscar por dni">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+    </nav>
 <a class="btn btn-primary btn-sm m-1" href="{{route('personas.create')}}">Agregar</a>
 <table class="table">
           @if ($errors->any())

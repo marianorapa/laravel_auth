@@ -16,13 +16,19 @@ class PermisoController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     *@param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $permisos = Permiso::all();
-        $permisos = Permiso::withTrashed()->get();
+
+        $name = $request->get('name');
+        $descr = $request->get('descr');
+
+        $permisos = Permiso::withTrashed()
+                             ->nruta($name)
+                             ->descr($descr)
+                             ->get();
         return view('admin.permisos.index', compact('permisos'));
     }
 

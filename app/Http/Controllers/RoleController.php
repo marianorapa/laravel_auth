@@ -17,16 +17,22 @@ class RoleController extends Controller
         $this->middleware('permission');
 
     }
-
     /**
      * Display a listing of the resource.
-     *
+     *@param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $roles = Role::all();
-        $roles = Role::withTrashed()->get();
+
+
+        $name = $request->get('name');
+        $descr = $request->get('descr');
+
+        $roles = Role::withTrashed()
+                       ->name($name)
+                       ->descr($descr)
+                       ->get();
         return view ('admin.roles.index', compact('roles'));
     }
 

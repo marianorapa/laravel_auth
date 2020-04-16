@@ -23,13 +23,19 @@ class UserController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-//        $users = User::all();
-        $users = User::withTrashed()->get();
+        $name  = $request->get('name');
+        $email = $request->get('email');
+
+        //Adaptacion de los scope en las otras clases modelo.
+        $users = User::withTrashed()
+        ->where('username', 'LIKE',"%$name%")  
+        ->where('email', 'LIKE',"%$email%")
+        ->get();
         return view('admin.users.index', compact('users'));
     }
 
