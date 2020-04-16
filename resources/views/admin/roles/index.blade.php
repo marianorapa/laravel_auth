@@ -47,7 +47,7 @@
                     <th scope="row">{{$rol->id}}</th>
                     <td>{{$rol->name}}</td>
                     <td>{{$rol->descr}}</td>
-                    <td>{{$rol->activo}}</td>
+                    <td>{{$rol->trashed() ? "No": "Si"}}</td>
                     <td>
                         <a href="{{route('roles.edit', $rol)}}" class="btn btn-warning btn-sm">Editar</a>
                         @if (!$rol->trashed())

@@ -22,6 +22,20 @@
     
 <a class="btn btn-primary btn-sm m-1" href="{{route('permisos.create')}}">Agregar</a>
 <table class="table">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                {{$errors->first()}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if (session('mensaje'))
+            <div class="alert alert-success">
+                {{session('mensaje')}}
+            </div>
+        @endif
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -37,7 +51,7 @@
                     <th scope="row">{{$permiso->id}}</th>
                     <td>{{$permiso->nombre_ruta}}</td>
                     <td>{{$permiso->descr}}</td>
-                    <td>{{$permiso->activo}}</td>
+                    <td>{{$permiso->trashed() ? "No": "Si"}}</td>
                     <td>{{$permiso->funcionalidad}}</td>
                     <td>
                         <a href="{{route('permisos.edit', $permiso)}}" class="btn btn-warning btn-sm">Editar</a> <!--me tira que permisos.edit no existe -->

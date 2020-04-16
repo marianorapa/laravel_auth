@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    
+
 <section class="container">
     <div class="bs-example">
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" >Home</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
-                <li class="breadcrumb-item"><a href="{{route('users.index')}}" >Gestion de usuarios</a></li>
+                <li class="breadcrumb-item"><a href="{{route('users.index')}}" >Gestión de usuarios</a></li>
                 <li class="breadcrumb-item active">Agregar usuario</li>
             </ol>
         </nav>
@@ -35,7 +35,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Registro de usuarios') }}</div>
                     <div class="card-body">
-                       
+
                         <form action="{{route('users.store')}}" method="POST">
                             @csrf
                             @error('nombre')
@@ -44,7 +44,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                 </button>
-                            </div>  
+                            </div>
                             @enderror
 
                             @error('descripcion')
@@ -52,21 +52,21 @@
                                     La descripcion es obligatoria!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
-                                    </button>    
-                                </div>  
+                                    </button>
+                                </div>
                             @enderror
-                           
+
 
                             <div class="form-group">
-                                <label for="username">Nombre</label>          
+                                <label for="username">Nombre</label>
 
-                                <input type="text" name="username" id="username" 
-                                value="{{old('username')}}" placeholder="Nombre" 
+                                <input type="text" name="username" id="username"
+                                value="{{old('username')}}" placeholder="Nombre"
                                 class="form-control mb-2" required>
-                                    
+
                             </div>
-                            
-                            
+
+
                             <div class="form-group">
                                 <label for="password" >{{ __('Password') }}</label>
 
@@ -77,25 +77,25 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            
+
                         </div>
 
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm Password') }}</label>
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            
+
                         </div>
 
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" name="email" id="email" 
-                value="{{old('email')}}" placeholder="Email" 
+                <input type="text" name="email" id="email"
+                value="{{old('email')}}" placeholder="Email"
                 class="form-control mb-2" required>
             </div>
 
             <div class="form-group">
-                <label for="descripcion">Descripción</label>           
+                <label for="descripcion">Descripción</label>
                 <input type="text" name="descripcion" id="descripcion"
                 value="{{old('descripcion')}}"
                 placeholder="Descripcion" class="form-control mb-2" required>
@@ -103,48 +103,48 @@
 
             <p>Seleccione los roles del usuario:</p>
             @foreach ($roles as $rol)
-                <div class="form-check">            
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
                     <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
-                </div>    
-            @endforeach        
+                </div>
+            @endforeach
             <p>Seleccione a que persona corresponde este usuario:</p>
             <select name="persona" id="persona" class="form-control" required>
                 @foreach ($personas as $persona)
                     <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
-                @endforeach        
+                @endforeach
             </select>
 
-                           
-{{-- 
+
+{{--
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" name="email" id="email" 
-                                value="{{old('email')}}" placeholder="Email" 
+                                <input type="text" name="email" id="email"
+                                value="{{old('email')}}" placeholder="Email"
                                 class="form-control mb-2" required>
                             </div>
                             <p>Seleccione los roles del usuario:</p>
                             @foreach ($roles as $rol)
-                                <div class="form-check">            
+                                <div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
                                     <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
-                                </div>    
-                            @endforeach        
+                                </div>
+                            @endforeach
                             <p>Seleccione a que persona corresponde este usuario:</p>
                             <select name="persona" id="persona" required>
                                 @foreach ($personas as $persona)
                                     <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
-                                @endforeach 
+                                @endforeach
                             </select> --}}
 
                             <input type="submit" value="Registrar usuario" class="btn btn-primary btn-block mt-5">
                             <a class="btn btn-secondary btn-block mt-4" href="{{route('users.index')}}">Volver</a>
                         </form>
-                    </div> 
-                </div> 
-            </div> 
-        </div> 
-    </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 

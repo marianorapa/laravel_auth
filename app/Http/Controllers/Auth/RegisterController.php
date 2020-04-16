@@ -74,6 +74,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         // TODO Agregar validaciones
+        $this->validator($data);
+
         $user = new User();
         $user->username = $data['username'];
         $user->password = Hash::make($data['password']);
@@ -102,8 +104,7 @@ class RegisterController extends Controller
         // Al unico que se registra le da todos los permisos! -> Dsp cambiar y elegir roles quizas...
         $user->roles()->attach(Role::where('name','admin')->first());
 
-        Auth::setUser($user);
-
+        Auth::login($user);
     }
 
     /**

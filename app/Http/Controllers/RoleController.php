@@ -15,7 +15,6 @@ class RoleController extends Controller
     {
 //        $this->middleware('App\Http\Middleware\IsAdmin');
         $this->middleware('permission');
-
     }
     /**
      * Display a listing of the resource.
@@ -63,19 +62,34 @@ class RoleController extends Controller
 //        $rol->activo = true;
 
         foreach($request['permiso'] as $permiso){
-            $permiso = Permiso::where('name',$permiso)->first();
+            $permiso = Permiso::where('nombre_ruta', $permiso)->first();
             $rol->permisos()->attach($permiso);
         }
 
-        try
-        {
+        $rolExistente = Role::withTrashed()->where('name', $rol->name)->get()->first();
+
+        // Si no existe, guardo el nuevo
+        if ($rolExistente == null) {
             $rol->save();
+            return back()->with('mensaje', 'Rol creado');
         }
-        catch (QueryException $e)
-        {
-            return back()->with('error', 'El rol ya existe.');
+
+        if ($rolExistente->trashed()){
+            $rolExistente->restore();
+            return back()->with('mensaje', 'El rol ya existía y ha sido activado nuevamente.');
         }
-        return back()->with('mensaje', 'Rol registrado');
+
+        return back()->with('mensaje', 'Ya existe un rol activo con el nombre ingresado.');
+
+//        try
+//        {
+//            $rol->save();
+//        }
+//        catch (QueryException $e)
+//        {
+//            return back()->with('error', 'El rol ya existe.');
+//        }
+//        return back()->with('mensaje', 'Rol registrado');
     }
 
     /**

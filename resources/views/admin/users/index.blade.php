@@ -53,7 +53,7 @@
                     <td>{{$user->username}}</td>
                     <td>{{$user->descr}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->activo}}</td>
+                    <td>{{$user->trashed() ? "No": "Si"}}</td>
                     <td>
                         <a href="{{route('users.edit', $user)}}" class="btn btn-warning btn-sm">Editar</a>
                         @if (!$user->trashed())
