@@ -27,12 +27,12 @@ class HomeController extends Controller
     public function index()
     {
 
-        if (Auth::user()->hasRole('admin'))
-        {
+//        if (Auth::user()->hasRole('admin'))
+//        {
             return redirect(route('admin.menu'));
-        };
+//        };
 
-        return redirect(route('not.admin'));
+//        return redirect(route('not.admin'));
 
 
     }
