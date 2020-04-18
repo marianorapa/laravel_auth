@@ -111,11 +111,15 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $rol = Role::withTrashed()->findOrFail($id);
+        if ($id != 1){
+            $rol = Role::withTrashed()->findOrFail($id);
 
-        $permisos = Permiso::all();
+            $permisos = Permiso::all();
 
-        return view('admin.roles.edit', compact('rol','permisos'));
+            return view('admin.roles.edit', compact('rol','permisos'));
+        }
+
+        return back()->with('error', 'El rol administrador no puede modificarse.');
     }
 
     /**
@@ -127,34 +131,35 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rol = Role::withTrashed()->findOrFail($id);
+        if ($id != 1) {
+            $rol = Role::withTrashed()->findOrFail($id);
 
-        // $permisos = Permisos::all();
+            // $permisos = Permisos::all();
 
-        $rol->name = $request['name'];
-        $rol->descr = $request['descripcion'];
+            $rol->name = $request['name'];
+            $rol->descr = $request['descripcion'];
 //        $rol->activo = true;
 
-        $permisos = Permiso::all();
+            $permisos = Permiso::all();
 
-        $rol->permisos()->detach();
+            $rol->permisos()->detach();
 
-        foreach($permisos as $permiso){
-            if (in_array($permiso->id, $request['permisos'])){
-                $rol->permisos()->attach($permiso);
+            foreach ($permisos as $permiso) {
+                if (in_array($permiso->id, $request['permisos'])) {
+                    $rol->permisos()->attach($permiso);
+                }
             }
-        }
 
-        try
-        {
-            $rol->save();
-        }
-        catch (QueryException $e)
-        {
-            return back()->with('error', 'El rol ya existe.');
-        }
+            try {
+                $rol->save();
+            } catch (QueryException $e) {
+                return back()->with('error', 'El rol ya existe.');
+            }
 
-        return back()->with('mensaje', 'Rol actualizado correctamente');
+            return back()->with('mensaje', 'Rol actualizado correctamente');
+        }
+        return back()->with('error', 'Rol no puede modificarse');
+
     }
 
     /**

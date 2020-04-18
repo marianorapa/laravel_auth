@@ -78,7 +78,11 @@
 
                              <select name="permisos[]" id="permisos" class="form-control" size="15" required multiple>
                                 @foreach ($permisos as $permiso)
-                                    <option value="{{$permiso->id}}">{{"$permiso->descr : '$permiso->nombre_ruta'  "}}</option>
+                                    @if ($rol->hasPermiso($permiso->nombre_ruta))
+                                         <option value="{{$permiso->id}}" selected>{{"$permiso->descr : '$permiso->nombre_ruta'  "}}</option>
+                                    @else
+                                         <option value="{{$permiso->id}}">{{"$permiso->descr : '$permiso->nombre_ruta'  "}}</option>
+                                     @endif
                                 @endforeach
                             </select>
 

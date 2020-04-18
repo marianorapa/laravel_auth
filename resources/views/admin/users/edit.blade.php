@@ -17,7 +17,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Editar persona
+                    Editar usuario
                 </div>
                 <div class="card-body">
                     <form action="{{route('users.update', $user->id)}}" method="POST">
@@ -44,6 +44,12 @@
                         @if (session('mensaje'))
                             <div class="alert alert-success">
                                 {{session('mensaje')}}
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{session('error')}}
                             </div>
                         @endif
 

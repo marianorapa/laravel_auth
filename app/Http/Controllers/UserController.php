@@ -33,7 +33,7 @@ class UserController extends Controller
 
         //Adaptacion de los scope en las otras clases modelo.
         $users = User::withTrashed()
-        ->where('username', 'LIKE',"%$name%")  
+        ->where('username', 'LIKE',"%$name%")
         ->where('email', 'LIKE',"%$email%")
         ->get();
         return view('admin.users.index', compact('users'));
@@ -176,6 +176,14 @@ class UserController extends Controller
 
 
         $roles = Role::all();
+
+        // Antes de sacarle los roles, verifica si tiene el de admin y esta intentando sacarselo
+        if ($user->hasRole('admin')){
+            if (!(in_array('admin', $request['roles']))){
+                return back()->with('error', 'No puede quitarse el rol de administrador');
+            }
+        }
+
         // Primero le saco todos los roles
         $user->roles()->detach();
         // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
@@ -196,6 +204,7 @@ class UserController extends Controller
             return back()->with('error', 'Se produjo un error al actualizar el usuario');
         }
         return back()->with('mensaje', 'Usuario actualizado');
+
     }
 
     /**
