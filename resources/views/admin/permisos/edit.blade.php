@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="funcionalidad">Email</label>
+                                <label for="funcionalidad">Funcionalidad</label>
                                 <input type="text" name="funcionalidad" id="funcionalidad"
                                 value="{{$permiso->funcionalidad}}" placeholder="Acciones"
                                 class="form-control mb-2" required>

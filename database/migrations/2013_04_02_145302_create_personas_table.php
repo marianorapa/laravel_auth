@@ -18,7 +18,7 @@ class CreatePersonasTable extends Migration
             $table->string('apellidos');
             $table->string('nombres');
             $table->string('descripcion');
-            $table->string('domicilio');
+            $table->string('domicilio');//en el doc esta como que todavia no sabemos si va como tabla, puede ser ina fk
             $table->date('fechaNacimiento');
             $table->string('nroDocumento')->unique();
             $table->string('telefono');
@@ -26,6 +26,7 @@ class CreatePersonasTable extends Migration
 //            $table->boolean('activo');
             $table->softDeletes();
             $table->timestamps();
+            //$table->foreign('tipodoc')->references('id')->on('tipo_documento');
         });
     }
 
