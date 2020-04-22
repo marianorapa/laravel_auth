@@ -15,16 +15,22 @@
 
 - Descargar Composer: https://getcomposer.org/Composer-Setup.exe
 
+Instalar dependencias:
+
+```
+composer install
+```
+
 Renombrar el archivo de configuración:
 
-```php
-cp .env.example .env
+```
+copy .env.example .env
 ```
 
 Generar la clave:
 
 ```php
-artisan key:generate
+php artisan key:generate
 ```
 
 Migrar BD:
@@ -33,7 +39,7 @@ Migrar BD:
 php artisan migrate
 ```
 
-Correr los seeders que haya:
+Correr los seeders:
 
 ```php
 php artisan db:seed
