@@ -85,7 +85,7 @@
                            @endforeach   --}}
 
 
-                           <select name="permiso[]" id="permiso" class="form-control" size="10" required multiple>
+                           <select name="idPermisos[]" id="permiso" class="form-control" size="10" required multiple>
                             @foreach ($permisos as $permiso)
                                 <option value="{{$permiso->id}}">{{"$permiso->nombre_ruta"}}</option>
                             @endforeach
