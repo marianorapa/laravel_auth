@@ -87,34 +87,79 @@
                         </div>
 
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email"
-                value="{{old('email')}}" placeholder="Email"
-                class="form-control mb-2" required>
-            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email"
+                                value="{{old('email')}}" placeholder="Email"
+                                class="form-control mb-2" required>
+                            </div>
 
-            <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <input type="text" name="descripcion" id="descripcion"
-                value="{{old('descripcion')}}"
-                placeholder="Descripcion" class="form-control mb-2" required>
-            </div>
+                            <div class="form-group">
+                                <label for="descripcion">Descripción</label>
+                                <input type="text" name="descripcion" id="descripcion"
+                                value="{{old('descripcion')}}"
+                                placeholder="Descripcion" class="form-control mb-2" required>
+                            </div>
 
-            <p>Seleccione los roles del usuario:</p>
-            @foreach ($roles as $rol)
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
-                    <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
-                </div>
-            @endforeach
-            <p>Seleccione a que persona corresponde este usuario:</p>
-            <select name="persona" id="persona" class="form-control" required>
-                @foreach ($personas as $persona)
-                    <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
-                @endforeach
-            </select>
+{{--                            <p>Seleccione los roles del usuario:</p>--}}
+{{--                            @foreach ($roles as $rol)--}}
+{{--                                <div class="form-check">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">--}}
+{{--                                    <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
 
+
+
+                            <script>
+
+                                function toggleCheckboxes() {
+                                    let list = document.getElementsByClassName("checkboxRol");
+                                    let newValue = (document.getElementById("selectAllCheckbox")).checked;
+                                    for (let item of list) {
+                                        item.checked = newValue;
+                                    }
+                                }
+
+                            </script>
+
+                            <label class="col-md-10">Seleccione los roles del usuario:</label>
+                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleCheckboxes()">
+
+                            <div class="form-group row mx-5 ">
+
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Rol</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Seleccionar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($roles as $rol)
+                                        <tr>
+                                            <td>{{$rol->id}}</td>
+                                            <td>{{$rol->name}}</td>
+                                            <td>{{$rol->descr}}</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" name="{{$rol->name}}" class="checkboxRol" value="{{$rol->name}}">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                            <p>Seleccione a que persona corresponde este usuario:</p>
+                            <select name="persona" id="persona" class="form-control" required>
+                                @foreach ($personas as $persona)
+                                    <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
+                                @endforeach
+                            </select>
 
 {{--
                             <div class="form-group">
@@ -129,13 +174,8 @@
                                     <input type="checkbox" class="form-check-input" name="{{$rol->name}}" id="{{$rol->name}}">
                                     <label for="{{$rol->name}}" class="form-check-label text-capitalize mb-3">{{$rol->name}}</label>
                                 </div>
-                            @endforeach
-                            <p>Seleccione a que persona corresponde este usuario:</p>
-                            <select name="persona" id="persona" required>
-                                @foreach ($personas as $persona)
-                                    <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
-                                @endforeach
-                            </select> --}}
+                            @endforeach --}}
+
 
                             <input type="submit" value="Registrar usuario" class="btn btn-primary btn-block mt-5">
                             <a class="btn btn-secondary btn-block mt-4" href="{{route('users.index')}}">Volver</a>
