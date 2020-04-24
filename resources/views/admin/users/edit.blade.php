@@ -102,18 +102,66 @@
                             </div>
                         @endforeach --}}
 
-                        <div class="form-group">
-                            <label for="roles">Roles: Seleccione los que correspondan (tecla shift)</label>
-                            <select name="roles[]" id="roles" class="form-control" multiple>
+                        <script>
+
+                            function toggleCheckboxes() {
+                                let list = document.getElementsByClassName("checkboxRol");
+                                let newValue = (document.getElementById("selectAllCheckbox")).checked;
+                                for (let item of list) {
+                                    item.checked = newValue;
+                                }
+                            }
+
+                        </script>
+
+                        <label class="col-md-10">Seleccione los roles del usuario:</label>
+                        <input type="checkbox" id="selectAllCheckbox" onchange="toggleCheckboxes()">
+
+                        <div class="form-group row mx-5 ">
+
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Permiso</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Seleccionar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 @foreach ($roles as $rol)
-                                    @if ($user->hasRole($rol->name))
-                                        <option value="{{$rol->name}}" selected>{{$rol->name}}</option>
-                                    @else
-                                        <option value="{{$rol->name}}">{{$rol->name}}</option>
-                                    @endif
+                                    <tr>
+                                        <td>{{$rol->id}}</td>
+                                        <td>{{$rol->nombre}}</td>
+                                        <td>{{$rol->descr}}</td>
+                                        <td class="text-center">
+                                            @if ($user->hasRole($rol->name))
+                                                <input type="checkbox" name="roles[]" class="checkboxRol" value="{{$rol->name}}" checked>
+                                            @else
+                                                <input type="checkbox" name="roles[]" class="checkboxRol" value="{{$rol->name}}">
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
-                            </select>
+                                </tbody>
+                            </table>
+
                         </div>
+
+
+
+{{--                        <div class="form-group">--}}
+{{--                            <label for="roles">Roles: Seleccione los que correspondan (tecla shift)</label>--}}
+{{--                            <select name="roles[]" id="roles" class="form-control" multiple>--}}
+{{--                                @foreach ($roles as $rol)--}}
+{{--                                    @if ($user->hasRole($rol->name))--}}
+{{--                                        <option value="{{$rol->name}}" selected>{{$rol->name}}</option>--}}
+{{--                                    @else--}}
+{{--                                        <option value="{{$rol->name}}">{{$rol->name}}</option>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
 
                         <input type="submit" value="Actualizar usuario" class="btn btn-primary btn-block mt-3">
                         <a class="btn btn-secondary btn-block mt-4" href="{{route('users.index')}}">Volver</a>
