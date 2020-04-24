@@ -15,20 +15,15 @@ class CreateOrdenDeProduccionTable extends Migration
     {
         Schema::create('orden_de_produccion', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha');
-            $table->unsignedBigInteger('cliente');
-            $table->unsignedBigInteger('producto');
-            $table->float('cantidad');
-            $table->float('saldo');
-            $table->date('fecha_entrega');
-            $table->float('precioxkilo');
-            $table->Integer('destino');
-            $table->unsignedBigInteger('estado');
-            $table->foreign('cliente')->references('id_cliente')->on('granja');
-            $table->foreign('producto')->references('id')->on('alimento');
-            $table->foreign('destino')->references('id')->on('granja');
-            $table->foreign('estado')->references('id')->on('estado_op');
-
+            //$table->date('fecha');
+            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('producto_id')->constrained('alimento');
+            $table->integer('cantidad');
+            $table->integer('saldo');
+            $table->date('fecha_fabricacion');
+            $table->decimal('precio_por_kilo',15,2);
+            $table->foreignId('destino')->constrained('granja');
+            $table->foreignId('estado')->constrained('estado_op');
             $table->timestamps();
         });
     }

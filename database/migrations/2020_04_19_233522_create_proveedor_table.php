@@ -15,7 +15,7 @@ class CreateProveedorTable extends Migration
     {
         Schema::create('proveedor', function (Blueprint $table) {
             $table->id();
-            $table->string('gln');
+            $table->string('gln')->unique();
             $table->timestamps();
             $table->foreign('id')->references('id')->on('empresa');
         });

@@ -14,16 +14,12 @@ class CreateGranjaTable extends Migration
     public function up()
     {
         Schema::create('granja', function (Blueprint $table) {
-            $table->integer('id');
-            $table->unsignedBigInteger('id_cliente');
-            $table->string('descr');
-            $table->unsignedBigInteger('domicilio');
+            $table->id();
+            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->string('descripcion');
+            $table->foreignId('domicilio_id')->constrained('domicilio');
             $table->timestamps();
-            $table->foreign('id_cliente')->references('id')->on('cliente');
-            $table->foreign('domicilio')->references('id')->on('domicilio');
-            $table->primary(['id','id_cliente']);
         });
-        DB::statement('ALTER TABLE granja MODIFY id INTEGER NOT NULL AUTO_INCREMENT');
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlimentoTable extends Migration
+class CreatePrestamoClienteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateAlimentoTable extends Migration
      */
     public function up()
     {
-        Schema::create('alimento', function (Blueprint $table) {
+        Schema::create('prestamo_cliente', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->foreignId('tipo')->constrained('alimento_tipo');
-            $table->foreignId('cliente_id')->constrained('cliente');
-            $table->string('gtin');
+            $table->foreignId('op_detalle_id')->constrained('op_detalle_no_trazable');
+            $table->integer('cancelado')->nullable(false);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateAlimentoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alimento');
+        Schema::dropIfExists('prestamo_cliente');
     }
 }

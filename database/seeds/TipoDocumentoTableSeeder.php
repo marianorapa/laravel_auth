@@ -20,182 +20,182 @@ class TipoDocumentoTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'descr' => 'CI Buenos Aires'
+                'descripcion' => 'CI Buenos Aires'
             ),
             1 =>
             array (
                 'id' => 2,
-                'descr' => 'CI Catamarca'
+                'descripcion' => 'CI Catamarca'
             ),
             2 =>
             array (
                 'id' => 3,
-                'descr' => 'CI Córdoba'
+                'descripcion' => 'CI Córdoba'
             ),
             3 =>
             array (
                 'id' => 4,
-                'descr' => 'CI Corrientes'
+                'descripcion' => 'CI Corrientes'
             ),
             4 =>
             array (
                 'id' => 5,
-                'descr' => 'CI Entre Ríos'
+                'descripcion' => 'CI Entre Ríos'
             ),
             5 =>
             array (
                 'id' => 6,
-                'descr' => 'CI Jujuy'
+                'descripcion' => 'CI Jujuy'
             ),
             6 =>
             array (
                 'id' => 7,
-                'descr' => 'CI Mendoza'
+                'descripcion' => 'CI Mendoza'
             ),
             7 =>
             array (
                 'id' => 8,
-                'descr' => 'CI La Rioja'
+                'descripcion' => 'CI La Rioja'
             ),
             8 =>
             array (
                 'id' => 9,
-                'descr' => 'CI Salta'
+                'descripcion' => 'CI Salta'
             ),
             9 =>
             array (
                 'id' => 10,
-                'descr' => 'CI San Juan'
+                'descripcion' => 'CI San Juan'
             ),
             10 =>
             array (
                 'id' => 11,
-                'descr' => 'CI San Luis'
+                'descripcion' => 'CI San Luis'
             ),
             11 =>
             array (
                 'id' => 12,
-                'descr' => 'CI Santa Fe'
+                'descripcion' => 'CI Santa Fe'
             ),
             12 =>
             array (
                 'id' => 13,
-                'descr' => 'CI Santiago del Estero'
+                'descripcion' => 'CI Santiago del Estero'
             ),
             13 =>
             array (
                 'id' => 14,
-                'descr' => 'CI Tucumán'
+                'descripcion' => 'CI Tucumán'
             ),
             14 =>
             array (
                 'id' => 16,
-                'descr' => 'CI Chaco'
+                'descripcion' => 'CI Chaco'
             ),
             15 =>
             array (
                 'id' => 17,
-                'descr' => 'CI Chubut'
+                'descripcion' => 'CI Chubut'
             ),
             16 =>
             array (
                 'id' => 18,
-                'descr' => 'CI Formosa'
+                'descripcion' => 'CI Formosa'
             ),
             17 =>
             array (
                 'id' => 19,
-                'descr' => 'CI Misiones'
+                'descripcion' => 'CI Misiones'
             ),
             18 =>
             array (
                 'id' => 20,
-                'descr' => 'CI Neuquén'
+                'descripcion' => 'CI Neuquén'
             ),
             19 =>
             array (
                 'id' => 21,
-                'descr' => 'CI La Pampa'
+                'descripcion' => 'CI La Pampa'
             ),
             20 =>
             array (
                 'id' => 22,
-                'descr' => 'CI Río Negro'
+                'descripcion' => 'CI Río Negro'
             ),
             21 =>
             array (
                 'id' => 23,
-                'descr' => 'CI Santa Cruz'
+                'descripcion' => 'CI Santa Cruz'
             ),
             22 =>
             array (
                 'id' => 24,
-                'descr' => 'CI Tierra del Fuego'
+                'descripcion' => 'CI Tierra del Fuego'
             ),
             23 =>
             array (
                 'id' => 25,
-                'descr' => 'CI Policía Federal'
+                'descripcion' => 'CI Policía Federal'
             ),
             24 =>
             array (
                 'id' => 80,
-                'descr' => 'CUIT'
+                'descripcion' => 'CUIT'
             ),
             25 =>
             array (
                 'id' => 86,
-                'descr' => 'CUIL'
+                'descripcion' => 'CUIL'
             ),
             26 =>
             array (
                 'id' => 87,
-                'descr' => 'CDI'
+                'descripcion' => 'CDI'
             ),
             27 =>
             array (
                 'id' => 89,
-                'descr' => 'LE'
+                'descripcion' => 'LE'
             ),
             28 =>
             array (
                 'id' => 90,
-                'descr' => 'LC'
+                'descripcion' => 'LC'
             ),
             29 =>
             array (
                 'id' => 91,
-                'descr' => 'CI Extranjera'
+                'descripcion' => 'CI Extranjera'
             ),
             30 =>
             array (
                 'id' => 92,
-                'descr' => 'En trámite'
+                'descripcion' => 'En trámite'
             ),
             31 =>
             array (
                 'id' => 93,
-                'descr' => 'Acta Nacimiento'
+                'descripcion' => 'Acta Nacimiento'
             ),
             32 =>
             array (
                 'id' => 94,
-                'descr' => 'Pasaporte'
+                'descripcion' => 'Pasaporte'
             ),
             33 =>
             array (
                 'id' => 95,
-                'descr' => 'CI Bs. As. RNP'
+                'descripcion' => 'CI Bs. As. RNP'
             ),
             34 =>
             array (
                 'id' => 96,
-                'descr' => 'DNI'
+                'descripcion' => 'DNI'
             ),
             35 =>
             array (
                 'id' => 99,
-            'descr' => 'Doc. (otro)'
+            'descripcion' => 'Doc. (otro)'
             ),
         ));
 

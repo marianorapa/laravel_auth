@@ -15,20 +15,15 @@ class CreateTicketTable extends Migration
     {
         Schema::create('ticket', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_hora');
-            $table->unsignedBigInteger('id_transportista');
+            //$table->date('fecha_hora');
+            $table->foreignId('transportista_id')->constrained('transportista');
             $table->string('patente');
-            $table->unsignedBigInteger('id_chofer');
-            $table->unsignedBigInteger('bruto');
-            $table->unsignedBigInteger('tara');
-            $table->float('neto');
-            $table->unsignedBigInteger('estado');
+            $table->foreignId('chofer_id')->constrained('chofer');
+            $table->foreignId('bruto')->constrained('pesaje');
+            $table->foreignId('tara')->constrained('pesaje');
+            $table->integer('neto');
+            $table->foreignId('estado')->constrained('estado_ticket');
             $table->timestamps();
-            $table->foreign('id_transportista')->references('id')->on('transportista');
-            $table->foreign('id_chofer')->references('id')->on('chofer');
-            $table->foreign('bruto')->references('id')->on('pesaje');
-            $table->foreign('tara')->references('id')->on('pesaje');
-            $table->foreign('estado')->references('id')->on('estado_ticket');
         });
     }
 
