@@ -179,7 +179,8 @@ class UserController extends Controller
 
         // Antes de sacarle los roles, verifica si tiene el de admin y esta intentando sacarselo
         if ($user->hasRole('admin')){
-            if (!(in_array('admin', $request['roles']))){
+
+            if (!isset($request['roles']) || !(in_array('admin', $request['roles']))){
                 return back()->with('error', 'No puede quitarse el rol de administrador');
             }
         }
@@ -188,7 +189,8 @@ class UserController extends Controller
         $user->roles()->detach();
         // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
         foreach($roles as $rol){
-            if (in_array($rol->name, $request['roles'])){
+
+            if (isset($request['roles']) && in_array($rol->name, $request['roles'])){
                 $user->roles()->attach($rol);
             }
             // Saco esto xq lo hago arriba y aca trae problemas

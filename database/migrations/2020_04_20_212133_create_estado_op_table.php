@@ -15,7 +15,7 @@ class CreateEstadoOpTable extends Migration
     {
         Schema::create('estado_op', function (Blueprint $table) {
             $table->id();
-            $table->string('descr');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }

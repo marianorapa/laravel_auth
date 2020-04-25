@@ -15,9 +15,10 @@ class CreatePermisoRoleTable extends Migration
     {
         Schema::create('permiso_role', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('permiso_id');
-            $table->unsignedInteger('role_id');
+            $table->foreignId('permiso_id')->constrained('permisos');//parte de la PK
+            $table->foreignId('role_id')->constrained('roles');//parte de la PK
             $table->timestamps();
+            $table->unique(['permiso_id', 'role_id']);//PRIMARY KEY
         });
     }
 

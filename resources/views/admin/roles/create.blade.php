@@ -75,23 +75,66 @@
                             </div>
 
 
-                            <p>Seleccione los permisos del rol:</p>
-                            <div class="form-group row mx-2 ">
-                           {{-- @foreach ($permisos as $permiso)
-                                <div class="form-check col-md-8">
-                                    <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">
-                                    <label for="{{$permiso->name}}" class="form-check-label text-capitalize mb-3">{{$permiso->name}}</label>
-                                </div>
-                           @endforeach   --}}
+
+{{--                            <div class="form-group row mx-2 ">--}}
+{{--                           --}}{{-- @foreach ($permisos as $permiso)--}}
+{{--                                <div class="form-check col-md-8">--}}
+{{--                                    <input type="checkbox" class="form-check-input" name="{{$permiso->name}}" id="{{$permiso->name}}">--}}
+{{--                                    <label for="{{$permiso->name}}" class="form-check-label text-capitalize mb-3">{{$permiso->name}}</label>--}}
+{{--                                </div>--}}
+{{--                           @endforeach   --}}
 
 
-                           <select name="permiso[]" id="permiso" class="form-control" size="10" required multiple>
-                            @foreach ($permisos as $permiso)
-                                <option value="{{$permiso->id}}">{{"$permiso->nombre_ruta"}}</option>
-                            @endforeach
-                            </select>
-                           </div>
+{{--                           <select name="idPermisos[]" id="permiso" class="form-control" size="10" required multiple>--}}
+{{--                            @foreach ($permisos as $permiso)--}}
+{{--                                <option value="{{$permiso->id}}">{{"$permiso->nombre_ruta"}}</option>--}}
+{{--                            @endforeach--}}
+{{--                            </select>--}}
 
+{{--                           </div>--}}
+
+
+                            <script>
+
+                                function toggleCheckboxes() {
+                                    let list = document.getElementsByClassName( "checkboxPermiso");
+                                    let newValue = (document.getElementById("selectAllCheckbox")).checked;
+                                    for (let item of list) {
+                                        item.checked = newValue;
+                                    }
+                                }
+
+                            </script>
+
+                            <label class="col-md-10">Seleccione los permisos del rol:</label>
+                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleCheckboxes()">
+
+                            <div class="form-group row mx-5 ">
+
+                            <table class="table table-striped">
+                               <thead>
+                                   <tr>
+                                       <th scope="col">#</th>
+                                       <th scope="col">Permiso</th>
+                                       <th scope="col">Descripción</th>
+                                       <th scope="col">Seleccionar</th>
+                                   </tr>
+                               </thead>
+                                <tbody>
+                                    @foreach ($permisos as $permiso)
+                                   <tr>
+                                       <td>{{$permiso->id}}</td>
+                                       <td>{{$permiso->nombre_ruta}}</td>
+                                       <td>{{$permiso->descr}}</td>
+                                       <td class="text-center">
+                                           <input type="checkbox" name="idPermisos[]" class="checkboxPermiso" value="{{$permiso->id}}">
+                                       </td>
+                                   </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+                            </div>
 
                             {{-- <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
