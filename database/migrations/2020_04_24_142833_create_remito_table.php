@@ -18,6 +18,7 @@ class CreateRemitoTable extends Migration
             $table->integer('punto_venta');
             $table->integer('numero');
             $table->foreignId('ticket_id')->constrained('ticket_salida');
+            $table->foreignId('destino')->constrained('granja');
             $table->string('cot');
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ class CreateTicketSalidaTable extends Migration
             $table->id();
             $table->foreignId('op_id')->constrained('orden_de_produccion');
             $table->timestamps();
+            $table->foreign('id')->references('id')->on('ticket');
         });
     }
 

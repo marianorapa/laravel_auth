@@ -17,7 +17,7 @@ class CreateTicketEntradaInsumoTrazableTable extends Migration
             $table->id();
             $table->foreignId('insumo_t_id')->constrained('inventario_insumo_trazable');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('ticket');
+            $table->foreign('id')->references('id')->on('ticket_entrada');
         });
     }
 

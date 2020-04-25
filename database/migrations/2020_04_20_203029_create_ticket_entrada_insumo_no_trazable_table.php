@@ -18,7 +18,7 @@ class CreateTicketEntradaInsumoNoTrazableTable extends Migration
             $table->foreignId('insumo_nt_id')->constrained('inventario_insumo_no_trazable');
             $table->foreignId('proveedor_id')->constrained('proveedor');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('ticket');
+            $table->foreign('id')->references('id')->on('ticket_entrada');
         });
     }
 

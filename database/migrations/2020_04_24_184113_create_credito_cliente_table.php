@@ -16,7 +16,7 @@ class CreateCreditoClienteTable extends Migration
         Schema::create('credito_cliente', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained('cliente');
-            $table->integer('capacidad')->nullable(false);
+            $table->integer('limite')->nullable(false);
             $table->date('fecha_desde')->nullable(false)->default(now());
             $table->date('fecha_hasta')->nullable(true);
             $table->timestamps();

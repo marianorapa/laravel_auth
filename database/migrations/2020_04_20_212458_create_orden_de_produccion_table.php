@@ -21,7 +21,9 @@ class CreateOrdenDeProduccionTable extends Migration
             $table->integer('cantidad');
             $table->integer('saldo');
             $table->date('fecha_fabricacion');
+            $table->foreignId('capacidad_traza_id')->constrained('capacidad_productiva');
             $table->decimal('precio_por_kilo',15,2);
+            $table->foreignId('precio_traza_id')->constrained('precio_fason');
             $table->foreignId('destino')->constrained('granja');
             $table->foreignId('estado')->constrained('estado_op');
             $table->timestamps();
