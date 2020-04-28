@@ -56,13 +56,24 @@
                                 </div>
                             @enderror
 
+                            <div class="form-group">
+                                <label class="col-10">Seleccione a que persona corresponde este usuario:</label>
+                                <input type="submit" name="refreshButton" value="Actualizar" class="btn btn-sm btn-outline-primary mb-2">
+
+                                <select name="persona" id="persona" class="form-control">
+                                    @foreach ($personas as $persona)
+                                        <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
+                                    @endforeach
+                                </select>
+                                <p class="mt-2 mb-3"><a class="" href="{{route('personas.create')}}" target="_blank">Nueva persona</a></p>
+                            </div>
 
                             <div class="form-group">
-                                <label for="username">Nombre</label>
+                                <label for="username">Nombre de usuario</label>
 
                                 <input type="text" name="username" id="username"
                                 value="{{old('username')}}" placeholder="Nombre"
-                                class="form-control mb-2" required>
+                                class="form-control mb-2" >
 
                             </div>
 
@@ -70,11 +81,11 @@
                             <div class="form-group">
                                 <label for="password" >{{ __('Password') }}</label>
 
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>La password debe tener 4 caracteres minimo.</strong>
                                     </span>
                                 @enderror
 
@@ -82,7 +93,7 @@
 
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
 
                         </div>
 
@@ -91,14 +102,14 @@
                                 <label for="email">Email</label>
                                 <input type="text" name="email" id="email"
                                 value="{{old('email')}}" placeholder="Email"
-                                class="form-control mb-2" required>
+                                class="form-control mb-2" >
                             </div>
 
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
                                 <input type="text" name="descripcion" id="descripcion"
                                 value="{{old('descripcion')}}"
-                                placeholder="Descripcion" class="form-control mb-2" required>
+                                placeholder="Descripcion" class="form-control mb-2" >
                             </div>
 
 {{--                            <p>Seleccione los roles del usuario:</p>--}}
@@ -121,10 +132,11 @@
                                     }
                                 }
 
+
                             </script>
 
                             <label class="col-md-10">Seleccione los roles del usuario:</label>
-                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleCheckboxes()">
+
 
                             <div class="form-group row mx-5 ">
 
@@ -134,7 +146,10 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Rol</th>
                                         <th scope="col">Descripción</th>
-                                        <th scope="col">Seleccionar</th>
+                                        <th scope="col" class="text-center">
+                                            Seleccionar
+                                            <input type="checkbox" id="selectAllCheckbox" class="ml-1" onchange="toggleCheckboxes()">
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -150,16 +165,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
                             </div>
 
-
-                            <p>Seleccione a que persona corresponde este usuario:</p>
-                            <select name="persona" id="persona" class="form-control" required>
-                                @foreach ($personas as $persona)
-                                    <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
-                                @endforeach
-                            </select>
 
 {{--
                             <div class="form-group">
@@ -176,10 +183,10 @@
                                 </div>
                             @endforeach --}}
 
-
-                            <input type="submit" value="Registrar usuario" class="btn btn-primary btn-block mt-5">
+                            <input type="submit" name="registrar" value="Registrar usuario" class="btn btn-primary btn-block mt-5">
                             <a class="btn btn-secondary btn-block mt-4" href="{{route('users.index')}}">Volver</a>
                         </form>
+
                     </div>
                 </div>
             </div>

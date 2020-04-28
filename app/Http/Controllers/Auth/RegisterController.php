@@ -73,7 +73,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // TODO Agregar validaciones
         $this->validator($data);
 
         $user = new User();
@@ -116,7 +115,21 @@ class RegisterController extends Controller
     }
 
     protected function RegisterUser(Request $request){
-        $this->create($request->all());
+        $validated = $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'descr' => ['required', 'string'],
+            'nombresPersona' => ['required'],
+            'apellidos' => ['required'],
+            'fechaNac' => ['required'],
+            'direccion' => ['required'],
+            'tel' => ['required'],
+            'tipoDoc' => ['required'],
+            'nroDocumento' => ['required'],
+        ]);
+
+        $this->create($validated);
 
         return redirect(route('main'));   // despues de entrar redirige al main
     }

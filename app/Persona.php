@@ -11,6 +11,9 @@ class Persona extends Model
 
     use SoftDeletes;
 
+    protected $fillable = ['apellidos','nombres', 'tipoDoc', 'nroDocumento', 'fechaNacimiento', 'descripcion', 'domicilio',
+        'telefono'];
+
     public function scopeName($query, $name){
 
         if($name){

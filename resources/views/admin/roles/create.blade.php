@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <form action="{{route('roles.store')}}" method="POST">
                             @csrf
-                            @error('nombre')
+                            @error('name')
                             <div class="alert alert-danger">
                                 El nombre es obligatorio!
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -37,7 +37,7 @@
                             </div>
                             @enderror
 
-                            @error('descripcion')
+                            @error('descr')
                                 <div class="alert alert-danger">
                                     La descripcion es obligatoria!
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -28,7 +28,7 @@ class PersonaController extends Controller
         $apellido = $request->get('apellido');
 //        $personas = Persona::all();
 
-        
+
         $personas = Persona::withTrashed()
                             ->name($name)
                             ->apellido($apellido)
@@ -47,6 +47,7 @@ class PersonaController extends Controller
         return view('admin.personas.create');
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -55,23 +56,45 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'apellidos' => 'required',
+            'nombresPersona' => 'required',
+            'tipoDoc' => 'required',
+            'nroDocumento' => 'required',
+            'fechaNac' => 'required',
+            'descr' => 'required',
+            'direccion' => 'required',
+            'tel' => 'required',
+        ]);
+
         $persona = new Persona();
-        $persona->nombres = $request['nombresPersona'];
+        $persona->fill([
+            'apellidos'=>$validatedData['apellidos'],
+            'nombres'=>$validatedData['nombresPersona'],
+            'tipoDoc'=>$validatedData['tipoDoc'],
+            'nroDocumento'=>$validatedData['nroDocumento'],
+            'fechaNacimiento'=>$validatedData['fechaNac'],
+            'descripcion'=>$validatedData['descr'],
+            'domicilio'=>$validatedData['direccion'],
+            'telefono'=>$validatedData['tel'],
+        ]);
+
+        /*$persona->nombres = $request['nombresPersona'];
         $persona->apellidos = $request['apellidos'];
         $persona->descripcion = $request['descr'];
         $persona->fechaNacimiento = $request['fechaNac'];
         $persona->domicilio = $request['direccion'];
         $persona->telefono = $request['tel'];
         $persona->tipoDoc = $request['tipoDoc'];
-        $persona->nroDocumento = $request['nroDocumento'];
-//        $persona->activo = true;
+        $persona->nroDocumento = $request['nroDocumento'];*/
 
+        // Checks if it already exists
         $personaExistente = Persona::withTrashed()->where('nroDocumento', $persona->nroDocumento)->get()->first();
 
-        // Si no existe, guardo el nuevo
+        // If it doesn't, stores the new one
         if ($personaExistente == null) {
             $persona->save();
-            return back()->with('mensaje', 'Persona creada');
+            return back()->with('mensaje', 'Persona creada.');
         }
 
         if ($personaExistente->trashed()){
@@ -117,15 +140,36 @@ class PersonaController extends Controller
     {
         $persona = Persona::withTrashed()->findOrFail($id);
 
-        $persona->nombres = $request['nombresPersona'];
+        $validatedData = $request->validate([
+            'nombresPersona' => 'required',
+            'apellidos' => 'required',
+            'descr' => 'required',
+            'fechaNac' => 'required',
+            'direccion' => 'required',
+            'tel' => 'required',
+            'tipoDoc' => 'required',
+            'nroDocumento' => 'required'
+        ]);
+
+        $persona->fill([
+            'apellidos'=>$validatedData['apellidos'],
+            'nombres'=>$validatedData['nombresPersona'],
+            'tipoDoc'=>$validatedData['tipoDoc'],
+            'nroDocumento'=>$validatedData['nroDocumento'],
+            'fechaNacimiento'=>$validatedData['fechaNac'],
+            'descripcion'=>$validatedData['descripcion'],
+            'domicilio'=>$validatedData['domicilio'],
+            'telefono'=>$validatedData['tel'],
+        ]);
+
+        /*$persona->nombres = $request['nombresPersona'];
         $persona->apellidos = $request['apellidos'];
         $persona->descripcion = $request['descr'];
         $persona->fechaNacimiento = $request['fechaNac'];
         $persona->domicilio = $request['direccion'];
         $persona->telefono = $request['tel'];
         $persona->tipoDoc = $request['tipoDoc'];
-        $persona->nroDocumento = $request['nroDocumento'];
-//        $persona->activo = true;
+        $persona->nroDocumento = $request['nroDocumento'];*/
 
         $persona->save();
 
@@ -140,11 +184,9 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        //
         $personaEliminar = Persona::findOrFail($id);
         $personaEliminar->delete();
-//        $personaEliminar->activo = false;
-//        $personaEliminar->save();
+
         return back()->with('mensaje','Se desactivó a la persona del sistema');
     }
 
@@ -153,10 +195,6 @@ class PersonaController extends Controller
     {
         $persona = Persona::withTrashed()->findOrFail($id);
         $persona->restore();
-
-//        $persona->activo = true;
-
-//        $persona->save();
 
         return back()->with('mensaje', 'Se activó a la persona nuevamente');
     }
