@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlimentoTable extends Migration
+class CreateRemitoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateAlimentoTable extends Migration
      */
     public function up()
     {
-        Schema::create('alimento', function (Blueprint $table) {
+        Schema::create('remito', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->foreignId('tipo')->constrained('alimento_tipo');
-            $table->foreignId('cliente_id')->constrained('cliente');
-            $table->string('gtin');
+            $table->integer('punto_venta');
+            $table->integer('numero');
+            $table->foreignId('ticket_id')->constrained('ticket_salida');
+            $table->foreignId('destino')->constrained('granja');
+            $table->string('cot');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateAlimentoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alimento');
+        Schema::dropIfExists('remito');
     }
 }

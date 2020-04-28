@@ -14,16 +14,12 @@ class CreateFormulaComposicionTable extends Migration
     public function up()
     {
         Schema::create('formula_composicion', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_alimento');
-            $table->unsignedBigInteger('nro_formula');
-            $table->unsignedBigInteger('id_insumo');
-            $table->float('proporcion');
-            $table->primary(['id_alimento','nro_formula','id_insumo']);
-            $table->foreign('id_alimento')->references('id_alimento')->on('alimento_formula');
-            $table->foreign('nro_formula')->references('id')->on('alimento_formula');
-            $table->foreign('id_insumo')->references('id')->on('insumo');
-
+            $table->id();
+            $table->foreignId('formula_id')->constrained('alimento_formula');//parte de la PK
+            $table->foreignId('insumo_id')->constrained('insumo');//parte de la PK
+            $table->decimal('proporcion',3,2)->comment('valor 0 y 1 que define el rango personalizable del precio')->nullable(false);
             $table->timestamps();
+            $table->unique(['formula_id', 'insumo_id']);//PRIMARY KEY
         });
     }
 

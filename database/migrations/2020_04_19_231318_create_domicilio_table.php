@@ -19,9 +19,8 @@ class CreateDomicilioTable extends Migration
             $table->integer('numero');
             $table->string('piso');
             $table->string('dpto');
-            $table->unsignedBigInteger('localidad');
+            $table->foreignId('localidad_id')->constrained('localidad');
             $table->timestamps();
-            $table->foreign('localidad')->references('id')->on('localidad');
         });
     }
 

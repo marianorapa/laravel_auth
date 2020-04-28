@@ -15,7 +15,7 @@ class CreateAlimentoTipoTable extends Migration
     {
         Schema::create('alimento_tipo', function (Blueprint $table) {
             $table->id();
-            $table->string('descr');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }

@@ -15,12 +15,10 @@ class CreateInsumoEspecificoTable extends Migration
     {
         Schema::create('insumo_especifico', function (Blueprint $table) {
             $table->string('gtin')->primary();
-            $table->unsignedBigInteger('id_insumo');
-            $table->string('descr');
-            $table->unsignedBigInteger('id_proveedor');
+            $table->string('descripcion');
+            $table->foreignId('insumo_trazable_id')->constrained('insumo_trazable');
+            $table->foreignId('proveedor_id')->constrained('proveedor');
             $table->timestamps();
-            $table->foreign('id_insumo')->references('id')->on('insumo_trazable');
-            $table->foreign('id_proveedor')->references('id')->on('proveedor');
         });
     }
 

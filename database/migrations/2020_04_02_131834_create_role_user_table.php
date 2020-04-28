@@ -15,9 +15,10 @@ class CreateRoleUserTable extends Migration
     {
         Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('role_id');
-            $table->unsignedInteger('user_id');
+            $table->foreignId('role_id')->constrained('roles');//parte de la PK
+            $table->foreignId('user_id')->constrained('users');//parte de la PK
             $table->timestamps();
+            $table->unique(['role_id', 'user_id']);//PRIMARY KEY
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketEntradaInsumoNoTrazableTable extends Migration
+class CreateOpDetalleNoTrazableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTicketEntradaInsumoNoTrazableTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_entrada_insumo_no_trazable', function (Blueprint $table) {
+        Schema::create('op_detalle_no_trazable', function (Blueprint $table) {
             $table->id();
-            //$table->unsignedBigInteger('cliente');
+            $table->foreignId('op_detalle_id')->constrained('orden_de_produccion_detalle');
+            $table->foreignId('insumo_id')->constrained('inventario_insumo_no_trazable');
             $table->timestamps();
-            $table->foreign('id')->references('id')->on('ticket');
-            //$table->foreign('cliente')->references('id_cliente')->on('lote_cliente');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateTicketEntradaInsumoNoTrazableTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_entrada_insumo_no_trazable');
+        Schema::dropIfExists('op_detalle_no_trazable');
     }
 }

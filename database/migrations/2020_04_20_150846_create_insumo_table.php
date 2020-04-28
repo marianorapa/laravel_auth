@@ -15,7 +15,7 @@ class CreateInsumoTable extends Migration
     {
         Schema::create('insumo', function (Blueprint $table) {
             $table->id();
-            $table->string('descr');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }

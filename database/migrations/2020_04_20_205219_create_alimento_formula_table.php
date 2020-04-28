@@ -15,11 +15,10 @@ class CreateAlimentoFormulaTable extends Migration
     {
         Schema::create('alimento_formula', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_alimento');
+            $table->foreignId('alimento_id')->constrained('alimento');
             $table->date('fecha_desde');
             $table->date('fecha_hasta');
             $table->timestamps();
-            $table->foreign('id_alimento')->references('id')->on('alimento');
         });
     }
 

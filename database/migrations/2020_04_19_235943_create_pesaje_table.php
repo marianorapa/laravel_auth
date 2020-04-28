@@ -15,8 +15,8 @@ class CreatePesajeTable extends Migration
     {
         Schema::create('pesaje', function (Blueprint $table) {
             $table->id();
-            $table->float('pesaje');
-            $table->date('fecha_hora');
+            $table->integer('peso');
+            //$table->date('fecha_hora');
             $table->timestamps();
         });
     }
