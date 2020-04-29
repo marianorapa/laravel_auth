@@ -10,6 +10,10 @@ class Permiso extends Model
 {
     use SoftDeletes;
 
+
+    protected $fillable = ['nombre_ruta', 'descr', 'funcionalidad'];
+
+
     //
     public function roles(){
         return $this->belongsToMany(Role::class);

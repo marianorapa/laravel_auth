@@ -2,35 +2,40 @@
 
 @section('content')
 <section class="container">
-    <div class="bs-example">
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/" >Home</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
-                <li class="breadcrumb-item active">Gestion de roles</li>
-            </ol>
-        </nav>
-    </div>
+    <section>
+        <div class="bs-example">
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
+                    <li class="breadcrumb-item active">Gestion de roles</li>
+                </ol>
+            </nav>
+        </div>
 
-    <nav class="navbar navbar-light float-right">
-        <form class="form-inline">
-            <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
-            <input name='descr' class="form-control mr-sm-2" type="search" placeholder="Descr" aria-label="buscar por descripcion">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-        </form>
-    </nav>
-    
-    @if (session('mensaje'))
-    <div class="alert alert-success">
-        {{session('mensaje')}}
-    </div>
-    @endif
-    @if (session('error'))
-    <div class="alert alert-danger">
-        {{session('error')}}
-    </div>
-    @endif
+        <nav class="navbar navbar-light float-right">
+            <form class="form-inline">
+                <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
+                <input name='descr' class="form-control mr-sm-2" type="search" placeholder="Descr" aria-label="buscar por descripcion">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </nav>
+    </section>
+
     <a class="btn btn-primary btn-sm m-1" href="{{route('roles.create')}}">Agregar</a>
+
+    <section class="mt-3">
+        @if (session('mensaje'))
+            <div class="alert alert-success">
+                {{session('mensaje')}}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+            </div>
+        @endif
+    </section>
     <table class="table">
         <thead>
             <tr>

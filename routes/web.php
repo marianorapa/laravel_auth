@@ -40,6 +40,10 @@ Route::resource('roles', 'RoleController');
 Route::resource('permisos', 'PermisoController');
 Route::resource('personas', 'PersonaController');
 
+Route::get('balanzas', 'BalanzaController@index');
+
+Route::resource('ingresos', 'IngresoController');
+
 
 /*
  * TODO: Rutas de usuario balanza/administración

@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('descr');
             $table->string('email')->unique();
-//            $table->boolean('activo');
             $table->softDeletes();
             $table->unsignedBigInteger('persona_id');
             $table->rememberToken();

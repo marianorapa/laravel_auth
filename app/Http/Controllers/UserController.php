@@ -53,6 +53,15 @@ class UserController extends Controller
     }
 
     /**
+     * Reloads the form flashing data back
+     */
+    public function reloadCreate(Request $request)
+    {
+        $request->flash();
+        return view('admin.users.create');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,15 +69,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Copio y pego del register controller
+        // If user pressed "refresh" button
+        if ($request->get('refreshButton')){
+            $request->flash();
+            return back()->with('mensaje', 'Personas actualizadas. ');
+        }
+
+        $validatedData = $request->validate([
+            'username' => 'required',
+            'password' => 'min:4|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:4',
+            'descripcion' => 'required',
+            'email' => 'required|email'
+        ]);
+
         $user = new User();
-        $user->username = $request['username'];
+        $user->fill(
+            [
+                'username' => $validatedData['username'],
+                'password' => $validatedData['password'],
+                'descr' => $validatedData['descripcion'],
+                'email' => $validatedData['email']
+            ]
+        );
+        /*$user->username = $request['username'];
         $user->password = Hash::make($request['password']);
         $user->email = $request['email'];
         $user->descr = $request['descripcion'];
-//        $user->activo = true;
-
-
+        */
         $userExistente = User::withTrashed()->where('username', $user->username)->get()->first();
 
         if ($userExistente != null) {
@@ -158,13 +186,16 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
 
         $this->validate($request, [
-            'username' => 'required'
+            'username' => 'required',
+            'descripcion' => 'required',
+            'email' => 'required|email'
         ]);
 
         // Si viene una password, desea cambiarla. Si no viene, no la toco
         if ($request['password'] != null){
             $this->validate($request, [
-                'password' => 'required|confirmed'
+                'password' => 'required|confirmed',
+                'password_confirmation'=>'required'
             ]);
             $user->password = Hash::make($request['password']); // La tengo que hashear
         }
@@ -172,8 +203,6 @@ class UserController extends Controller
         $user->username = $request['username'];
         $user->email = $request['email'];
         $user->descr = $request['descripcion'];
-//        $user->activo = true;
-
 
         $roles = Role::all();
 

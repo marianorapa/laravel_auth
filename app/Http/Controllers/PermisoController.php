@@ -51,14 +51,21 @@ class PermisoController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'descr' => 'required',
+            'funcionalidad' => 'required'
+        ]);
+
         $permisoNuevo = new Permiso;
-        $permisoNuevo->nombre_ruta = $request['name'];
-        $permisoNuevo->descr = $request['descr'];
-        $permisoNuevo->funcionalidad = $request['funcionalidad'];
-//        $permiso->activo = true;
+        $permisoNuevo->fill([
+            'nombre_ruta'=>$validatedData['name'],
+            'descr'=>$validatedData['descr'],
+            'funcionalidad'=>$validatedData['funcionalidad']
+        ]);
 
         // Busco un permiso con el mismo nombre
-        $permisoExistente = Permiso::withTrashed()->where('name', $permisoNuevo->nombre_ruta)->get()->first();
+        $permisoExistente = Permiso::withTrashed()->where('nombre_ruta', $permisoNuevo->nombre_ruta)->get()->first();
 
         // Si no existe, guardo el nuevo
         if ($permisoExistente == null) {
@@ -109,10 +116,17 @@ class PermisoController extends Controller
     {
         $permiso = Permiso::withTrashed()->findOrFail($id);
 
-        $permiso->nombre_ruta = $request['name'];
-        $permiso->descr = $request['descr'];
-        $permiso->funcionalidad = $request['funcionalidad'];
-//        $permiso->activo = true;
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'descr' => 'required',
+            'funcionalidad' => 'required'
+        ]);
+
+        $permiso->fill([
+            'nombre_ruta'=>$validatedData['name'],
+            'descr'=>$validatedData['descr'],
+            'funcionalidad'=>$validatedData['funcionalidad']
+        ]);
 
         $permiso->save();
 

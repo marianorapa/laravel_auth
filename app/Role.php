@@ -10,6 +10,8 @@ class Role extends Model
 
     use SoftDeletes;
 
+    protected $fillable = ['name','descr'];
+
     public function users(){
         return $this->belongsToMany(User::class)->withTimestamps();
     }

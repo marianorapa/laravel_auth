@@ -18,12 +18,20 @@ class CreatePersonasTable extends Migration
             $table->string('apellidos');
             $table->string('nombres');
             $table->string('tipoDoc');
+<<<<<<< HEAD
+            $table->string('nroDocumento')->unique();
+            $table->date('fechaNacimiento');
+            $table->string('descripcion');
+            $table->string('domicilio');//en el doc esta como que todavia no sabemos si va como tabla, puede ser ina fk
+            $table->string('telefono');
+=======
             $table->string('nroDocumento');
             $table->string('descripcion');
             $table->string('domicilio');//en el doc esta como que todavia no sabemos si va como tabla, puede ser ina fk
             $table->date('fechaNacimiento');
             $table->string('telefono');
 //            $table->boolean('activo');
+>>>>>>> 7c2a3b85f234d11393cbd24531fa7b6718ceb349
             $table->softDeletes();
             $table->timestamps();
             $table->unique(['tipoDoc','nroDocumento']);
