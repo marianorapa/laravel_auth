@@ -15,16 +15,10 @@ class CreateEmpresaTable extends Migration
     {
         Schema::create('empresa', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tipo_documento_empresa');
-            $table->integer('nro_documento_empresa');
             $table->string('denominacion');
-            $table->unsignedBigInteger('domicilio_fiscal');
-            $table->string('telefono_contacto_persona');
-            $table->string('email');
+            $table->date('fecha_inicio_actividades')->nullable(true);
             $table->timestamps();
-            $table->foreign('tipo_documento_empresa')->references('id')->on('tipo_documento');
-            $table->foreign('domicilio_fiscal')->references('id')->on('domicilio');
-            
+            $table->foreign('id')->references('id')->on('persona_tipo');
         });
     }
 

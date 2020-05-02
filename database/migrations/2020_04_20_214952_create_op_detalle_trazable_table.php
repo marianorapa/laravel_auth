@@ -16,7 +16,7 @@ class CreateOpDetalleTrazableTable extends Migration
         Schema::create('op_detalle_trazable', function (Blueprint $table) {
             $table->id();
             $table->foreignId('op_detalle_id')->constrained('orden_de_produccion_detalle');
-            $table->foreignId('lote_insumo_id')->constrained('inventario_insumo_trazable');
+            $table->foreignId('lote_insumo_id')->constrained('lote_insumo_especifico');
             $table->timestamps();
         });
     }

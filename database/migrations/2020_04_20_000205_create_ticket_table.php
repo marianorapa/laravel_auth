@@ -16,13 +16,13 @@ class CreateTicketTable extends Migration
         Schema::create('ticket', function (Blueprint $table) {
             $table->id();
             //$table->date('fecha_hora');
+            $table->foreignId('cliente_id')->constrained('cliente');
             $table->foreignId('transportista_id')->constrained('transportista');
             $table->string('patente');
             $table->foreignId('chofer_id')->constrained('chofer');
             $table->foreignId('bruto')->constrained('pesaje');
             $table->foreignId('tara')->constrained('pesaje');
             $table->integer('neto');
-            $table->foreignId('estado')->constrained('estado_ticket');
             $table->timestamps();
         });
     }
