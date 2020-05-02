@@ -5,14 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Persona extends Model
+class Persona extends PersonaTipo
 {
     //
-
     use SoftDeletes;
 
-    protected $fillable = ['apellidos','nombres', 'tipoDoc', 'nroDocumento', 'fechaNacimiento', 'descripcion', 'domicilio',
-        'telefono'];
+    protected $fillable = ['apellidos','nombres', 'fecha_nacimiento'];
 
     public function scopeName($query, $name){
 

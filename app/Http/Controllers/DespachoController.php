@@ -2,22 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\TicketSalida;
 use Illuminate\Http\Request;
 
-class IngresoController extends Controller
+class DespachoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        //
+        $cliente = $request->get('cliente');
+        $patente = $request->get('patente');
 
-        // Recuperar ultimos ingresos
-        Ingreso::paginate(10);
+        $despachos = TicketSalida::withTrashed()
+                            ->cliente($cliente)
+                            ->patente($patente)
+                            ->paginate(10);
 
-        return view('balanzas.ingresos.index');
+        return View('balanzas.despachos.index');
     }
 
     /**

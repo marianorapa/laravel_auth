@@ -69,6 +69,13 @@ class PermisoTableSeeder extends Seeder
         $permiso->funcionalidad = 'Permite activar usuarios eliminados';
 //        $permiso->activo = true;
         $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'users.roles.asignar';
+        $permiso->descr = 'Asignar roles a usuario';
+        $permiso->funcionalidad = 'Permite asignar roles a un usuario, incluso ROL ADMINISTRADOR';
+//        $permiso->activo = true;
+        $permiso->save();
     }
 
     private function seed_permisos_menus()

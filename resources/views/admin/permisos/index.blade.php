@@ -15,7 +15,7 @@
 
         <a class="btn btn-primary btn-sm m-1" href="{{route('permisos.create')}}">Agregar</a>
 
-        <nav class="navbar navbar-light float-right">
+        <nav class="float-right">
             <form class="form-inline">
                 <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
                 <input name='descr' class="form-control mr-sm-2" type="search" placeholder="Descr" aria-label="buscar por descripcion">
@@ -50,7 +50,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                     @foreach ($permisos as $permiso)
+                    @foreach ($permisos as $permiso)
                         <tr>
                             <th scope="row">{{$permiso->id}}</th>
                             <td>{{$permiso->nombre_ruta}}</td>
@@ -60,19 +60,22 @@
                             <td>
                                 <a href="{{route('permisos.edit', $permiso)}}" class="btn btn-warning btn-sm">Editar</a> <!--me tira que permisos.edit no existe -->
                                 @if (!$permiso->trashed())
-                                <form action="{{route('permisos.destroy', $permiso)}}" method="POST" class="d-inline">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                                    <form action="{{route('permisos.destroy', $permiso)}}" method="POST" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
                                 @else
-                                  <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a>
+                                    <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a>
                                 @endif
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                    </tbody>
               </table>
+            <div class="row justify-content-center">
+                {{$permisos->links()}}
+            </div>
     </section>
       <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
 
