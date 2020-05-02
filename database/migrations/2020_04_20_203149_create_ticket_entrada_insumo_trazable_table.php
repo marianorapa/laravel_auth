@@ -15,7 +15,7 @@ class CreateTicketEntradaInsumoTrazableTable extends Migration
     {
         Schema::create('ticket_entrada_insumo_trazable', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('insumo_t_id')->constrained('inventario_insumo_trazable');
+            $table->foreignId('insumo_t_id')->constrained('lote_insumo_especifico');
             $table->timestamps();
             $table->foreign('id')->references('id')->on('ticket_entrada');
         });

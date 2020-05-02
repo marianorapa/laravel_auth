@@ -17,6 +17,7 @@ class CreatePrestamoDevolucionesTable extends Migration
             $table->id();
             $table->foreignId('prestamo_id')->constrained('prestamo_cliente');
             $table->foreignId('ticket_entrada_id')->constrained('ticket_entrada_insumo_no_trazable');
+            $table->integer('cantidad');
             $table->timestamps();
         });
     }

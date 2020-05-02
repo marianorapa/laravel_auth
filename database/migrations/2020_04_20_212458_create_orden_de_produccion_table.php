@@ -16,16 +16,15 @@ class CreateOrdenDeProduccionTable extends Migration
         Schema::create('orden_de_produccion', function (Blueprint $table) {
             $table->id();
             //$table->date('fecha');
-            $table->foreignId('cliente_id')->constrained('cliente');
+            //$table->foreignId('cliente_id')->constrained('cliente');// ES REALMENTE NECESARIO??? EL ALIMENTO ES DE UN CLIENTE
             $table->foreignId('producto_id')->constrained('alimento');
             $table->integer('cantidad');
-            $table->integer('saldo');
+            $table->integer('saldo')->comment('cantidad - sum(ticket_salida)');
             $table->date('fecha_fabricacion');
-            $table->foreignId('capacidad_traza_id')->constrained('capacidad_productiva');
-            $table->decimal('precio_por_kilo',15,2);
-            $table->foreignId('precio_traza_id')->constrained('precio_fason');
+            //$table->foreignId('capacidad_traza_id')->constrained('capacidad_productiva');
+            $table->decimal('precio_venta_por_kilo',15,2);
+            //$table->foreignId('precio_traza_id')->constrained('precio_fason');
             $table->foreignId('destino')->constrained('granja');
-            $table->foreignId('estado')->constrained('estado_op');
             $table->timestamps();
         });
     }

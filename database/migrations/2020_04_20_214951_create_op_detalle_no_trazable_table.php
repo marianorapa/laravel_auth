@@ -16,7 +16,8 @@ class CreateOpDetalleNoTrazableTable extends Migration
         Schema::create('op_detalle_no_trazable', function (Blueprint $table) {
             $table->id();
             $table->foreignId('op_detalle_id')->constrained('orden_de_produccion_detalle');
-            $table->foreignId('insumo_id')->constrained('inventario_insumo_no_trazable');
+            $table->foreignId('cliente_id')->constrained('cliente');
+            $table->foreignId('insumo_id')->constrained('insumo_no_trazable');
             $table->timestamps();
         });
     }
