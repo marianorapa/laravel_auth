@@ -60,9 +60,12 @@ Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_
 //views hechas a partir de los wareframe
 
 Route::get('/registroinsumoini', function() {
-    return view('balanzas/ingresos/registroinsumo');
+    return view('balanzas/ingresos/registroinsumo')->name('balanzas.ingresos.registroinsumo');
 });
 
 Route::get('/registroinsumofin', function() {
     return view('balanzas/ingresos/registroinsumofinal');
 });
+
+//ruta para ina funcion
+route::get('/localidades', 'Auth\RegisterController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.

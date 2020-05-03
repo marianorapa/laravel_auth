@@ -146,6 +146,7 @@ class RegisterController extends Controller
         return redirect(route('main'));   // despues de entrar redirige al main
     }
 
+<<<<<<< HEAD
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|int
@@ -177,4 +178,24 @@ class RegisterController extends Controller
         }
     }
 
+=======
+
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getlocalidad(Request $request){
+
+        if ($request->ajax()) {
+            $localidades = Localidad::where('provincia_id', $request->provincia_id)->get();
+            foreach ($localidades as $localidad) {
+                $localidadArray[$localidad->id] = $localidad->descripcion;
+            }
+            return response()->json($localidadArray);
+        }
+    }
+>>>>>>> 5b03ea6bfe3304d6a9990b55092e53fc98b06a3a
 }
