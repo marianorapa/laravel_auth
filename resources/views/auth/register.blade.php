@@ -94,7 +94,10 @@
 {{--                        <div class="form-group row">--}}
 {{--                            <label for="fechaNac" class="col-md-4 col-form-label text-md-right">{{ __('Fecha nacimiento') }}</label>--}}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7bc89d3521ddc64e57b9cf02218701f7143262f4
                         <!--<div class="form-group row">
                             <label for="direccion" class="col-md-4 col-form-label text-md-right">{{ __('Domicilio') }}</label>
 
@@ -105,6 +108,7 @@
 
 
 
+<<<<<<< HEAD
 {{--                            <div class="col-md-6">--}}
 {{--                                <input id="fechaNac" type="date" class="form-control" name="fechaNac" value="{{ old('fechaNac') }}" required>--}}
 {{--                            </div>--}}
@@ -118,6 +122,11 @@
 {{--                            </div>--}}
 {{--                        </div>--}}
 
+=======
+                            </div>
+                                
+                        </div>
+>>>>>>> 7bc89d3521ddc64e57b9cf02218701f7143262f4
 
 
 {{--                        <div class="form-group row">--}}

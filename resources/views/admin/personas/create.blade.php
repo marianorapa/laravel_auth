@@ -81,7 +81,10 @@
                             </select>
 
                         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7bc89d3521ddc64e57b9cf02218701f7143262f4
 {{--                            <div class="col-md-6">--}}
 {{--                                <input id="fechaNac" type="date" class="form-control" name="fechaNac" required>--}}
 {{--                            </div>--}}
@@ -95,7 +98,10 @@
 {{--                                </select>--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7bc89d3521ddc64e57b9cf02218701f7143262f4
 
 {{--                        <div class="form-group row">--}}
 {{--                            <label for="nroDocumento" class="col-md-4 col-form-label text-md-right">{{ __('nroDocumento') }}</label>--}}
