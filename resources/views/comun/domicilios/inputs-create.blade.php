@@ -33,23 +33,28 @@
 
     <script>
 
-        $(document).ready(function(){
-            $(#provincia).on('change', function(){
+        document.addEventListener("DOMContentLoaded", function (event) { 
+           
+            $('#provincia').on('change', function(){
 
-                var provincia_id =  $(this).val();
-                if ($.trim($provincia_id) != '') {
-                    $.get('localidades' , {$provincia_id: provincia_id}, function(localidades){
-                        $('#localidad').empty();
-                        $('#localidad').append("<option value=''> Seleccione una localidad</option>");
-                        $.each(localidades, function (index,descripcion) {
-                            $('#localidad').append("<option value='" + index + "'>" + descripcion +"</option>");
-                        })
-                    });
-                }
+            var provincia_id =  $(this).val();
+            if ($.trim(provincia_id) != '') {
+               
+                $.get('localidades' , {$provincia_id: provincia_id}, function(localidades){
+                    $('#localidad').empty();
+                    $('#localidad').append("<option value=''> Seleccione una localidad</option>");
+              
+                    $.each(localidades, function (index,descripcion) {
+                        
+                        $('#localidad').append("<option value='" + index + "'>" + descripcion +"</option>");
+                    })
+                });
+            }
             });
-        });
-    </script>
+         });
 
+    </script>
+    
 
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
 

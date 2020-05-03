@@ -183,14 +183,13 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getlocalidad(Request $request){
-
-        if ($request->ajax()) {
-            $localidades = Localidad::where('provincia_id', $request->provincia_id)->get();
+        $id = $request->get('provincia_id');
+      
+            $localidades = Localidad::where('provincia_id',"LIKE",$id)->get();
             foreach ($localidades as $localidad) {
                 $localidadArray[$localidad->id] = $localidad->descripcion;
             }
             return response()->json($localidadArray);
-        }
     }
 
 }
