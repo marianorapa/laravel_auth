@@ -39,9 +39,7 @@ class PersonaTipo extends Model
     /**
      * @var array
      */
-    protected $fillable = ['tipo_documento_id', 'domicilio_id', 'nro_documento',
-                            'telefono', 'email', 'observaciones', 'deleted_at',
-                            'created_at', 'updated_at'];
+    protected $fillable = ['nro_documento', 'telefono', 'email', 'observaciones'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
