@@ -50,4 +50,7 @@ class Localidad extends Model
     {
         return $this->hasMany('App\Domicilio');
     }
+
+    
+
 }

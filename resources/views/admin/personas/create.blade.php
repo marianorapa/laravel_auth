@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+@inject('Provincia', 'App\Provincia')
+
 <div class="container">
     <div class="bs-example">
         <nav>
@@ -72,12 +74,22 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!--<div class="form-group row">
                             <label for="direccion" class="col-md-4 col-form-label text-md-right">{{ __('Domicilio') }}</label>
 
                             <div class="col-md-6">
                                 <input id="direccion" type="text" class="form-control" name="direccion" required>
                             </div>
+                        </div>-->
+                        <div class="form-group row">
+                            <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
+               
+                            <select name="provincia" id="provincia" class="selectpicker show-menu-arrow" data-show-subtext="true" data-live-search="true">
+                                @foreach ($Provincia->getProvincia() as $index => $prov )
+                                    <option value="{{$index}}"> {{$prov}}</option>
+                                @endforeach
+                            </select> 
+
                         </div>
 
 

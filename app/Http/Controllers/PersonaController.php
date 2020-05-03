@@ -5,6 +5,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Persona;
+use App\Provincia;
+use App\localidad;
 
 class PersonaController extends Controller
 {
@@ -63,7 +65,7 @@ class PersonaController extends Controller
             'nroDocumento' => 'required',
             'fechaNac' => 'required',
             'descr' => 'required',
-            'direccion' => 'required',
+            //'direccion' => 'required',
             'tel' => 'required',
         ]);
 
@@ -75,7 +77,7 @@ class PersonaController extends Controller
             'nroDocumento'=>$validatedData['nroDocumento'],
             'fechaNacimiento'=>$validatedData['fechaNac'],
             'descripcion'=>$validatedData['descr'],
-            'domicilio'=>$validatedData['direccion'],
+            //'domicilio'=>$validatedData['direccion'],
             'telefono'=>$validatedData['tel'],
         ]);
 
@@ -198,4 +200,16 @@ class PersonaController extends Controller
 
         return back()->with('mensaje', 'Se activó a la persona nuevamente');
     }
+
+
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function buscadorprovincia(Request $request){
+
+    }
+
 }

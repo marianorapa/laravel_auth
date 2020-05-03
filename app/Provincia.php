@@ -39,4 +39,18 @@ class Provincia extends Model
     {
         return $this->hasMany('App\Localidad', 'provincia_id');
     }
+
+    public function scopeBuscar($query, $name){
+        if($name){
+            return $query->where('nombres', 'LIKE',"%$name%"); //esta query devuelve semejanzas.
+        }
+    }
+
+    public function getprovincia(){
+        $provincias = Provincia::all();
+        foreach($provincias as $provincia){
+            $provinciaArray[$provincia->id] = $provincia->descripcion;
+        }
+        return $provinciaArray;
+    }
 }
