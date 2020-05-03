@@ -11,21 +11,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $codigo_postal
  * @property string $created_at
  * @property string $updated_at
- * @property Provincium $provincium
+ * @property Provincia $provincium
  * @property Domicilio[] $domicilios
  */
 class Localidad extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'localidad';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -38,9 +38,9 @@ class Localidad extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function provincium()
+    public function provincia()
     {
-        return $this->belongsTo('App\Provincium', 'provincia_id');
+        return $this->belongsTo('App\Provincia', 'provincia_id');
     }
 
     /**

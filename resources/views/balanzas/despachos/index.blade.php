@@ -9,13 +9,13 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/" >Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('balanzas.menu')}}" >Balanzas</a></li>
-                        <li class="breadcrumb-item active">Gestion de Ingresos</li>
+                        <li class="breadcrumb-item active">Gestion de Despachos</li>
                     </ol>
                 </nav>
             </div>
 
             <div class="row justify-content-center mt-4">
-                <a class="btn btn-primary btn m-1 col-3" href="{{route('permisos.create')}}">Nuevo ingreso</a>
+                <a class="btn btn-primary btn m-1 col-3" href="{{route('permisos.create')}}">Nuevo despacho</a>
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
@@ -48,7 +48,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Insumo</th>
+                        <th scope="col">Producto</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Patente</th>
                         <th scope="col">Acciones</th>
@@ -81,7 +81,7 @@
                             <th scope="row">1</th>
                             <td>Chinos</td>
                             <td>19/04/20</td>
-                            <td>Maiz</td>
+                            <td>Alimento para cerdos 12AS</td>
                             <td>15000</td>
                             <td>ABC123</td>
                             <td>

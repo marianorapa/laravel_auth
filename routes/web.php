@@ -20,7 +20,7 @@ Route::post('/login', 'Auth\LoginController@authenticate')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    //Auth::routes()->middleware('checkUserExistence');
+//Auth::routes()->middleware('checkUserExistence');
 
 /*
  * Rutas protegidas
@@ -34,16 +34,16 @@ Route::resource('users', 'UserController');
 Route::get('users/activate/{id}', 'UserController@activate')->name('users.activate');
 Route::get('personas/activate/{id}', 'PersonaController@activate')->name('personas.activate');
 Route::get('permisos/activate/{id}', 'PermisoController@activate')->name('permisos.activate');
-Route::get('roles/activate/{id}', 'RoleController@activate')->name('roles.activate');
+Route::get('roles/activate/{id}','RoleController@activate')->name('roles.activate');
 
 Route::resource('roles', 'RoleController');
 Route::resource('permisos', 'PermisoController');
 Route::resource('personas', 'PersonaController');
 
-Route::get('balanzas', 'BalanzaController@index');
+Route::get('balanzas', 'BalanzaController@index')->name('balanzas.menu');
 
 Route::resource('ingresos', 'IngresoController');
-
+Route::resource('despachos', 'DespachoController');
 
 /*
  * TODO: Rutas de usuario balanza/administración

@@ -123,26 +123,33 @@ class UserController extends Controller
             return back()->with('error', 'El email ya existe.');
         }
 
-        $roles = Role::all();
 
-        // Ahora le pongo los que vienen en la solicitud
-        foreach($roles as $rol){
-            if ($request[$rol->name]){
-                $user->roles()->attach($rol);
+        if (Auth::user()->hasPermiso('users.roles.asignar')){
+
+            $roles = Role::all();
+
+            // Ahora le pongo los que vienen en la solicitud
+            foreach($roles as $rol){
+                if ($request[$rol->name]){
+                    $user->roles()->attach($rol);
+                }
+                // else {
+                //     $user->roles()->detach($rol);
+                // }
             }
-            // else {
-            //     $user->roles()->detach($rol);
-            // }
-        }
-        try {
-            $user->save();
-        }
-        catch (QueryException $e)
-        {
-            return back()->with('error', 'Error al asignar roles.');
+            try {
+                $user->save();
+            }
+            catch (QueryException $e)
+            {
+                return back()->with('error', 'Error al asignar roles.');
+            }
+
+            return back()->with('mensaje', 'Usuario registrado');
         }
 
-        return back()->with('mensaje', 'Usuario registrado');
+        return back()->with('mensaje', 'Usuario registrado')
+            ->with('warning', 'No se han registrado los roles. Necesita permiso "Asignar roles a usuario"');
     }
 
     /**
@@ -204,38 +211,38 @@ class UserController extends Controller
         $user->email = $request['email'];
         $user->descr = $request['descripcion'];
 
-        $roles = Role::all();
+        if (Auth::user()->hasPermiso('users.roles.asignar')){
 
-        // Antes de sacarle los roles, verifica si tiene el de admin y esta intentando sacarselo
-        if ($user->hasRole('admin')){
+            $roles = Role::all();
 
-            if (!isset($request['roles']) || !(in_array('admin', $request['roles']))){
-                return back()->with('error', 'No puede quitarse el rol de administrador');
+            // Antes de sacarle los roles, verifica si tiene el de admin y esta intentando sacarselo
+            if ($user->hasRole('admin')){
+
+                if (!isset($request['roles']) || !(in_array('admin', $request['roles']))){
+                    return back()->with('error', 'No puede quitarse el rol de administrador');
+                }
             }
-        }
 
-        // Primero le saco todos los roles
-        $user->roles()->detach();
-        // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
-        foreach($roles as $rol){
-
-            if (isset($request['roles']) && in_array($rol->name, $request['roles'])){
-                $user->roles()->attach($rol);
+            // Primero le saco todos los roles
+            $user->roles()->detach();
+            // Ahora, de todos los roles, le pongo solo los que vienen en la solicitud
+            foreach($roles as $rol){
+                if (isset($request['roles']) && in_array($rol->name, $request['roles'])){
+                    $user->roles()->attach($rol);
+                }
             }
-            // Saco esto xq lo hago arriba y aca trae problemas
-            // else {
-            //     $user->roles()->detach($rol);
-            // }
-        }
-        try {
-            $user->save();
-        }
-        catch (Error $e)
-        {
-            return back()->with('error', 'Se produjo un error al actualizar el usuario');
-        }
-        return back()->with('mensaje', 'Usuario actualizado');
+            try {
+                $user->save();
+            }
+            catch (Error $e)
+            {
+                return back()->with('error', 'Se produjo un error al actualizar el usuario');
+            }
+            return back()->with('mensaje', 'Usuario actualizado');
 
+        }
+        return back()->with('mensaje', 'Usuario actualizado SIN MODIFICAR ROLES.
+            No puede realizar esa acción. Necesita permiso "Asignar roles a usuario"');
     }
 
     /**

@@ -29,7 +29,7 @@ class PermisoController extends Controller
         $permisos = Permiso::withTrashed()
                              ->nruta($name)
                              ->descr($descr)
-                             ->get();
+                             ->paginate(10);
         return view('admin.permisos.index', compact('permisos'));
     }
 
