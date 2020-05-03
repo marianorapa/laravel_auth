@@ -139,8 +139,6 @@ class RegisterController extends Controller
 
         $this->saveDomicilio($request);
 
-
-
         $this->create($validated);
 
         return redirect(route('main'));   // despues de entrar redirige al main
@@ -177,9 +175,6 @@ class RegisterController extends Controller
             return back()->with('error', 'Error al guardar el domicilio.');
         }
     }
-
-
-
 
     /**
      * Store a newly created resource in storage.

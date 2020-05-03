@@ -54,7 +54,6 @@
                             </div>
                         </div>
 
-
                         @include('admin.personas.inputs-create')
 
 
@@ -155,9 +154,4 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
+@endsection

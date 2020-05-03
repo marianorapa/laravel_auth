@@ -1,5 +1,3 @@
-@inject('Provincia', 'App\Provincia')
-
 <div class="form-group row">
     <label for="nombresPersona" class="col-md-4 col-form-label text-md-right">{{ __('Nombres') }}</label>
 

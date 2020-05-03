@@ -1,3 +1,5 @@
+@inject('Provincia', 'App\Provincia')
+
 <div class="form-group row">
     <label for="calle" class="col-md-4 col-form-label text-md-right">{{ __('Calle') }}</label>
 
@@ -30,7 +32,7 @@
     </div>
 
     <script>
-        alert("asdasd");
+
         $(document).ready(function(){
             $(#provincia).on('change', function(){
 
@@ -48,11 +50,14 @@
         });
     </script>
 
-    <div class="form-group row">
+
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
 
         <div class="col-md-6">
-            <select name="provincia" id="provincia" class="form-control" >
+            <select name="provincia" id="provincia" class="form-control" onchange="function prueba() {
+                    alert('Hola');
+                }
+                prueba()">
                 <option value="">Selecione una provincia</option>
                 @foreach ($Provincia->getProvincia() as $index => $prov )
                     <option value="{{$index}}"> {{$prov}}</option>

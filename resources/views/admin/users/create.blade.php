@@ -140,7 +140,6 @@
                                     }
                                 }
 
-
                             </script>
 
                             <label class="col-md-10">Seleccione los roles del usuario:</label>
@@ -199,7 +198,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 </section>
 
