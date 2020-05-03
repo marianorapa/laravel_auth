@@ -146,7 +146,7 @@ class RegisterController extends Controller
         return redirect(route('main'));   // despues de entrar redirige al main
     }
 
-<<<<<<< HEAD
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|int
@@ -178,9 +178,9 @@ class RegisterController extends Controller
         }
     }
 
-=======
 
-    
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -197,5 +197,5 @@ class RegisterController extends Controller
             return response()->json($localidadArray);
         }
     }
->>>>>>> 5b03ea6bfe3304d6a9990b55092e53fc98b06a3a
+
 }
