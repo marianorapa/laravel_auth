@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Domicilio;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PersonaController;
+use App\Localidad;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
 use App\Persona;
+use App\Utils\DomicilioManager;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -115,23 +121,60 @@ class RegisterController extends Controller
     }
 
     protected function RegisterUser(Request $request){
-        $validated = $request->validate([
+        $validatedUsuario = $request->validate([
             'username' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'confirmed'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'descr' => ['required', 'string'],
+            'password' => ['required', 'string', 'confirmed']
+        ]);
+
+        $validatedPersona = $request->validate([
             'nombresPersona' => ['required'],
             'apellidos' => ['required'],
             'fechaNac' => ['required'],
-            'direccion' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'tel' => ['required'],
             'tipoDoc' => ['required'],
             'nroDocumento' => ['required'],
+            'observaciones' => ['string'],
         ]);
+
+        $this->saveDomicilio($request);
+
+
 
         $this->create($validated);
 
         return redirect(route('main'));   // despues de entrar redirige al main
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|int
+     */
+    protected function saveDomicilio(Request $request)
+    {
+        $validatedDomicilio = $request->validate([
+            'calle' => ['required'],
+            'numero' => ['required', 'numeric'],
+            'piso' => ['numeric'],
+            'codigo_postal' => ['required'],
+            //'id_provincia' => ['required'], ya esta en localidad
+            'id_localidad' => ['required']
+        ]);
+
+        try {
+            $localidad = Localidad::findOrFail($validatedDomicilio['id_localidad']);
+
+            $domicilio = new Domicilio();
+            $domicilio->fill($validatedDomicilio);
+            $domicilio->localidad($localidad);
+
+            $domicilio->save();
+            return $domicilio->id;
+        } catch (ModelNotFoundException $e) {
+            return back()->with('error', 'Localidad no encontrada.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Error al guardar el domicilio.');
+        }
     }
 
 }
