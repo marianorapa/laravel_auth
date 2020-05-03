@@ -31,39 +31,13 @@
         <input id="codigo_postal" type="text" class="form-control" name="codigo_postal" required>
     </div>
 
-    <script>
 
-        document.addEventListener("DOMContentLoaded", function (event) { 
-           
-            $('#provincia').on('change', function(){
-
-            var provincia_id =  $(this).val();
-            if ($.trim(provincia_id) != '') {
-               
-                $.get('localidades' , {$provincia_id: provincia_id}, function(localidades){
-                    $('#localidad').empty();
-                    $('#localidad').append("<option value=''> Seleccione una localidad</option>");
-              
-                    $.each(localidades, function (index,descripcion) {
-                        
-                        $('#localidad').append("<option value='" + index + "'>" + descripcion +"</option>");
-                    })
-                });
-            }
-            });
-         });
-
-    </script>
-    
 
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
 
         <div class="col-md-6">
-            <select name="provincia" id="provincia" class="form-control" onchange="function prueba() {
-                    alert('Hola');
-                }
-                prueba()">
-                <option value="">Selecione una provincia</option>
+            <select v-model="selected_provincia" @change="loadLocalidades" name="provincia" id="provincia" class="form-control">
+
                 @foreach ($Provincia->getProvincia() as $index => $prov )
                     <option value="{{$index}}"> {{$prov}}</option>
                 @endforeach
@@ -77,8 +51,9 @@
         <label for="localidad" class="col-md-4 col-form-label text-md-right">Localidad</label>
 
         <div class="col-md-6">
-            <select name="localidad" id="localidad" class="form-control" >
-
+            <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" >
+                <option value="">Seleccione una localidad</option>
+            <option v-for="(localidad, index) in localidades" b-bind:value="index">@{{localidad}}</option>
             </select>
 
         </div>

@@ -49523,9 +49523,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
-});
+__webpack_require__(/*! ./selectDinamico.js */ "./resources/js/selectDinamico.js");
 
 /***/ }),
 
@@ -49643,6 +49641,42 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/selectDinamico.js":
+/*!****************************************!*\
+  !*** ./resources/js/selectDinamico.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    selected_provincia: '',
+    selected_localidad: '',
+    localidades: []
+  },
+  methods: {
+    loadLocalidades: function loadLocalidades() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('localidades', {
+        params: {
+          provincia_id: this.selected_provincia
+        }
+      }).then(function (response) {
+        _this.localidades = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49661,8 +49695,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\maria\Documents\Projects\notas_auth\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\maria\Documents\Projects\notas_auth\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\laravel_auth\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel_auth\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

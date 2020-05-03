@@ -184,7 +184,7 @@ class RegisterController extends Controller
      */
     public function getlocalidad(Request $request){
         $id = $request->get('provincia_id');
-      
+       
             $localidades = Localidad::where('provincia_id',"LIKE",$id)->get();
             foreach ($localidades as $localidad) {
                 $localidadArray[$localidad->id] = $localidad->descripcion;
