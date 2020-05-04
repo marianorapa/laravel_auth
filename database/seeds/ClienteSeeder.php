@@ -15,11 +15,11 @@ class ClienteSeeder extends Seeder
         //
 
         // Ejemplo de guardar entidades con herencia
-        $tipoDoc = \App\TipoDocumento::findOrFail(80);
+        //$tipoDoc = \App\TipoDocumento::findOrFail(80);
 
-        $localidad = \App\Localidad::findOrFail(150);
+        //$localidad = \App\Localidad::findOrFail(150);
 
-        $domicilio = new \App\Domicilio();
+       /* $domicilio = new \App\Domicilio();
         $domicilio->calle = "Calle";
         $domicilio->numero = "123";
         $domicilio->piso = "";
@@ -48,6 +48,6 @@ class ClienteSeeder extends Seeder
 
         $cliente = new Cliente();
         $cliente->empresa()->associate($empresa);
-        $cliente->save();
+        $cliente->save();*/
     }
 }

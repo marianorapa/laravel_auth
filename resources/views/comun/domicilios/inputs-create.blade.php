@@ -20,7 +20,7 @@
     <label for="piso" class="col-md-4 col-form-label text-md-right">{{ __('Piso') }}</label>
 
     <div class="col-md-6">
-        <input id="piso" type="text" class="form-control" name="piso" required>
+        <input id="piso" type="text" class="form-control" name="piso" >
     </div>
 </div>
 
@@ -28,7 +28,7 @@
     <label for="dpto" class="col-md-4 col-form-label text-md-right">{{ __('Dpto') }}</label>
 
     <div class="col-md-6">
-        <input id="dpto" type="text" class="form-control" name="dpto" required>
+        <input id="dpto" type="text" class="form-control" name="dpto">
     </div>
 </div>
 

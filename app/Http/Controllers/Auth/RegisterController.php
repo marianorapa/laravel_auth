@@ -84,7 +84,7 @@ class RegisterController extends Controller
         $user = new User();
         $user->username = $data['username'];
         $user->password = Hash::make($data['password']);
-        $user->email = $data['email'];
+        //$user->email = $data['email'];
         $user->descr = $data['descr'];
 //        $user->activo = true;
 
@@ -98,6 +98,7 @@ class RegisterController extends Controller
         $persona->telefono = $data['tel'];
         $persona->tipoDoc = $data['tipoDoc'];
         $persona->nroDocumento = $data['nroDocumento'];
+        $persona->email = $data['email'];
         //$persona->activo = true;
 
         $persona->save();
@@ -123,13 +124,13 @@ class RegisterController extends Controller
     protected function RegisterUser(Request $request){
         $validatedUsuario = $request->validate([
             'username' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'confirmed']
+            'password' => ['required', 'string', 'confirmed', 'min:8']
         ]);
 
         $validatedPersona = $request->validate([
             'nombresPersona' => ['required'],
             'apellidos' => ['required'],
-            'fechaNac' => ['required'],
+            'fechaNac' => ['required','date','before:-20 years'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'tel' => ['required'],
             'tipoDoc' => ['required'],
