@@ -1,9 +1,19 @@
+@inject('TipoDocumento', 'App\TipoDocumento')
 <div class="form-group row">
     <label for="tipoDoc" class="col-md-4 col-form-label text-md-right">Tipo Documento</label>
     <div class="col-md-6">
         <select name="tipoDoc" id="tipoDoc" class="form-control">
             <option value="DNI">DNI</option>
+            @foreach ($TipoDocumento->gettipodocumento() as $index => $tipo )
+            <option value="{{$index}}"> {{$tipo}}</option>
+            @endforeach
         </select>
+       {{-- <v-select v-model="selected" :options="options">
+            
+            @foreach ($TipoDocumento->gettipodocumento() as $index => $tipo )
+            <option :value="{{$index}}"> {{$tipo}}</option>
+            @endforeach
+        </v-select>--}}
     </div>
 </div>
 

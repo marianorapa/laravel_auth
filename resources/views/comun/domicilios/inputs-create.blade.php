@@ -6,33 +6,41 @@
     <div class="col-md-6">
         <input id="calle" type="text" class="form-control" name="calle" required>
     </div>
+</div>
 
+<div class="form-group row">
     <label for="numero" class="col-md-4 col-form-label text-md-right">{{ __('Numero') }}</label>
 
     <div class="col-md-6">
         <input id="numero" type="text" class="form-control" name="numero" required>
     </div>
+</div>
 
+<div class="form-group row">
     <label for="piso" class="col-md-4 col-form-label text-md-right">{{ __('Piso') }}</label>
 
     <div class="col-md-6">
         <input id="piso" type="text" class="form-control" name="piso" required>
     </div>
+</div>
 
+<div class="form-group row">
     <label for="dpto" class="col-md-4 col-form-label text-md-right">{{ __('Dpto') }}</label>
 
     <div class="col-md-6">
         <input id="dpto" type="text" class="form-control" name="dpto" required>
     </div>
+</div>
 
+<div class="form-group row">
     <label for="codigo_postal" class="col-md-4 col-form-label text-md-right">{{ __('Codigo postal') }}</label>
 
     <div class="col-md-6">
         <input id="codigo_postal" type="text" class="form-control" name="codigo_postal" required>
     </div>
+</div>
 
-
-
+<div class="form-group row">
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
 
         <div class="col-md-6">
@@ -44,8 +52,7 @@
             </select>
 
         </div>
-
-    </div>
+</div>   
 
     <div class="form-group row">
         <label for="localidad" class="col-md-4 col-form-label text-md-right">Localidad</label>

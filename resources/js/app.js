@@ -21,6 +21,13 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+//Imports del componente para el select con buscador.
+import Vue from 'vue';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+Vue.component('v-select', vSelect);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -28,3 +35,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 require("./selectDinamico.js");
+

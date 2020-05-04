@@ -39,4 +39,12 @@ class TipoDocumento extends Model
     {
         return $this->hasMany('App\PersonaTipo');
     }
+
+    public function gettipodocumento(){
+        $tipos = TipoDocumento::all();
+        foreach($tipos as $tipo){
+            $tiposArray[$tipo->id] = $tipo->descripcion;
+        }
+        return $tiposArray;
+    }
 }
