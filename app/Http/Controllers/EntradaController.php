@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
+use App\Insumo;
+use App\Proveedor;
+use App\TicketEntrada;
+use App\Transportista;
 use Illuminate\Http\Request;
 
-class IngresoController extends Controller
+class EntradaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +18,40 @@ class IngresoController extends Controller
      */
     public function index()
     {
-
         // Recuperar ultimos ingresos
-        Ingreso::paginate(10);
+        TicketEntrada::paginate(10);
 
         return view('balanzas.ingresos.index');
+    }
+
+    /**
+     * Display formulario de registro inicial ingreso insumo
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function registroInsumoInicial()
+    {
+        // Obtener clientes
+        $clientes = Cliente::all();
+        // Obtener insumos
+        $insumos = Insumo::all();
+        // Obtener proveedores
+        $proveedores = Proveedor::all();
+        // Obtener transportistas
+        $transportistas = Transportista::all();
+
+        return view('balanzas/ingresos/registroinsumo',
+            compact('clientes','insumos','proveedores', 'transportistas'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function registroInsumoFinal()
+    {
+        return view('balanzas/ingresos/registroinsumofinal');
     }
 
     /**

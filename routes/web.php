@@ -42,9 +42,14 @@ Route::resource('personas', 'PersonaController');
 
 Route::get('balanzas', 'BalanzaController@index')->name('balanzas.menu');
 
-Route::resource('ingresos', 'IngresoController');
+Route::resource('ingresos', 'EntradaController');
 Route::resource('despachos', 'DespachoController');
 
+Route::get('/registroinsumoini', 'EntradaController@registroInsumoInicial')
+    ->name('balanzas.ingresos.inicial');
+
+Route::get('/registroinsumofinal', 'EntradaController@registroInsumoFinal')
+    ->name('balanzas.ingresos.final');
 /*
  * TODO: Rutas de usuario balanza/administración
  */
@@ -52,20 +57,19 @@ Route::resource('despachos', 'DespachoController');
 // GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---
 Route::get('/usuario', 'NoAdminController@index')->name('not.admin');
 
-
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
 
-
 //views hechas a partir de los wareframe
+// upd: 3-05 Marian. Estas vistas ahora las devuelve el controlador de ingresos.
+//Route::get('/registroinsumoini', function() {
+//    return view('balanzas/ingresos/registroinsumo')->name('balanzas.ingresos.inicial');
+//});
+//
+//Route::get('/registroinsumofin', function() {
+//    return view('balanzas/ingresos/registroinsumofinal')->name('balanzas.ingresos.final');;
+//});
 
-Route::get('/registroinsumoini', function() {
-    return view('balanzas/ingresos/registroinsumo')->name('balanzas.ingresos.registroinsumo');
-});
-
-Route::get('/registroinsumofin', function() {
-    return view('balanzas/ingresos/registroinsumofinal');
-});
 
 //ruta para ina funcion
 route::get('/localidades', 'Auth\RegisterController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.

@@ -15,7 +15,7 @@
             </div>
 
             <div class="row justify-content-center mt-4">
-                <a class="btn btn-primary btn m-1 col-3" href="{{route('permisos.create')}}">Nuevo ingreso</a>
+                <a class="btn btn-primary btn m-1 col-3" href="{{route('balanzas.ingresos.inicial')}}">Nuevo ingreso</a>
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
