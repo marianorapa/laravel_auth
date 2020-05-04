@@ -56,6 +56,13 @@
 
                         @include('admin.personas.inputs-create')
 
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <input type="submit" class="btn btn-primary" value="Registrarse">
+                            </div>
+                        </div>
+                    </form>
+
 
 {{--                        <div class="form-group row">--}}
 {{--                            <label for="descr" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>--}}
@@ -141,14 +148,7 @@
 
 
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Registrarse') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+
                 </div>
             </div>
         </div>

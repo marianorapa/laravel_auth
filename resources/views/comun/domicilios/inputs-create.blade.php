@@ -52,18 +52,18 @@
             </select>
 
         </div>
-</div>   
+</div>
 
-    <div class="form-group row">
-        <label for="localidad" class="col-md-4 col-form-label text-md-right">Localidad</label>
+<div class="form-group row">
+    <label for="localidad" class="col-md-4 col-form-label text-md-right">Localidad</label>
 
-        <div class="col-md-6">
-            <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" >
-                <option value="">Seleccione una localidad</option>
-            <option v-for="(localidad, index) in localidades" b-bind:value="index">@{{localidad}}</option>
-            </select>
-
-        </div>
+    <div class="col-md-6">
+        <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" >
+            <option value="">Seleccione una localidad</option>
+        <option v-for="(localidad, index) in localidades" b-bind:value="index">@{{localidad}}</option>
+        </select>
 
     </div>
+
 </div>
+
