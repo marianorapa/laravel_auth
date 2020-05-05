@@ -5,12 +5,21 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Persona extends PersonaTipo
+class Persona extends Model
 {
     //
     use SoftDeletes;
 
     protected $fillable = ['apellidos','nombres', 'fecha_nacimiento'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function personaTipo()
+    {
+        return $this->belongsTo('App\PersonaTipo', 'id');
+    }
+
 
     public function scopeName($query, $name){
 
@@ -32,4 +41,10 @@ class Persona extends PersonaTipo
             return $query->where('apellidos', 'LIKE',"%$apellidos%"); //esta query devuelve semejanzas.
         }
     }
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+
+
 }

@@ -40,17 +40,17 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>Las passwords ingresadas no coinciden</strong>
+                                        <strong>Las passwords ingresadas deben coincidir y tener min. 6 caracteres</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Password') }}</label>
+                            <label for="password-confirmation" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 

@@ -6,7 +6,9 @@ use App\Domicilio;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PersonaController;
 use App\Localidad;
+use App\PersonaTipo;
 use App\Providers\RouteServiceProvider;
+use App\TipoDocumento;
 use App\User;
 use App\Role;
 use App\Persona;
@@ -77,37 +79,39 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create($validatedUsuario, $validatedPersonaTipo, $validatedPersona, $validatedDomicilio)
     {
-        $this->validator($data);
+        //$this->validator($data);
 
         $user = new User();
-        $user->username = $data['username'];
-        $user->password = Hash::make($data['password']);
-        //$user->email = $data['email'];
-        $user->descr = $data['descr'];
-//        $user->activo = true;
+        $user->username = $validatedUsuario['username'];
+        $user->password = Hash::make($validatedUsuario['password']);
+
+        $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
+
+        $domicilio = new Domicilio();
+        $domicilio->fill($validatedDomicilio);
+        $domicilio->localidad()->associate($localidad);
+        $domicilio->save();
+
+        $tipoDocumento = TipoDocumento::findOrFail($validatedPersonaTipo['id_tipo_documento']);
+
+        $persona_tipo = new PersonaTipo();
+        $persona_tipo->fill($validatedPersonaTipo);
+        $persona_tipo->tipoDocumento()->associate($tipoDocumento);
+        $persona_tipo->domicilio()->associate($domicilio);
+        $persona_tipo->save();
 
         // Creo una persona con los datos ingresados
         $persona = new Persona();
-        $persona->nombres = $data['nombresPersona'];
-        $persona->apellidos = $data['apellidos'];
-        $persona->descripcion = $data['descr'];
-        $persona->fechaNacimiento = $data['fechaNac'];
-        $persona->domicilio = $data['direccion'];
-        $persona->telefono = $data['tel'];
-        $persona->tipoDoc = $data['tipoDoc'];
-        $persona->nroDocumento = $data['nroDocumento'];
-        $persona->email = $data['email'];
-        //$persona->activo = true;
-
+        $persona->fill($validatedPersona);
+        $persona->personaTipo()->associate($persona_tipo);
         $persona->save();
 
-        $user->persona()->associate($persona);
-
+        $user->Persona()->associate($persona);
         $user->save();
 
-        // Al unico que se registra le da todos los permisos! -> Dsp cambiar y elegir roles quizas...
+        // Al unico que se registra le da rol de admin
         $user->roles()->attach(Role::where('name','admin')->first());
 
         Auth::login($user);
@@ -122,60 +126,41 @@ class RegisterController extends Controller
     }
 
     protected function RegisterUser(Request $request){
+
         $validatedUsuario = $request->validate([
-            'username' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'confirmed', 'min:8']
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'confirmed', 'min:6']
+        ]);
+
+        $validatedPersonaTipo = $request->validate([
+            'id_tipo_documento' => ['required', 'exists:tipo_documento,id'],
+            'nro_documento' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'telefono' => ['required'],
+            'observaciones' => ['string']
         ]);
 
         $validatedPersona = $request->validate([
-            'nombresPersona' => ['required'],
+            'nombres' => ['required'],
             'apellidos' => ['required'],
-            'fechaNac' => ['required','date','before:-20 years'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'tel' => ['required'],
-            'tipoDoc' => ['required'],
-            'nroDocumento' => ['required'],
-            'observaciones' => ['string'],
+            'fecha_nacimiento' => ['required','date','before:-20 years']
         ]);
 
-        $this->saveDomicilio($request);
-
-        $this->create($validated);
-
-        return redirect(route('main'));   // despues de entrar redirige al main
-    }
-
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|int
-     */
-    protected function saveDomicilio(Request $request)
-    {
         $validatedDomicilio = $request->validate([
             'calle' => ['required'],
             'numero' => ['required', 'numeric'],
             'piso' => ['numeric'],
-            'codigo_postal' => ['required'],
+            'dpto' => ['alpha_num'],
+            //'codigo_postal' => ['required'],
             //'id_provincia' => ['required'], ya esta en localidad
-            'id_localidad' => ['required']
+            'localidad' => ['required','exists:localidad,descripcion']
         ]);
 
-        try {
-            $localidad = Localidad::findOrFail($validatedDomicilio['id_localidad']);
+        $this->create($validatedUsuario, $validatedPersonaTipo, $validatedPersona, $validatedDomicilio);
 
-            $domicilio = new Domicilio();
-            $domicilio->fill($validatedDomicilio);
-            $domicilio->localidad($localidad);
-
-            $domicilio->save();
-            return $domicilio->id;
-        } catch (ModelNotFoundException $e) {
-            return back()->with('error', 'Localidad no encontrada.');
-        } catch (QueryException $e) {
-            return back()->with('error', 'Error al guardar el domicilio.');
-        }
+        return redirect(route('main'));   // despues de entrar redirige al main
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -185,7 +170,7 @@ class RegisterController extends Controller
      */
     public function getlocalidad(Request $request){
         $id = $request->get('provincia_id');
-       
+
             $localidades = Localidad::where('provincia_id',"LIKE",$id)->get();
             foreach ($localidades as $localidad) {
                 $localidadArray[$localidad->id] = $localidad->descripcion;

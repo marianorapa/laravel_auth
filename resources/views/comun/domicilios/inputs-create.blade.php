@@ -4,7 +4,7 @@
     <label for="calle" class="col-md-4 col-form-label text-md-right">{{ __('Calle') }}</label>
 
     <div class="col-md-6">
-        <input id="calle" type="text" class="form-control" name="calle" required>
+        <input id="calle" type="text" class="form-control" name="calle" value="{{old('calle')}}" required>
     </div>
 </div>
 
@@ -12,7 +12,7 @@
     <label for="numero" class="col-md-4 col-form-label text-md-right">{{ __('Numero') }}</label>
 
     <div class="col-md-6">
-        <input id="numero" type="text" class="form-control" name="numero" required>
+        <input id="numero" type="text" class="form-control" name="numero" value="{{old('numero')}}" required>
     </div>
 </div>
 
@@ -20,7 +20,7 @@
     <label for="piso" class="col-md-4 col-form-label text-md-right">{{ __('Piso') }}</label>
 
     <div class="col-md-6">
-        <input id="piso" type="text" class="form-control" name="piso" >
+        <input id="piso" type="text" class="form-control" name="piso" value="{{old('piso')}}">
     </div>
 </div>
 
@@ -28,7 +28,7 @@
     <label for="dpto" class="col-md-4 col-form-label text-md-right">{{ __('Dpto') }}</label>
 
     <div class="col-md-6">
-        <input id="dpto" type="text" class="form-control" name="dpto">
+        <input id="dpto" type="text" class="form-control" name="dpto" value="{{old('dpto')}}">
     </div>
 </div>
 
@@ -36,7 +36,7 @@
     <label for="codigo_postal" class="col-md-4 col-form-label text-md-right">{{ __('Codigo postal') }}</label>
 
     <div class="col-md-6">
-        <input id="codigo_postal" type="text" class="form-control" name="codigo_postal" required>
+        <input id="codigo_postal" type="text" class="form-control" name="codigo_postal" value="{{old('codigo_postal')}}" required>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
 
         <div class="col-md-6">
-            <select v-model="selected_provincia" @change="loadLocalidades" name="provincia" id="provincia" class="form-control">
+            <select v-model="selected_provincia" @change="loadLocalidades" name="provincia" id="provincia" class="form-control" required>
 
                 @foreach ($Provincia->getProvincia() as $index => $prov )
                     <option value="{{$index}}"> {{$prov}}</option>
@@ -58,7 +58,7 @@
     <label for="localidad" class="col-md-4 col-form-label text-md-right">Localidad</label>
 
     <div class="col-md-6">
-        <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" >
+        <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" required>
             <option value="">Seleccione una localidad</option>
         <option v-for="(localidad, index) in localidades" b-bind:value="index">@{{localidad}}</option>
         </select>
