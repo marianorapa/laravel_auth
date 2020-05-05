@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+@section('publics')
+<script src="{{ asset('js/habilitarinput.js') }}"></script>
+@endsection
 @section('content')
 <div class="container">
     <div class="bs-example">
@@ -58,11 +62,11 @@
                             <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
 
 
-                                <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote" required>
-
-
-
+                                <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote"   required>
+                                <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="checone" >
+                            
                         </div>
+    
                         <br>
                         <br>
                         <div class="form-group row">
