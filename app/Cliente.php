@@ -92,4 +92,13 @@ class Cliente extends Empresa
     {
         return $this->hasMany('App\Ticket');
     }
+
+    public function getcliente(){
+        $clientes = Cliente::all();
+        foreach($clientes as $cliente){
+            $clienteArray[$cliente->id] = $cliente->denominacion;
+
+        }
+        return $clienteArray;
+    }
 }

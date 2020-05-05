@@ -3,8 +3,11 @@
 
 @section('publics')
 <script src="{{ asset('js/habilitarinput.js') }}"></script>
+
 @endsection
 @section('content')
+@inject('Cliente', 'App\Cliente')
+@inject('Insumo', 'App\Insumo')
 <div class="container">
     <div class="bs-example">
         <nav>
@@ -25,26 +28,33 @@
                         <div class="form-group row">
                             <label for="cliente" class="col-md-2 col-form-label text-md-right">Cliente</label>
 
-                                <select name="cliente" id="cliente" class="selectpicker show-menu-arrow" data-show-subtext="true" data-live-search="true">
-                                    <option value="0">Seleccione</option>
-                                    <?php
-                                        //$resultado = BD::select("SELECT descripcion from provincia");
-
-                                        //$contador=0;
-                                        //while($misdatos = mysqli_fetch_assoc($resultado)){ $contador++;?>
-                                        <!--<option data-subtext="<?php //echo $misdatos["id"]; ?>"><?//php echo $misdatos["descripcion"]; ?></option>-->
-                                        <?php
-
-                                    ?>
+                                <select name="cliente" id="cliente"  class="custom-select col-md-2">
+                                    <option data-tokens=="0">Seleccione</option>
+                                                        
+                                    @foreach ($Cliente->getcliente() as $index => $cli )
+                                       
+                                        <option data-tokens="{{$cli}}"> {{$cli}}</option>
+                                    @endforeach
+                                    <option data-tokens="julia"> julia</option>
+                                    <option data-tokens="adasd"> asdasdsa</option>
+                                    <option data-tokens="qweqeq"> qweqweqe</option>
+                                    <option data-tokens="pedro"> pedro</option>
+                                    <option data-tokens="fernando">fernando</option>
                                 </select>
+                            
 
                         </div>
                         <br>
                         <div class="form-group row">
-                            <label for="insumo" class="col-md-2 col-form-label text-md-right">Insumo</label>
+                                <label for="insumo" class="col-md-2 col-form-label text-md-right">Insumo</label>
 
-                                <select name="insumo" id="insumo" class="selectpicker" data-show-subtext="true" data-live-search="true">
-
+                                <select name="insumo" id="insumo"  class="custom-select col-md-2">
+                                    <option data-tokens=="0">Seleccione</option>
+                                                        
+                                    @foreach ($Insumo->getinsumo() as $index => $ins)
+                                    
+                                        <option data-tokens="{{$index}}"> {{$ins}}</option> {{--puede que esto no busque bien por que tiene el index en data tokens--}}
+                                    @endforeach
                                 </select>
 
                                 <label for="cliente" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>

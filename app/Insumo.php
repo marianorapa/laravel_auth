@@ -57,4 +57,12 @@ class Insumo extends Model
     {
         return $this->hasOne('App\InsumoTrazable', 'id');
     }
+    public function getinsumo(){
+        $insumos = Insumo::all();
+        $insumoArray[0]="asdsa";
+        foreach($insumos as $insumo){
+            $insumoArray[$insumo->id] = $insumo->descripcion;
+        }
+        return $insumoArray;
+    }
 }
