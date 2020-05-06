@@ -98,16 +98,16 @@
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <input type="text" name="descripcion" id="descripcion"
-                            value="{{$user->descr}}"
-                            placeholder="Descripcion" value={{$user->password}} class="form-control mb-2" required>
+                            value="{{$user->descripcion}}"
+                            placeholder="Descripcion" class="form-control mb-2" required>
                          </div>
 
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" id="email"
-                            value="{{$user->email}}" placeholder="Email"
-                            class="form-control mb-2" required>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label for="email">Email</label>--}}
+{{--                            <input type="text" name="email" id="email"--}}
+{{--                            value="{{$user->email}}" placeholder="Email"--}}
+{{--                            class="form-control mb-2" required>--}}
+{{--                        </div>--}}
 
 
                         {{-- @foreach ($roles as $rol)

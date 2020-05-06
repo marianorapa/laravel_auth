@@ -79,8 +79,7 @@ class UserController extends Controller
             'username' => 'required',
             'password' => 'min:4|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:4',
-            'descripcion' => 'required',
-            'email' => 'required|email'
+            'descripcion' => 'required'
         ]);
 
         $user = new User();
@@ -88,8 +87,7 @@ class UserController extends Controller
             [
                 'username' => $validatedData['username'],
                 'password' => $validatedData['password'],
-                'descr' => $validatedData['descripcion'],
-                'email' => $validatedData['email']
+                'descripcion' => $validatedData['descripcion']
             ]
         );
         /*$user->username = $request['username'];
@@ -120,10 +118,10 @@ class UserController extends Controller
         }
         catch (QueryException $e)
         {
-            return back()->with('error', 'El email ya existe.');
+            return back()->with('error', 'La persona ya tiene un usuario vinculado.');
         }
 
-
+        // Checks whether user has permission to assign roles
         if (Auth::user()->hasPermiso('users.roles.asignar')){
 
             $roles = Role::all();
@@ -192,10 +190,9 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
 
-        $this->validate($request, [
+        $validated = $this->validate($request, [
             'username' => 'required',
-            'descripcion' => 'required',
-            'email' => 'required|email'
+            'descripcion' => 'required'
         ]);
 
         // Si viene una password, desea cambiarla. Si no viene, no la toco
@@ -207,9 +204,9 @@ class UserController extends Controller
             $user->password = Hash::make($request['password']); // La tengo que hashear
         }
 
-        $user->username = $request['username'];
-        $user->email = $request['email'];
-        $user->descr = $request['descripcion'];
+        $user->fill($validated);
+//        $user->username = $request['username'];
+//        $user->descripcion = $request['descripcion'];
 
         if (Auth::user()->hasPermiso('users.roles.asignar')){
 

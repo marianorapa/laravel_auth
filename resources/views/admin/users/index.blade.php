@@ -22,7 +22,7 @@
 <a class="btn btn-primary btn-sm m-1" href="{{route('users.create')}}">Agregar</a>
     <table class="table">
         @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger mt-4">
              {{$errors->first()}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

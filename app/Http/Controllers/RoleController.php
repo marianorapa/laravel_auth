@@ -66,11 +66,14 @@ class RoleController extends Controller
         // If it didn't, stores the new one
         if (is_null($rolExistente)) {
             $rol->save();
-            foreach($request['idPermisos'] as $idPermiso){
-                $permiso = Permiso::where('id', $idPermiso)->first();
-                $rol->permisos()->attach($permiso);
+            if (isset($request['idPermisos'])){
+                foreach($request['idPermisos'] as $idPermiso){
+                    $permiso = Permiso::where('id', $idPermiso)->first();
+                    $rol->permisos()->attach($permiso);
+                }
             }
             return back()->with('mensaje', 'Rol creado.');
+
         }
 
         if ($rolExistente->trashed()){
