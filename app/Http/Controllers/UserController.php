@@ -33,9 +33,9 @@ class UserController extends Controller
 
         //Adaptacion de los scope en las otras clases modelo.
         $users = User::withTrashed()
-        ->where('username', 'LIKE',"%$name%")
-        ->where('email', 'LIKE',"%$email%")
-        ->get();
+            ->where('username', 'LIKE',"%$name%")
+            //->where('email', 'LIKE',"%$email%")
+            ->get();
         return view('admin.users.index', compact('users'));
     }
 

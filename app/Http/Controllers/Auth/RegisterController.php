@@ -109,6 +109,7 @@ class RegisterController extends Controller
         $persona->save();
 
         $user->Persona()->associate($persona);
+        $user->descripcion = $persona_tipo->observaciones;
         $user->save();
 
         // Al unico que se registra le da rol de admin
@@ -137,7 +138,7 @@ class RegisterController extends Controller
             'nro_documento' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'telefono' => ['required'],
-            'observaciones' => ['string']
+            'observaciones' => ['nullable', 'string']
         ]);
 
         $validatedPersona = $request->validate([
@@ -149,8 +150,8 @@ class RegisterController extends Controller
         $validatedDomicilio = $request->validate([
             'calle' => ['required'],
             'numero' => ['required', 'numeric'],
-            'piso' => ['numeric'],
-            'dpto' => ['alpha_num'],
+            'piso' => ['nullable','numeric'],
+            'dpto' => ['nullable','alpha_num'],
             //'codigo_postal' => ['required'],
             //'id_provincia' => ['required'], ya esta en localidad
             'localidad' => ['required','exists:localidad,descripcion']

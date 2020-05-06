@@ -20,6 +20,7 @@ class CreatePersonasTable extends Migration
             $table->date('fecha_nacimiento')->nullable(true);
             $table->timestamps();
             $table->foreign('id')->references('id')->on('persona_tipo');
+            $table->softDeletes();
         });
     }
 
