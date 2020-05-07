@@ -9,7 +9,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" >Home</a></li>
                 <li class="breadcrumb-item"><a href="{{route('admin.menu')}}" >Admin</a></li>
-                <li class="breadcrumb-item"><a href="{{route('personas.index')}}" >Gestion de persona</a></li>
+                <li class="breadcrumb-item"><a href="{{route('personas.index')}}">Gestion de persona</a></li>
                 <li class="breadcrumb-item active">Agregar persona</li>
             </ol>
         </nav>
@@ -71,16 +71,16 @@
                                 <input id="direccion" type="text" class="form-control" name="direccion" required>
                             </div>
                         </div>-->
-                        <div class="form-group row">
-                            <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
+{{--                        <div class="form-group row">--}}
+{{--                            <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>--}}
 
-                            <select name="provincia" id="provincia" class="selectpicker show-menu-arrow" data-show-subtext="true" data-live-search="true">
-                                @foreach ($Provincia->getProvincia() as $index => $prov )
-                                    <option value="{{$index}}"> {{$prov}}</option>
-                                @endforeach
-                            </select>
+{{--                            <select name="provincia" id="provincia" class="selectpicker show-menu-arrow" data-show-subtext="true" data-live-search="true">--}}
+{{--                                @foreach ($Provincia->getProvincia() as $index => $prov )--}}
+{{--                                    <option value="{{$index}}"> {{$prov}}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
 
-                        </div>
+{{--                        </div>--}}
 
 {{--                            <div class="col-md-6">--}}
 {{--                                <input id="fechaNac" type="date" class="form-control" name="fechaNac" required>--}}

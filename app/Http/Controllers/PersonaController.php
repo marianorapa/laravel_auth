@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Domicilio;
+use App\PersonaTipo;
+use App\TipoDocumento;
+use App\Utils\PersonaManager;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -52,59 +56,33 @@ class PersonaController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * Returns the inserted person as second argument
      * @param  \Illuminate\Http\Request  $request
+     * @param Persona $persona
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'apellidos' => 'required',
-            'nombresPersona' => 'required',
-            'tipoDoc' => 'required',
-            'nroDocumento' => 'required',
-            'fechaNac' => 'required',
-            'descr' => 'required',
-            //'direccion' => 'required',
-            'tel' => 'required',
-        ]);
-
-        $persona = new Persona();
-        $persona->fill([
-            'apellidos'=>$validatedData['apellidos'],
-            'nombres'=>$validatedData['nombresPersona'],
-            'tipoDoc'=>$validatedData['tipoDoc'],
-            'nroDocumento'=>$validatedData['nroDocumento'],
-            'fechaNacimiento'=>$validatedData['fechaNac'],
-            'descripcion'=>$validatedData['descr'],
-            //'domicilio'=>$validatedData['direccion'],
-            'telefono'=>$validatedData['tel'],
-        ]);
-
-        /*$persona->nombres = $request['nombresPersona'];
-        $persona->apellidos = $request['apellidos'];
-        $persona->descripcion = $request['descr'];
-        $persona->fechaNacimiento = $request['fechaNac'];
-        $persona->domicilio = $request['direccion'];
-        $persona->telefono = $request['tel'];
-        $persona->tipoDoc = $request['tipoDoc'];
-        $persona->nroDocumento = $request['nroDocumento'];*/
-
         // Checks if it already exists
-        $personaExistente = Persona::withTrashed()->where('nroDocumento', $persona->nroDocumento)->get()->first();
+        $personaExistente = Persona::withTrashed()->join('persona_tipo','personas.id', 'persona_tipo.id')
+            ->where('nro_documento', $request->get('nro_documento'))
+            ->where('tipo_documento_id', $request->get('id_tipo_documento'))
+            ->get()->first();
 
         // If it doesn't, stores the new one
         if ($personaExistente == null) {
-            $persona->save();
+            $persona = new Persona();
+            PersonaManager::store($request, $persona);
             return back()->with('mensaje', 'Persona creada.');
         }
 
+        // If it does exist, return the existing person
         if ($personaExistente->trashed()){
-            $personaExistente->restore();
-            return back()->with('mensaje', 'La persona con ese documento ya existía y ha sido activada nuevamente.');
+            //$personaExistente->restore(); Upd. no la activa. Informa que no puede creerse
+            return back()->with('error', 'La persona con ese documento ya existe y esta desactivada.');
         }
 
-        return back()->with('mensaje', 'Ya existe una persona activa con el documento ingresado.');
+        return back()->with('error', 'Ya existe una persona activa con el documento ingresado.');
     }
 
     /**

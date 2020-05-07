@@ -13,6 +13,7 @@ use App\User;
 use App\Role;
 use App\Persona;
 use App\Utils\DomicilioManager;
+use App\Utils\PersonaManager;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -79,44 +80,44 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create($validatedUsuario, $validatedPersonaTipo, $validatedPersona, $validatedDomicilio)
-    {
-        //$this->validator($data);
-
-        $user = new User();
-        $user->username = $validatedUsuario['username'];
-        $user->password = Hash::make($validatedUsuario['password']);
-
-        $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
-
-        $domicilio = new Domicilio();
-        $domicilio->fill($validatedDomicilio);
-        $domicilio->localidad()->associate($localidad);
-        $domicilio->save();
-
-        $tipoDocumento = TipoDocumento::findOrFail($validatedPersonaTipo['id_tipo_documento']);
-
-        $persona_tipo = new PersonaTipo();
-        $persona_tipo->fill($validatedPersonaTipo);
-        $persona_tipo->tipoDocumento()->associate($tipoDocumento);
-        $persona_tipo->domicilio()->associate($domicilio);
-        $persona_tipo->save();
-
-        // Creo una persona con los datos ingresados
-        $persona = new Persona();
-        $persona->fill($validatedPersona);
-        $persona->personaTipo()->associate($persona_tipo);
-        $persona->save();
-
-        $user->Persona()->associate($persona);
-        $user->descripcion = $persona_tipo->observaciones;
-        $user->save();
-
-        // Al unico que se registra le da rol de admin
-        $user->roles()->attach(Role::where('name','admin')->first());
-
-        Auth::login($user);
-    }
+//    protected function create($validatedUsuario, $validatedPersonaTipo, $validatedPersona, $validatedDomicilio)
+//    {
+//        //$this->validator($data);
+//
+//        $user = new User();
+//        $user->username = $validatedUsuario['username'];
+//        $user->password = Hash::make($validatedUsuario['password']);
+//
+//        $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
+//
+//        $domicilio = new Domicilio();
+//        $domicilio->fill($validatedDomicilio);
+//        $domicilio->localidad()->associate($localidad);
+//        $domicilio->save();
+//
+//        $tipoDocumento = TipoDocumento::findOrFail($validatedPersonaTipo['id_tipo_documento']);
+//
+//        $persona_tipo = new PersonaTipo();
+//        $persona_tipo->fill($validatedPersonaTipo);
+//        $persona_tipo->tipoDocumento()->associate($tipoDocumento);
+//        $persona_tipo->domicilio()->associate($domicilio);
+//        $persona_tipo->save();
+//
+//        // Creo una persona con los datos ingresados
+//        $persona = new Persona();
+//        $persona->fill($validatedPersona);
+//        $persona->personaTipo()->associate($persona_tipo);
+//        $persona->save();
+//
+//        $user->Persona()->associate($persona);
+//        $user->descripcion = $persona_tipo->observaciones;
+//        $user->save();
+//
+//        // Al unico que se registra le da rol de admin
+//        $user->roles()->attach(Role::where('name','admin')->first());
+//
+//        Auth::login($user);
+//    }
 
     /**
      * Entrega el formulario para registrarse
@@ -128,36 +129,51 @@ class RegisterController extends Controller
 
     protected function RegisterUser(Request $request){
 
+        $persona = new Persona();
+        PersonaManager::store($request, $persona);
+
         $validatedUsuario = $request->validate([
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'confirmed', 'min:6']
         ]);
 
-        $validatedPersonaTipo = $request->validate([
-            'id_tipo_documento' => ['required', 'exists:tipo_documento,id'],
-            'nro_documento' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'telefono' => ['required'],
-            'observaciones' => ['nullable', 'string']
-        ]);
+        $user = new User();
+        $user->username = $validatedUsuario['username'];
+        $user->password = Hash::make($validatedUsuario['password']);
+        $user->Persona()->associate($persona);
+        $user->descripcion = $persona->personaTipo->observaciones;
+        $user->save();
 
-        $validatedPersona = $request->validate([
-            'nombres' => ['required'],
-            'apellidos' => ['required'],
-            'fecha_nacimiento' => ['required','date','before:-20 years']
-        ]);
+        // Al unico que se registra le da rol de admin
+        $user->roles()->attach(Role::where('name','admin')->first());
 
-        $validatedDomicilio = $request->validate([
-            'calle' => ['required'],
-            'numero' => ['required', 'numeric'],
-            'piso' => ['nullable','numeric'],
-            'dpto' => ['nullable','alpha_num'],
-            //'codigo_postal' => ['required'],
-            //'id_provincia' => ['required'], ya esta en localidad
-            'localidad' => ['required','exists:localidad,descripcion']
-        ]);
+        Auth::login($user);
 
-        $this->create($validatedUsuario, $validatedPersonaTipo, $validatedPersona, $validatedDomicilio);
+//        $validatedPersonaTipo = $request->validate([
+//            'id_tipo_documento' => ['required', 'exists:tipo_documento,id'],
+//            'nro_documento' => ['required'],
+//            'email' => ['required', 'string', 'email', 'max:255'],
+//            'telefono' => ['required'],
+//            'observaciones' => ['nullable', 'string']
+//        ]);
+//
+//        $validatedPersona = $request->validate([
+//            'nombres' => ['required'],
+//            'apellidos' => ['required'],
+//            'fecha_nacimiento' => ['required','date','before:-20 years']
+//        ]);
+//
+//        $validatedDomicilio = $request->validate([
+//            'calle' => ['required'],
+//            'numero' => ['required', 'numeric'],
+//            'piso' => ['nullable','numeric'],
+//            'dpto' => ['nullable','alpha_num'],
+//            //'codigo_postal' => ['required'],
+//            //'id_provincia' => ['required'], ya esta en localidad
+//            'localidad' => ['required','exists:localidad,descripcion']
+//        ]);
+
+        //$this->create($validatedUsuario, $validatedPersonaTipo, $validatedPersona, $validatedDomicilio);
 
         return redirect(route('main'));   // despues de entrar redirige al main
     }
@@ -169,14 +185,15 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getlocalidad(Request $request){
+    public function getLocalidad(Request $request){
         $id = $request->get('provincia_id');
 
-            $localidades = Localidad::where('provincia_id',"LIKE",$id)->get();
-            foreach ($localidades as $localidad) {
-                $localidadArray[$localidad->id] = $localidad->descripcion;
-            }
-            return response()->json($localidadArray);
+        $localidades = Localidad::where('provincia_id',"=",$id)->get();
+        foreach ($localidades as $localidad) {
+            $localidadArray[$localidad->id] = $localidad->descripcion;
+        }
+
+        return response()->json($localidadArray);
     }
 
 }

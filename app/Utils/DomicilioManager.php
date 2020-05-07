@@ -12,8 +12,13 @@ use Illuminate\Http\Request;
 class DomicilioManager
 {
 
-    public function store(Request $request)
+    public static function store($validatedDomicilio, &$domicilio)
     {
+        $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
 
+        $domicilio = new Domicilio();
+        $domicilio->fill($validatedDomicilio);
+        $domicilio->localidad()->associate($localidad);
+        $domicilio->save();
     }
 }

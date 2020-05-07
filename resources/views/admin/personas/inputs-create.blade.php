@@ -3,7 +3,14 @@
 
     <div class="col-md-6">
          <input id="nombres" type="text" class="form-control" name="nombres" value="{{old('nombres')}}" required>
+        @error('nombres')
+        <span class="invalid-feedback" role="alert">
+            <strong>Nombre invalido</strong>
+        </span>
+        @enderror
     </div>
+
+
 </div>
 
 
@@ -12,6 +19,11 @@
 
     <div class="col-md-6">
         <input id="apellidos" type="text" class="form-control" name="apellidos" value="{{old('apellidos')}}" required>
+        @error('apellidos')
+        <span class="invalid-feedback" role="alert">
+            <strong>Apellidos invalidos</strong>
+        </span>
+        @enderror
     </div>
 </div>
 
@@ -21,6 +33,11 @@
 
     <div class="col-md-6">
         <input id="fecha_nacimiento" type="date" class="form-control" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" required>
+        @error('apellidos')
+        <span class="invalid-feedback" role="alert">
+            <strong>Fecha invalida</strong>
+        </span>
+        @enderror
     </div>
 </div>
 

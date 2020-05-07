@@ -60,15 +60,6 @@ Route::get('/usuario', 'NoAdminController@index')->name('not.admin');
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
 
-//views hechas a partir de los wareframe
-// upd: 3-05 Marian. Estas vistas ahora las devuelve el controlador de ingresos.
-//Route::get('/registroinsumoini', function() {
-//    return view('balanzas/ingresos/registroinsumo')->name('balanzas.ingresos.inicial');
-//});
-//
-//Route::get('/registroinsumofin', function() {
-//    return view('balanzas/ingresos/registroinsumofinal')->name('balanzas.ingresos.final');;
-//});
 
 
 //ruta para ina funcion

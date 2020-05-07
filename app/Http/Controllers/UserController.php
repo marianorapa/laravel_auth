@@ -65,14 +65,14 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         // If user pressed "refresh" button
         if ($request->get('refreshButton')){
             $request->flash();
-            return back()->with('mensaje', 'Personas actualizadas. ');
+            return back()->with('mensaje', 'Personas actualizadas.');
         }
 
         $validatedData = $request->validate([
