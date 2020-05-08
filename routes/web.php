@@ -63,4 +63,4 @@ Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_
 
 
 //ruta para ina funcion
-route::get('/localidades', 'Auth\RegisterController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
+route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.

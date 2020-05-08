@@ -10,8 +10,9 @@ const app = new Vue({
     },
     methods: {
         loadLocalidades(){
-            Axios.get('localidades',{params:{provincia_id: this.selected_provincia}}).then((response)=>{
+            Axios.get('/localidades',{params:{provincia_id: this.selected_provincia}}).then((response)=>{
                 this.localidades = response.data;
+                console.log(response.data);
             });
         }
     }

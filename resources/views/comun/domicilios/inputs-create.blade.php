@@ -75,7 +75,7 @@
                     <option value="{{$index}}"> {{$prov}}</option>
                 @endforeach
             </select>
-            @error('provincia')
+                @error('provincia')
             <span class="invalid-feedback" role="alert">
                 <strong>Provincia invalida</strong>
              </span>

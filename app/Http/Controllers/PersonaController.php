@@ -119,8 +119,14 @@ class PersonaController extends Controller
     public function update(Request $request, $id)
     {
         $persona = Persona::withTrashed()->findOrFail($id);
+        // Se fija que exista.
 
-        $validatedData = $request->validate([
+        if ($persona != null){
+            PersonaManager::update($request, $persona, $id);
+            return back()->with('mensaje', 'Persona actualizada');
+        }
+        //return back()->with('mensaje', 'Persona inexistente');
+        /*$validatedData = $request->validate([
             'nombresPersona' => 'required',
             'apellidos' => 'required',
             'descr' => 'required',
@@ -129,9 +135,9 @@ class PersonaController extends Controller
             'tel' => 'required',
             'tipoDoc' => 'required',
             'nroDocumento' => 'required'
-        ]);
+        ]);*/
 
-        $persona->fill([
+        /*$persona->fill([
             'apellidos'=>$validatedData['apellidos'],
             'nombres'=>$validatedData['nombresPersona'],
             'tipoDoc'=>$validatedData['tipoDoc'],
@@ -140,7 +146,7 @@ class PersonaController extends Controller
             'descripcion'=>$validatedData['descripcion'],
             'domicilio'=>$validatedData['domicilio'],
             'telefono'=>$validatedData['tel'],
-        ]);
+        ]);*/
 
         /*$persona->nombres = $request['nombresPersona'];
         $persona->apellidos = $request['apellidos'];
@@ -151,9 +157,9 @@ class PersonaController extends Controller
         $persona->tipoDoc = $request['tipoDoc'];
         $persona->nroDocumento = $request['nroDocumento'];*/
 
-        $persona->save();
+        //$persona->save();
 
-        return back()->with('mensaje', 'Persona actualizada');
+
     }
 
     /**
