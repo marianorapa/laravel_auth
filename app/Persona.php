@@ -18,6 +18,7 @@ class Persona extends Model
     public function personaTipo()
     {
         return $this->belongsTo('App\PersonaTipo', 'id');
+
     }
 
 
