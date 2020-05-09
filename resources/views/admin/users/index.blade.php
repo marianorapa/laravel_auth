@@ -51,8 +51,8 @@
                 <tr>
                     <th scope="row">{{$user->id}}</th>
                     <td>{{$user->username}}</td>
-                    <td>{{$user->descr}}</td>
-                    <td>{{$user->email}}</td>
+                    <td>{{$user->descripcion}}</td>
+                    <td>{{$user->persona()->first()->personaTipo()->first()->email}}</td>
                     <td>{{$user->trashed() ? "No": "Si"}}</td>
                     <td>
                         <a href="{{route('users.edit', $user)}}" class="btn btn-warning btn-sm">Editar</a>

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property integer $id
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Provincia extends Model
 {
+
+    //use SoftDeletes;
     /**
      * The table associated with the model.
      *
@@ -52,5 +55,9 @@ class Provincia extends Model
             $provinciaArray[$provincia->id] = $provincia->descripcion;
         }
         return $provinciaArray;
+    }
+
+    public function toString(){
+        return $this->descripcion;
     }
 }

@@ -61,4 +61,8 @@ class Domicilio extends Model
     {
         return $this->hasMany('App\PersonaTipo');
     }
+
+    public function toString(){
+        return "$this->calle $this->numero, " . $this->localidad()->first()->toString();
+    }
 }

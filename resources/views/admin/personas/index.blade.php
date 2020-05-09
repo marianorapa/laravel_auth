@@ -71,12 +71,12 @@
                         <th scope="row">{{$persona->id}}</th>
                         <td>{{$persona->nombres}}</td>
                         <td>{{$persona->apellidos}}</td>
-                        <td>{{$persona->descripcion}}</td>
-                        <td>{{$persona->fechaNacimiento}}</td>
-                        <td>{{$persona->domicilio}}</td>
-                        <td>{{$persona->telefono}}</td>
-                        <td>{{$persona->nroDocumento}}</td>
-                        <td>{{$persona->tipoDoc}}</td>
+                        <td>{{$persona->personaTipo()->first()->observaciones}}</td>
+                        <td>{{$persona->fecha_nacimiento}}</td>
+                        <td>{{$persona->personaTipo()->first()->domicilio()->first()->toString()}}</td>
+                        <td>{{$persona->personaTipo()->first()->telefono}}</td>
+                        <td>{{$persona->personaTipo()->first()->nro_documento}}</td>
+                        <td>{{$persona->personaTipo()->first()->tipoDocumento()->first()->descripcion}}</td>
                         <td>{{$persona->trashed() ? "No": "Si"}}</td>
                         <td>
                             <a href="{{route('personas.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
