@@ -7,6 +7,7 @@ use App\TipoDocumento;
 use App\Utils\PersonaManager;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Persona;
 use App\Provincia;
@@ -171,10 +172,20 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        $personaEliminar = Persona::findOrFail($id);
-        $personaEliminar->delete();
 
+        $personaEliminar = Persona::findOrFail($id);
+        $usuario = Auth::id();
+        $id_persona = $personaEliminar->id;
+        if ($usuario == $id_persona ){
+            return  back()->with('error','No se pudo desactivar la persona.');
+
+        }
+        $personaEliminar->delete();
         return back()->with('mensaje','Se desactivó a la persona del sistema');
+
+
+
+
     }
 
 

@@ -77,8 +77,8 @@ class UserController extends Controller
 
         $validatedData = $request->validate([
             'username' => 'required',
-            'password' => 'min:4|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'min:4',
+            'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:6',
             'descripcion' => 'required'
         ]);
 
