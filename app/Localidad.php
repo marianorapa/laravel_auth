@@ -51,6 +51,10 @@ class Localidad extends Model
         return $this->hasMany('App\Domicilio');
     }
 
-    
+
+    public function toString(){
+        return $this->descripcion . ', ' . $this->provincia()->first()->toString();
+    }
+
 
 }

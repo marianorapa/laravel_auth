@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Provincia extends Model
 {
 
-    use SoftDeletes;
+    //use SoftDeletes;
     /**
      * The table associated with the model.
      *
@@ -55,5 +55,9 @@ class Provincia extends Model
             $provinciaArray[$provincia->id] = $provincia->descripcion;
         }
         return $provinciaArray;
+    }
+
+    public function toString(){
+        return $this->descripcion;
     }
 }

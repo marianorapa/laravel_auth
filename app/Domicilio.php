@@ -63,6 +63,6 @@ class Domicilio extends Model
     }
 
     public function toString(){
-        return "$this->calle $this->numero, " . $this->localidad()->first()->descripcion;
+        return "$this->calle $this->numero, " . $this->localidad()->first()->toString();
     }
 }

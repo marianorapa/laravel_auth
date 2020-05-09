@@ -66,13 +66,18 @@
 {{--    </div>--}}
 {{--</div>--}}
 
+
 <div class="form-group row">
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
         <div class="col-md-6">
             <select v-model="selected_provincia" @change="loadLocalidades" name="provincia" id="provincia" class="form-control" required>
+{{--            <select>--}}
+{{--                <option value="{{$domicilio->localidad()->first()->provincia()->first()->id}}">--}}
+{{--                    {{$domicilio->localidad()->first()->provincia()->first()->descripcion}}--}}
+{{--                </option>--}}
                 @foreach ($Provincia->getProvincia() as $index => $prov )
 
-                    @if ($domicilio->localidad()->first()->provincia()->first()->descripcion == $prov)
+                    @if ($domicilio->localidad()->first()->provincia()->first()->descripcion === $prov)
                         <option value="{{$index}}" selected> {{$prov}}</option>
                     @else
                         <option value="{{$index}}"> {{$prov}}</option>
@@ -92,7 +97,7 @@
 
     <div class="col-md-6">
         <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" required>
-            <option value="">Seleccione una localidad</option>
+            <option value="{{$domicilio->localidad()->first()->id}}">{{$domicilio->localidad()->first()->descripcion}}</option>
             <option v-for="(localidad, index) in localidades" v-bind:value="index">@{{localidad}}</option>
         </select>
         @error('localidad')

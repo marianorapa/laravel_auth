@@ -93,7 +93,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>La password debe tener 4 caracteres minimo.</strong>
+                                        <strong>La password debe tener 4 caracteres minimo y deben coincidir</strong>
                                     </span>
                                 @enderror
 
@@ -119,6 +119,11 @@
                                 value="{{old('descripcion')}}"
                                 placeholder="Descripcion" class="form-control mb-2" >
                             </div>
+                            @error('descripcion')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>La descripcion es obligatoria.</strong>
+                                    </span>
+                            @enderror
 
 {{--                            <p>Seleccione los roles del usuario:</p>--}}
 {{--                            @foreach ($roles as $rol)--}}
