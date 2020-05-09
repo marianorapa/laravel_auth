@@ -129,18 +129,19 @@ class RoleController extends Controller
 
             $validatedData = $request->validate([
                 'name' => 'required',
-                'descr' => 'required|max:255'
+                'descripcion' => 'required|max:255'
             ]);
 
             $rol->fill($validatedData);
 
             $rol->permisos()->detach();
 
-            foreach($request['permisos'] as $idPermiso){
-                $permiso = Permiso::where('id', $idPermiso)->first();
-                $rol->permisos()->attach($permiso);
+            if (isset($request['permisos'])) {
+                foreach ($request['permisos'] as $idPermiso) {
+                    $permiso = Permiso::where('id', $idPermiso)->first();
+                    $rol->permisos()->attach($permiso);
+                }
             }
-
             /*$permisos = Permiso::all();
 
             foreach ($permisos as $permiso) {
@@ -148,7 +149,6 @@ class RoleController extends Controller
                     $rol->permisos()->attach($permiso);
                 }
             }*/
-
             try {
                 $rol->save();
             } catch (QueryException $e) {
@@ -159,7 +159,6 @@ class RoleController extends Controller
         }
 
         return back()->with('error', 'Rol de administrador no puede modificarse');
-
     }
 
     /**

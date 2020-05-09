@@ -14,11 +14,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
-        $this->middleware('permission');
-
+        //this->middleware('permission');
     }
-
     /**
      * Show the application dashboard.
      *
@@ -26,14 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-//        if (Auth::user()->hasRole('admin'))
-//        {
+        if (Auth::user()->hasRole('admin'))
+        {
             return redirect(route('admin.menu'));
-//        };
+        };
 
-//        return redirect(route('not.admin'));
-
-
+        return redirect(route('balanzas.menu'));
     }
 }

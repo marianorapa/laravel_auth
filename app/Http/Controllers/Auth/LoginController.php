@@ -38,8 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // SACO MIDDLEWARE 03-04 00:44 -> NO ME DEJA ENTRAR SI NO
-        //$this->middleware('guest')->except('logout');
+
     }
 
 
@@ -47,7 +46,6 @@ class LoginController extends Controller
     {
         return 'username';
     }
-
 
     public function login(){
         if (!User::get()->first()){

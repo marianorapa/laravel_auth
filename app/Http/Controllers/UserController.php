@@ -85,7 +85,7 @@ class UserController extends Controller
         $user->fill(
             [
                 'username' => $validatedData['username'],
-                'password' => $validatedData['password'],
+                'password' => Hash::make($validatedData['password']),
                 'descripcion' => $validatedData['descripcion']
             ]
         );
