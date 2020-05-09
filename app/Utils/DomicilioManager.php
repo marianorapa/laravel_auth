@@ -12,7 +12,7 @@ use Illuminate\Database\QueryException;
 class DomicilioManager
 {
 
-    public static function store($validatedDomicilio, &$domicilio, $id_domicilio)
+    public static function store($validatedDomicilio, &$domicilio)
     {
         $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
 
