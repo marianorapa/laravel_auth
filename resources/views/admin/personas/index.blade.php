@@ -63,9 +63,9 @@
                         <th scope="row">{{$persona->id}}</th>
                         <td>{{$persona->nombres}}</td>
                         <td>{{$persona->apellidos}}</td>
-                        <td>{{$persona->descripcion}}</td>
-                        <td>{{$persona->fechaNacimiento}}</td>
-                        <td>{{$persona->domicilio}}</td>
+                        <td>{{$persona->personaTipo()->first()->observaciones}}</td>
+                        <td>{{$persona->fecha_nacimiento}}</td>
+                        <td>{{$persona->personaTipo()->first()->domicilio()->first()->toString()}}</td>
                         <td>{{$persona->telefono}}</td>
                         <td>{{$persona->nroDocumento}}</td>
                         <td>{{$persona->tipoDoc}}</td>

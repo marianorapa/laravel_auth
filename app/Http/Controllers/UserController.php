@@ -18,7 +18,6 @@ class UserController extends Controller
     {
 //        $this->middleware('App\Http\Middleware\IsAdmin');
         $this->middleware('permission');
-
     }
 
     /**
