@@ -12,19 +12,20 @@ use Illuminate\Database\QueryException;
 class DomicilioManager
 {
 
-    public static function store($validatedDomicilio, &$domicilio, $id_domicilio)
+    public static function store($validatedDomicilio, &$domicilio)
     {
-        $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
+        $localidad = Localidad::all()->where('id',$validatedDomicilio['localidad'])->first();
 
         $domicilio = new Domicilio();
         $domicilio->fill($validatedDomicilio);
         $domicilio->localidad()->associate($localidad);
         $domicilio->save();
     }
-    public static function update($validatedDomicilio, &$domicilio,$id_domicilio)
+
+    public static function update($validatedDomicilio, &$domicilio)
     {
-        $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
-        $domicilio = Domicilio::withTrashed()->findOrFail($id_domicilio);
+        $localidad = Localidad::all()->where('id',$validatedDomicilio['localidad'])->first();
+//        $domicilio = Domicilio::withTrashed()->findOrFail($id_domicilio);
         $domicilio->fill($validatedDomicilio);
         $domicilio->localidad()->associate($localidad);
         $domicilio->save();

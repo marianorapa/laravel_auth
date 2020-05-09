@@ -52,24 +52,24 @@
     </div>
 </div>
 
-<div class="form-group row">
-    <label for="codigo_postal" class="col-md-4 col-form-label text-md-right">{{ __('Codigo postal') }}</label>
+{{--<div class="form-group row">--}}
+{{--    <label for="codigo_postal" class="col-md-4 col-form-label text-md-right">{{ __('Codigo postal') }}</label>--}}
 
-    <div class="col-md-6">
-        <input id="codigo_postal" type="text" class="form-control" name="codigo_postal" value="{{$domicilio->codigo_postal}}" required>
-        @error('codigo_postal')
-        <span class="invalid-feedback" role="alert">
-            <strong>Codigo invalido</strong>
-        </span>
-        @enderror
-    </div>
-</div>
+{{--    --}}{{-- Edit 8-05. Marian. Saco cod postal--}}
+{{--        <div class="col-md-6">--}}
+{{--        <input id="codigo_postal" type="text" class="form-control" name="codigo_postal" value="{{$domicilio->localidad()->first()->codigo_postal}}" required>--}}
+{{--        @error('codigo_postal')--}}
+{{--        <span class="invalid-feedback" role="alert">--}}
+{{--            <strong>Codigo invalido</strong>--}}
+{{--        </span>--}}
+{{--        @enderror--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <div class="form-group row">
         <label for="provincia" class="col-md-4 col-form-label text-md-right">Provincia</label>
         <div class="col-md-6">
             <select v-model="selected_provincia" @change="loadLocalidades" name="provincia" id="provincia" class="form-control" required>
-
                 @foreach ($Provincia->getProvincia() as $index => $prov )
 
                     @if ($domicilio->localidad()->first()->provincia()->first()->descripcion == $prov)
@@ -93,7 +93,7 @@
     <div class="col-md-6">
         <select v-model="selected_localidad" name="localidad" id="localidad" class="form-control" required>
             <option value="">Seleccione una localidad</option>
-            <option v-for="(localidad, index) in localidades" b-bind:value="index">@{{localidad}}</option>
+            <option v-for="(localidad, index) in localidades" v-bind:value="index">@{{localidad}}</option>
         </select>
         @error('localidad')
         <span class="invalid-feedback" role="alert">

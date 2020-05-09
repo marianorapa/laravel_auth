@@ -4,7 +4,11 @@
     <div class="col-md-6">
         <select name="id_tipo_documento" id="id_tipo_documento" class="form-control">
             @foreach ($TipoDocumento->gettipodocumento() as $index => $tipo )
-            <option value="{{$index}}"> {{$tipo}}</option>
+                @if ($tipo == $personaTipo->tipoDocumento()->first()->descripcion)
+                    <option value="{{$index}}" selected> {{$tipo}}</option>
+                @else
+                    <option value="{{$index}}"> {{$tipo}}</option>
+                @endif
             @endforeach
         </select>
        {{-- <v-select v-model="selected" :options="options">
@@ -36,7 +40,7 @@
     <label for="tel" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
 
     <div class="col-md-6">
-        <input id="telefono" type="tel" class="form-control" name="telefono" value="{{$personaTipo->tel}}" required>
+        <input id="telefono" type="tel" class="form-control" name="telefono" value="{{$personaTipo->telefono}}" required>
     </div>
 </div>
 

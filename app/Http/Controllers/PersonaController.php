@@ -122,10 +122,11 @@ class PersonaController extends Controller
         // Se fija que exista.
 
         if ($persona != null){
-            PersonaManager::update($request, $persona, $id);
+            PersonaManager::update($request, $persona);
             return back()->with('mensaje', 'Persona actualizada');
         }
-        //return back()->with('mensaje', 'Persona inexistente');
+
+        return back()->with('mensaje', 'Persona inexistente');
         /*$validatedData = $request->validate([
             'nombresPersona' => 'required',
             'apellidos' => 'required',
