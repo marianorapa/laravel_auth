@@ -12,6 +12,7 @@ use App\TipoDocumento;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 class PersonaManager
 {
@@ -40,7 +41,7 @@ class PersonaManager
             'localidad' => ['required','exists:localidad,descripcion']
         ]);
 
-        DomicilioManager::update($validatedDomicilio, $domicilio);
+        DomicilioManager::store($validatedDomicilio, $domicilio);
 
         $tipoDocumento = TipoDocumento::findOrFail($validatedPersonaTipo['id_tipo_documento']);
 
@@ -56,7 +57,6 @@ class PersonaManager
         $persona->personaTipo()->associate($persona_tipo);
         $persona->save();
     }
-
     public static function update(Request $request, Persona &$persona, $id){
 
         $validatedPersonaTipo = $request->validate([
@@ -82,12 +82,12 @@ class PersonaManager
             'localidad' => ['required','exists:localidad,descripcion']
         ]);
 
-        $persona_tipo = PersonaTipo::find($id);
+        $persona_tipo = PersonaTipo::all()->where('id',$id)->first();
 
         $id_domcilio = $persona_tipo->domicilio_id();
-        DomicilioManager::store($validatedDomicilio, $domicilio, $id_domcilio);
+        DomicilioManager::update($validatedDomicilio, $domicilio, $id_domcilio);
 
-        $tipoDocumento = TipoDocumento::findOrFail($validatedPersonaTipo['id_tipo_documento']);
+        $tipoDocumento = TipoDocumento::all()->where('id',$validatedPersonaTipo['id_tipo_documento'])->first();
 
 
         $persona_tipo->fill($validatedPersonaTipo);

@@ -24,7 +24,6 @@ class DomicilioManager
     public static function update($validatedDomicilio, &$domicilio,$id_domicilio)
     {
         $localidad = Localidad::all()->where('descripcion',$validatedDomicilio['localidad'])->first();
-
         $domicilio = Domicilio::withTrashed()->findOrFail($id_domicilio);
         $domicilio->fill($validatedDomicilio);
         $domicilio->localidad()->associate($localidad);
