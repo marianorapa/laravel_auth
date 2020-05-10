@@ -41,7 +41,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header">{{ __('Registro de usuarios') }}</div>
+                <div class="card-header h2">{{ __('Registro de usuarios') }}</div>
                     <div class="card-body">
 
                         <form action="{{route('users.store')}}" method="POST">
