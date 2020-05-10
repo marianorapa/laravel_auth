@@ -64,3 +64,22 @@ Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_
 
 //ruta para ina funcion
 route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
+
+
+//definir precio x kg
+Route::get('/precioXkg', function() {
+    return view('/parametrosProductivos/precioXkg');
+})->name('pp.precio');
+
+//gestion parametros productivos
+Route::get('/gestionParametrosProductivos', function() {
+    return view('/parametrosProductivos/gestionParametrosProductivos');
+});
+
+//definir capacidad productiva
+Route::get('/capacidadProductiva', function() {
+    return view('/parametrosProductivos/capacidadProductiva');
+})->name('pp.capacidadProductiva');
+
+
+
