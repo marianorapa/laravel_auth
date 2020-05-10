@@ -30,9 +30,9 @@
 
                                 <select name="cliente" id="cliente"  class="custom-select col-md-2">
                                     <option data-tokens=="0">Seleccione</option>
-                                                        
+
                                     @foreach ($Cliente->getcliente() as $index => $cli )
-                                       
+
                                         <option data-tokens="{{$cli}}"> {{$cli}}</option>
                                     @endforeach
                                     <option data-tokens="julia"> julia</option>
@@ -41,7 +41,7 @@
                                     <option data-tokens="pedro"> pedro</option>
                                     <option data-tokens="fernando">fernando</option>
                                 </select>
-                            
+
 
                         </div>
                         <br>
@@ -50,16 +50,16 @@
 
                                 <select name="insumo" id="insumo"  class="custom-select col-md-2">
                                     <option data-tokens=="0">Seleccione</option>
-                                                        
+
                                     @foreach ($Insumo->getinsumo() as $index => $ins)
-                                    
+
                                         <option data-tokens="{{$index}}"> {{$ins}}</option> {{--puede que esto no busque bien por que tiene el index en data tokens--}}
                                     @endforeach
                                 </select>
 
-                                <label for="cliente" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>
+                                <label for="proveedor" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>
 
-                                <select name="insumo" id="insumo" class="selectpicker" data-show-subtext="true" data-live-search="true">
+                                <select name="proveedor" id="proveedor" class="selectpicker" data-show-subtext="true" data-live-search="true">
 
                                 </select>
 
@@ -74,9 +74,9 @@
 
                                 <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote"   required>
                                 <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="checone" >
-                            
+
                         </div>
-    
+
                         <br>
                         <br>
                         <div class="form-group row">

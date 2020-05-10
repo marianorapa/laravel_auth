@@ -81,5 +81,7 @@ Route::get('/capacidadProductiva', function() {
     return view('/parametrosProductivos/capacidadProductiva');
 })->name('pp.capacidadProductiva');
 
-
-
+//orgen de produccion
+Route::get('/altaPedidos', function() {
+    return view('/pedidos/altaPedidos');
+})->name('altapedidos');
