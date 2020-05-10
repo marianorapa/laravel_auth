@@ -10,7 +10,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('Registro por primera vez') }}</div>
+                <div class="card-header text-center h2">{{ __('Registro por primera vez') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

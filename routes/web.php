@@ -81,7 +81,32 @@ Route::get('/capacidadProductiva', function() {
     return view('/parametrosProductivos/capacidadProductiva');
 })->name('pp.capacidadProductiva');
 
-//orgen de produccion
-Route::get('/altaPedidos', function() {
-    return view('/pedidos/altaPedidos');
-})->name('altapedidos');
+
+
+//gestion ordenes de produccion
+Route::get('/gestionPedidos', function() {
+    return view('/pedidos/gestionPedidos');
+});
+
+//finalizar ordenes
+Route::get('/finalizarPedidos', function() {
+    return view('/pedidos/finalizarPedidos');
+})->name('finPedido');
+
+
+
+//gestion despachos
+Route::get('/gestionDespachos', function() {
+    return view('/despachos/gestionDespachos');
+});
+
+//inicializar despachos
+Route::get('/pesajeInicialDespacho', function() {
+    return view('/despachos/pesajeInicialDespacho');
+})->name('inicioDespacho');
+
+//finalizar despachos
+Route::get('/pesajeFinalDespacho', function() {
+    return view('/despachos/pesajeFinalDespacho');
+})->name('finDespacho');
+

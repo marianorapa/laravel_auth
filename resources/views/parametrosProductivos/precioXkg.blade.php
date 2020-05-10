@@ -14,7 +14,7 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center h2">
             </div>
             <div class="card-body">
                 <form action="" method="POST">

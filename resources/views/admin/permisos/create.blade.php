@@ -16,7 +16,7 @@
         <div class="col-md-8">
 
             <div class="card">
-                <div class="card-header">{{ __('Registro de permisos') }}</div>
+                <div class="card-header text-center h2">{{ __('Registro de permisos') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('permisos.store') }}">

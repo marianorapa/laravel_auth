@@ -24,7 +24,7 @@
             </div>
             @endif
             <div class="card">
-                <div class="card-header">{{ __('Registro de roles') }}</div>
+                <div class="card-header text-center h2">{{ __('Registro de roles') }}</div>
                     <div class="card-body">
                         <form action="{{route('roles.store')}}" method="POST">
                             @csrf

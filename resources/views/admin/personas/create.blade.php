@@ -36,7 +36,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header">{{ __('Registro de persona') }}</div>
+                <div class="card-header text-center text-center h2">{{ __('Registro de persona') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('personas.store') }}">
