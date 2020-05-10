@@ -40,7 +40,7 @@
 
                             <label for="cantidad" class="col-lg-1 col-form-label text-md-right offset-md-1">Cantidad</label>
 
-                            <input id="cantidad" type="text" class="form-control col-md-2" placeholder="KG" name="patente" required>
+                            <input id="cantidad" type="text" class="form-control col-md-2" placeholder="KG" name="cantidad" required>
 
                         </div>
 
