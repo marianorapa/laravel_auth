@@ -28,6 +28,13 @@
                 </div>
 
                 <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" for="variacion">Variacion</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" id="variacion" name="variacion" placeholder="%" required>
+                        </div>                      
+                </div>
+
+                <div class="form-group row">
                         <label class="col-md-4 col-form-label text-md-right" for="fechaDesde">Fecha desde</label>
                         <div class="col-md-6">
                             <input class="form-control" type="date" id="fecha_desde" name="fecha_desde" required>
