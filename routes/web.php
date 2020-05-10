@@ -87,6 +87,9 @@ Route::get('/capacidadProductiva', function() {
 Route::get('/gestionPedidos', function() {
     return view('/pedidos/gestionPedidos');
 });
+Route::get('/altaPedidos', function() {
+    return view('/pedidos/altaPedidos');
+});
 
 //finalizar ordenes
 Route::get('/finalizarPedidos', function() {
