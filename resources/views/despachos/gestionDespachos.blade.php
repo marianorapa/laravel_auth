@@ -16,8 +16,8 @@
             <a href="{{route('inicioDespacho')}}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <h5 class="mb-1">Iniciar despacho</h5>
                 <p class="mb-1">Iniciar un despacho de productos.</p>
+            </a>
             </div>
-        </a>
     </div>
 
     <div class="list-group">      
@@ -25,8 +25,8 @@
             <a href="{{route('finDespacho')}}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <h5 class="mb-1">Finalizar despacho</h5>
                 <p class="mb-1">Finalizar un despacho en proceso.</p>
+            </a>
             </div>
-        </a>
     </div>
 
 </section>
