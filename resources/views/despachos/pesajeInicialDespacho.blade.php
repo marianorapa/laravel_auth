@@ -12,7 +12,7 @@
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-11">
         <div class="card">
         `<div class="card-header text-center h2">{{ __('Pesaje inicial despacho de productos') }}</div>
             <div class="card-body">
@@ -32,8 +32,8 @@
                         </div>
                 <br>
 
-        <section class="mt-3">
-        <table class="table">
+    <div class="form-group row">
+        <table class="table mt-2">
               @if ($errors->any())
               <div class="alert alert-danger">
                  {{$errors->first()}}
@@ -59,13 +59,10 @@
 
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col">Orden</th>
+                <th scope="col">Fecha entrega</th>
                 <th scope="col">Producto</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Fecha fabricacion</th>
-                <th scope="col">Precio por KG</th>
-                <th scope="col">Destino</th>
-                <th scope="col">Estado</th>
+                <th scope="col">Cant. disponible</th>
               </tr>
             </thead>
             <tbody>
@@ -80,8 +77,42 @@
                 </tr>
             </tbody>
           </table>
-    </section>
+          <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-10 mt-3">
+                    Elegir orden
+        </button>
+    </div>
+
+    <div class="form-group row mt-5">
+        <label for="producto_id" class="col-md-1 col-form-label text-md-left">Producto</label>
+        <input id="producto_id" type="text" class="form-control col-md-2"  name="producto_id" placeholder="Producto seleccionado" required>
+    </div>
+
+    <div class="form-group row mt-5">
+        <label for="Transportista" class="col-md-1 col-form-label text-md-left">Transportista</label>
+            <select name="Transportista" id="transportista_id"  class="custom-select col-md-2 ">
+                <option data-tokens=="0">Seleccione</option>                                                      
+                <option data-tokens="julia"> julia</option>
+                <option data-tokens="adasd"> asdasdsa</option>
+                <option data-tokens="qweqeq"> qweqweqe</option>
+                <option data-tokens="pedro"> pedro</option>
+                <option data-tokens="fernando">fernando</option>
+            </select>
+
+        <label for="patente" class="col-md-1 col-form-label text-md-right">Patente</label>
+        <input id="patente" type="text" class="form-control col-md-2"  name="patente" placeholder="Patente" required>
+    </div>
+
+    <div class="form-group row mt-5">
+        <label for="tara" class="col-md-1 col-form-label text-md-left">Peso vehiculo</label>
+        <input id="tara" type="text" class="form-control col-md-2 border-left"  name="tara" placeholder="Tara" required>
+    
+        <button type="submit" class="btn btn-outline-success col-sm-2 offset-1">
+                    Leer pesaje
+        </button>
+        
+    </div>  
     <br>
+    <br>  
 
                 <div class="form-inline row">
                             <button class="btn btn-secondary col-sm-3">Cancelar</button>
