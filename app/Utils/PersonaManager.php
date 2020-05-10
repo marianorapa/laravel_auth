@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 class PersonaManager
 {
 
-    public static function store(Request $request, Persona &$persona){
+    public static function store(Request $request, Persona &$persona, $domicilio){
         $validatedPersonaTipo = $request->validate([
             'id_tipo_documento' => ['required', 'exists:tipo_documento,id'],
             'nro_documento' => ['required'],
@@ -33,15 +33,7 @@ class PersonaManager
             'fecha_nacimiento' => ['required','date','before:-20 years']
         ]);
 
-        $validatedDomicilio = $request->validate([
-            'calle' => ['required'],
-            'numero' => ['required', 'numeric'],
-            'piso' => ['nullable','numeric'],
-            'dpto' => ['nullable','alpha_num'],
-            'localidad' => ['required','exists:localidad,id']
-        ]);
 
-        DomicilioManager::store($validatedDomicilio, $domicilio);
 
         $tipoDocumento = TipoDocumento::findOrFail($validatedPersonaTipo['id_tipo_documento']);
 

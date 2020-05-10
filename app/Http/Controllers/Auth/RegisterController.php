@@ -129,13 +129,18 @@ class RegisterController extends Controller
 
     protected function RegisterUser(Request $request){
 
-        $persona = new Persona();
-        PersonaManager::store($request, $persona);
-
         $validatedUsuario = $request->validate([
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'confirmed', 'min:6']
         ]);
+
+        DomicilioManager::store($request, $domicilio);
+
+
+        $persona = new Persona();
+        PersonaManager::store($request, $persona, $domicilio);
+
+
 
         $user = new User();
         $user->username = $validatedUsuario['username'];

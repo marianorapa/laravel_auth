@@ -12,8 +12,15 @@ use Illuminate\Database\QueryException;
 class DomicilioManager
 {
 
-    public static function store($validatedDomicilio, &$domicilio)
+    public static function store($request, &$domicilio)
     {
+        $validatedDomicilio = $request->validate([
+            'calle' => ['required'],
+            'numero' => ['required', 'numeric'],
+            'piso' => ['nullable','numeric'],
+            'dpto' => ['nullable','alpha_num'],
+            'localidad' => ['required','exists:localidad,id']
+        ]);
         $localidad = Localidad::all()->where('id',$validatedDomicilio['localidad'])->first();
 
         $domicilio = new Domicilio();
