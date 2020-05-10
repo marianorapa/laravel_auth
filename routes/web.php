@@ -87,9 +87,11 @@ Route::get('/capacidadProductiva', function() {
 Route::get('/gestionPedidos', function() {
     return view('/pedidos/gestionPedidos');
 });
+
+//alta de pedido de produccion
 Route::get('/altaPedidos', function() {
     return view('/pedidos/altaPedidos');
-});
+})->name('altaPedidos');
 
 //finalizar ordenes
 Route::get('/finalizarPedidos', function() {

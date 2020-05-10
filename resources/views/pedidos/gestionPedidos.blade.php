@@ -14,13 +14,20 @@
 
 
     <div class="list-group">
-        
+
             <div class="d-flex w-100 justify-content-between">
-            <a href="{{route('finPedido')}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <a href="{{route('finPedido')}}" class="list-group-item list-group-item-action flex-column align-items-start">
                 <h5 class="mb-1">Finalizar pedido</h5>
                 <p class="mb-1">Finalizar un pedido en proceso.</p>
+                </a>
             </div>
-        </a>
+            <div class="d-flex w-100 justify-content-between">
+                <a href="{{route('altaPedidos')}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <h5 class="mb-1">Alta de pedido de produccion</h5>
+                <p class="mb-1">Finalizar un pedido en proceso.</p>
+                </a>
+            </div>
+
     </div>
 
 
