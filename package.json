@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "parsleyjs": "^2.9.2",
         "select2": "^4.0.13",
         "vue-select": "^3.10.3",
         "vue-simple-search-dropdown": "^1.0.1"

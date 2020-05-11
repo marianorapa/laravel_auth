@@ -19,7 +19,7 @@
                         <div class="form-inline row">
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
 
-                            <select name="cliente" id="cliente"  class="custom-select col-md-2">
+                            <select name="cliente" id="cliente"  class="custom-select col-md-2 form-check-input:invalid"> {{--checkear que form-check-input:invalid ande--}}
                                 <option data-tokens=="0">Seleccione</option>
 
                                {{--@foreach ($Cliente->getcliente() as $index => $cli )
