@@ -3,15 +3,15 @@ var window = window || {},
     console = console || {};
 document.addEventListener("DOMContentLoaded", function() {
 
-    //ARCHIVO LOG IN PRIMERA VEZ, PRIMEROS CAMPOS
+    //ARCHIVO js para crear y editar usuarios
     //USERNAME
-    validar_nombres = document.querySelector(".nombresjs");
-    validar_nombres.addEventListener("blur", function() {
-        var nombres = /^[a-z-A-Z0-9]{6,20}$/;
-        if (nombres.exec(validar_nombres.value)) {
-            validar_nombres.style.background = "#ffffff";
+    validar_username = document.querySelector(".usernamejs");
+    validar_username.addEventListener("blur", function() {
+        var user = /^[a-z-A-Z0-9]{6,20}$/;
+        if (user.exec(validar_username.value)) {
+            validar_username.style.background = "#ffffff";
         } else {
-            validar_nombres.style.background = "#e05f5f";
+            validar_username.style.background = "#e05f5f";
         }
     });
 
@@ -34,6 +34,17 @@ document.addEventListener("DOMContentLoaded", function() {
             validar_confpass.style.background = "#ffffff";
         } else {
             validar_confpass.style.background = "#e05f5f";
+        }
+    });
+
+    //observacion
+    validar_observacion = document.querySelector(".observacionjs");
+    validar_observacion.addEventListener("blur", function() {
+        var observaciones = /^[a-zA-Z0-9_-]{0,140}$/;
+        if (observaciones.exec(validar_observacion.value) && (validar_observacion.value != "")) {
+            validar_observacion.style.background = "#ffffff";
+        } else {
+            validar_observacion.style.background = "#e05f5f";
         }
     });
 

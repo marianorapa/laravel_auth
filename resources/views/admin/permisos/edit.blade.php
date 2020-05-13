@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('publics')
+    <script src="{{ asset('js/permisoscreate.js') }}"></script>
+@endsection
 @section('content')
     <section class="container">
         <div class="bs-example">
@@ -51,7 +53,7 @@
 
                                 <input type="text" name="name" id="name"
                                 value="{{$permiso->nombre_ruta}}" placeholder="Nombre"
-                                class="form-control mb-2" required>
+                                class="nombrejs form-control mb-2" required>
                             </div>
 
 
@@ -59,14 +61,14 @@
                                 <label for="descr">Descripción</label>
                                 <input type="text" name="descr" id="descr"
                                 value="{{$permiso->descr}}"
-                                placeholder="Descripcion" value={{$permiso->descr}} class="form-control mb-2" required>
+                                placeholder="Descripcion" value="{{$permiso->descr}}" class="observacionjs form-control mb-2" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="funcionalidad">Funcionalidad</label>
                                 <input type="text" name="funcionalidad" id="funcionalidad"
                                 value="{{$permiso->funcionalidad}}" placeholder="Acciones"
-                                class="form-control mb-2" required>
+                                class="observacionjs form-control mb-2" required>
                             </div>
 
 
