@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('publics')
+    <script src="{{ asset('js/register.js') }}"></script>
+@endsection
 
 @section('content')
 
@@ -20,7 +23,7 @@
                             <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Nombre usuario') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="username" class="form-control @error('username')
+                                <input id="username" type="username" class="nombresjs form-control @error('username')
                                     is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
 
                                 @error('username')
@@ -36,7 +39,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password')
+                                <input id="password" type="password" class="passwordjs form-control @error('password')
                                     is-invalid @enderror" name="password" required autocomplete="new-password" minlength="6">
 
                                 @error('password')
@@ -51,7 +54,7 @@
                             <label for="password-confirmation" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirmation" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirmation" type="password" class="confirmarpasswordjs form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
