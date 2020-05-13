@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('publics')
+    <script src="{{ asset('js/rolescreate.js') }}"></script>
+@endsection
 @section('content')
 
 <section class="container">
@@ -59,7 +61,7 @@
                                 <div class="col-md-6">
                                     <input type="text" name="name" id="name"
                                     value="{{old('username')}}" placeholder="Nombre"
-                                    class="form-control mb-2" required>
+                                    class="usernamejs form-control mb-2" required>
                                 </div>
                             </div>
 
@@ -70,7 +72,7 @@
                                 <div class="col-md-6 ">
                                     <input type="text" name="descr" id="descr"
                                     value="{{old('descripcion')}}"
-                                    placeholder="Descripcion" class="form-control mb-2" required>
+                                    placeholder="Descripcion" class="observacionjs form-control mb-2" required>
                                 </div>
                             </div>
 

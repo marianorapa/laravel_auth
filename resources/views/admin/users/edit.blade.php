@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('publics')
+    <script src="{{ asset('js/userscreate.js') }}"></script>
+@endsection
 @section('content')
 
 <section class="container">
@@ -73,7 +75,7 @@
 
                             <input type="text" name="username" id="username"
                             value="{{$user->username}}" placeholder="Nombre"
-                            class="form-control mb-2" required>
+                            class="usernamejs form-control mb-2" required>
                         </div>
 
 
@@ -81,7 +83,7 @@
                             <label for="password" >{{ __('Password') }}</label>
 
                             <input id="password" type="password" placeholder="(sin cambios)"
-                                class="form-control @error('password') is-invalid @enderror" name="password">
+                                class="passwordjs form-control @error('password') is-invalid @enderror" name="password">
 
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -92,14 +94,14 @@
 
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm"  type="password" class="form-control" name="password_confirmation">
+                            <input id="password-confirm"  type="password" class="confirmarpasswordjs form-control" name="password_confirmation">
                         </div>
 
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <input type="text" name="descripcion" id="descripcion"
                             value="{{$user->descripcion}}"
-                            placeholder="Descripcion" class="form-control mb-2" required>
+                            placeholder="Descripcion" class="observacionjs form-control mb-2" required>
                          </div>
 
 {{--                        <div class="form-group">--}}

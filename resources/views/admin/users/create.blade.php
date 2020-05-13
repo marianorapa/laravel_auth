@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('publics')
+    <script src="{{ asset('js/userscreate.js') }}"></script>
+@endsection
 @section('content')
 
 <section class="container">
@@ -81,7 +83,7 @@
 
                                 <input type="text" name="username" id="username"
                                 value="{{old('username')}}" placeholder="Nombre"
-                                class="form-control mb-2" >
+                                class="usernamejs form-control mb-2" >
 
                             </div>
 
@@ -89,7 +91,7 @@
                             <div class="form-group">
                                 <label for="password" >{{ __('Password') }}</label>
 
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
+                                <input id="password" type="password" class="passwordjs form-control @error('password') is-invalid @enderror" name="password" >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -101,7 +103,7 @@
 
                         <div class="form-group">
                             <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
+                            <input id="password-confirm" type="password" class="confirmarpasswordjs form-control" name="password_confirmation" >
 
                         </div>
 
@@ -117,7 +119,7 @@
                                 <label for="descripcion">Descripción</label>
                                 <input type="text" name="descripcion" id="descripcion"
                                 value="{{old('descripcion')}}"
-                                placeholder="Descripcion" class="form-control mb-2" >
+                                placeholder="Descripcion" class="observacionjs form-control mb-2" >
                             </div>
                             @error('descripcion')
                             <span class="invalid-feedback" role="alert">

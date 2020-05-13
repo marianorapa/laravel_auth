@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('publics')
+    <script src="{{ asset('js/permisoscreate.js') }}"></script>
+@endsection
 @section('content')
 <div class="container">
         <div class="bs-example">
@@ -26,7 +28,7 @@
                             <label for="nombrePermiso" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required>
+                                <input id="name" type="text" class="nombrejs form-control" name="name" required>
                             </div>
                         </div>
                         
@@ -34,7 +36,7 @@
                             <label for="descr" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
 
                             <div class="col-md-6">
-                                <input id="descr" type="text" class="form-control" name="descr" required>
+                                <input id="descr" type="text" class="observacionjs form-control" name="descr" required>
                             </div>
                         </div>
 
@@ -42,7 +44,7 @@
                             <label for="funcionalidad" class="col-md-4 col-form-label text-md-right">{{ __('Funcionalidad') }}</label>
 
                             <div class="col-md-6">
-                                <input id="funcionalidad" type="text" class="form-control" name="funcionalidad" required>
+                                <input id="funcionalidad" type="text" class="observacionjs form-control" name="funcionalidad" required>
                             </div>
                         </div>
 
