@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/register.js') }}"></script>
+    <script src="{{ asset('js/inputscreate.js') }}"></script>
+    <script src="{{ asset('js/inputscreatePT.js') }}"></script>
+    <script src="{{ asset('js/inputscreateDom.js') }}"></script>
 @endsection
 
 @section('content')

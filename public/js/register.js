@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //nombres
     validar_nombres = document.querySelector(".nombresjs");
     validar_nombres.addEventListener("blur", function() {
-        var nombres = /^[a-z]{6,20}$/;
+        var nombres = /^[a-z]{3,20}$/;
         if (nombres.exec(validar_nombres.value)) {
             validar_nombres.style.background = "#ffffff";
         } else {

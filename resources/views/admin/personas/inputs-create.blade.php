@@ -1,12 +1,14 @@
 @section('publics')
     <script src="{{ asset('js/inputscreate.js') }}"></script>
+    <script src="{{ asset('js/inputscreatePT.js') }}"></script>
+    <script src="{{ asset('js/inputscreateDom.js') }}"></script>
 @endsection
 
 <div class="form-group row">
     <label for="nombres" class="col-md-4 col-form-label text-md-right">{{ __('Nombres') }}</label>
 
     <div class="col-md-6">
-         <input id="nombres" type="text" class="nombresjs form-control" name="nombres" value="{{old('nombres')}}" required>
+         <input id="nombres" type="text" class="nombrepjs form-control" name="nombres" value="{{old('nombres')}}" required>
         @error('nombres')
         <span class="invalid-feedback" role="alert">
             <strong>Nombre invalido</strong>
@@ -36,7 +38,7 @@
     <label for="fecha_nacimiento" class="col-md-4 col-form-label text-md-right">{{ __('Fecha nacimiento') }}</label>
 
     <div class="col-md-6">
-        <input id="fecha_nacimiento" type="date" class="form-control" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" required>
+        <input id="fecha_nacimiento" type="date" class="fechaNacjs form-control" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" required>
         @error('apellidos')
         <span class="invalid-feedback" role="alert">
             <strong>Fecha invalida</strong>

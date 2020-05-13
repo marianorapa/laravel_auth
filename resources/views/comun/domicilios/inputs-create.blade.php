@@ -1,10 +1,13 @@
 @inject('Provincia', 'App\Provincia')
+@section('publics')
+    <script src="{{ asset('js/inputscreateDom.js') }}"></script>
+@endsection
 
 <div class="form-group row">
     <label for="calle" class="col-md-4 col-form-label text-md-right">{{ __('Calle') }}</label>
 
     <div class="col-md-6">
-        <input id="calle" type="text" class="form-control" name="calle" value="{{old('calle')}}" required>
+        <input id="calle" type="text" class="callejs form-control" name="calle" value="{{old('calle')}}" required>
         @error('calle')
         <span class="invalid-feedback" role="alert">
             <strong>Calle invalida</strong>
@@ -17,7 +20,7 @@
     <label for="numero" class="col-md-4 col-form-label text-md-right">{{ __('Numero') }}</label>
 
     <div class="col-md-6">
-        <input id="numero" type="text" class="form-control" name="numero" value="{{old('numero')}}" required>
+        <input id="numero" type="text" class="numerojs form-control" name="numero" value="{{old('numero')}}" required>
         @error('numero')
         <span class="invalid-feedback" role="alert">
             <strong>Numero invalido</strong>
@@ -30,7 +33,7 @@
     <label for="piso" class="col-md-4 col-form-label text-md-right">{{ __('Piso') }}</label>
 
     <div class="col-md-6">
-        <input id="piso" type="text" class="form-control" name="piso" value="{{old('piso')}}">
+        <input id="piso" type="text" class="pisojs form-control" name="piso" value="{{old('piso')}}">
         @error('piso')
         <span class="invalid-feedback" role="alert">
             <strong>Piso invalido</strong>
@@ -43,7 +46,7 @@
     <label for="dpto" class="col-md-4 col-form-label text-md-right">{{ __('Dpto') }}</label>
 
     <div class="col-md-6">
-        <input id="dpto" type="text" class="form-control" name="dpto" value="{{old('dpto')}}">
+        <input id="dpto" type="text" class="dptojs form-control" name="dpto" value="{{old('dpto')}}">
         @error('dpto')
         <span class="invalid-feedback" role="alert">
             <strong>Dpto invalido</strong>
