@@ -12,8 +12,6 @@ class ClienteSeeder extends Seeder
      */
     public function run()
     {
-        //
-
         // Ejemplo de guardar entidades con herencia
         $tipoDoc = \App\TipoDocumento::findOrFail(80);
 

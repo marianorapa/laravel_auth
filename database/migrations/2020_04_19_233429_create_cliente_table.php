@@ -16,6 +16,7 @@ class CreateClienteTable extends Migration
         Schema::create('cliente', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('id')->references('id')->on('empresa');
         });
     }

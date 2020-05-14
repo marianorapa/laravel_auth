@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Proveedor $proveedor
  * @property Transportistum $transportistum
  */
-class Empresa extends PersonaTipo
+class Empresa extends Model//PersonaTipo
 {
     /**
      * The table associated with the model.
@@ -63,8 +63,8 @@ class Empresa extends PersonaTipo
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function transportistum()
+    public function transportista()
     {
-        return $this->hasOne('App\Transportistum', 'id');
+        return $this->hasOne('App\Transportista', 'id');
     }
 }

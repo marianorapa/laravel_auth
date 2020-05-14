@@ -1,10 +1,8 @@
 <?php
 
-use App\InsumoNoTrazable;
 use Illuminate\Database\Seeder;
 
-
-class InsumoSeeder extends Seeder
+class InsumoTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

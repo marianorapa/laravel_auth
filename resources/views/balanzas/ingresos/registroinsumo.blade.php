@@ -31,15 +31,15 @@
                                 <select name="cliente" id="cliente"  class="custom-select col-md-2">
                                     <option data-tokens=="0">Seleccione</option>
 
-                                    @foreach ($Cliente->getcliente() as $index => $cli )
+                                    @foreach ($Cliente->getClientesAsArray() as $index => $cli )
 
                                         <option data-tokens="{{$cli}}"> {{$cli}}</option>
                                     @endforeach
-                                    <option data-tokens="julia"> julia</option>
-                                    <option data-tokens="adasd"> asdasdsa</option>
-                                    <option data-tokens="qweqeq"> qweqweqe</option>
-                                    <option data-tokens="pedro"> pedro</option>
-                                    <option data-tokens="fernando">fernando</option>
+{{--                                    <option data-tokens="julia"> julia</option>--}}
+{{--                                    <option data-tokens="adasd"> asdasdsa</option>--}}
+{{--                                    <option data-tokens="qweqeq"> qweqweqe</option>--}}
+{{--                                    <option data-tokens="pedro"> pedro</option>--}}
+{{--                                    <option data-tokens="fernando">fernando</option>--}}
                                 </select>
 
 

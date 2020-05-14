@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property OpDetalleNoTrazable[] $opDetalleNoTrazables
  * @property Ticket[] $tickets
  */
-class Cliente extends Empresa
+class Cliente extends Model//extends Empresa
 {
     /**
      * The table associated with the model.
@@ -93,10 +93,13 @@ class Cliente extends Empresa
         return $this->hasMany('App\Ticket');
     }
 
-    public function getcliente(){
+    public function getClientesAsArray(){
         $clientes = Cliente::all();
+
+        $clienteArray = [];
+
         foreach($clientes as $cliente){
-            $clienteArray[$cliente->id] = $cliente->denominacion;
+            $clienteArray[$cliente->id] = $cliente->empresa()->first()->denominacion;
 
         }
         return $clienteArray;
