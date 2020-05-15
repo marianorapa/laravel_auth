@@ -12,6 +12,7 @@ use App\Ticket;
 use App\TicketEntrada;
 use App\TicketEntradaInsumoTrazable;
 use App\Transportista;
+use App\Utils\EntradasInsumoManager;
 use Illuminate\Http\Request;
 
 class EntradaController extends Controller
@@ -63,64 +64,49 @@ class EntradaController extends Controller
 
     public function guardarEntradaInicial(Request $request){
 
+        $validated = $request->validate([
+            'cliente' => ['required', 'exists:cliente,id'],
+            'insumo' => ['required', 'exists:insumo,id'],
+            'proveedor' => ['required', 'exists:proveedor,id'],
+            'transportista' => ['required', 'exists:transportista,id'],
+            'patente' => ['required'],
+            'nro_cbte' => ['required'],
+            'pesaje' => ['required', 'numeric']
+        ]);
+
+        /* Separo en atributos para independizar al manager de los nombres de los inputs en la vista*/
+        $idCliente = $validated['cliente'];
+        $idInsumo = $validated['insumo'];
+        $idProveedor = $validated['proveedor'];
+        $idTransportista = $validated['transportista'];
+        $patente = $validated['patente'];
+        $nroCbte = $validated['nro_cbte'];
+        $pesaje = $validated['pesaje'];
+
         if (!$request->has('isInsumoTrazable')){
+            EntradasInsumoManager::registrarEntradaInicialInsumoNoTrazable($idCliente, $idInsumo,
+                $idProveedor, $idTransportista, $patente, $nroCbte, $pesaje);
+
+            return back()->with('message', 'Ingreso de insumo no trazable registrado con éxito!');
+        }
+        else {
+            /* Si es un insumo trazable, hago validacion adicional */
             $validated = $request->validate([
-                'cliente'=>['required', 'exists:cliente,id'],
-                'insumo'=>['required', 'exists:insumo,id'],
-                'nrolote'=>['required'],
-//                'fecha_elaboracion' =>['required', 'date'], pendiente
-//                'fecha_vencimiento' =>['required', 'date'], pendiente
-                'proveedor'=>['required', 'exists:proveedor,id'],
-                'transportista'=>['required', 'exists:transportista,id'],
-                'patente'=>['required'],
-                'nro_cbte'=>['required'],
-                'pesaje' => ['required', 'numeric']
+                'nrolote' => ['required'],
+                'fecha_elaboracion' =>['required', 'date'],
+                'fecha_vencimiento' =>['required', 'date']
             ]);
 
-            $ticketEntradaTrazable = new TicketEntradaInsumoTrazable();
+            $nroLote = $validated['nrolote'];
+            $fechaElab = $validated['fecha_elaboracion'];
+            $fechaVenc = $validated['fecha_vencimiento'];
 
-            $ticketEntrada = new TicketEntrada();
+            EntradasInsumoManager::registrarEntradaInicialInsumoTrazable(
+                $idCliente, $idInsumo, $nroLote, $fechaElab, $fechaVenc, $idProveedor, $idTransportista, $patente,
+                $nroCbte, $pesaje);
 
-            $ticket = new Ticket();
-
-            $ticket->cliente()->associate(Cliente::findOrFail($validated['cliente']));
-            $ticket->transportista()->associate(Transportista::findOrFail($validated['transportista']));
-            $ticket->patente = $validated['patente'];
-
-//            Falta agregar el model pesaje
-//            $pesaje = new Pesaje();
-//            $validated['pesaje'];
-
-
-
-            $ticket->save();
-
-            $ticketEntrada->ticket()->associate($ticket);
-            $ticketEntrada->cbte_asociado = $validated['nro_cbte'];
-            $ticketEntrada->save();
-
-            $insumoTrazable = InsumoTrazable::findOrFail($validated['insumo']);
-
-            $insumoEspecifico = $insumoTrazable->insumosEspecificos()->all()->where('id_proveedor', $validated['proveedor']);
-
-            $loteInsumoEspecifico = $insumoEspecifico->lotesInsumoEspecifico()->all()->where('nro_lote', $validated['nrolote']);
-
-            // Si no existe el lote aun en el sistema
-            if (nullValue($loteInsumoEspecifico)) {
-                $loteInsumoEspecifico = new LoteInsumoEspecifico();
-                $loteInsumoEspecifico->insumoEspecifico()->associate($insumoEspecifico);
-                $loteInsumoEspecifico->nro_lote = $validated['nrolote'];
-//                $loteInsumoEspecifico->fecha_elaboracion = $validated['fecha_elaboracion']; pendiente
-//                $loteInsumoEspecifico->fecha_vencimiento = $validated['fecha_vencimiento']; pendiente
-                $loteInsumoEspecifico->save();
-            }
-
-            $ticketEntradaTrazable->loteInsumoEspecifico()->associate($loteInsumoEspecifico);
-
-            $ticketEntradaTrazable->save();
-
+            return back()->with('message', 'Ingreso de insumo trazable registrado con éxito!');
         }
-
     }
 
 
@@ -208,8 +194,11 @@ class EntradaController extends Controller
                 }
             }
         }
+        return Proveedor::findOrFail($id)->insumosEspecificos()->all();
 
         return $arrayInsumoespe;
 
     }
+
+
 }
