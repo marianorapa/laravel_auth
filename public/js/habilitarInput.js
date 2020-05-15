@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function(event)
     proveedor_id = document.querySelector(".selectProveedor");
     check_habilitar.addEventListener("click",function () {
         var id = proveedor_id.value;
+
         if (check_habilitar.checked){
 
             axios.get('/insumosasinc',{
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function(event)
                 .then(function (res) {
                     if (res.status == 200){
                         var i = 0;
-                        //console.log(res.data[length]);
+                        console.log(res.data);
                          while (i< res.data['length']){
                              opcion = document.createElement("option");
                              opcion.value=res.data[i]['id'];
