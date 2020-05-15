@@ -79,7 +79,7 @@
                         <div class="form-group row">
                             <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
                                 <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote" required>
-                                <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="checone">
+                                <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="isInsumoTrazable">
                         </div>
 
                         <br>
