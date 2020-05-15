@@ -65,7 +65,7 @@
 
                                 <label for="proveedor" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>
 
-                                <select name="proveedor" id="proveedor" class="selectpicker" data-show-subtext="true" data-live-search="true">
+                                <select name="proveedor" id="proveedor" class="custom-select col-md-2" >
                                     @foreach($proveedores as $proveedor)
                                         <option value="{{$proveedor->id}}">{{$proveedor->empresa()->first()->denominacion}}</option>
                                     @endforeach
@@ -87,7 +87,7 @@
                         <div class="form-group row">
                             <label for="transportista" class="col-md-2 col-form-label text-md-right">Transportista</label>
 
-                            <select name="transportista" id="transportista" class="selectpicker" data-show-subtext="true" data-live-search="true">
+                            <select name="transportista" id="transportista" class="custom-select col-md-2" data-show-subtext="true" data-live-search="true">
                                 @foreach($transportistas as $transportista)
                                     <option value="{{$transportista->id}}">{{$transportista->empresa()->first()->denominacion}}</option>
                                 @endforeach
@@ -111,16 +111,14 @@
                         <div class="form-group row">
                             <label for="pesaje" class="col-lg-2 col-form-label text-md-right">Peso vehiculo</label>
 
-                                <input id="pesaje" type="text" class="form-control col-md-2" placeholder="peso bruto" name="pesaje" required>
+                                <input id="pesaje" type="text" class="pesajes form-control col-md-2" placeholder="peso bruto" name="pesaje" required>
 
-                            <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-1">
-                                Leer pesaje
-                            </button>
+                            <label class="pesajeAleatorio btn btn-success btn-block col-sm-2 offset-1" >leer pesaje</label>
                         </div>
                         <br>
                         <div class="form-inline row">
-                            <button class="btn btn-secondary col-sm-3">Cancelar</button>
-                            <button class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                            <a class="btn btn-secondary col-sm-3" href="{{route('ingresos.index')}}">Cancelar</a>
+                            <button type="submit"  class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
                         </div>
                     </form>
                 </div>
