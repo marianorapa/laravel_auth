@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Insumo;
+use App\InsumoEspecifico;
+use App\InsumoTrazable;
+use App\LoteInsumoEspecifico;
 use App\Proveedor;
+use App\Ticket;
 use App\TicketEntrada;
+use App\TicketEntradaInsumoTrazable;
 use App\Transportista;
 use Illuminate\Http\Request;
 
@@ -58,17 +63,58 @@ class EntradaController extends Controller
 
     public function guardarEntradaInicial(Request $request){
 
+        if (!$request->has('isInsumoTrazable')){
+            $validated = $request->validate([
+                'cliente'=>['required', 'exists:cliente,id'],
+                'insumo'=>['required', 'exists:insumo,id'],
+                'nrolote'=>['required'],
+//                'fecha_elaboracion' =>['required', 'date'], pendiente
+//                'fecha_vencimiento' =>['required', 'date'], pendiente
+                'proveedor'=>['required', 'exists:proveedor,id'],
+                'transportista'=>['required', 'exists:transportista,id'],
+                'patente'=>['required'],
+                'nro_cbte'=>['required'],
+                'pesaje' => ['required', 'numeric']
+            ]);
 
-        $validated = $request->validate([
-            'cliente'=>['required', 'exists:cliente,id'],
-            'insumo'=>['required', 'exists:insumo,id'],
-            'proveedor'=>['required', 'exists:proveedor,id'],
-            'nrolote'=>['required'],
-            'transportista'=>['required', 'exists:transportista,id'],
-            'patente'=>['required'],
-            'nro_cbte'=>['required'],
-        ]);
+            $ticketEntradaTrazable = new TicketEntradaInsumoTrazable();
 
+            $ticketEntrada = new TicketEntrada();
+
+            $ticket = new Ticket();
+
+            $ticket->cliente()->first()->associate(Cliente::findOrFail($validated['cliente']));
+            $ticket->transportista()->first()->associate(Transportista::findOrFail($validated['transportista']));
+            $ticket->patente = $validated['patente'];
+            $ticket->bruto = $validated['pesaje'];
+
+            $ticket->save();
+
+            $ticketEntrada->ticket()->associate($ticket);
+            $ticketEntrada->cbte_asociado = $validated['nro_cbte'];
+            $ticketEntrada->save();
+
+            $insumoTrazable = InsumoTrazable::findOrFail($validated['insumo']);
+
+            $insumoEspecifico = $insumoTrazable->insumosEspecificos()->all()->where('id_proveedor', $validated['proveedor']);
+
+            $loteInsumoEspecifico = $insumoEspecifico->lotesInsumoEspecifico()->all()->where('nro_lote', $validated['nrolote']);
+
+            // Si no existe el lote aun en el sistema
+            if (nullValue($loteInsumoEspecifico)) {
+                $loteInsumoEspecifico = new LoteInsumoEspecifico();
+                $loteInsumoEspecifico->insumoEspecifico()->associate($insumoEspecifico);
+                $loteInsumoEspecifico->nro_lote = $validated['nrolote'];
+//                $loteInsumoEspecifico->fecha_elaboracion = $validated['fecha_elaboracion']; pendiente
+//                $loteInsumoEspecifico->fecha_vencimiento = $validated['fecha_vencimiento']; pendiente
+                $loteInsumoEspecifico->save();
+            }
+
+            $ticketEntradaTrazable->loteInsumoEspecifico()->associate($loteInsumoEspecifico);
+
+            $ticketEntradaTrazable->save();
+
+        }
 
     }
 
