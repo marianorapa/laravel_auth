@@ -48,8 +48,14 @@ Route::resource('despachos', 'DespachoController');
 Route::get('/registroinsumoini', 'EntradaController@registroInsumoInicial')
     ->name('balanzas.ingresos.inicial');
 
+Route::post('/ingreso/inicial', 'EntradaController@guardarEntradaInicial')
+    ->name('balanzas.guardar.inicial');
+
 Route::get('/registroinsumofinal', 'EntradaController@registroInsumoFinal')
     ->name('balanzas.ingresos.final');
+
+
+
 /*
  * TODO: Rutas de usuario balanza/administración
  */

@@ -54,6 +54,25 @@ class EntradaController extends Controller
         return view('balanzas/ingresos/registroinsumofinal');
     }
 
+
+
+    public function guardarEntradaInicial(Request $request){
+
+
+        $validated = $request->validate([
+            'cliente'=>['required', 'exists:cliente,id'],
+            'insumo'=>['required', 'exists:insumo,id'],
+            'proveedor'=>['required', 'exists:proveedor,id'],
+            'nrolote'=>['required'],
+            'transportista'=>['required', 'exists:transportista,id'],
+            'patente'=>['required'],
+            'nro_cbte'=>['required'],
+        ]);
+
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

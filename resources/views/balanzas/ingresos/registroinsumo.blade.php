@@ -22,7 +22,7 @@
                 <div class="card-header h2">{{ __('Registro de ingreso de insumo') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{route('balanzas.guardar.inicial')}}">
                         @csrf
 
                         <div class="form-group row">
@@ -31,9 +31,13 @@
                                 <select name="cliente" id="cliente"  class="custom-select col-md-2">
                                     <option data-tokens=="0">Seleccione</option>
 
-                                    @foreach ($Cliente->getClientesAsArray() as $index => $cli )
+{{--                                    @foreach ($Cliente->getClientesAsArray() as $index => $cli )--}}
 
-                                        <option data-tokens="{{$cli}}"> {{$cli}}</option>
+{{--                                        <option data-tokens="{{$cli}}"> {{$cli}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                    Edit. Marian. El controller me pasa los clientes, yo en la vista no "conozco" el modelo--}}
+                                    @foreach ($clientes as $cli )
+                                        <option data-tokens="{{$cli->id}}" value="{{$cli->id}}"> {{$cli->empresa()->first()->denominacion}}</option>
                                     @endforeach
 {{--                                    <option data-tokens="julia"> julia</option>--}}
 {{--                                    <option data-tokens="adasd"> asdasdsa</option>--}}
@@ -51,16 +55,20 @@
                                 <select name="insumo" id="insumo"  class="custom-select col-md-2">
                                     <option data-tokens=="0">Seleccione</option>
 
-                                    @foreach ($Insumo->getinsumo() as $index => $ins)
-
-                                        <option data-tokens="{{$index}}"> {{$ins}}</option> {{--puede que esto no busque bien por que tiene el index en data tokens--}}
+{{--                                    @foreach ($Insumo->getinsumo() as $index => $ins)--}}
+{{--                                        <option data-tokens="{{$index}}"> {{$ins}}</option> --}}{{--puede que esto no busque bien por que tiene el index en data tokens--}}
+{{--                                    @endforeach--}}
+                                    @foreach ($insumos as $insumo )
+                                        <option data-tokens="{{$insumo->id}}" value="{{$insumo->id}}"> {{$insumo->descripcion}}</option>
                                     @endforeach
                                 </select>
 
                                 <label for="proveedor" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>
 
                                 <select name="proveedor" id="proveedor" class="selectpicker" data-show-subtext="true" data-live-search="true">
-
+                                    @foreach($proveedores as $proveedor)
+                                        <option value="{{$proveedor->id}}">{{$proveedor->empresa()->first()->denominacion}}</option>
+                                    @endforeach
                                 </select>
 
 
@@ -70,11 +78,8 @@
 
                         <div class="form-group row">
                             <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
-
-
-                                <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote"   required>
-                                <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="checone" >
-
+                                <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote" required>
+                                <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="checone">
                         </div>
 
                         <br>
@@ -83,7 +88,9 @@
                             <label for="transportista" class="col-md-2 col-form-label text-md-right">Transportista</label>
 
                             <select name="transportista" id="transportista" class="selectpicker" data-show-subtext="true" data-live-search="true">
-
+                                @foreach($transportistas as $transportista)
+                                    <option value="{{$transportista->id}}">{{$transportista->empresa()->first()->denominacion}}</option>
+                                @endforeach
                             </select>
 
                             <label for="patente" class="col-lg-2 col-form-label text-md-right offset-md-2">Patente</label>
@@ -93,17 +100,16 @@
                         </div>
                         <br>
                         <div class="form-group row">
-                            <label for="nro" class="col-lg-2 col-form-label text-md-right">NRO Remito/Carta de porte</label>
+                            <label for="nro_cbte" class="col-lg-2 col-form-label text-md-right">NRO Remito/Carta de porte</label>
 
 
-                                <input id="nro" type="text" class="form-control col-md-2" name="nro" required>
+                                <input id="nro_cbte" type="text" class="form-control col-md-2" name="nro_cbte" required>
 
                         </div>
                         <br>
 
                         <div class="form-group row">
                             <label for="pesaje" class="col-lg-2 col-form-label text-md-right">Peso vehiculo</label>
-
 
                                 <input id="pesaje" type="text" class="form-control col-md-2" placeholder="peso bruto" name="pesaje" required>
 
