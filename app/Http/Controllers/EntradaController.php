@@ -13,6 +13,7 @@ use App\TicketEntrada;
 use App\TicketEntradaInsumoTrazable;
 use App\Transportista;
 use Illuminate\Http\Request;
+use function GuzzleHttp\Promise\all;
 
 class EntradaController extends Controller
 {
@@ -189,12 +190,13 @@ class EntradaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getInsumosTrazables(int $id){
+    public function getInsumosTrazables(Request $request){
+        $id = $request->get('id');
         $insumos = Insumo::all();
-        $arrayInsumoespe= [];
+
+        /*$arrayInsumoespe= [];
         foreach ($insumos as $ins){
             //$arrayInsumoespe=$ins->insumoTrazable->insumoEspecificos()->all();
             foreach ($ins->insumoTrazable->insumoEspecificos as $insumoE){
@@ -202,9 +204,9 @@ class EntradaController extends Controller
                     $arrayInsumoespe[$insumoE->gtin] = $insumoE->descripcion;
                 }
             }
-        }
+        }*/
 
-        return $arrayInsumoespe;
+        return response()->json($insumos);
 
     }
 }

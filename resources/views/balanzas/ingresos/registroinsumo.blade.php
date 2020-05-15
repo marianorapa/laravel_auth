@@ -52,20 +52,20 @@
                         <div class="form-group row">
                                 <label for="insumo" class="col-md-2 col-form-label text-md-right">Insumo</label>
 
-                                <select name="insumo" id="insumo"  class="custom-select col-md-2">
-                                    <option data-tokens=="0">Seleccione</option>
+                                <select name="insumo" id="insumo"  class="selectInsumo custom-select col-md-2">
+                                    <option value="0">Seleccione</option>
 
 {{--                                    @foreach ($Insumo->getinsumo() as $index => $ins)--}}
 {{--                                        <option data-tokens="{{$index}}"> {{$ins}}</option> --}}{{--puede que esto no busque bien por que tiene el index en data tokens--}}
 {{--                                    @endforeach--}}
-                                    @foreach ($insumos as $insumo )
+                                    {{--@foreach ($insumos as $insumo )
                                         <option data-tokens="{{$insumo->id}}" value="{{$insumo->id}}"> {{$insumo->descripcion}}</option>
-                                    @endforeach
+                                    @endforeach--}}
                                 </select>
 
                                 <label for="proveedor" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>
 
-                                <select name="proveedor" id="proveedor" class="custom-select col-md-2" >
+                                <select name="proveedor" id="proveedor" class="selectProveedor custom-select col-md-2" >
                                     @foreach($proveedores as $proveedor)
                                         <option value="{{$proveedor->id}}">{{$proveedor->empresa()->first()->denominacion}}</option>
                                     @endforeach
