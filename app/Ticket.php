@@ -85,7 +85,7 @@ class Ticket extends Model
      */
     public function transportista()
     {
-        return $this->belongsTo('App\Transportistum', 'transportista_id');
+        return $this->belongsTo('App\Transportista', 'transportista_id');
     }
 
     /**

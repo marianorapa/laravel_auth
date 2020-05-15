@@ -83,10 +83,15 @@ class EntradaController extends Controller
 
             $ticket = new Ticket();
 
-            $ticket->cliente()->first()->associate(Cliente::findOrFail($validated['cliente']));
-            $ticket->transportista()->first()->associate(Transportista::findOrFail($validated['transportista']));
+            $ticket->cliente()->associate(Cliente::findOrFail($validated['cliente']));
+            $ticket->transportista()->associate(Transportista::findOrFail($validated['transportista']));
             $ticket->patente = $validated['patente'];
-            $ticket->bruto = $validated['pesaje'];
+
+//            Falta agregar el model pesaje
+//            $pesaje = new Pesaje();
+//            $validated['pesaje'];
+
+
 
             $ticket->save();
 
