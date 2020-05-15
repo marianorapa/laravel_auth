@@ -184,4 +184,27 @@ class EntradaController extends Controller
     {
         //
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getInsumosTrazables(int $id){
+        $insumos = Insumo::all();
+        $arrayInsumoespe= [];
+        foreach ($insumos as $ins){
+            //$arrayInsumoespe=$ins->insumoTrazable->insumoEspecificos()->all();
+            foreach ($ins->insumoTrazable->insumoEspecificos as $insumoE){
+                if ($insumoE->proveedor_id = $id){
+                    $arrayInsumoespe[$insumoE->gtin] = $insumoE->descripcion;
+                }
+            }
+        }
+
+        return $arrayInsumoespe;
+
+    }
 }
