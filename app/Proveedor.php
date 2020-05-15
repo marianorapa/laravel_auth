@@ -48,7 +48,7 @@ class Proveedor extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function insumoEspecificos()
+    public function insumosEspecificos()
     {
         return $this->hasMany('App\InsumoEspecifico');
     }
