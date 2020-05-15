@@ -19,7 +19,7 @@ class EntradaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class EntradaController extends Controller
     /**
      * Display formulario de registro inicial ingreso insumo
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function registroInsumoInicial()
     {
