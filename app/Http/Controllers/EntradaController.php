@@ -61,7 +61,6 @@ class EntradaController extends Controller
     }
 
 
-
     public function guardarEntradaInicial(Request $request){
 
         $validated = $request->validate([
