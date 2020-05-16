@@ -129,3 +129,4 @@ Route::get('/pesajeFinalDespacho', function() {
 route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
 
 route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
+
