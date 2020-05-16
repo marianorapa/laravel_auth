@@ -68,8 +68,6 @@ Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_
 
 
 
-//ruta para ina funcion
-route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
 
 
 //definir precio x kg
@@ -121,3 +119,13 @@ Route::get('/pesajeFinalDespacho', function() {
     return view('/despachos/pesajeFinalDespacho');
 })->name('finDespacho');
 
+
+
+
+
+
+
+///peticiones asincrionas js
+route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
+
+route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
