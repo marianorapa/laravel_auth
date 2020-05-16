@@ -61,6 +61,9 @@
 {{--                                    <option data-tokens="pedro"> pedro</option>--}}
 {{--                                    <option data-tokens="fernando">fernando</option>--}}
                                 </select>
+                            {{--<div class="autocomplete"  >
+                                <input type="miinput" type="text" name="misnombres" placeholder="nombre">
+                            </div>--}}
 
 
                         </div>

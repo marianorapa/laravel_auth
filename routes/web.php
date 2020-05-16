@@ -126,6 +126,7 @@ Route::get('/pesajeFinalDespacho', function() {
 
 ///peticiones asincrionas js
 route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
+route::get('/insumostodosasinc', 'EntradaController@getInsumos');
 
 route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
 
