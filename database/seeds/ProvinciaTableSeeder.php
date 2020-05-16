@@ -12,133 +12,181 @@ class ProvinciaTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('provincia')->delete();
-
+        
         \DB::table('provincia')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
-                'descripcion' => 'BUENOS AIRES'
+                'descripcion' => 'BUENOS AIRES',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
-                'descripcion' => 'CATAMARCA'
+                'descripcion' => 'CATAMARCA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
-                'descripcion' => 'CÓRDOBA'
+                'descripcion' => 'CORDOBA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
-                'descripcion' => 'CORRIENTES'
+                'descripcion' => 'CORRIENTES',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
-                'descripcion' => 'ENTRE RIOS'
+                'descripcion' => 'ENTRE RIOS',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
-                'descripcion' => 'JUJUY'
+                'descripcion' => 'JUJUY',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
-                'descripcion' => 'MENDOZA'
+                'descripcion' => 'MENDOZA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
-                'descripcion' => 'LA RIOJA'
+                'descripcion' => 'LA RIOJA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
-                'descripcion' => 'SALTA'
+                'descripcion' => 'SALTA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
-                'descripcion' => 'SAN JUAN'
+                'descripcion' => 'SAN JUAN',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
-                'descripcion' => 'SAN LUIS'
+                'descripcion' => 'SAN LUIS',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 12,
-                'descripcion' => 'SANTA FE'
+                'descripcion' => 'SANTA FE',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 13,
-                'descripcion' => 'SANTIAGO DEL ESTERO'
+                'descripcion' => 'SANTIAGO DEL ESTERO',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 14,
-                'descripcion' => 'TUCUMÁN'
+                'descripcion' => 'TUCUMAN',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 16,
-                'descripcion' => 'CHACO'
+                'descripcion' => 'CHACO',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 17,
-                'descripcion' => 'CHUBUT'
+                'descripcion' => 'CHUBUT',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 18,
-                'descripcion' => 'FORMOSA'
+                'descripcion' => 'FORMOSA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 19,
-                'descripcion' => 'MISIONES'
+                'descripcion' => 'MISIONES',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 20,
-                'descripcion' => 'NEUQUÉN'
+                'descripcion' => 'NEUQUEN',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 21,
-                'descripcion' => 'LA PAMPA'
+                'descripcion' => 'LA PAMPA',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 22,
-                'descripcion' => 'RIO NEGRO'
+                'descripcion' => 'RIO NEGRO',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            21 =>
+            21 => 
             array (
                 'id' => 23,
-                'descripcion' => 'SANTA CRUZ'
+                'descripcion' => 'SANTA CRUZ',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            22 =>
+            22 => 
             array (
                 'id' => 24,
-                'descripcion' => 'TIERRA DEL FUEGO'
+                'descripcion' => 'TIERRA DEL FUEGO',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
-            23 =>
+            23 => 
             array (
                 'id' => 25,
-                'descripcion' => 'CIUDAD AUTÓNOMA BUENOS AIRES'
+                'descripcion' => 'CAPITAL FEDERAL',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

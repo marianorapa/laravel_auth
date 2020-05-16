@@ -23,6 +23,7 @@ class CreateTicketTable extends Migration
             $table->foreignId('bruto')->constrained('pesaje');
             $table->foreignId('tara')->constrained('pesaje');
             $table->integer('neto');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
