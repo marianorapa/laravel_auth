@@ -21,19 +21,18 @@
                             <label for="patente" class="col-md-2 col-form-label text-md-right">Patente</label>
 
                             <input id="patente" type="text" class="form-control col-md-2" name="patente" placeholder="Nro patente" required>
-
-                            <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-1">
-                                Leer pesaje
-                            </button>
+                            
                         </div>
                         <br>
 
                         <div class="form-group row">
                             <label for="cliente" class="col-md-2 col-form-label text-md-right">Cliente</label>
 
-                                <select name="cliente" id="cliente" class="selectpicker show-menu-arrow" data-show-subtext="true" data-live-search="true" >
+                                {{--<select name="cliente" id="cliente" class="selectpicker show-menu-arrow" data-show-subtext="true" data-live-search="true" >
 
-                                </select>
+                                </select>--}}
+                            <input id="cliente" type="text" class="form-control col-md-2" name="cliente" placeholder="cliente" required>
+
 
                         </div>
                         <br>
@@ -103,7 +102,7 @@
     </div>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>--}}
 @endsection

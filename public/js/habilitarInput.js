@@ -12,13 +12,15 @@ document.addEventListener("DOMContentLoaded", function(event)
 
             if (check_habilitar.checked){
                 console.log("sdasdasd");
-                document.getElementById('nrolote').disabled = true;
-                document.getElementById("fechaelaboracion").disabled = true;
-                document.getElementById("fechavencimiento").disabled = true;
-                   } else{
                 document.getElementById("fechavencimiento").disabled = false;
                 document.getElementById("fechaelaboracion").disabled = false;
                 document.getElementById('nrolote').disabled= false;
+
+
+                   } else{
+                    document.getElementById('nrolote').disabled = true;
+                    document.getElementById("fechaelaboracion").disabled = true;
+                    document.getElementById("fechavencimiento").disabled = true;
                    }
 
 
@@ -39,7 +41,10 @@ document.addEventListener("DOMContentLoaded", function(event)
     proveedor_id = document.querySelector(".selectProveedor");
     check_habilitar.addEventListener("click",function () {
         var id = proveedor_id.value;
-
+        var i, L = selectInsumo.options.length - 1;
+        for(i = L; i >= 0; i--) {
+            selectInsumo.remove(i);
+        }
         if (check_habilitar.checked){
 
             axios.get('/insumosasinc',{
@@ -65,6 +70,25 @@ document.addEventListener("DOMContentLoaded", function(event)
                     console.log(err);
                 });
 
+        }else{
+            axios.get('/insumostodosasinc',{
+            })
+                .then(function (res) {
+                    if (res.status == 200){
+                        var i = 0;
+                        while (i< res.data['length']){
+                            opcion = document.createElement("option");
+                            opcion.value=res.data[i]['id'];
+                            opcion.text=res.data[i]['descripcion'];
+                            console.log(res.data[i]['descripcion']);
+                            selectInsumo.appendChild(opcion);
+                            i++;
+                        }
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         }
 
 
