@@ -56,27 +56,22 @@
                     </thead>
 
                     <tbody>
-{{--                    @foreach ($ingresos as $ingreso)--}}
-{{--                        <tr>--}}
-{{--                            <th scope="row">{{$ingreso->id}}</th>--}}
-{{--                            <td>{{$ingreso->cliente->nombre}}</td>--}}
-{{--                            <td>{{$ingreso->fecha}}</td>--}}
-{{--                            <!--<td>{{//$permiso->trashed() ? "No": "Si"}}</td> -->--}}
-{{--                            <td>{{$ingreso->insumo->nombre}}</td>--}}
-{{--                            <td>--}}
-{{--                                <a href="{{route('ingresos.edit', $ingreso)}}" class="btn btn-warning btn-sm">Editar</a>--}}
-{{--                                @if (!$permiso->trashed())--}}
-{{--                                    <form action="{{route('ingresos.destroy', $ingreso)}}" method="POST" class="d-inline">--}}
-{{--                                        @method('DELETE')--}}
-{{--                                        @csrf--}}
-{{--                                        <button class="btn btn-danger btn-sm">Eliminar</button>--}}
-{{--                                    </form>--}}
-{{--                                @else--}}
-{{--                                    <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a>--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endforeach--}}
+                    @foreach ($ticketsEntrada as $ticketEntrada)
+                        <tr>
+                            <th scope="row">{{$ticketEntrada->id}}</th>
+                            <td>{{$ticketEntrada->ticket()->first()
+                                    ->cliente()->first()->
+                                    empresa()->first()->denominacion}}
+                            </td>
+                            <td>{{$ticketEntrada->ticket()->first()->created_at}}</td>
+                            <td>falta</td>
+                            <td>{{$ticketEntrada->ticket()->first()->pesajeInicial()->first()->peso}}</td>
+                            <td>{{$ticketEntrada->ticket()->first()->patente}}</td>
+                            <td>
+                                <a href="" class="btn btn-warning btn-sm">Editar</a>
+{{--                                <a class="btn btn-success btn-sm" href="{{route('ingresos.finalizar', $ticketEntrada->id)}}">Finalizar</a>--}}
+                            </td>
+                    @endforeach
                         <tr>
                             <th scope="row">1</th>
                             <td>Chinos</td>

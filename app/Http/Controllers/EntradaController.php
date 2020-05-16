@@ -25,9 +25,9 @@ class EntradaController extends Controller
     public function index()
     {
         // Recuperar ultimos ingresos
-        TicketEntrada::paginate(10);
+        $ticketsEntrada = TicketEntrada::paginate(10);
 
-        return view('balanzas.ingresos.index');
+        return view('balanzas.ingresos.index', compact('ticketsEntrada'));
     }
 
     /**
