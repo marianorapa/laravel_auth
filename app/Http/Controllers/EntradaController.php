@@ -184,6 +184,7 @@ class EntradaController extends Controller
      */
     public function getInsumosTrazables(Request $request){
         $id = $request->get('id');
+
         $insumos = Insumo::all();
         /*$arrayInsumoespe= [];
         foreach ($insumos as $ins){
@@ -196,7 +197,7 @@ class EntradaController extends Controller
         }*/
         $ins = Proveedor::findOrFail($id)->insumosEspecificos()->get();
 
-            //return response()->json($ins);
+        return response()->json($ins);
         //return response()->json($insumos);
 
     }

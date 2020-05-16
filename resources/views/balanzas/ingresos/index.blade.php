@@ -86,7 +86,7 @@
                             <td>ABC123</td>
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a class="btn btn-success btn-sm" href="">Finalizar</a>
+                                <a class="btn btn-success btn-sm" href="{{route('ingresos.index')}}">Finalizar</a>
                             </td>
                         </tr>
                     </tbody>

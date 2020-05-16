@@ -95,10 +95,19 @@
                         <div class="form-group row">
                             <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
                                 <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote" required>
-                                <input type="checkbox" class="checknrolote offset-md-1" id="chec" name="isInsumoTrazable">
+                                <label for="estrazable" class="col-lg-2 col-form-label text-md-right">es trazable?</label>
+                                <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable">
                         </div>
 
-                        <br>
+                        <div class="form-group row mt-4">
+                            <label for="elaboracion" class="col-lg-2 col-form-label text-md-right">Elaboracion</label>
+                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-2" name="fechaelaboracion">
+                        </div>
+                        <div class="form-group row mt-4">
+                            <label for="vencimiento" class="col-lg-2 col-form-label text-md-right">Vencimiento</label>
+                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-2" name="fechavencimiento">
+                        </div>
+
                         <br>
                         <div class="form-group row">
                             <label for="transportista" class="col-md-2 col-form-label text-md-right">Transportista</label>

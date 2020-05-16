@@ -6,13 +6,18 @@ console = console || {};
 document.addEventListener("DOMContentLoaded", function(event)
 {
     check_habilitar = document.querySelector(".checknrolote")
+    //elaboracion = document.querySelector(".fechaelaboracion");
+    //vencimiento = document.querySelector(".fechavencimiento");
     check_habilitar.addEventListener("change", function(){
 
             if (check_habilitar.checked){
-
+                console.log("sdasdasd");
                 document.getElementById('nrolote').disabled = true;
+                document.getElementById("fechaelaboracion").disabled = true;
+                document.getElementById("fechavencimiento").disabled = true;
                    } else{
-
+                document.getElementById("fechavencimiento").disabled = false;
+                document.getElementById("fechaelaboracion").disabled = false;
                 document.getElementById('nrolote').disabled= false;
                    }
 
