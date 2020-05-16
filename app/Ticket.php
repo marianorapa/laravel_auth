@@ -51,7 +51,7 @@ class Ticket extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function pesajeInicial()
+    public function bruto()
     {
         return $this->belongsTo('App\Pesaje', 'bruto');
     }
@@ -73,11 +73,11 @@ class Ticket extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function pesajeFinal()
+    public function tara()
     {
-        return $this->belongsTo('App\Pesaje', 'tara');
+        return $this->belongsTo('App\Pesaje', 'id');
     }
 
     /**

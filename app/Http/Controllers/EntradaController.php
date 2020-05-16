@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Insumo;
-use App\InsumoEspecifico;
-use App\InsumoTrazable;
-use App\LoteInsumoEspecifico;
 use App\Proveedor;
-use App\Ticket;
 use App\TicketEntrada;
-use App\TicketEntradaInsumoTrazable;
 use App\Transportista;
 use App\Utils\EntradasInsumoManager;
+use App\Utils\TicketsEntradaManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 
 class EntradaController extends Controller
 {
@@ -22,8 +20,11 @@ class EntradaController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $patente = $request->get('patente');
+        $cliente = $request->get('cliente');
+
         // Recuperar ultimos ingresos
         $ticketsEntrada = TicketEntrada::paginate(10);
 
@@ -50,15 +51,6 @@ class EntradaController extends Controller
             compact('clientes','insumos','proveedores', 'transportistas'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function registroInsumoFinal()
-    {
-        return view('balanzas/ingresos/registroinsumofinal');
-    }
 
 
     public function guardarEntradaInicial(Request $request){
@@ -108,6 +100,65 @@ class EntradaController extends Controller
         }
     }
 
+
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function registroInsumoFinal($id)
+    {
+        $ticketEntrada = TicketEntrada::findOrFail($id);
+
+        /* Guardo en la sesión el id a finalizar */
+        Session::put('id_ticket_a_finalizar', $id);
+
+        /* Viewbag con datos para la vista. Complejo por las relaciones, pero ahorra muchos joins*/
+        $viewbag = [
+            'patente' => $ticketEntrada->ticket()->first()->patente,
+            'cliente' => $ticketEntrada->ticket()->first()->cliente()->first()->empresa()->first()->denominacion,
+            'insumo' => $ticketEntrada->ticketEntradaInsumoTrazable()->exists() ?
+                $ticketEntrada->ticketEntradaInsumoTrazable()->first()
+                    ->loteInsumoEspecifico()->first()
+                    ->insumoEspecifico()->first()
+                    ->insumoTrazable()->first()
+                    ->insumo()->first()->descripcion :
+                $ticketEntrada->ticketEntradaInsumoNoTrazable()->first()
+                    ->insumoNoTrazable()->first()
+                    ->insumo()->first()->descripcion,
+            'proveedor' => $ticketEntrada->ticketEntradaInsumoTrazable()->exists() ?
+                $ticketEntrada->ticketEntradaInsumoTrazable()->first()
+                    ->loteInsumoEspecifico()->first()
+                    ->insumoEspecifico()->first()
+                    ->proveedor()->first()
+                    ->empresa()->first()->denominacion :
+                $ticketEntrada->ticketEntradaInsumoNoTrazable()->first()
+                    ->proveedor()->first()
+                    ->empresa()->first()->denominacion,
+            'nrolote' => $ticketEntrada->ticketEntradaInsumoTrazable()->exists() ?
+                $ticketEntrada->ticketEntradaInsumoTrazable()->first()
+                    ->loteInsumoEspecifico()->first()->nro_lote : 'No aplica',
+            'transportista' => $ticketEntrada->ticket()->first()->transportista()->first()->empresa()->first()->denominacion,
+            'nroCbte' => $ticketEntrada->cbte_asociado,
+            'bruto' => $ticketEntrada->ticket()->first()->bruto()->first()->peso
+        ];
+
+        return view('balanzas/ingresos/registroinsumofinal', compact('viewbag'));
+    }
+
+
+    public function finalizarEntradaInsumo(Request $request){
+
+        $id = Session::get('id_ticket_a_finalizar');
+
+        $validated = $request->validate([
+            'tara' => ['required','numeric']
+        ]);
+
+        $tara = $validated['tara'];
+        TicketsEntradaManager::finalizarTicket($id, $tara);
+
+        return redirect()->action('EntradaController@index')->with('message', 'Ingreso finalizado con éxito!');
+    }
 
     /**
      * Show the form for creating a new resource.

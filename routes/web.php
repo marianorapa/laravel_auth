@@ -45,15 +45,17 @@ Route::get('balanzas', 'BalanzaController@index')->name('balanzas.menu');
 Route::resource('ingresos', 'EntradaController');
 Route::resource('despachos', 'DespachoController');
 
-Route::get('/registroinsumoini', 'EntradaController@registroInsumoInicial')
+Route::get('/balanzas/ingreso/inicial', 'EntradaController@registroInsumoInicial')
     ->name('balanzas.ingresos.inicial');
 
-Route::post('/ingreso/inicial', 'EntradaController@guardarEntradaInicial')
-    ->name('balanzas.guardar.inicial');
+Route::post('/balanzas/ingreso/inicial', 'EntradaController@guardarEntradaInicial')
+    ->name('balanzas.ingresos.inicial.guardar');
 
-Route::get('/registroinsumofinal', 'EntradaController@registroInsumoFinal')
+Route::get('/balanzas/ingreso/finalizar/{id}', 'EntradaController@registroInsumoFinal')
     ->name('balanzas.ingresos.final');
 
+Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaInsumo')
+    ->name('balanzas.ingresos.final.guardar');
 
 
 /*
@@ -65,8 +67,6 @@ Route::get('/usuario', 'NoAdminController@index')->name('not.admin');
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
-
-
 
 
 
@@ -101,7 +101,6 @@ Route::get('/altaPedidos', function() {
 Route::get('/finalizarPedidos', function() {
     return view('/pedidos/finalizarPedidos');
 })->name('finPedido');
-
 
 
 //gestion despachos

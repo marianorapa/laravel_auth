@@ -28,7 +28,7 @@ class TicketsEntradaManager
         $pesajeInicial->peso = $pesaje;
         $pesajeInicial->save();
 
-        $ticket->pesajeInicial()->associate($pesajeInicial);
+        $ticket->bruto()->associate($pesajeInicial);
 
         $ticket->save();
 
@@ -37,6 +37,22 @@ class TicketsEntradaManager
         $ticketEntrada->save();
 
         return $ticketEntrada;
+    }
+
+    public static function finalizarTicket($id, $tara)
+    {
+        $ticketEntrada = TicketEntrada::findOrFail($id);
+
+        $pesaje = new Pesaje();
+        $pesaje->peso = $tara;
+        $pesaje->save();
+
+        $ticketEntrada->ticket()->first()->tara()->associate($pesaje);
+
+        echo "<pre>";
+        print_r($ticketEntrada->ticket()->first());exit(0);
+
+        $ticketEntrada->save();
     }
 
 }

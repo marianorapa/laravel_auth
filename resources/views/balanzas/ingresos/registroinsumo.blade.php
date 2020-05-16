@@ -38,7 +38,7 @@
                 <div class="card-header h2">{{ __('Registro de ingreso de insumo') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('balanzas.guardar.inicial')}}">
+                    <form method="POST" action="{{route('balanzas.ingresos.inicial.guardar')}}">
                         @csrf
 
                         <div class="form-group row">

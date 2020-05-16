@@ -33,11 +33,11 @@ class Pesaje extends Model
     protected $fillable = ['peso', 'created_at', 'updated_at'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tickets()
+    public function ticket()
     {
-        return $this->hasMany('App\Ticket', 'bruto');
+        return $this->belongsTo('App\Ticket', 'id');
     }
 
 }

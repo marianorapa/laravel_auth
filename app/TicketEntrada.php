@@ -2,9 +2,13 @@
 
 namespace App;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
+ * @mixin Builder
+ *
  * @property integer $id
  * @property string $cbte_asociado
  * @property string $created_at
@@ -18,14 +22,14 @@ class TicketEntrada extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'ticket_entrada';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

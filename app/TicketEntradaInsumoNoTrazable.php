@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ *
+ * @mixin Eloquent
+ *
+ *
  * @property integer $id
  * @property integer $insumo_nt_id
  * @property integer $proveedor_id
@@ -19,14 +23,14 @@ class TicketEntradaInsumoNoTrazable extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'ticket_entrada_insumo_no_trazable';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

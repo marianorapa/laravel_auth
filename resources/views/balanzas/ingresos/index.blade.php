@@ -9,7 +9,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/" >Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('balanzas.menu')}}" >Balanzas</a></li>
-                        <li class="breadcrumb-item active">Gestion de Ingresos</li>
+                        <li class="breadcrumb-item active">Gestión de Ingresos</li>
                     </ol>
                 </nav>
             </div>
@@ -19,8 +19,8 @@
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
-                    <input name='patente' class="form-control mr-sm-2" type="search" placeholder="Patente" aria-label="buscar por patente">
-                    <input name='cliente' class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por cliente">
+                    <input name="patente" class="form-control mr-sm-2" type="search" placeholder="Patente" aria-label="buscar por patente">
+                    <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
@@ -37,9 +37,9 @@
                     </div>
                 @endif
 
-                @if (session('mensaje'))
+                @if (session('message'))
                     <div class="alert alert-success">
-                        {{session('mensaje')}}
+                        {{session('message')}}
                     </div>
                 @endif
 
@@ -60,16 +60,28 @@
                         <tr>
                             <th scope="row">{{$ticketEntrada->id}}</th>
                             <td>{{$ticketEntrada->ticket()->first()
-                                    ->cliente()->first()->
-                                    empresa()->first()->denominacion}}
+                                                ->cliente()->first()
+                                                ->empresa()->first()->denominacion}}
                             </td>
                             <td>{{$ticketEntrada->ticket()->first()->created_at}}</td>
-                            <td>falta</td>
-                            <td>{{$ticketEntrada->ticket()->first()->pesajeInicial()->first()->peso}}</td>
+
+                            @if ($ticketEntrada->ticketEntradaInsumoNoTrazable()->exists())
+                                <td>{{$ticketEntrada->ticketEntradaInsumoNoTrazable()->first()
+                                                    ->insumoNoTrazable()->first()
+                                                    ->insumo()->first()->descripcion}}
+                                </td>
+                            @else
+                                <td>{{$ticketEntrada->ticketEntradaInsumoTrazable()->first()
+                                                    ->insumoTrazable()->first()
+                                                    ->insumo()->first()->descripcion}}
+                                </td>
+                            @endif
+
+                            <td>{{$ticketEntrada->ticket()->first()->bruto()->first()->peso}}</td>
                             <td>{{$ticketEntrada->ticket()->first()->patente}}</td>
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
-{{--                                <a class="btn btn-success btn-sm" href="{{route('ingresos.finalizar', $ticketEntrada->id)}}">Finalizar</a>--}}
+                                <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
                             </td>
                     @endforeach
                         <tr>
