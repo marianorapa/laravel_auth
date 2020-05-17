@@ -114,6 +114,7 @@ class EntradaController extends Controller
         Session::put('id_ticket_a_finalizar', $id);
 
         /* Viewbag con datos para la vista. Complejo por las relaciones, pero ahorra muchos joins*/
+        /* Debe ser mas eficiente con joins y select, esto seguro hace un query por cada relacion*/
         $viewbag = [
             'patente' => $ticketEntrada->ticket()->first()->patente,
             'cliente' => $ticketEntrada->ticket()->first()->cliente()->first()->empresa()->first()->denominacion,

@@ -58,12 +58,7 @@ Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaIn
     ->name('balanzas.ingresos.final.guardar');
 
 
-/*
- * TODO: Rutas de usuario balanza/administración
- */
 
-// GUARDA ACA!!! PORQUE EL USERCONTROLLER GESTIONA USUARIOS, NO NOT_ADMIN! <---
-Route::get('/usuario', 'NoAdminController@index')->name('not.admin');
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
@@ -72,50 +67,50 @@ Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_
 
 //definir precio x kg
 Route::get('/precioXkg', function() {
-    return view('/parametrosProductivos/precioXkg');
+    return view('/gerencia/parametrosProductivos/precioXkg');
 })->name('pp.precio');
 
 //gestion parametros productivos
 Route::get('/gestionParametrosProductivos', function() {
-    return view('/parametrosProductivos/gestionParametrosProductivos');
+    return view('/gerencia/parametrosProductivos/gestionParametrosProductivos');
 });
 
 //definir capacidad productiva
 Route::get('/capacidadProductiva', function() {
-    return view('/parametrosProductivos/capacidadProductiva');
+    return view('gerencia/parametrosProductivos/capacidadProductiva');
 })->name('pp.capacidadProductiva');
 
 
 
 //gestion ordenes de produccion
 Route::get('/gestionPedidos', function() {
-    return view('/pedidos/gestionPedidos');
+    return view('administracion/pedidos/gestionPedidos');
 });
 
 //alta de pedido de produccion
 Route::get('/altaPedidos', function() {
-    return view('/pedidos/altaPedidos');
+    return view('/administracion/pedidos/altaPedidos');
 })->name('altaPedidos');
 
 //finalizar ordenes
 Route::get('/finalizarPedidos', function() {
-    return view('/pedidos/finalizarPedidos');
+    return view('/administracion/pedidos/finalizarPedidos');
 })->name('finPedido');
 
 
 //gestion despachos
 Route::get('/gestionDespachos', function() {
-    return view('/despachos/gestionDespachos');
+    return view('/balanzas/despachos/gestionDespachos');
 });
 
 //inicializar despachos
 Route::get('/pesajeInicialDespacho', function() {
-    return view('/despachos/pesajeInicialDespacho');
+    return view('/balanzas/despachos/pesajeInicialDespacho');
 })->name('inicioDespacho');
 
 //finalizar despachos
 Route::get('/pesajeFinalDespacho', function() {
-    return view('/despachos/pesajeFinalDespacho');
+    return view('/balanzas/despachos/pesajeFinalDespacho');
 })->name('finDespacho');
 
 
