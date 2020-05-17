@@ -9,7 +9,6 @@ use App\Pesaje;
 use App\Ticket;
 use App\TicketEntrada;
 use App\Transportista;
-use Illuminate\Support\Facades\DB;
 
 class TicketsEntradaManager
 {
@@ -29,7 +28,7 @@ class TicketsEntradaManager
         $pesajeInicial->peso = $pesaje;
         $pesajeInicial->save();
 
-        $ticket->bruto()->associate($pesajeInicial);
+        $ticket->bruto = $pesajeInicial->id;
 
         $ticket->save();
 

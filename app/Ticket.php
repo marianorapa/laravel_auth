@@ -14,17 +14,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $cliente_id
  * @property integer $transportista_id
  * @property integer $chofer_id
- * @property integer $bruto
- * @property integer $tara
+ * @property integer $bruto_id
+ * @property integer $tara_id
  * @property string $patente
  * @property int $neto
  * @property string $created_at
  * @property string $updated_at
- * @property Pesaje $pesajeBruto
+ * @property Pesaje $bruto
  * @property Chofer $chofer
  * @property Cliente $cliente
- * @property Pesaje $pesajeTara
- * @property Transportistum $transportistum
+ * @property Pesaje $tara
+ * @property Transportista $transportistum
  * @property EstadoTicketTicket[] $estadoTicketTickets
  * @property TicketEntrada $ticketEntrada
  * @property TicketSalida $ticketSalida
@@ -115,4 +115,6 @@ class Ticket extends Model
     {
         return $this->hasOne('App\TicketSalida', 'id');
     }
+
+
 }

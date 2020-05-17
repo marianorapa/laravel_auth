@@ -48,7 +48,7 @@ class Pesaje extends Model
 
     public function ticket()
     {
-        return $this->hasOne('App\Ticket', 'id');
+        return $this->belongsTo('App\Ticket', 'id');
     }
 
 }

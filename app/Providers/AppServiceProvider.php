@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Observers\TicketEntradaObserver;
+use App\Observers\TicketObserver;
+use App\Ticket;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +31,8 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
         }
         Schema::defaultStringLength(191);
+
+        /*Register observers*/
+        Ticket::observe(TicketObserver::class);
     }
 }
