@@ -84,18 +84,6 @@
                                 <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
                             </td>
                     @endforeach
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Chinos</td>
-                            <td>19/04/20</td>
-                            <td>Maiz</td>
-                            <td>15000</td>
-                            <td>ABC123</td>
-                            <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final')}}">Finalizar</a>
-                            </td>
-                        </tr>
                     </tbody>
             </table>
         </section>

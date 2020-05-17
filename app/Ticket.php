@@ -2,10 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ *
+ * @mixin Builder
+ *
  * @property integer $id
  * @property integer $cliente_id
  * @property integer $transportista_id
@@ -73,11 +77,11 @@ class Ticket extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function tara()
     {
-        return $this->belongsTo('App\Pesaje', 'id');
+        return $this->belongsTo('App\Pesaje', 'tara');
     }
 
     /**

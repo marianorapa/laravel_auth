@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TransportistaTableSeeder::class);
         $this->call(ProveedorTableSeeder::class);
         $this->call(InsumoTrazableSeeder::class);
+        $this->call(InsumoEspecificoSeeder::class);
     }
 }

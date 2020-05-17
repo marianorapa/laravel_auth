@@ -9,6 +9,7 @@ use App\Pesaje;
 use App\Ticket;
 use App\TicketEntrada;
 use App\Transportista;
+use Illuminate\Support\Facades\DB;
 
 class TicketsEntradaManager
 {
@@ -41,18 +42,19 @@ class TicketsEntradaManager
 
     public static function finalizarTicket($id, $tara)
     {
-        $ticketEntrada = TicketEntrada::findOrFail($id);
+        $ticket = Ticket::findOrFail($id);
+//        $ticket = DB::table('ticket')
+//            ->where('id', '=', $id)
+//            ->get();
 
         $pesaje = new Pesaje();
         $pesaje->peso = $tara;
         $pesaje->save();
 
-        $ticketEntrada->ticket()->first()->tara()->associate($pesaje);
+        $ticket->tara()->associate($pesaje);
 
-        echo "<pre>";
-        print_r($ticketEntrada->ticket()->first());exit(0);
+        $ticket->save();
 
-        $ticketEntrada->save();
     }
 
 }

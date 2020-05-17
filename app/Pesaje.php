@@ -35,9 +35,20 @@ class Pesaje extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+//    public function bruto()
+//    {
+//        return $this->hasOne('App\Ticket', 'bruto');
+//    }
+//
+//    public function tara()
+//    {
+//        return $this->hasOne('App\Ticket', 'tara');
+//    }
+
+
     public function ticket()
     {
-        return $this->belongsTo('App\Ticket', 'id');
+        return $this->hasOne('App\Ticket', 'id');
     }
 
 }
