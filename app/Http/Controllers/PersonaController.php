@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Domicilio;
 use App\PersonaTipo;
 use App\TipoDocumento;
+use App\Utils\DomicilioManager;
 use App\Utils\PersonaManager;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -73,7 +74,9 @@ class PersonaController extends Controller
         // If it doesn't, stores the new one
         if ($personaExistente == null) {
             $persona = new Persona();
-            PersonaManager::store($request, $persona);
+            $domicilio = new  Domicilio();
+            DomicilioManager::store($request,$domicilio);
+            PersonaManager::store($request, $persona,$domicilio);
             return back()->with('mensaje', 'Persona creada.');
         }
 
