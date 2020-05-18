@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
+
+@section('publics')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/sweetAlert.js') }}"></script>
+
+@endsection
+
 @section('content')
+
+
+
 <section class="container">
     <section>
     <div class="bs-example">
@@ -84,7 +94,7 @@
                                 <form action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
                                 @method('DELETE')
                                 @csrf
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
+                                <button class="btn btn-danger btn-sm ">Eliminar</button>
                             </form>
                             @else
                                 <a class="btn btn-success btn-sm" href="{{route('personas.activate',$persona->id)}}">Activar</a>
@@ -98,4 +108,7 @@
     </section>
       <a class="btn btn-secondary btn-sm" href="{{route('admin.menu')}}">Volver</a>
     </section>
+
+
+
 @endsection

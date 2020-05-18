@@ -115,10 +115,6 @@ Route::get('/pesajeFinalDespacho', function() {
 
 
 
-
-
-
-
 ///peticiones asincrionas js
 route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
 route::get('/insumostodosasinc', 'EntradaController@getInsumos');
