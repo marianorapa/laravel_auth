@@ -3,11 +3,23 @@ var window = window || {},
     console = console || {};
 document.addEventListener("DOMContentLoaded", function() {
 
-    /* Swal.fire(
-         'Good job!',
-         'You clicked the button!',
-         'success'
-     )*/
+    nombre = document.getElementsByClassName("nombrejs").item(0).innerText;
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: false,
+        onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: 'Bienvenido '+ nombre
+    })
 
 
 
