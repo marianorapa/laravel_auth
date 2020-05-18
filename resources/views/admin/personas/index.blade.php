@@ -94,7 +94,7 @@
                                 <form action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
                                 @method('DELETE')
                                 @csrf
-                                <button class="btn btn-danger btn-sm ">Eliminar</button>
+                                <button class="btn btn-danger btn-sm " data-toggle>Eliminar</button>
                             </form>
                             @else
                                 <a class="btn btn-success btn-sm" href="{{route('personas.activate',$persona->id)}}">Activar</a>

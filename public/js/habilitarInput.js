@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function(event)
                 console.log(err);
             });
     }
-    getinsumos();// hago esto para que cargue al principio en la carga de la pagina
+
 
     proveedor_id.addEventListener("change",function () {
         if (check_habilitar.checked){
@@ -136,6 +136,11 @@ document.addEventListener("DOMContentLoaded", function(event)
         }
     });
 
+    // hago esto para que cargue al principio en la carga de la pagina
+    getinsumos();
+    document.getElementById('nrolote').disabled = true;
+    document.getElementById("fechaelaboracion").disabled = true;
+    document.getElementById("fechavencimiento").disabled = true;
 
 
 });
