@@ -4,6 +4,7 @@
 
 @section('publics')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 @endsection
 
 @section('content')
@@ -53,5 +54,7 @@
         </a>
 
     </div>
+
 </section>
 @endsection
+<script src="{{ asset('js/sweetAlert.js') }}"></script>

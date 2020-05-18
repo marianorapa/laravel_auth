@@ -3,8 +3,7 @@
 
 @section('publics')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="{{ asset('js/sweetAlert.js') }}"></script>
-
+    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
 @endsection
 
 @section('content')
@@ -91,10 +90,10 @@
                         <td>
                             <a href="{{route('personas.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
                             @if (!$persona->trashed())
-                                <form action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
+                                <form id="eliminarjs" action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
                                 @method('DELETE')
                                 @csrf
-                                <button class="btn btn-danger btn-sm ">Eliminar</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
                             @else
                                 <a class="btn btn-success btn-sm" href="{{route('personas.activate',$persona->id)}}">Activar</a>
