@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
+
+
+@section('publics')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+@endsection
+
 @section('content')
+
+
+
 <section class="container">
     <div class="bs-example">
         <nav>
