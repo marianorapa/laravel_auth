@@ -236,21 +236,8 @@ class EntradaController extends Controller
      */
     public function getInsumosTrazables(Request $request){
         $id = $request->get('id');
-
-//        $insumos = Insumo::all();
-        /*$arrayInsumoespe= [];
-        foreach ($insumos as $ins){
-            //$arrayInsumoespe=$ins->insumoTrazable->insumoEspecificos()->all();
-            foreach ($ins->insumoTrazable->insumoEspecificos as $insumoE){
-                if ($insumoE->proveedor_id = $id){
-                    $arrayInsumoespe[$insumoE->gtin] = $insumoE->descripcion;
-                }
-            }
-        }*/
         $ins = Proveedor::findOrFail($id)->insumosEspecificos()->get();
-
         return response()->json($ins);
-        //return response()->json($insumos);
 
     }
 
@@ -266,9 +253,19 @@ class EntradaController extends Controller
     }
 
     // Habria que usar esta para que solo traiga los no trazables
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getInsumosNoTrazables(){
         $insumosNoTrazables = InsumoNoTrazable::all();
-        return response()->json($insumosNoTrazables);
+        $arrayins = [];
+        foreach ($insumosNoTrazables as $actual){
+            $arrayins[$actual->id]= $actual->insumo->descripcion;
+        }
+        return response()->json($data = [$arrayins,count($arrayins)]);
     }
 
 
