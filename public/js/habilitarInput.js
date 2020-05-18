@@ -76,6 +76,35 @@ document.addEventListener("DOMContentLoaded", function(event)
 
     } );
 
+    function getinsumosproveedor() {
+        var id = proveedor_id.value;
+        var i, L = selectInsumo.options.length - 1;
+        for(i = L; i >= 0; i--) {
+            selectInsumo.remove(i);
+        }
+        axios.get('/insumosasinc',{
+            params:{
+                id :id
+            }
+        })
+            .then(function (res) {
+                if (res.status == 200){
+                    var i = 0;
+                    console.log(res.data);
+                    while (i< res.data['length']){
+                        opcion = document.createElement("option");
+                        opcion.value=res.data[i]['id'];
+                        opcion.text=res.data[i]['descripcion'];
+                        console.log(res.data[i]['descripcion']);
+                        selectInsumo.appendChild(opcion);
+                        i++;
+                    }
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
     function getinsumos() {
         var i, L = selectInsumo.options.length - 1;
         for(i = L; i >= 0; i--) {
@@ -99,6 +128,14 @@ document.addEventListener("DOMContentLoaded", function(event)
                 console.log(err);
             });
     }
-    getinsumos();
+    getinsumos();// hago esto para que cargue al principio en la carga de la pagina
+
+    proveedor_id.addEventListener("change",function () {
+        if (check_habilitar.checked){
+            getinsumosproveedor();
+        }
+    });
+
+
 
 });
