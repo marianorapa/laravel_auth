@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function(event)
     check_habilitar.addEventListener("change", function(){
 
             if (check_habilitar.checked){
-                console.log("sdasdasd");
                 document.getElementById("fechavencimiento").disabled = false;
                 document.getElementById("fechaelaboracion").disabled = false;
                 document.getElementById('nrolote').disabled= false;

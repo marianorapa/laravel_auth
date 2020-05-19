@@ -1,4 +1,8 @@
 @extends('layouts.app')
+
+@section('publics')
+    <script src="{{ asset('js/altaPedidos.js') }}"></script>
+@endsection
 @section('content')
     <div class="container">
         <div class="bs-example">
@@ -11,7 +15,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div    class="card">
                 <div class="card-header text-center h2"> {{__('Alta de pedido de cliente') }}</div>
                 <div class="card-body">
@@ -19,13 +23,13 @@
                         <div class="form-inline row">
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
 
-                            <select name="cliente" id="cliente"  class="custom-select col-md-2 form-check-input:invalid"> {{--checkear que form-check-input:invalid ande--}}
+                            <select name="cliente" id="cliente"  class="cliente_id custom-select col-md-2 form-check-input:invalid"> {{--checkear que form-check-input:invalid ande--}}
                                 <option data-tokens=="0">Seleccione</option>
 
-                               {{--@foreach ($Cliente->getcliente() as $index => $cli )
+                               @foreach ($Cliente->getcliente() as $index => $cli )
 
                                     <option data-tokens="{{$cli}}"> {{$cli}}</option>
-                                @endforeach--}}
+                                @endforeach
                                 <option data-tokens="julia"> julia</option>
                                 <option data-tokens="adasd"> asdasdsa</option>
                                 <option data-tokens="qweqeq"> qweqweqe</option>
@@ -34,7 +38,7 @@
                             </select>
                             <label for="producto" class="col-lg-1 col-form-label text-md-right offset-md-1">Producto</label>
 
-                            <select name="producto" id="producto" class="custom-select col-md-2" >
+                            <select name="producto" id="producto" class="productos custom-select col-md-2" >
 
                             </select>
 
@@ -45,9 +49,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="insumosnecesarios" class="h2 col-md-3 text-md-left mt-5">Insumos Necesarios</label>
+                            <label for="insumosnecesarios" class="h3 col-md-4 text-md-left mt-5">Insumos Necesarios</label>
+                            <label for="insumosdispcli" class="h3 col-md-4 text-md-left mt-5">Insumos disponible del cliente</label>
+                            <label for="insumosdispfab" class="h3 col-md-4 text-md-left mt-5">Insumos disponible de fabrica</label>
 
-                            <table class="table mt-2 col-md-4">
+                            {{--TABLA DE insumos necesarios--}}
+                            <table class="table table-bordered mt-2 col-md-4">
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             {{$errors->first()}}
@@ -87,12 +94,8 @@
                                 </table>
 
 
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="insumosdispcli" class="h2 col-md-4 text-md-left mt-5">Insumos disponible del cliente</label>
-
-                            <table class="table mt-2">
+                            {{--TABLA DE CLIENTES--}}
+                            <table class="table table-bordered mt-2 col-md-4">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         {{$errors->first()}}
@@ -132,15 +135,13 @@
                                 </tbody>
                             </table>
 
-                            <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-10 mt-3">
+                           {{-- <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-10 mt-3">
                                 Verificar
-                            </button>
-                        </div>
+                            </button>--}}
 
-                        <div class="form-group row">
-                            <label for="insumosdispfab" class="h2 col-md-4 text-md-left mt-5">Insumos disponible de fabrica</label>
+                            {{--TABLA DE LA FABRICA--}}
 
-                            <table class="table mt-2">
+                            <table class="table table-bordered mt-2 col-md-4">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         {{$errors->first()}}
@@ -181,9 +182,11 @@
                                 </tbody>
                             </table>
 
-
                         </div>
 
+                        <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-md-6 mt-3">
+                            Verificar
+                        </button>
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2"  name="fechaentrega" required>
