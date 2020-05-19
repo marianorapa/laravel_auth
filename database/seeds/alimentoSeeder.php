@@ -28,5 +28,7 @@ class alimentoSeeder extends Seeder
         $alimento2->alimentoTipo()->associate($at1);
         $alimento2->cliente()->associate($cliente);
         $alimento2->save();
+
+
     }
 }

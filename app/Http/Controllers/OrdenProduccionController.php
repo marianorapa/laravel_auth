@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\alimento;
+use App\Cliente;
+use http\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrdenProduccionController extends Controller
 {
@@ -25,7 +29,10 @@ class OrdenProduccionController extends Controller
     public function create()
     {
         //
-        return view('administracion.pedidos.altaPedidos');
+        $clientes = DB::table('cliente')
+            ->join('empresa','cliente.id','=','empresa.id')
+            ->select('cliente.id','empresa.denominacion')->get();
+        return view('administracion.pedidos.altaPedidosNew',compact('clientes'));
     }
 
     /**
@@ -96,4 +103,21 @@ class OrdenProduccionController extends Controller
     {
         //
     }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    function getProductoCliente(Request $request){
+       $id_cliente = $request->get('id');
+
+       $productos = DB::table('alimento')
+                    ->where('cliente_id','=',$id_cliente)->get();
+       return response()->json($productos);
+
+    }
+
 }

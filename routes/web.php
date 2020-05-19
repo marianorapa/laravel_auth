@@ -96,12 +96,12 @@ Route::get('/gestionPedidos', function() {
 });
 
 //alta de pedido de produccion
-Route::get('/altaPedidos', function() {
-    return view('/administracion/pedidos/altaPedidos');
-})->name('altaPedidos');
-Route::get('/altaPedidosnew', function() {
+/*Route::get('/altaPedidos', function() {
     return view('/administracion/pedidos/altaPedidosNew');
-})->name('altaPedidosNew');
+})->name('administracion.pedidos.altaPedidos');*/
+/*Route::get('/altaPedidosnew', function() {
+    return view('/administracion/pedidos/altaPedidosNew');
+})->name('altaPedidosNew');*/
 
 //finalizar ordenes
 Route::get('/finalizarPedidos', function() {
@@ -130,4 +130,4 @@ Route::get('/pesajeFinalDespacho', function() {
 route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
 route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables');
 route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
-//route::get('/getProductoCliente', '@getProductoCliente'); falta el controller de donde lo tengo que llamar
+route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente');

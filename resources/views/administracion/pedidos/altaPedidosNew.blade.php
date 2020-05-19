@@ -26,15 +26,9 @@
                             <select name="cliente" id="cliente"  class="cliente_id custom-select col-md-2 form-check-input:invalid"> {{--checkear que form-check-input:invalid ande--}}
                                 <option data-tokens=="0">Seleccione</option>
 
-                               @foreach ($Cliente->getcliente() as $index => $cli )
-
-                                    <option data-tokens="{{$cli}}"> {{$cli}}</option>
+                               @foreach ($clientes as $cliente)
+                                    <option value="{{$cliente->id}}"> {{$cliente->denominacion}}</option>
                                 @endforeach
-                                <option data-tokens="julia"> julia</option>
-                                <option data-tokens="adasd"> asdasdsa</option>
-                                <option data-tokens="qweqeq"> qweqweqe</option>
-                                <option data-tokens="pedro"> pedro</option>
-                                <option data-tokens="fernando">fernando</option>
                             </select>
                             <label for="producto" class="col-lg-1 col-form-label text-md-right offset-md-1">Producto</label>
 
@@ -88,7 +82,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th></th>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>

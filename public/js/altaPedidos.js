@@ -13,13 +13,14 @@ document.addEventListener("DOMContentLoaded", function(event)
             }
         })
             .then(function (res) {
+                console.log(res.data);
                 if (res.status == 200){
                     var i = 0;
                     console.log(res.data);
                     while (i< res.data['length']){
                         opcion = document.createElement("option");
-                        opcion.value=res.data[i][''];
-                        opcion.text=res.data[i][''];
+                        opcion.value=res.data[i]['id'];
+                        opcion.text=res.data[i]['descripcion'];
                         //console.log(res.data[i]['insumo_trazable_id']);
                         productos.appendChild(opcion);
                         i++;
@@ -31,5 +32,8 @@ document.addEventListener("DOMContentLoaded", function(event)
             });
     })
 
+    productos.addEventListener("change",function () {
+
+    });
 
 });
