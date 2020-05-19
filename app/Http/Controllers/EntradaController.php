@@ -53,7 +53,6 @@ class EntradaController extends Controller
     }
 
 
-
     public function guardarEntradaInicial(Request $request){
 
         $validated = $request->validate([
@@ -79,7 +78,7 @@ class EntradaController extends Controller
             EntradasInsumoManager::registrarEntradaInicialInsumoNoTrazable($idCliente, $idInsumo,
                 $idProveedor, $idTransportista, $patente, $nroCbte, $pesaje);
 
-            return back()->with('message', 'Ingreso de insumo no trazable registrado con éxito!');
+            return redirect()->action('EntradaController@index')->with('message', 'Ingreso de insumo no trazable registrado con éxito!');
         }
         else {
             /* Si es un insumo trazable, hago validacion adicional */
@@ -97,7 +96,7 @@ class EntradaController extends Controller
                 $idCliente, $idInsumo, $nroLote, $fechaElab, $fechaVenc, $idProveedor, $idTransportista, $patente,
                 $nroCbte, $pesaje);
 
-            return back()->with('message', 'Ingreso de insumo trazable registrado con éxito!');
+            return redirect()->action('EntradaController@index')->with('message', 'Ingreso de insumo trazable registrado con éxito!');
         }
     }
 

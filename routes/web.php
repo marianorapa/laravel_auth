@@ -58,11 +58,13 @@ Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaIn
     ->name('balanzas.ingresos.final.guardar');
 
 
+Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
+
+Route::resource('pedidos', 'OrdenProduccionController');
 
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
-
 
 
 //definir precio x kg

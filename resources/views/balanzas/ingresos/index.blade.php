@@ -71,10 +71,14 @@
                                                     ->insumo()->first()->descripcion}}
                                 </td>
                             @else
+                                @if ($ticketEntrada->ticketEntradaInsumoTrazable()->exists())
                                 <td>{{$ticketEntrada->ticketEntradaInsumoTrazable()->first()
                                                     ->insumoTrazable()->first()
                                                     ->insumo()->first()->descripcion}}
                                 </td>
+                                @else
+                                    <td>-</td>
+                                @endif
                             @endif
 
                             <td>{{$ticketEntrada->ticket()->first()->bruto()->first()->peso}}</td>

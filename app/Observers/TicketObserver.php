@@ -24,6 +24,18 @@ class TicketObserver
         //
     }
 
+    public function updating(Ticket $ticket)
+    {
+        // Antes de insertar el ticket, calculo el neto si es que existe el segundo pesaje
+        if ($ticket->ticketEntrada()->exists()) {
+            /*Si es de entrada */
+            if ($ticket->tara()->exists()) {
+                /*Si se le asigno el segundo pesaje*/
+                $ticket->neto = $ticket->bruto()->get()->first()->peso - $ticket->tara()->get()->first()->peso;
+            }
+        }
+    }
+
     /**
      * Handle the ticket "updated" event.
      *
@@ -40,7 +52,6 @@ class TicketObserver
             if ($ticket->tara()->exists()){
 
                 /*Si se le asigno el segundo pesaje*/
-                $ticket->neto = $ticket->bruto()->get()->first()->peso - $ticket->tara()->get()->first()->peso;
 
                 $movimiento = new Movimiento();
 //                $movimiento->user()->associate(Auth::user()); Pendiente para cuando este protegida la ruta
