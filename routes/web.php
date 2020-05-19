@@ -43,7 +43,7 @@ Route::resource('personas', 'PersonaController');
 Route::get('balanzas', 'BalanzaController@index')->name('balanzas.menu');
 
 Route::resource('ingresos', 'EntradaController');
-Route::resource('despachos', 'DespachoController');
+
 
 Route::get('/balanzas/ingreso/inicial', 'EntradaController@registroInsumoInicial')
     ->name('balanzas.ingresos.inicial');
@@ -58,9 +58,15 @@ Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaIn
     ->name('balanzas.ingresos.final.guardar');
 
 
+
+
 Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
 
 Route::resource('pedidos', 'OrdenProduccionController');
+
+
+Route::resource('despachos', 'DespachoController');
+Route::get('despachos/finalize/{id}', 'DespachoController@finalize')->name('despachos.finalize');
 
 
 // Rutas de errores

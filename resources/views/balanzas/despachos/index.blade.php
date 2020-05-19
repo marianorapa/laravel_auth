@@ -15,7 +15,7 @@
             </div>
 
             <div class="row justify-content-center mt-4">
-                <a class="btn btn-primary btn m-1 col-3" href="{{route('permisos.create')}}">Nuevo despacho</a>
+                <a class="btn btn-primary btn m-1 col-3" href="{{route('despachos.create')}}">Nuevo despacho</a>
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
@@ -56,39 +56,24 @@
                     </thead>
 
                     <tbody>
-{{--                    @foreach ($ingresos as $ingreso)--}}
-{{--                        <tr>--}}
-{{--                            <th scope="row">{{$ingreso->id}}</th>--}}
-{{--                            <td>{{$ingreso->cliente->nombre}}</td>--}}
-{{--                            <td>{{$ingreso->fecha}}</td>--}}
-{{--                            <!--<td>{{//$permiso->trashed() ? "No": "Si"}}</td> -->--}}
-{{--                            <td>{{$ingreso->insumo->nombre}}</td>--}}
-{{--                            <td>--}}
-{{--                                <a href="{{route('ingresos.edit', $ingreso)}}" class="btn btn-warning btn-sm">Editar</a>--}}
-{{--                                @if (!$permiso->trashed())--}}
-{{--                                    <form action="{{route('ingresos.destroy', $ingreso)}}" method="POST" class="d-inline">--}}
-{{--                                        @method('DELETE')--}}
-{{--                                        @csrf--}}
-{{--                                        <button class="btn btn-danger btn-sm">Eliminar</button>--}}
-{{--                                    </form>--}}
-{{--                                @else--}}
-{{--                                    <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a>--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endforeach--}}
+                    @foreach ($despachos as $despacho)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Chinos</td>
-                            <td>19/04/20</td>
-                            <td>Alimento para cerdos 12AS</td>
-                            <td>15000</td>
-                            <td>ABC123</td>
+                            <th scope="row">{{$despacho['id']}}</th>
+                            <td>{{$despacho['denominacion']}}</td>
+                            <td>{{$despacho['fecha']}}</td>
+                            <td>{{$despacho['descripcion']}}</td>
+                            <td>{{$despacho['cantidad']}}</td>
+                            <td>{{$despacho['patente']}}</td>
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a class="btn btn-success btn-sm" href="">Finalizar</a>
+                                <a class="btn btn-success btn-sm"
+                                   href="{{route('despachos.finalize', $despacho['id'])}}">
+                                    Finalizar
+                                </a>
                             </td>
                         </tr>
+                    @endforeach
+
                     </tbody>
             </table>
         </section>

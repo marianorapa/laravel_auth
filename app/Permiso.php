@@ -1,10 +1,9 @@
 <?php
 
 namespace App;
-use App\Role;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permiso extends Model
 {

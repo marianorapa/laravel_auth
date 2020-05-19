@@ -37,6 +37,19 @@ class OrdenProduccionController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'producto' => ['required', 'exists:alimento'],
+            'cantidad' => ['required', 'numeric'],
+            'fechaentrega' => ['required', 'date'],
+            'precioxkg' => ['required', 'numeric']
+        ]);
+
+        /* Espero recibir una lista de insumos trazables y otra de no trazables a utilizar
+         * Puede que haya insumos propios de la fabrica -> registrar prestamos
+        */
+
+
+
     }
 
     /**

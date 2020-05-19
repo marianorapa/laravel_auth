@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\TicketSalida;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DespachoController extends Controller
 {
@@ -18,12 +18,18 @@ class DespachoController extends Controller
         $cliente = $request->get('cliente');
         $patente = $request->get('patente');
 
-        $despachos = TicketSalida::withTrashed()
-                            ->cliente($cliente)
-                            ->patente($patente)
-                            ->paginate(10);
+        $despachos = DB::table('ticket_salida')
+            ->join('ticket','ticket_salida.id','=','ticket.id')
+            ->where('ticket.patente', 'like', "%$patente%")
+            ->join('empresa', 'empresa.id','=','ticket.cliente_id')
+            ->where('empresa.denominacion', 'like', "%$cliente%")
+            ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
+            ->join('alimento','alimento.id','=','orden_de_produccion.producto_id')
+            ->select('ticket_salida.id','empresa.denominacion', 'ticket.created_at', 'alimento.descripcion',
+                       'orden_de_produccion.cantidad', 'ticket.patente')
+            ->paginate(10);
 
-        return View('balanzas.despachos.index');
+        return View('balanzas.despachos.index', compact('despachos'));
     }
 
     /**
@@ -34,6 +40,7 @@ class DespachoController extends Controller
     public function create()
     {
         //
+        return view('balanzas.despachos.pesajeInicialDespacho');
     }
 
     /**
@@ -46,6 +53,24 @@ class DespachoController extends Controller
     {
         //
     }
+
+
+    public function finalize($id){
+        $ticketSalida = DB::table('ticket_salida')
+            ->where('ticket_salida.id', '=', $id)
+            ->join('ticket','ticket.id','=','ticket_salida.id')
+            ->join('empresa as e','e.id','=','ticket.cliente_id')
+            ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
+            ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
+            ->join('empresa as p','p.id','=','ticket.transportista_id')
+            ->select('ticket_salida.id','ticket.patente','e.denominacion', 'p.denominacion',
+                        'ticket.tara')
+            ->get();
+
+        dd($ticketSalida);
+        return view('balanzas.despachos.pesajeFinalDespacho', compact('ticketSalida'));
+    }
+
 
     /**
      * Display the specified resource.

@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
@@ -13,7 +12,19 @@ class TicketSalida extends Model
 {
     //
 
-    use SoftDeletes;
+//    use SoftDeletes;
+
+    protected $table = "ticket_salida";
+
+
+    public function ticket(){
+        return $this->belongsTo('App/Ticket', 'id');
+    }
+
+    public function ordenProduccion(){
+        return $this->hasOne('App/OrdenProduccion', 'op_id');
+    }
+
 
     public function scopeCliente($query, $cliente){
 
