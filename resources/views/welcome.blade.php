@@ -58,6 +58,10 @@
                 text-transform: uppercase;
             }
 
+            a {
+                margin-right: 25px;
+            }
+
             .m-b-md {
                 margin-bottom: 30px;
             }
@@ -81,6 +85,8 @@
                 </div>
 
                 <a href="{{route('balanzas.menu')}}">Balanzas (restringido en futuro)</a>
+
+                <a href="{{route('administracion.menu')}}">Administración (restringido en futuro)</a>
                 {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
