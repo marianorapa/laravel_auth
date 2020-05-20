@@ -80,9 +80,8 @@
                                         </tr>
 
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
+                                    <tbody class="insumosnecesarios">
+                                        <tr class="trinsumosnecesarios">
                                         </tr>
                                     </tbody>
                                 </table>
@@ -122,7 +121,7 @@
                                 </tr>
 
                                 </thead>
-                                <tbody>
+                                <tbody class="tablacliente">
                                 <tr>
                                     <th></th>
                                 </tr>
@@ -169,7 +168,7 @@
                                 </tr>
 
                                 </thead>
-                                <tbody>
+                                <tbody class="tablafabrica">
                                 <tr>
                                     <th></th>
                                 </tr>

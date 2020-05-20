@@ -120,4 +120,18 @@ class OrdenProduccionController extends Controller
 
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    function getformulaProducto(Request $request){
+        $id_producto = $request->get('id');
+
+        $formula = DB::table('formula_composicion')
+            ->where('insumo_id','=',$id_producto)->get();
+        return response()->json($formula);
+
+    }
 }
