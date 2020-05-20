@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Ticket;
+use App\TicketSalida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -51,7 +53,32 @@ class DespachoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'cliente'=>['required','exists:cliente'],
+            'op_id' => ['required','exists:orden_de_produccion,id'],
+            'transportista' => ['required', 'exists:transportista,id'],
+            'patente' => ['required'],
+            'peso' => ['required', 'numeric']
+        ]);
+
+        $ticketSalida = new TicketSalida();
+        $ticketSalida->op_id = $validated['op_id'];
+        $ticket = new Ticket();
+
+        $ticket->cliente_id = DB::table('orden_de_produccion')
+                                ->where('orden_de_produccion.id', '=', $validated['op_id'])
+                                ->join('alimento', 'alimento.id', '=','orden_de_produccion.producto_id')
+                                ->select('alimento.cliente_id');
+
+        if ($ticket->cliente_id != $validated['cliente']){
+            return back()->with('error', 'Ciente seleccionado no coincide con el de la OP seleccionada');
+        }
+
+        $ticket->transportista_id = $validated['transportista'];
+        $ticket->patente = $validated['patente'];
+        $ticket->tara = $validated['peso'];
+        $ticketSalida->ticket()->associate($ticket);
+        $ticketSalida->save();
     }
 
 

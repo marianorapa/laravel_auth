@@ -17,5 +17,6 @@ class TipoMovimientoSeeder extends Seeder
         $tipoMov->descripcion = "Ingreso de insumo";
         $tipoMov->save();
 
+
     }
 }

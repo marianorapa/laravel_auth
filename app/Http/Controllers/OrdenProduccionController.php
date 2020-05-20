@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\alimento;
-use App\Cliente;
-use http\Client;
+use App\Utils\StockManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -127,12 +125,61 @@ class OrdenProduccionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function getformulaProducto(Request $request){
-        $id_producto = $request->get('id');
+//        $id_producto = $request->get('id');
+//        $cantidad = $request->get('cantidad');
 
-        $formula = DB::table('formula_composicion')
-            ->where('insumo_id','=',$id_producto)->get();
+        $id_producto = 1;
+        $cantidad = 100;
+
+        $alimento = DB::table('alimento')->where('id', '=', $id_producto)->get()->first();
+
+        $id_formula = DB::table('alimento_formula')
+            ->where('alimento_id', '=', $id_producto)
+            ->where('fecha_hasta', '=', null)
+            ->select('alimento_formula.id')
+            ->get()
+            ->first();
+
+        $formula = DB::table('formula_composicion as f')
+            ->where('f.formula_id','=',$id_formula->id)
+            ->select('f.insumo_id', 'f.proporcion')
+                ->get()
+                ->sortDesc(); // solo por pruebas
+
+        $rta = [];
+
+        foreach ($formula as $key=>$value){
+
+            $id_insumo = $value->insumo_id;
+
+            $is_trazable = DB::table('insumo as i')
+                        ->where('i.id','=',$id_insumo)
+                        ->join('insumo_trazable','insumo_trazable.id','=','i.id')
+                        ->exists();
+
+            $proporcion = $value->proporcion;
+
+            $element = [];
+            $element['id_insumo'] = $id_insumo;
+            $element['cantidad_requerida'] = $proporcion * $cantidad;
+
+            if ($is_trazable) {
+
+                $lotes = StockManager::getLotesStockCliente($id_insumo, $alimento->cliente_id);
+                $element['lotes'] = $lotes;
+            }
+            else {
+                $element['stock_cliente'] = null; //StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
+                $element['stock_fabrica'] = null; //StockManager::getStockInsumoFabrica($id_insumo);
+                $element['limite_cliente'] = null; //PrestamosManager::getLimiteCliente($id_cliente, $id_insumo);
+            }
+
+            $rta[] = $element;
+        }
+
+        dd($rta);
+
         return response()->json($formula);
-
     }
 
 
@@ -168,6 +215,5 @@ class OrdenProduccionController extends Controller
             ->join()
             ->select('cliente.id','empresa.denominacion')->get();*/
         return response()->json();
-
     }
 }

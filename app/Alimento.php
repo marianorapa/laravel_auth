@@ -18,18 +18,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property MovimientoProducto[] $movimientoProductos
  * @property OrdenDeProduccion[] $ordenDeProduccions
  */
-class alimento extends Model
+class Alimento extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'alimento';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

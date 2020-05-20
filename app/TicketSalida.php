@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin Eloquent
+ *
+ * @property integer $op_id
  */
 class TicketSalida extends Model
 {
@@ -22,7 +24,7 @@ class TicketSalida extends Model
     }
 
     public function ordenProduccion(){
-        return $this->hasOne('App/OrdenProduccion', 'op_id');
+        return $this->belongsTo('App/OrdenProduccion', 'op_id');
     }
 
 
