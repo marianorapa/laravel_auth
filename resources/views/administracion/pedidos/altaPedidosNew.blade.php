@@ -2,6 +2,7 @@
 
 @section('publics')
     <script src="{{ asset('js/altaPedidos.js') }}"></script>
+    <script src="{{ asset('js/altaPedidosValidar.js') }}"></script>
 @endsection
 @section('content')
     <div class="container">
@@ -38,7 +39,7 @@
 
                             <label for="cantidad" class="col-lg-1 col-form-label text-md-right offset-md-1">Cantidad</label>
 
-                            <input id="cantidad" type="text" class="form-control col-md-2" placeholder="KG" name="cantidad" required>
+                            <input id="cantidad" type="text" class="form-control col-md-2 cantidadjs" placeholder="KG" name="cantidad" required>
 
                         </div>
 
@@ -182,11 +183,10 @@
                         </button>
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
-                            <input id="fechaentrega" type="date" class="form-control col-md-2"  name="fechaentrega" required>
+                            <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"  name="fechaentrega" required>
 
                             <label for="precioxkg" class="col-md-2 col-form-label text-md-right">precio por kg</label>
-                            <input id="precioxkg" type="text" class="form-control col-md-2"  name="precioxkg" >
-
+                            <input id="precioxkg" type="text" class="form-control col-md-2 preciojs"  name="precioxkg" >
 
                         </div>
 
