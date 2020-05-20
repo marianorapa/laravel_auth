@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    /*
     validar_fechanac = document.querySelector(".fechaNacjs");
     validar_fechanac.addEventListener("blur", function() {
         var hoy = new Date();
@@ -36,7 +37,30 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             validar_fechanac.style.background = "#ffffff";
         }
+    });*/
+    //nacimiento
+    validar_fecha_nac = document.querySelector(".fechaNacjs");
+    validar_fecha_nac.addEventListener("blur", function() {
+        var hoy = new Date();
+        var mes;
+        var meshoy = hoy.getMonth() + 1;
+        var diahoy = hoy.getDay();
+        if (meshoy < 10) {
+            meshoy = '0' + meshoy;
+        }
+        if (diahoy < 10) {
+            diahoy = '0' + diahoy;
+        }
+        var formato_hoy = (hoy.getFullYear() - 20) + "-" + meshoy + "-" + diahoy;
+        if (validar_fecha_nac.value === "") {
+            validar_fecha_nac.style.background = "#ffffff";
+        } else if (validar_fecha_nac.value > formato_hoy) {
+            validar_fecha_nac.style.background = "#e05f5f";
+        } else {
+            validar_fecha_nac.style.background = "#ffffff";
+        }
     });
+
 
 
 
