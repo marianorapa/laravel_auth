@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(event)
 
     //tablaInsumosNecesarios = document.querySelector(".insumosnecesarios");
     productos.addEventListener("change",function () {
-        var productoId = productos.value;
+        /*var productoId = productos.value;
         axios.get('/getFormulaProducto',{
             params:{
                 id :productoId
@@ -116,20 +116,159 @@ document.addEventListener("DOMContentLoaded", function(event)
             });
 
             cargarTablaCliente(productoId);
-            cargarTablaFabrica(productoId);
-            /*th = document.createElement('th');
-            input = document.createElement('input');
-            input.type = 'hidden';
-            input.value = '1';
-            input.name = 'hola';
-            //thtext = document.createTextNode(' <input type="hidden" name="id" value="1" />');
-            th.appendChild(input);
-            prueba.appendChild(th);
-            td = document.createElement('td');
-            tdtext = document.createTextNode('asdadasd');
-            td.appendChild(tdtext);
-            prueba.appendChild(td);*/
+            cargarTablaFabrica(productoId);*/
+
+        //prueba para ver como carga
+
+
+        filainsumos();
+        filaclientes();
+        filafabrica();
+
+
+
+
+
     });
+
+
+    // implementar la matriz para cada tabla en cuanto tenga todos los datos para poder cargar.
+    function filainsumos () {
+        th = document.createElement("th");
+        input_id = document.createElement('input');
+        input_id.type = 'hidden';
+        input_id.value = 1;
+        input_id.name ='insumos[1][id_insumo_fila_insumos]';
+        th.appendChild(input_id);
+        th.appendChild(document.createTextNode('1'));
+
+
+        tddescripcion = document.createElement('td');
+        input_name = document.createElement('input');
+        input_name.type = 'hidden';
+        input_name.value = 'maiz';
+        input_name.name ='insumos[1][descripcion_fila_insumos]';
+        tddescripcion.appendChild(input_name);
+        tddescripcion.appendChild(document.createTextNode('maiz'));
+
+        tdcantidadstock = document.createElement('td');
+        input_cantidadstock = document.createElement('input');
+        input_cantidadstock.type = 'hidden';
+        input_cantidadstock.value = 54;
+        input_cantidadstock.name ='insumos[1][cantidad_fila_insumos]';
+        tdcantidadstock.appendChild(input_cantidadstock);
+        tdcantidadstock.appendChild(document.createTextNode('54'));
+
+        tr = document.createElement('tr');
+        tr.appendChild(th);
+        tr.appendChild(tddescripcion);
+        tr.appendChild(tdcantidadstock);
+
+        tablaInsumosNecesarios.appendChild(tr);
+
+        th = document.createElement("th");
+        input_id = document.createElement('input');
+        input_id.type = 'hidden';
+        input_id.value = 1;
+        input_id.name ='insumos[2][id_insumo_fila_insumos]';
+        th.appendChild(input_id);
+        th.appendChild(document.createTextNode('1'));
+
+
+        tddescripcion = document.createElement('td');
+        input_name = document.createElement('input');
+        input_name.type = 'hidden';
+        input_name.value = 'maiz';
+        input_name.name ='insumos[2][descripcion_fila_insumos]';
+        tddescripcion.appendChild(input_name);
+        tddescripcion.appendChild(document.createTextNode('maiz'));
+
+        tdcantidadstock = document.createElement('td');
+        input_cantidadstock = document.createElement('input');
+        input_cantidadstock.type = 'hidden';
+        input_cantidadstock.value = 54;
+        input_cantidadstock.name ='insumos[2][cantidad_fila_insumos]';
+        tdcantidadstock.appendChild(input_cantidadstock);
+        tdcantidadstock.appendChild(document.createTextNode('54'));
+
+        tr = document.createElement('tr');
+        tr.appendChild(th);
+        tr.appendChild(tddescripcion);
+        tr.appendChild(tdcantidadstock);
+
+        tablaInsumosNecesarios.appendChild(tr);
+
+
+    }
+    function filaclientes () {
+        th = document.createElement("th");
+        input_id = document.createElement('input');
+        input_id.type = 'hidden';
+        input_id.value = 1;
+        input_id.name ='id_insumo_fila_clientes';
+        th.appendChild(input_id);
+        th.appendChild(document.createTextNode('1'));
+
+
+        tddescripcion = document.createElement('td');
+        input_name = document.createElement('input');
+        input_name.type = 'hidden';
+        input_name.value = 'maiz';
+        input_name.name ='descripcion_fila_clientes';
+        tddescripcion.appendChild(input_name);
+        tddescripcion.appendChild(document.createTextNode('maiz'));
+
+        tdcantidadstock = document.createElement('td');
+        input_cantidadstock = document.createElement('input');
+        input_cantidadstock.type = 'hidden';
+        input_cantidadstock.value = 54;
+        input_cantidadstock.name ='cantidad_fila_clientes';
+        tdcantidadstock.appendChild(input_cantidadstock);
+        tdcantidadstock.appendChild(document.createTextNode('54'));
+
+        tr1 = document.createElement('tr');
+        tr1.appendChild(th);
+        tr1.appendChild(tddescripcion);
+        tr1.appendChild(tdcantidadstock);
+
+        tablaInsumosCliente.appendChild(tr1);
+    }
+    function filafabrica () {
+        th = document.createElement("th");
+        input_id = document.createElement('input');
+        input_id.type = 'hidden';
+        input_id.value = 1;
+        input_id.name ='id_insumo_fila_fabrica';
+        th.appendChild(input_id);
+        th.appendChild(document.createTextNode('1'));
+
+
+        tddescripcion = document.createElement('td');
+        input_name = document.createElement('input');
+        input_name.type = 'hidden';
+        input_name.value = 'maiz';
+        input_name.name ='descripcion_fila_fabrica';
+        tddescripcion.appendChild(input_name);
+        tddescripcion.appendChild(document.createTextNode('maiz'));
+
+        tdcantidadstock = document.createElement('td');
+        input_cantidadstock = document.createElement('input');
+        input_cantidadstock.type = 'hidden';
+        input_cantidadstock.value = 54;
+        input_cantidadstock.name ='cantidad_fila_fabrica';
+        tdcantidadstock.appendChild(input_cantidadstock);
+        tdcantidadstock.appendChild(document.createTextNode('54'));
+
+        tr2 = document.createElement('tr');
+        tr2.appendChild(th);
+        tr2.appendChild(tddescripcion);
+        tr2.appendChild(tdcantidadstock);
+
+
+        tablaInsumosFabrica.appendChild(tr2);
+
+
+    }
 
     function cargarTablaCliente($id_producto) {
         var id_cliente = cliente_id.value;
@@ -189,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function(event)
     }
 
     function cargarTablaFabrica($id_producto) {
-        //var id_cliente = cliente_id.value;
+        var id_cliente = cliente_id.value;
 
         axios.get('/getFabricaProdForm',{
             params:{
@@ -234,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function(event)
                         tr.appendChild(tddescripcion);
                         tr.appendChild(tdcantidadstock);
 
-                        tablaInsumosCliente.appendChild(tr);
+                        tablaInsumosFabrica.appendChild(tr);
                         i++;
                     }
                 }

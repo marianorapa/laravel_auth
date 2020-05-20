@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+
+@section('publics')
+    <script src="{{ asset('js/finalizarPedidos.js') }}"></script>
+@endsection
 @section('content')
 
 <div class="container">
@@ -17,12 +22,12 @@
         `<div class="card-header text-center h2">{{ __('Finalizar pedido de cliente') }}</div>
             <div class="card-body">
                 <form action="" method="POST">
-                    
-                
+
+
                 <div class="form-group row">
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
-                                <select name="cliente" id="cliente"  class="custom-select col-md-2 ">
-                                    <option data-tokens=="0">Seleccione</option>                                                      
+                                <select name="cliente" id="cliente"  class="cliente custom-select col-md-2 ">
+                                    <option data-tokens=="0">Seleccione</option>
                                     <option data-tokens="julia"> julia</option>
                                     <option data-tokens="adasd"> asdasdsa</option>
                                     <option data-tokens="qweqeq"> qweqweqe</option>
