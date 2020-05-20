@@ -90,14 +90,25 @@
                         <td>
                             <a href="{{route('personas.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
                             @if (!$persona->trashed())
-                                <form id="eliminarjs" action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-danger btn-sm">Eliminar</button>
-                            </form>
+                            
+                            <form method="post" id="destroy-appointment-{{ $persona }}" action="{{route('personas.destroy', $persona)}}" onSubmit="return confirm('Desea eliminar?');">
+                                    <input type="hidden" name="id" value={{ $persona }}>
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class ="btn btn-danger btn-sm" type="submit" form="destroy-appointment-{{ $persona }}">Eliminar</button>
+                                </form>
+                         
                             @else
                                 <a class="btn btn-success btn-sm" href="{{route('personas.activate',$persona->id)}}">Activar</a>
                             @endif
+
+
+
+                                <!--<form action="{{route('personas.destroy', $persona)}}" method="POST" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger btn-sm eliminarjs">Eliminar</button>
+                                  </form>-->
 
                         </td>
                     </tr>

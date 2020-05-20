@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+
 @section('content')
 <section class="container">
     <section>
@@ -56,11 +60,20 @@
                     <td>
                         <a href="{{route('roles.edit', $rol)}}" class="btn btn-warning btn-sm">Editar</a>
                         @if (!$rol->trashed())
-                            <form action="{{route('roles.destroy', $rol)}}" method="POST" class="d-inline">
+
+                        <form method="post" id="destroy-appointment-{{ $rol }}" action="{{route('roles.destroy', $rol)}}" onSubmit="return confirm('Desea eliminar?');">
+                                        <input type="hidden" name="id" value={{ $rol }}>
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class ="btn btn-danger btn-sm" type="submit" form="destroy-appointment-{{ $rol }}">Eliminar</button>
+                        </form>
+
+
+                        <!--<form id="eliminarjs" action="{{route('roles.destroy', $rol)}}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
+                        </form>-->
                         @else
                             <a class="btn btn-success btn-sm" href="{{route('roles.activate',$rol->id)}}">Activar</a>
                         @endif

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+
+
 @section('content')
 <section class="container">
     <section>
@@ -60,14 +65,22 @@
                             <td>
                                 <a href="{{route('permisos.edit', $permiso)}}" class="btn btn-warning btn-sm">Editar</a> <!--me tira que permisos.edit no existe -->
                                 @if (!$permiso->trashed())
-                                    <form action="{{route('permisos.destroy', $permiso)}}" method="POST" class="d-inline">
+                                    <form method="post" id="destroy-appointment-{{ $permiso }}" action="{{route('permisos.destroy', $permiso)}}" onSubmit="return confirm('Desea eliminar?');">
+                                        <input type="hidden" name="id" value={{ $permiso }}>
                                         @method('DELETE')
                                         @csrf
-                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                        <button class ="btn btn-danger btn-sm" type="submit" form="destroy-appointment-{{ $permiso }}">Eliminar</button>
                                     </form>
                                 @else
                                     <a class="btn btn-success btn-sm" href="{{route('permisos.activate',$permiso->id)}}">Activar</a>
                                 @endif
+
+                                 <!--<form id="eliminarjs" action="{{route('permisos.destroy', $permiso)}}" method="POST" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>-->
+
                             </td>
                         </tr>
                     @endforeach
