@@ -1,5 +1,8 @@
 @extends('layouts.app')
+
+<script src="{{ asset('js/pesajeInicialDespacho.js') }}"></script>
 @section('content')
+
 
 <div class="container">
     <div class="bs-example">
@@ -84,7 +87,7 @@
 
     <div class="form-group row mt-5">
         <label for="producto_id" class="col-md-1 col-form-label text-md-left">Producto</label>
-        <input id="producto_id" type="text" class="form-control col-md-2"  name="producto_id" placeholder="Producto seleccionado" required>
+        <input id="producto_id" type="text" class="form-control col-md-2 nombrejs"  name="producto_id" placeholder="Producto seleccionado" required>
     </div>
 
     <div class="form-group row mt-5">
@@ -99,12 +102,12 @@
             </select>
 
         <label for="patente" class="col-md-1 col-form-label text-md-right">Patente</label>
-        <input id="patente" type="text" class="form-control col-md-2"  name="patente" placeholder="Patente" required>
+        <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" placeholder="abc123 / ab123ab" required>
     </div>
 
     <div class="form-group row mt-5">
         <label for="tara" class="col-md-1 col-form-label text-md-left">Peso vehiculo</label>
-        <input id="tara" type="text" class="form-control col-md-2 border-left"  name="tara" placeholder="Tara" required>
+        <input id="tara" type="text" class="form-control col-md-2 border-left tarajs"  name="tara" placeholder="Tara" required>
     
         <button type="submit" class="btn btn-outline-success col-sm-2 offset-1">
                     Leer pesaje

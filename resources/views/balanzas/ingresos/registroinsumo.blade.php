@@ -3,6 +3,7 @@
 
 @section('publics')
 <script src="{{ asset('js/habilitarinput.js') }}"></script>
+<script src="{{ asset('js/registroInsumo.js') }}"></script>
 
 @endsection
 @section('content')
@@ -105,18 +106,18 @@
 
                         <div class="form-group row">
                             <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
-                                <input id="nrolote" type="text" class="form-control col-md-2" name="nrolote" required>
+                                <input id="nrolote" type="text" class="form-control col-md-2 lotejs" name="nrolote" required>
                                 <label for="estrazable" class="col-lg-2 col-form-label text-md-right">es trazable?</label>
                                 <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable">
                         </div>
 
                         <div class="form-group row mt-4">
                             <label for="elaboracion" class="col-lg-2 col-form-label text-md-right">Elaboracion</label>
-                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-2" name="fechaelaboracion">
+                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-2 elaboracionjs" name="fechaelaboracion">
                         </div>
                         <div class="form-group row mt-4">
                             <label for="vencimiento" class="col-lg-2 col-form-label text-md-right">Vencimiento</label>
-                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-2" name="fechavencimiento">
+                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-2 vencimientojs" name="fechavencimiento">
                         </div>
 
                         <br>
@@ -130,24 +131,20 @@
                             </select>
 
                             <label for="patente" class="col-lg-2 col-form-label text-md-right offset-md-2">Patente</label>
-
-                            <input id="patente" type="text" class="form-control col-md-2" name="patente" required>
+                            <input id="patente" type="text" class="form-control col-md-2 patentejs" name="patente" placeholder="abc123 / ab123ab" required>
 
                         </div>
                         <br>
                         <div class="form-group row">
                             <label for="nro_cbte" class="col-lg-2 col-form-label text-md-right">NRO Remito/Carta de porte</label>
-
-
-                                <input id="nro_cbte" type="text" class="form-control col-md-2" name="nro_cbte" required>
+                                <input id="nro_cbte" type="text" class="form-control col-md-2 cartajs" name="nro_cbte" required>
 
                         </div>
                         <br>
 
                         <div class="form-group row">
                             <label for="pesaje" class="col-lg-2 col-form-label text-md-right">Peso vehiculo</label>
-
-                                <input id="pesaje" type="text" class="pesajes form-control col-md-2" placeholder="peso bruto" name="pesaje" required>
+                                <input id="pesaje" type="text" class="pesajes form-control col-md-2 pesojs" placeholder="peso bruto" name="pesaje" required>
 
                             <label class="pesajeAleatorio btn btn-success btn-block col-sm-2 offset-1" >leer pesaje</label>
                         </div>

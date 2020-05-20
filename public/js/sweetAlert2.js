@@ -25,17 +25,12 @@ document.addEventListener("DOMContentLoaded", function() {
      });*/
 
 
-    /* form = document.querySelectorAll(".eliminarjs");
-     form.forEach(
-         function(event) {
-             form.addEventListener("click", function(event) {
-
-                 // si es false entonces que no haga el submit
-                 if (!confirm('Realmente desea eliminar?')) {
-                     event.preventDefault();
-                 }
-
-             })
-         });*/
+    /*form = document.querySelectorAll(".finalizarjs");
+    form.addEventListener("click", function(event) {
+        // si es false entonces que no haga el submit
+        if (!confirm('Realmente desea eliminar?')) {
+            event.preventDefault();
+        }
+    });*/
 
 });
