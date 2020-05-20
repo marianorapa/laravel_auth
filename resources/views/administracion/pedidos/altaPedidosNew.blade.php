@@ -20,7 +20,8 @@
             <div    class="card">
                 <div class="card-header text-center h2"> {{__('Alta de pedido de cliente') }}</div>
                 <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="{{route('pedidos.store')}}" method="POST">
+                        @csrf
                         <div class="form-inline row">
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
 
@@ -123,9 +124,6 @@
 
                                 </thead>
                                 <tbody class="tablacliente">
-                                <tr>
-                                    <th></th>
-                                </tr>
                                 </tbody>
                             </table>
 
@@ -170,9 +168,6 @@
 
                                 </thead>
                                 <tbody class="tablafabrica">
-                                <tr>
-                                    <th></th>
-                                </tr>
                                 </tbody>
                             </table>
 
@@ -192,7 +187,7 @@
 
                         <div class="form-inline row mt-5">
                             <button class="btn btn-secondary col-sm-3">Cancelar</button>
-                            <button class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                            <button  type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
                         </div>
                     </form>
                 </div>
