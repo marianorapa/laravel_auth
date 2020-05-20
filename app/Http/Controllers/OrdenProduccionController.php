@@ -134,4 +134,40 @@ class OrdenProduccionController extends Controller
         return response()->json($formula);
 
     }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    function getClienteProdForm (Request $request){
+        $id_producto = $request->get('id_prod');
+        $id_cliente = $request->get('id_cliente');
+
+        /*$formula = DB::table('')
+            ->join('movimiento_insumo','movimiento_insumo.cliente_id','=',$id_cliente)
+            ->join()
+            ->select('cliente.id','empresa.denominacion')->get();*/
+        return response()->json();
+
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    function getFabricaProdForm (Request $request){
+        $id_producto = $request->get('id_prod');
+        $id_cliente = $request->get('id_cliente');
+
+        /*$formula = DB::table('')
+            ->join('movimiento_insumo','movimiento_insumo.cliente_id','=',$id_cliente)
+            ->join()
+            ->select('cliente.id','empresa.denominacion')->get();*/
+        return response()->json();
+
+    }
 }
