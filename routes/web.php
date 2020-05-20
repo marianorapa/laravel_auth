@@ -131,3 +131,4 @@ route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
 route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables');
 route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
 route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente');
+route::get('/getFormulaProducto', 'OrdenProduccionController@getFormulaProducto');
