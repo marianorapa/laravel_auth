@@ -49,7 +49,6 @@ class ClienteSeeder extends Seeder
 
 
 
-
         // -------------------
         $tipoDoc = \App\TipoDocumento::findOrFail(80);
 
