@@ -22,7 +22,8 @@ class OrdenProduccionController extends Controller
             ->join('cliente','alimento.cliente_id','=','cliente.id')
             ->select('orden_de_produccion.id as op_id','cliente.id as cliente_id ','orden_de_produccion.fecha_fabricacion','alimento.id as alimento_id','orden_de_produccion.cantidad')
             ->get();//no se que son las acciones, me faltan en esta consulta.
-        return view('administracion.pedidos.index');
+        dd($ops);
+        return view('administracion.pedidos.index', compact('ops'));
     }
 
     /**

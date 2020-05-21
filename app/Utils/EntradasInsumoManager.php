@@ -4,16 +4,12 @@
 namespace App\Utils;
 
 
-use App\Cliente;
 use App\InsumoNoTrazable;
-use App\InsumoTrazable;
 use App\LoteInsumoEspecifico;
 use App\Proveedor;
-use App\Ticket;
-use App\TicketEntrada;
 use App\TicketEntradaInsumoNoTrazable;
 use App\TicketEntradaInsumoTrazable;
-use App\Transportista;
+use Illuminate\Support\Facades\DB;
 
 class EntradasInsumoManager
 {
@@ -22,27 +18,41 @@ class EntradasInsumoManager
             $nroLote, $fechaElab, $fechaVenc, $idProveedor,
             $idTransportista, $patente, $nroCbte, $pesaje) :TicketEntradaInsumoTrazable
     {
+
         $ticketEntrada = TicketsEntradaManager::registrarTicketEntrada($idCliente, $idTransportista, $patente,
             $nroCbte, $pesaje);
-        $insumoTrazable = InsumoTrazable::findOrFail($idInsumo);
-        $insumoEspecifico = $insumoTrazable->insumosEspecificos()->all()->where('id_proveedor', $idProveedor);
-        $loteInsumoEspecifico = $insumoEspecifico->lotesInsumoEspecifico()->all()->where('nro_lote', $nroLote);
+
+        $insumoEspecifico = DB::table('insumo_especifico')
+            ->where('insumo_trazable_id', '=', $idInsumo)
+            ->where('proveedor_id', '=', $idProveedor)
+            ->get()
+            ->first();
+
+//        $insumoTrazable = InsumoTrazable::findOrFail($idInsumo);
+//        $insumoEspecifico = $insumoTrazable->insumosEspecificos()->get()->where('id_proveedor', $idProveedor);
+//
+//        $loteInsumoEspecifico = $insumoEspecifico->lotesInsumoEspecifico()->all()->where('nro_lote', $nroLote);
+
+
+        $loteInsumoEspecifico = DB::table('lote_insumo_especifico')
+            ->where('insumo_especifico', '=', $insumoEspecifico->gtin)
+            ->get()->first();
+
 
         // Si no existe el lote aun, lo guardo por primera vez
-        if (nullValue($loteInsumoEspecifico)) {
+        if (is_null($loteInsumoEspecifico)) {
             $loteInsumoEspecifico = new LoteInsumoEspecifico();
-            $loteInsumoEspecifico->insumoEspecifico()->associate($insumoEspecifico);
+            $loteInsumoEspecifico->insumo_especifico = $insumoEspecifico->gtin; //insumoEspecifico()->associate($insumoEspecifico);
             $loteInsumoEspecifico->nro_lote = $nroLote;
-//                $loteInsumoEspecifico->fecha_elaboracion = $validated['fecha_elaboracion']; pendiente
-//                $loteInsumoEspecifico->fecha_vencimiento = $validated['fecha_vencimiento']; pendiente
+                $loteInsumoEspecifico->fecha_elaboracion = $fechaElab;
+                $loteInsumoEspecifico->fecha_vencimiento = $fechaVenc;
             $loteInsumoEspecifico->save();
         }
 
         $ticketEntradaTrazable = new TicketEntradaInsumoTrazable();
         $ticketEntradaTrazable->ticketEntrada()->associate($ticketEntrada);
-        $ticketEntradaTrazable->loteInsumoEspecifico()->associate($loteInsumoEspecifico);
+        $ticketEntradaTrazable->insumo_t_id = $loteInsumoEspecifico->id;
         $ticketEntradaTrazable->save();
-
         return $ticketEntradaTrazable;
     }
 
