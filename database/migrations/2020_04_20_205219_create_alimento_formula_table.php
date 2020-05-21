@@ -17,7 +17,7 @@ class CreateAlimentoFormulaTable extends Migration
             $table->id();
             $table->foreignId('alimento_id')->constrained('alimento');
             $table->date('fecha_desde');
-            $table->date('fecha_hasta');
+            $table->date('fecha_hasta');//falta que sea null
             $table->timestamps();
         });
     }
