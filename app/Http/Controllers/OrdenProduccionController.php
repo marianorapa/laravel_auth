@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OrdenProduccion;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,13 @@ class OrdenProduccionController extends Controller
     public function index()
     {
         //
-        return view('administracion.pedidos.index');
+        $ops = DB::table('orden_de_produccion')
+              ->join('alimento','orden_de_produccion.producto_id','=','alimento.id')
+              ->join('cliente','alimento.cliente_id','=','cliente.id')
+              ->select('orden_de_produccion.id as op_id','cliente.id as cliente_id ','orden_de_produccion.fecha_fabricacion','alimento.id as alimento_id','orden_de_produccion.cantidad')
+              ->get();//no se que son las acciones, me faltan en esta consulta.
+        dd($ops);
+        return view('administracion.pedidos.index',compact('ops'));
     }
 
     /**

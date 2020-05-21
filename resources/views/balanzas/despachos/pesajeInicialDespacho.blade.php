@@ -15,28 +15,31 @@
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-md-11">
+    <div class="col-md-8">
         <div class="card">
         `<div class="card-header text-center h2">{{ __('Pesaje inicial despacho de productos') }}</div>
             <div class="card-body">
                 <form action="" method="POST">
-                    
-                
+
+
                 <div class="form-group row">
-                            <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
+                            <label for="cliente" class="col-md-1 col-form-label text-md-left clientejs">Cliente</label>
                                 <select name="cliente" id="cliente"  class="custom-select col-md-2 ">
-                                    <option data-tokens=="0">Seleccione</option>                                                      
+                                    <option data-tokens=="0">Seleccione</option>
+                                    @foreach ($clientes as $cliente)
+                                        <option value="{{$cliente->id}}"> {{$cliente->denominacion}}</option>
+                                    @endforeach
+                                    {{--<option data-tokens=="0">Seleccione</option>
                                     <option data-tokens="julia"> julia</option>
                                     <option data-tokens="adasd"> asdasdsa</option>
                                     <option data-tokens="qweqeq"> qweqweqe</option>
                                     <option data-tokens="pedro"> pedro</option>
-                                    <option data-tokens="fernando">fernando</option>
+                                    <option data-tokens="fernando">fernando</option>--}}
                                 </select>
-                        </div>
-                <br>
+                </div>
 
-    <div class="form-group row">
-        <table class="table mt-2">
+    <div class="form-group row d-flex justify-content-center">
+        <table class="table table-light mt-2">
               @if ($errors->any())
               <div class="alert alert-danger">
                  {{$errors->first()}}
@@ -80,20 +83,20 @@
                 </tr>
             </tbody>
           </table>
-          <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-10 mt-3">
+          <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-8 mt-3">
                     Elegir orden
         </button>
     </div>
 
-    <div class="form-group row mt-5">
+    <div class="form-inline row mt-5 offset-1">
         <label for="producto_id" class="col-md-1 col-form-label text-md-left">Producto</label>
         <input id="producto_id" type="text" class="form-control col-md-2 nombrejs"  name="producto_id" placeholder="Producto seleccionado" required>
     </div>
 
-    <div class="form-group row mt-5">
+    <div class="form-inline row mt-5 offset-1">
         <label for="Transportista" class="col-md-1 col-form-label text-md-left">Transportista</label>
             <select name="Transportista" id="transportista_id"  class="custom-select col-md-2 ">
-                <option data-tokens=="0">Seleccione</option>                                                      
+                <option data-tokens=="0">Seleccione</option>
                 <option data-tokens="julia"> julia</option>
                 <option data-tokens="adasd"> asdasdsa</option>
                 <option data-tokens="qweqeq"> qweqweqe</option>
@@ -105,17 +108,17 @@
         <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" placeholder="abc123 / ab123ab" required>
     </div>
 
-    <div class="form-group row mt-5">
+    <div class="form-inline row mt-5 offset-1">
         <label for="tara" class="col-md-1 col-form-label text-md-left">Peso vehiculo</label>
         <input id="tara" type="text" class="form-control col-md-2 border-left tarajs"  name="tara" placeholder="Tara" required>
-    
+
         <button type="submit" class="btn btn-outline-success col-sm-2 offset-1">
                     Leer pesaje
         </button>
-        
-    </div>  
+
+    </div>
     <br>
-    <br>  
+    <br>
 
                 <div class="form-inline row">
                             <button class="btn btn-secondary col-sm-3">Cancelar</button>

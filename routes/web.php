@@ -134,4 +134,6 @@ route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente'
 route::get('/getFormulaProducto', 'OrdenProduccionController@getFormulaProducto'); // este es el que se usa
 route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm');
 
+//peticion asincronica para despacho
+route::get('/getOP', 'DespachoController@getOP');
 

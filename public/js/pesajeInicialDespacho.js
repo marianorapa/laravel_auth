@@ -38,4 +38,34 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
+
+    select_cliente = document.querySelector('clientejs');
+    select_cliente.addEventListener('change',function (){
+        var id_cliente = select_cliente.value;
+        axios.get('/getOP',{
+            params:{
+                id :id_cliente
+            }
+        })
+            .then(function (res) {
+                console.log(res.data);
+                if (res.status == 200){
+                    var i = 0;
+                    console.log(res.data);
+                    while (i< res.data['length']){
+                        opcion = document.createElement("option");
+                        opcion.value=res.data[i]['id'];
+                        opcion.text=res.data[i]['descripcion'];
+                        //console.log(res.data[i]['insumo_trazable_id']);
+                        productos.appendChild(opcion);
+                        i++;
+                    }
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    });
+
+
 });

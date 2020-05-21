@@ -51,14 +51,16 @@
                         </tr>
                     </thead>
                     <tbody>
-{{--                    @foreach ($ticketsEntrada as $ticketEntrada)--}}
+                    @foreach ($ops as $op)
                         <tr>
-{{--                            <th scope="row">{{$ticketEntrada->id}}</th>--}}
+                           <th scope="row">{{$op->op_id}}</th>
+                           {{--<td>{{$op->cliente_id}}</td>--}}
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
                                 <a class="btn btn-success btn-sm" href="">Finalizar</a>
                             </td>
-{{--                    @endforeach--}}
+                        </tr>
+-                   @endforeach
                     </tbody>
             </table>
         </section>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OrdenProduccion;
 use App\Ticket;
 use App\TicketSalida;
 use Illuminate\Http\Request;
@@ -42,7 +43,10 @@ class DespachoController extends Controller
     public function create()
     {
         //
-        return view('balanzas.despachos.pesajeInicialDespacho');
+        $clientes = DB::table('cliente')
+            ->join('empresa','cliente.id','=','empresa.id')
+            ->select('cliente.id','empresa.denominacion')->get();
+        return view('balanzas.despachos.pesajeInicialDespacho',compact('clientes'));
     }
 
     /**
@@ -142,5 +146,23 @@ class DespachoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getOP(Request $request)
+    {
+        $cliente_id = $request->get('id');
+        $arrayOP =DB::table('orden_de_produccion')
+            ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
+            ->where('alimento.cliente_id','=',$cliente_id)
+            ->select('orden_de_produccion.id','orden_de_produccion.fecha_fabricacion','orden_de_produccion.producto_id','orden_de_produccion.saldo')
+            ->get();
+
+        return response()->json($arrayOP);
     }
 }
