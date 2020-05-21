@@ -41,7 +41,7 @@ class FormulaTempSeeder extends Seeder
 
         $formulaComposicion = new \App\FormulaComposicion();
         $formulaComposicion->alimentoFormula()->associate($alimentoFormula);
-        $insumo = \App\Insumo::find(9);
+        $insumo = \App\Insumo::find(3);
 
         $formulaComposicion->insumo()->associate($insumo);
         $formulaComposicion->proporcion = 0.1;
@@ -50,7 +50,7 @@ class FormulaTempSeeder extends Seeder
 
         $formulaComposicion = new \App\FormulaComposicion();
         $formulaComposicion->alimentoFormula()->associate($alimentoFormula);
-        $insumo = \App\Insumo::find(10);
+        $insumo = \App\Insumo::find(4);
 
         $formulaComposicion->insumo()->associate($insumo);
         $formulaComposicion->proporcion = 0.1;
