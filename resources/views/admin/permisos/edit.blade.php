@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/permisoscreate.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
 @endsection
 @section('content')
     <section class="container">
@@ -43,8 +44,8 @@
                             @enderror
 
                             @if (session('mensaje'))
-                                <div class="alert alert-success">
-                                    {{session('mensaje')}}
+                                <div class="">
+                                    <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
                                 </div>
                             @endif
 

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/rolescreate.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
 @endsection
 @section('content')
 
@@ -49,9 +51,9 @@
                             @enderror
 
                             @if (session('mensaje'))
-                                <div class="alert alert-success">
-                                    {{session('mensaje')}}
-                                </div>
+                            <div class="" role="alert">
+                            <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+                            </div>
                             @endif
 
                             <div class="form-group row">

@@ -3,6 +3,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 
 @section('content')
 
@@ -26,17 +28,17 @@
 <a class="btn btn-primary btn-sm m-1" href="{{route('users.create')}}">Agregar</a>
     <table class="table">
         @if ($errors->any())
-        <div class="alert alert-danger mt-4">
-             {{$errors->first()}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+        <div class="">
+             <p class="errorjs" style="display:none">{{$errors->first()}}</p> 
+            <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>-->
             </button>
         </div>
         @endif
 
         @if (session('mensaje'))
-        <div class="alert alert-success">
-            {{session('mensaje')}}
+        <div class="">
+        <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
         </div>
 
         @endif
