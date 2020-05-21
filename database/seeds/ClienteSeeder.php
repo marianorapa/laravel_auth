@@ -12,7 +12,44 @@ class ClienteSeeder extends Seeder
      */
     public function run()
     {
-        // Ejemplo de guardar entidades con herencia
+        $tipoDoc = \App\TipoDocumento::findOrFail(80);
+
+        $localidad = \App\Localidad::findOrFail(12881);
+
+        $domicilio = new \App\Domicilio();
+        $domicilio->calle = "Mendez";
+        $domicilio->numero = "1675";
+        $domicilio->piso = "";
+        $domicilio->dpto = "";
+        $domicilio->localidad()->associate($localidad);
+
+        $domicilio->save();
+
+        $personaTipo = new \App\PersonaTipo();
+        $personaTipo->tipoDocumento()->associate($tipoDoc);
+        $personaTipo->domicilio()->associate($domicilio);
+
+        $personaTipo->email = "info@vilumar.com";
+        $personaTipo->telefono = "+54 2325 443828";
+        $personaTipo->nro_documento = "30-70950140-9";
+
+        $personaTipo->save();
+
+        $empresa = new \App\Empresa();
+            $empresa->denominacion = "VILUMAR S.A";
+        $empresa->fecha_inicio_actividades = "2003-11-10";
+
+        $empresa->personaTipo()->associate($personaTipo);
+
+        $empresa->save();
+
+        $cliente = new Cliente();
+        $cliente->empresa()->associate($empresa);
+        $cliente->save();
+
+
+
+        // -------------------
         $tipoDoc = \App\TipoDocumento::findOrFail(80);
 
         $localidad = \App\Localidad::findOrFail(150);

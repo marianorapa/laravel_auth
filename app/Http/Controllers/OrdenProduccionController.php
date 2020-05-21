@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\OrdenProduccion;
+use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,13 +17,7 @@ class OrdenProduccionController extends Controller
     public function index()
     {
         //
-        $ops = DB::table('orden_de_produccion')
-              ->join('alimento','orden_de_produccion.producto_id','=','alimento.id')
-              ->join('cliente','alimento.cliente_id','=','cliente.id')
-              ->select('orden_de_produccion.id as op_id','cliente.id as cliente_id ','orden_de_produccion.fecha_fabricacion','alimento.id as alimento_id','orden_de_produccion.cantidad')
-              ->get();//no se que son las acciones, me faltan en esta consulta.
-        dd($ops);
-        return view('administracion.pedidos.index',compact('ops'));
+        return view('administracion.pedidos.index');
     }
 
     /**
@@ -139,7 +133,7 @@ class OrdenProduccionController extends Controller
         $id_producto = 1;
         $cantidad = 100;
 
-        $alimento = DB::table('alimento')->where('id', '=', $id_producto)->get()->first();
+        $id_cliente = DB::table('alimento')->where('id', '=', $id_producto)->get()->first()->cliente_id;
 
         $id_formula = DB::table('alimento_formula')
             ->where('alimento_id', '=', $id_producto)
@@ -151,8 +145,7 @@ class OrdenProduccionController extends Controller
         $formula = DB::table('formula_composicion as f')
             ->where('f.formula_id','=',$id_formula->id)
             ->select('f.insumo_id', 'f.proporcion')
-                ->get()
-                ->sortDesc(); // solo por pruebas
+                ->get();
 
         $rta = [];
 
@@ -173,13 +166,13 @@ class OrdenProduccionController extends Controller
 
             if ($is_trazable) {
 
-                $lotes = StockManager::getLotesStockCliente($id_insumo, $alimento->cliente_id);
+                $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
                 $element['lotes'] = $lotes;
             }
             else {
-                $element['stock_cliente'] = null; //StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
-                $element['stock_fabrica'] = null; //StockManager::getStockInsumoFabrica($id_insumo);
-                $element['limite_cliente'] = null; //PrestamosManager::getLimiteCliente($id_cliente, $id_insumo);
+                $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
+                $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
+                $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
             }
 
             $rta[] = $element;
