@@ -3,6 +3,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
 
 
 @section('content')
@@ -41,8 +42,8 @@
                 @endif
 
                 @if (session('mensaje'))
-                    <div class="alert alert-success">
-                        {{session('mensaje')}}
+                    <div class="">
+                       <p class="alertajs" style="display:none"> {{session('mensaje')}} </p> 
                     </div>
                 @endif
                 <thead>
