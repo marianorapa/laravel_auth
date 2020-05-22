@@ -24,7 +24,7 @@ class PrestamosManager
             ->where('a.cliente_id','=',$id_cliente)
             ->sum('opd.cantidad');
 
-        // Chequeame <----------- !!! Ver campo "cancelado"
+
         $devuelto = DB::table('prestamo_devoluciones as pd')
             ->join('prestamo_cliente as p', 'pd.prestamo_id', '=', 'p.id')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')
@@ -68,7 +68,7 @@ class PrestamosManager
                 $devolucion->cantidad = $saldoIngreso;
                 $saldoIngreso = 0;
             }
-            $devolucion->save();
+            $devolucion->save(); // Dispara un trigger que actualiza el saldo cancelado del prestamo
             $i++;
         }
 

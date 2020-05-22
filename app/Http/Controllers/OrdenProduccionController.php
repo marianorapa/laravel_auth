@@ -61,8 +61,9 @@ class OrdenProduccionController extends Controller
          * Puede que haya insumos propios de la fabrica -> registrar prestamos
         */
 
+        /* Voy creando detalles de la op por cada insumo recibido */
 
-
+        /* Si es de la fabrica, registrar prestamo vinculado a ese detalle ; El trigger se encarga de tocar stock */
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\PrestamoCliente;
 use App\PrestamoDevolucion;
+use App\Utils\StockManager;
 
 class DevolucionObserver
 {
@@ -15,6 +17,12 @@ class DevolucionObserver
     public function created(PrestamoDevolucion $prestamoDevolucion)
     {
         // Al registrar una devolucion, actualiza el monto "cancelado" del prestamo cliente
+        $prestamoCliente = PrestamoCliente::find($prestamoDevolucion->prestamo_id);
+        $prestamoCliente->cancelado += $prestamoDevolucion->cantidad;
+        $prestamoCliente->save();
+
+        // Actualizar stock fabrica insertando movimientos (delega en stock manager)
+        StockManager::registrarDevolucionFabrica($prestamoDevolucion);
 
     }
 

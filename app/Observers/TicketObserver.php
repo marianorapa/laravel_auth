@@ -99,12 +99,11 @@ class TicketObserver
                         $movimientoInsumoNoTrazable->save();
                     }
                     else {
-                        // No registro movimiento, xq solo se registro una devolucion
+                        // No registro movimiento, xq no le queda "cantidad restante"
                     }
                 }
                 else {
                     // Si es trazable
-
                     $movimiento->save();
                     $movimientoInsumo->movimiento()->associate($movimiento);
                     $movimientoInsumo->save();
