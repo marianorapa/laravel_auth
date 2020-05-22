@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/userscreate.js') }}"></script>
+    <script src="{{ asset('js/autocompletar.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 @endsection
 @section('content')
 
@@ -75,6 +78,9 @@
                                         <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
                                     @endforeach
                                 </select>
+                                {{--<div class="autocomplete">
+                                <input type="text" name="prueba" id="tags" class="autocomplete form-control mb-2 mt-1">
+                                </div>--}}
                                 <p class="mt-2 mb-3"><a class="" href="{{route('personas.create')}}" target="_blank">Nueva persona</a></p>
                             </div>
 
@@ -137,17 +143,7 @@
 
 
 
-                            <script>
 
-                                function toggleCheckboxes() {
-                                    let list = document.getElementsByClassName("checkboxRol");
-                                    let newValue = (document.getElementById("selectAllCheckbox")).checked;
-                                    for (let item of list) {
-                                        item.checked = newValue;
-                                    }
-                                }
-
-                            </script>
 
                             <label class="col-md-10">Seleccione los roles del usuario:</label>
 
@@ -206,6 +202,49 @@
             </div>
         </div>
 
+
 </section>
 
 @endsection
+@section('script')
+    {{--<script>
+        var names = ['dilan','juanchito','pancho'];
+        autocomplete(document.getElementById('prueba12'),names);
+    </script>--}}
+    <script>
+
+        function toggleCheckboxes() {
+            let list = document.getElementsByClassName("checkboxRol");
+            let newValue = (document.getElementById("selectAllCheckbox")).checked;
+            for (let item of list) {
+                item.checked = newValue;
+            }
+        }
+
+    </script>
+
+   {{-- <script>
+        jQuery(function(){
+
+            jQuery('#tags').autocomplete({
+                source: ["ActionScript",
+                    "Bootstrap",
+                    "C",
+                    "C++",
+                    "Ecommerce",
+                    "Jquery",
+                    "Groovy",
+                    "Java",
+                    "JavaScript",
+                    "Lua",
+                    "Perl",
+                    "Ruby",
+                    "Scala",
+                    "Swing",
+                    "XHTML"]
+            });
+
+        });
+    </script>--}}
+@endsection
+
