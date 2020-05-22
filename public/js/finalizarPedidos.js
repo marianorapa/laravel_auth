@@ -16,10 +16,9 @@ document.addEventListener("DOMContentLoaded", function(event)
                 if (res.status == 200){
                     var i = 0;
                     console.log(res.data);
-                    while (i< res.data['length']){
-
-                        i++;
-                    }
+                    res.data.forEach(element =>{
+                        
+                    })
                 }
             })
             .catch(function (err) {

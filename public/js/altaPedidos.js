@@ -66,9 +66,22 @@ document.addEventListener("DOMContentLoaded", function(event)
     };
 
 
-    var tablaInsumosTrazables = document.getElementById("tableInsumosTrazables");
-    var tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
 
+
+    var tablaInsumosTrazables = document.getElementById("tableInsumosTrazables");
+    function limpiarTablaInsumosTrazables() {
+        new_tbody = document.createElement('tbody');
+        new_tbody.className = "tableInsumosTrazables";
+        tablaInsumosTrazables.parentNode.replaceChild(new_tbody,tablaInsumosTrazables);
+        tablaInsumosTrazables = document.getElementById("tableInsumosTrazables");
+    }
+    var tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
+    function limpiarTablaInsumosNoTrazables() {
+        new_tbody = document.createElement('tbody');
+        new_tbody.className = "tableInsumosTrazables";
+        tablaInsumosNoTrazables.parentNode.replaceChild(new_tbody,tablaInsumosNoTrazables);
+        tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
+    }
     //tablaInsumosNecesarios = document.querySelector(".insumosnecesarios");
     productos.addEventListener("change",function () {
         var productoId = productos.value;
@@ -84,15 +97,15 @@ document.addEventListener("DOMContentLoaded", function(event)
                 if (res.status == 200){
                     var i = 0;
                     console.log(res.data);
-                    limpiarTablaInsumosNecesarios();
-
+                    limpiarTablaInsumosTrazables();
+                    limpiarTablaInsumosNoTrazables();
                     res.data.forEach(element => {
                         // filainsumos(element.id_insumo, element.id_insumo, element.nombre_insumo, element.cantidad_requerida)
                         if (element.hasOwnProperty("lotes")) {
                             filaTrazable(i, element);
                         }
                         else {
-                            // filaNoTrazable(i, element);
+                            filaNoTrazable(i, element);
                         }
                         i++;
                     })
@@ -209,8 +222,54 @@ document.addEventListener("DOMContentLoaded", function(event)
     }
 
 
+
+    function filaNoTrazable(i,element) {
+        th = document.createElement("th");
+        input_id = document.createElement('input');
+        input_id.type = 'hidden';
+        input_id.value = element.id_insumo;
+        input_id.name ='insumos_no_trazables['+i+'][id_insumo_fila_insumos]';
+        th.appendChild(input_id);
+        th.appendChild(document.createTextNode(i.toString()));
+
+
+        tddescripcion = document.createElement('td');
+        tddescripcion.appendChild(document.createTextNode(element.nombre_insumo.toString()));
+
+        tdcantidadNecesaria = document.createElement('td');
+        tdcantidadNecesaria.appendChild(document.createTextNode(element.cantidad_requerida.toString()));
+
+        tdcantidadStockCliente = document.createElement('td');
+        tdcantidadStockCliente.appendChild(document.createTextNode(element.stock_cliente.toString()));
+
+        tdStockUtilizar = document.createElement('td');
+        input_stock = document.createElement('input');
+        input_stock.name ='insumos_no_trazables['+i+'][stock_utilizar]';
+        tdStockUtilizar.appendChild(input_stock);
+
+
+        tdcantidadStockfabrica = document.createElement('td');
+        tdcantidadStockfabrica.appendChild(document.createTextNode(element.stock_fabrica.toString()));
+
+        tdStockUtilizarFabrica = document.createElement('td');
+        input_stockFabrica = document.createElement('input');
+        input_stockFabrica.name ='insumos_no_trazables['+i+'][stock_utilizar_Fabrica]';
+        tdStockUtilizarFabrica.appendChild(input_stockFabrica);
+
+        tr = document.createElement('tr');
+        tr.appendChild(th);
+        tr.appendChild(tddescripcion);
+        tr.appendChild(tdcantidadNecesaria);
+        tr.appendChild(tdcantidadStockCliente);
+        tr.appendChild(tdStockUtilizar);
+        tr.appendChild(tdcantidadStockfabrica);
+        tr.appendChild(tdStockUtilizarFabrica);
+
+        tablaInsumosNoTrazables.appendChild(tr);
+
+    }
     // implementar la matriz para cada tabla en cuanto tenga todos los datos para poder cargar.
-    function filainsumos (i,id,insumo,cantidadNecesaria) {
+    /*function filainsumos (i,id,insumo,cantidadNecesaria) {
         th = document.createElement("th");
         input_id = document.createElement('input');
         input_id.type = 'hidden';
