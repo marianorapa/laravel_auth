@@ -25,10 +25,10 @@
     </div>
 
         <a class="btn btn-primary btn-sm m-1" href="{{route('personas.create')}}">Agregar</a>
-        <a class="btn btn-info btn-sm m-1" href="{{route('persona.pdf')}}">Descargar Index</a><!--todavia no anda, primera prueba-->
-
         <nav class="navbar navbar-light float-right mb-2">
             <form class="form-inline">
+                <a type="submit" class="btn btn-info btn-sm m-1" href="{{route('persona.pdf')}}">Descargar Index</a><!--todavia no anda, primera prueba-->
+
                 <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
                 <input name='apellido' class="form-control mr-sm-2" type="search" placeholder="Apellido" aria-label="buscar por apellido">
                 <input name='nrodocumento' class="form-control mr-sm-2" type="search" placeholder="NroDoc" aria-label="buscar por dni">
