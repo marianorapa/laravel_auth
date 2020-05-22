@@ -218,7 +218,7 @@ class PersonaController extends Controller
 
         $personas = Persona::withTrashed()->get();
 
-        $pdf = PDF::loadView('personas.index',compact('personas'));
+        $pdf = PDF::loadView(route('personas.index'),compact('personas'));
         return $pdf->download('personas-list.pdf');
     }
 
