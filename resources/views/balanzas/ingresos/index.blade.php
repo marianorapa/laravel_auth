@@ -49,7 +49,8 @@
                         <th scope="col">Cliente</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Insumo</th>
-                        <th scope="col">Cantidad</th>
+                        <th scope="col">Bruto</th>
+                        <th scope="col">Tara</th>
                         <th scope="col">Patente</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -73,6 +74,8 @@
                             @else
                                 @if ($ticketEntrada->ticketEntradaInsumoTrazable()->exists())
                                 <td>{{$ticketEntrada->ticketEntradaInsumoTrazable()->first()
+                                                    ->loteInsumoEspecifico()->first()
+                                                    ->insumoEspecifico()->first()
                                                     ->insumoTrazable()->first()
                                                     ->insumo()->first()->descripcion}}
                                 </td>
@@ -82,10 +85,19 @@
                             @endif
 
                             <td>{{$ticketEntrada->ticket()->first()->bruto()->first()->peso}}</td>
+                            @if ($ticketEntrada->ticket()->first()->tara()->exists())
+                                <td>{{$ticketEntrada->ticket()->first()->tara()->first()->peso}}</td>
+                            @else
+                                <td>(pendiente)</td>
+                            @endif
                             <td>{{$ticketEntrada->ticket()->first()->patente}}</td>
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
+                                @if (!$ticketEntrada->ticket()->first()->tara()->exists())
+                                    <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
+                                @else
+                                    <span class="btn btn-sm btn-outline-danger disabled" >Finalizado</span>
+                                @endif
                             </td>
                     @endforeach
                     </tbody>

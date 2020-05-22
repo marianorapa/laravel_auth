@@ -102,7 +102,7 @@ class UserController extends Controller
                 return back()->with('mensaje', 'Usuario ya existía. Se ha reactivado con éxito.');
             }
             else {
-                return back()->with('mensaje', 'Usuario ya existe.');
+                return back()->with('error', 'Usuario ya existe.');
             }
         }
 

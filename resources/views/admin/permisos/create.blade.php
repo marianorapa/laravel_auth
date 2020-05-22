@@ -1,5 +1,8 @@
+
 @extends('layouts.app')
 @section('publics')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
     <script src="{{ asset('js/permisoscreate.js') }}"></script>
 @endsection
 @section('content')
@@ -16,6 +19,12 @@
         </div>  
     <div class="row justify-content-center">
         <div class="col-md-8">
+            
+                @if (session('mensaje'))
+                    <div class="">
+                       <p class="alertajs" style="display:none"> {{session('mensaje')}} </p> 
+                    </div>
+                @endif
 
             <div class="card">
                 <div class="card-header text-center h2">{{ __('Registro de permisos') }}</div>

@@ -4,6 +4,7 @@
 @section('publics')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
 @endsection
 
 @section('content')
@@ -36,7 +37,8 @@
 
     <section class="mt-3">
         <table class="table">
-              @if ($errors->any())
+              
+        @if ($errors->any())
               <div class="alert alert-danger">
                  {{$errors->first()}}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -54,8 +56,8 @@
             @endif
 
             @if (session('mensaje'))
-            <div class="alert alert-success">
-                {{session('mensaje')}}
+            <div class="">
+               <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
             </div>
             @endif
 

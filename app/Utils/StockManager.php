@@ -4,11 +4,17 @@
 namespace App\Utils;
 
 
+use App\Movimiento;
+use App\MovimientoInsumo;
+use App\MovimientoInsumoNoTrazable;
+use App\MovimientoInsumoTicketEntrada;
+use App\PrestamoDevolucion;
+use App\TipoMovimiento;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class StockManager
 {
-
 
     public static function getLotesStockCliente($id_insumo, $id_cliente) : array
     {
@@ -45,5 +51,37 @@ class StockManager
             ->sum('mi.cantidad');
 
         return $stock;
+    }
+
+    public static function registrarDevolucionFabrica(PrestamoDevolucion $prestamoDevolucion){
+
+        $movimiento = new Movimiento();
+        $movimiento->tipoMovimiento()->associate(TipoMovimiento::getMovimiento(TipoMovimiento::DEVOLUCION_INSUMOS));
+//        $movimiento->user()->associate(Auth::user()); TODO cambiar a usuario logueado
+        $movimiento->user()->associate(User::all()->first());
+        $movimiento->save();
+
+        $movimientoInsumo = new MovimientoInsumo();
+        $movimientoInsumo->movimiento()->associate($movimiento);
+        $movimientoInsumo->cliente_id = 1; // La fabrica
+        $movimientoInsumo->cantidad = $prestamoDevolucion->cantidad;
+        $movimientoInsumo->save();
+
+        $movimientoInsumoNoTra = new MovimientoInsumoNoTrazable();
+        $movimientoInsumoNoTra->movimientoInsumo()->associate($movimientoInsumo);
+
+        $idInsumo = DB::table('prestamo_cliente as pc')
+            ->where('pc.id', '=', $prestamoDevolucion->prestamo_id)
+            ->join('op_detalle_no_trazable as opnt', 'opnt.id', '=','pc.op_detalle_id')
+            ->select('opnt.insumo_id')->get();
+
+        $movimientoInsumoNoTra->insumo_id = $idInsumo;
+
+        $movimientoInsumoNoTra->save();
+
+        $movimientoInsumoTicketEntrada = new MovimientoInsumoTicketEntrada();
+        $movimientoInsumoTicketEntrada->movimientoInsumo()->associate($movimientoInsumo);
+        $movimientoInsumoTicketEntrada->ticket_id = $prestamoDevolucion->ticket_entrada_id;
+        $movimientoInsumoTicketEntrada->save();
     }
 }

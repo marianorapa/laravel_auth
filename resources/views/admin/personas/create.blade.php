@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
 @section('content')
 @inject('Provincia', 'App\Provincia')
 
@@ -27,13 +29,20 @@
             @endif
 
             @if (session('mensaje'))
-            <div class="alert alert-success" role="alert">
+            <!--<div class="alert alert-success" role="alert">
                 {{ session('mensaje') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+            </div>-->
+
+            <div class="" role="alert">
+               <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
             </div>
+
             @endif
+
+           
 
             <div class="card">
                 <div class="card-header text-center h2">{{ __('Registro de persona') }}</div>

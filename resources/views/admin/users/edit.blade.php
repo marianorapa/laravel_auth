@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/userscreate.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @endsection
 @section('content')
 
@@ -44,8 +48,10 @@
                         @enderror
 
                         @if (session('mensaje'))
-                            <div class="alert alert-success">
-                                {{session('mensaje')}}
+                            <div class="">
+                           
+                        <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -53,8 +59,10 @@
                         @endif
 
                         @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{session('error')}}
+                            <div class="">
+                        
+                        <p class="errorjs" style="display:none">{{session('mensaje')}}</p> 
+                    
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -62,8 +70,8 @@
                         @endif
 
                         @if (session('warning'))
-                            <div class="alert alert-warning" role="alert">
-                                {{ session('mensaje') }}
+                            <div class="" role="alert">
+                            <p class="warningjs" style="display:none">{{session('mensaje')}}</p> 
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

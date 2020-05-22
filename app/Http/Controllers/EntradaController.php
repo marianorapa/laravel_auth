@@ -28,6 +28,38 @@ class EntradaController extends Controller
 
         // Recuperar ultimos ingresos
         $ticketsEntrada = TicketEntrada::paginate(10);
+// Lo de abajo funciona pero no se va a poder paginar hasta hacerlo manualmente
+//        $ticketsEntradaNt =
+//            DB::table('ticket_entrada')
+//                ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
+//                ->join('empresa', 'empresa.id', '=', 'cliente_id')
+//                ->join('ticket_entrada_insumo_no_trazable as nt', 'nt.id', '=','ticket.id')
+//                ->join('insumo', 'insumo.id', '=', 'nt.insumo_nt_id')
+//                ->join('pesaje as p1', 'p1.id', '=', 'ticket.bruto')
+//                ->join('pesaje as p2', 'p2.id', '=', 'ticket.tara')
+//                ->select('ticket.id', 'empresa.denominacion', 'ticket.created_at', 'insumo.descripcion',
+//                    'p1.peso as bruto','p2.peso as tara', 'ticket.patente')
+//                ->orderBy('ticket.created_at', 'desc')
+////                ->paginate(10);
+//                ->get();
+//
+//        $ticketsEntradaTra =
+//            DB::table('ticket_entrada')
+//                ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
+//                ->join('empresa', 'empresa.id', '=', 'cliente_id')
+//                ->join('ticket_entrada_insumo_trazable as tra', 'tra.id', '=','ticket.id')
+//                ->join('lote_insumo_especifico as li', 'li.id', '=', 'tra.insumo_t_id')
+//                ->join('insumo_especifico as ie','ie.gtin','=','li.insumo_especifico')
+//                ->join('insumo', 'insumo.id', '=', 'ie.insumo_trazable_id')
+//                ->join('pesaje as p1', 'p1.id', '=', 'ticket.bruto')
+//                ->join('pesaje as p2', 'p2.id', '=', 'ticket.tara')
+//                ->select('ticket.id', 'empresa.denominacion', 'ticket.created_at', 'insumo.descripcion',
+//                    'p1.peso as bruto','p2.peso as tara', 'ticket.patente')
+//                ->orderBy('ticket.created_at', 'desc')
+////                ->paginate(10);
+//                ->get();
+//
+//        dd($ticketsEntradaNt->union($ticketsEntradaTra));
 
         return view('balanzas.ingresos.index', compact('ticketsEntrada'));
     }
@@ -57,7 +89,7 @@ class EntradaController extends Controller
 
         $validated = $request->validate([
             'cliente' => ['required', 'exists:cliente,id'],
-            'insumo' => ['required', 'exists:insumo,id'],
+            'insumo' => ['required'],
             'proveedor' => ['required', 'exists:proveedor,id'],
             'transportista' => ['required', 'exists:transportista,id'],
             'patente' => ['required'],
@@ -84,13 +116,13 @@ class EntradaController extends Controller
             /* Si es un insumo trazable, hago validacion adicional */
             $validated = $request->validate([
                 'nrolote' => ['required'],
-                'fecha_elaboracion' =>['required', 'date'],
-                'fecha_vencimiento' =>['required', 'date']
+                'fechaelaboracion' =>['required', 'date'],
+                'fechavencimiento' =>['required', 'date']
             ]);
 
             $nroLote = $validated['nrolote'];
-            $fechaElab = $validated['fecha_elaboracion'];
-            $fechaVenc = $validated['fecha_vencimiento'];
+            $fechaElab = $validated['fechaelaboracion'];
+            $fechaVenc = $validated['fechavencimiento'];
 
             EntradasInsumoManager::registrarEntradaInicialInsumoTrazable(
                 $idCliente, $idInsumo, $nroLote, $fechaElab, $fechaVenc, $idProveedor, $idTransportista, $patente,
