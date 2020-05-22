@@ -25,7 +25,7 @@
     </div>
 
         <a class="btn btn-primary btn-sm m-1" href="{{route('personas.create')}}">Agregar</a>
-        <a class="btn btn-info btn-sm m-1" href="{{route('persona.pdf')}}">Descargar Index</a>{{--todavia no anda, primera prueba--}}
+        <a class="btn btn-info btn-sm m-1" href="{{route('persona.pdf')}}">Descargar Index</a><!--todavia no anda, primera prueba-->
 
         <nav class="navbar navbar-light float-right mb-2">
             <form class="form-inline">
