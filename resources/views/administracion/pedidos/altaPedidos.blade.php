@@ -184,6 +184,10 @@
 
                         </div>
 
+
+
+
+
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2"  name="fechaentrega" required>

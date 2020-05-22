@@ -173,6 +173,79 @@
 
                         </div>
 
+
+
+
+
+
+
+
+
+
+                        <label for="insumosTrazables" class="h2 text-md-left mt-5">Insumos trazables requeridos</label>
+                        <div class="form-group row">
+
+                            <table class="table mt-2 col-md-4" id="tableInsumosTrazables">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Id insumo</th>
+                                    <th scope="col">Nombre Insumo</th>
+                                    <th scope="col">Cantidad necesaria</th>
+                                    {{--                                        <th scope="col">Cantidad pendiente</th>--}}
+                                    <th scope="col">Lote</th>
+                                    <th scope="col">Cantidad en stock cliente</th>
+                                    <th scope="col">Cantidad a utilizar cliente</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <label for="insumosNoTrazables" class="h2 text-md-left mt-5">Insumos no trazables requeridos</label>
+                        <div class="form-group row">
+
+                            <table class="table mt-2 col-md-4" id="tableInsumosNoTrazables">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Id insumo</th>
+                                    <th scope="col">Nombre Insumo</th>
+                                    <th scope="col">Cantidad necesaria</th>
+                                    {{--                                        <th scope="col">Cantidad pendiente</th>--}}
+                                    <th scope="col">Cantidad en stock cliente</th>
+                                    <th scope="col">Cantidad a utilizar cliente</th>
+                                    <th scope="col">Cantidad en stock fábrica</th>
+                                    <th scope="col">Cantidad a utilizar fábrica</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-md-6 mt-3">
                             Verificar
                         </button>

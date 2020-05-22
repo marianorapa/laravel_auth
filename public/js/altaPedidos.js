@@ -1,6 +1,10 @@
 var window = window ||{},
     document = document ||{},
     console = console || {};
+
+
+
+
 document.addEventListener("DOMContentLoaded", function(event)
 {
 
@@ -61,6 +65,10 @@ document.addEventListener("DOMContentLoaded", function(event)
         tablaInsumosFabrica = document.querySelector(".tablafabrica");
     };
 
+
+    var tablaInsumosTrazables = document.getElementById("tableInsumosTrazables");
+    var tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
+
     //tablaInsumosNecesarios = document.querySelector(".insumosnecesarios");
     productos.addEventListener("change",function () {
         var productoId = productos.value;
@@ -77,31 +85,44 @@ document.addEventListener("DOMContentLoaded", function(event)
                     var i = 0;
                     console.log(res.data);
                     limpiarTablaInsumosNecesarios();
-                    while (i< res.data.lenght){
-                            filainsumos(i,res.data[i]['id_insumo'],res.data[i]['cantidad_requerida']);
-                            if (!res.data[i].includes('lotes')){//checkear que ande esto, lo saque de un ejemplo en internet
 
-                                filaclientes(i,0,res.data[i]['stock_cliente']);
-                                filafabrica(i,0,res.data[i]['stock_fabrica']);
-
-                            }else{
-                                var j = 0;
-                                var lote=null;
-                                var bool=true;
-                                while((j <= Object.Keys(res.data[i]['lotes']).lenght) &&(bool)){
-                                    if (res.data[i]['lotes'][j].cantidad>=res.data[i]['cantidad_requerida']){
-                                        lote = j;
-                                        bool=false;
-                                    }
-                                    j++;
-                                }
-                                filaclientes((i,res.data[i]['lotes'][lote].nrolote,res.data[i]['lotes'][lote].cantidad))//si no funciona esta forma de acceder al objeto, avisar que deben enviarme un array.
-                                filafabrica(i,0,0,0)//creo que la fabrica no maneja trazables entonces no deberia ir nada en esta.
-                            }
+                    res.data.forEach(element => {
+                        // filainsumos(element.id_insumo, element.id_insumo, element.nombre_insumo, element.cantidad_requerida)
+                        if (element.hasOwnProperty("lotes")) {
+                            filaTrazable(i, element);
+                        }
+                        else {
+                            // filaNoTrazable(i, element);
+                        }
                         i++;
+                    })
 
 
-                    }
+                    // while (i< res.data.length){
+                    //         filainsumos(i,res.data[i]['id_insumo'],res.data[i]['cantidad_requerida']);
+                    //         if (!res.data[i].includes('lotes')){//checkear que ande esto, lo saque de un ejemplo en internet
+                    //
+                    //             filaclientes(i,0,res.data[i]['stock_cliente']);
+                    //             filafabrica(i,0,res.data[i]['stock_fabrica']);
+                    //
+                    //         }else{
+                    //             var j = 0;
+                    //             var lote=null;
+                    //             var bool=true;
+                    //             while((j <= Object.Keys(res.data[i]['lotes']).length) &&(bool)){
+                    //                 if (res.data[i]['lotes'][j].cantidad>=res.data[i]['cantidad_requerida']){
+                    //                     lote = j;
+                    //                     bool=false;
+                    //                 }
+                    //                 j++;
+                    //             }
+                    //             filaclientes((i,res.data[i]['lotes'][lote].nrolote,res.data[i]['lotes'][lote].cantidad))//si no funciona esta forma de acceder al objeto, avisar que deben enviarme un array.
+                    //             filafabrica(i,0,0,0)//creo que la fabrica no maneja trazables entonces no deberia ir nada en esta.
+                    //         }
+                    //     i++;
+                    //
+                    //
+                    // }
                 }
             })
             .catch(function (err) {
@@ -117,12 +138,75 @@ document.addEventListener("DOMContentLoaded", function(event)
         /*filainsumos();
         filaclientes();
         filafabrica();*/
-
-
-
-
-
     });
+
+
+    function filaTrazable(i, element) {
+        th = document.createElement("th");
+        input_id = document.createElement('input');
+        input_id.type = 'hidden';
+        input_id.value = element.id_insumo;
+        input_id.name ='insumos_trazables['+i+'][id_insumo_fila_insumos]';
+        th.appendChild(input_id);
+        th.appendChild(document.createTextNode(i.toString()));
+
+
+        tddescripcion = document.createElement('td');
+        // input_name = document.createElement('input');
+        // input_name.type = 'hidden';
+        // input_name.value = element.nombre_insumo;
+        // input_name.name ='insumos['+i+'][descripcion_fila_insumos]';
+        // tddescripcion.appendChild(input_name);
+        tddescripcion.appendChild(document.createTextNode(element.nombre_insumo.toString()));
+
+        tdcantidadNecesaria = document.createElement('td');
+        // input_cantidadNecesaria = document.createElement('input');
+        // input_cantidadNecesaria.type = 'hidden';
+        // input_cantidadNecesaria.value = element.cantidad_requerida;
+        // input_cantidadNecesaria.name ='insumos['+i+'][cantidad_fila_insumos]';
+        // tdcantidadNecesaria.appendChild(input_cantidadNecesaria);
+        tdcantidadNecesaria.appendChild(document.createTextNode(element.cantidad_requerida.toString()));
+
+        tdLote = document.createElement('td');
+        select_lote = document.createElement('select');
+        select_lote.name = 'insumos_trazables['+i+'][lote_insumo]';
+        // input_lote.type = 'select';
+
+        element.lotes.forEach(lote =>{
+            option = document.createElement('option');
+            option.value = lote.nro_lote;
+            option.addEventListener('change',onChangeSelectLote());
+            option.appendChild(document.createTextNode(lote.nro_lote));
+            select_lote.appendChild(option);
+        })
+
+        select_lote.selectedIndex = 0;
+        tdLote.appendChild(select_lote);
+
+        tdStockLote = document.createElement('td');
+        tdStockLote.appendChild(document.createTextNode(element.lotes[0].cantidad));
+
+
+        tdStockUtilizar = document.createElement('td');
+        input_stock = document.createElement('input');
+        input_stock.name ='insumos_trazables['+i+'][stock_utilizar]';
+        tdStockUtilizar.appendChild(input_stock);
+
+        tr = document.createElement('tr');
+        tr.appendChild(th);
+        tr.appendChild(tddescripcion);
+        tr.appendChild(tdcantidadNecesaria);
+        tr.appendChild(tdLote);
+        tr.appendChild(tdStockLote);
+        tr.appendChild(tdStockUtilizar);
+
+        tablaInsumosTrazables.appendChild(tr);
+    }
+
+
+    function onChangeSelectLote(event){
+
+    }
 
 
     // implementar la matriz para cada tabla en cuanto tenga todos los datos para poder cargar.
@@ -221,6 +305,9 @@ document.addEventListener("DOMContentLoaded", function(event)
         tablaInsumosFabrica.appendChild(tr2);
 
     }
+
+
+
 
    /* function cargarTablaCliente($id_producto) {
         var id_cliente = cliente_id.value;
@@ -337,3 +424,4 @@ document.addEventListener("DOMContentLoaded", function(event)
     };*/
 
 });
+

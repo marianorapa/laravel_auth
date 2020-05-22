@@ -151,8 +151,9 @@ class OrdenProduccionController extends Controller
 
         $formula = DB::table('formula_composicion as f')
             ->where('f.formula_id','=',$id_formula->id)
-            ->select('f.insumo_id', 'f.proporcion')
-                ->get();
+            ->join('insumo', 'f.insumo_id', 'insumo.id')
+            ->select('f.insumo_id', 'insumo.descripcion', 'f.proporcion')
+            ->get();
 
         $rta = [];
 
@@ -169,6 +170,7 @@ class OrdenProduccionController extends Controller
 
             $element = [];
             $element['id_insumo'] = $id_insumo;
+            $element['nombre_insumo'] = $value->descripcion;
             $element['cantidad_requerida'] = $proporcion * $cantidad;
 
             if ($is_trazable) {
@@ -185,9 +187,9 @@ class OrdenProduccionController extends Controller
             $rta[] = $element;
         }
 
-        dd($rta);
+//        $json = response()->json($rta)->getData();
 
-        return response()->json($formula);
+        return response()->json($rta);
     }
 
 
