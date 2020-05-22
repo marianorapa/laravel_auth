@@ -212,13 +212,19 @@ class PersonaController extends Controller
     public function buscadorprovincia(Request $request){
 
     }
+   /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
-
-    public function getPdfAll(){
+    public function getPdfAll(Request $request){
 
         $personas = Persona::withTrashed()->get();
 
-        $pdf = PDF::loadView(route('personas.index'),compact('personas'));
+
+        $pdf = PDF::loadView('admin.personas.personas-list',compact('personas'));
         return $pdf->download('personas-list.pdf');
     }
 
