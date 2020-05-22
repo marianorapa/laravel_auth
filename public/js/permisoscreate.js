@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //observacion
     validar_observacion = document.querySelector(".observacionjs");
     validar_observacion.addEventListener("blur", function() {
-        var observaciones = /^[a-zA-Z0-9_-]{0,140}$/;
-        if (observaciones.exec(validar_observacion.value) && (validar_observacion.value != "")) {
+        if (validar_observacion.value.length < 100) {
             validar_observacion.style.background = "#ffffff";
         } else {
             validar_observacion.style.background = "#e05f5f";
