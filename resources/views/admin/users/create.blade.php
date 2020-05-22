@@ -23,26 +23,17 @@
         <div class="col-md-8">
             @if (session('error'))
             <div role="alert">
-            <p class="errorjs" style="display:none">{{ session('error') }}</p> 
-                <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>-->
+                <p class="errorjs" style="display:none">{{ session('error') }}</p> 
             </div>
             @endif
             @if (session('mensaje'))
                 <div role="alert">          
                     <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
-                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>-->
                 </div>
             @endif
             @if (session('warning'))
                 <div>
-                        <p class="warningjs" style="display:none">{{ session('warning') }}</p> 
-                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>-->
+                    <p class="errorjs" style="display:none">{{ session('warning') }}</p> 
                 </div>
             @endif
 

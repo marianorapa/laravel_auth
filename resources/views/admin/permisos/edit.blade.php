@@ -45,7 +45,7 @@
 
                             @if (session('mensaje'))
                                 <div class="">
-                                    <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+                                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
                                 </div>
                             @endif
 

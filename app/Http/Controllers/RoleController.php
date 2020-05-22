@@ -81,7 +81,7 @@ class RoleController extends Controller
             return back()->with('mensaje', 'El rol ya existía y ha sido activado nuevamente.');
         }
 
-        return back()->with('mensaje', 'Ya existe un rol activo con el nombre ingresado.');
+        return back()->with('error', 'Ya existe un rol activo con el nombre ingresado.');
 
     }
 

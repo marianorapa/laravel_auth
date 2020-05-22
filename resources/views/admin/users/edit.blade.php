@@ -48,33 +48,20 @@
                         @enderror
 
                         @if (session('mensaje'))
-                            <div class="">
-                           
-                        <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <div class="">         
+                                <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
                             </div>
                         @endif
 
                         @if (session('error'))
                             <div class="">
-                        
-                        <p class="errorjs" style="display:none">{{session('mensaje')}}</p> 
-                    
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <p class="errorjs" style="display:none">{{session('error')}}</p> 
                             </div>
                         @endif
 
                         @if (session('warning'))
                             <div class="" role="alert">
-                            <p class="warningjs" style="display:none">{{session('mensaje')}}</p> 
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <p class="errorjs" style="display:none">{{ session('warning') }}</p> 
                             </div>
                         @endif
 

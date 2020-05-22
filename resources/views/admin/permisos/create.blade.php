@@ -3,6 +3,7 @@
 @section('publics')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
     <script src="{{ asset('js/permisoscreate.js') }}"></script>
 @endsection
 @section('content')
@@ -22,7 +23,13 @@
             
                 @if (session('mensaje'))
                     <div class="">
-                       <p class="alertajs" style="display:none"> {{session('mensaje')}} </p> 
+                       <p class="alertajs" style="display:none"> {{ session('mensaje') }} </p> 
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="">
+                       <p class="errorjs" style="display:none"> {{ session('error') }} </p> 
                     </div>
                 @endif
 

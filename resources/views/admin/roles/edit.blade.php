@@ -3,6 +3,7 @@
     <script src="{{ asset('js/rolescreate.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @endsection
 @section('content')
 
@@ -26,12 +27,12 @@
                 <div class="card-body">
                     @if (session('mensaje'))
                     <div class="" role="alert">
-                    <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
                     </div>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{session('error')}}
+                        <div class="">
+                            <p class="errorjs" style="display:none">{{ session('error') }}</p> 
                         </div>
                     @endif
                     <form action="{{route('roles.update', $rol->id)}}" method="POST">

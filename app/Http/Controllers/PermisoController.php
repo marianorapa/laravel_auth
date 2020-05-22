@@ -77,7 +77,7 @@ class PermisoController extends Controller
             return back()->with('mensaje', 'El permiso ya existía y ha sido activado nuevamente.');
         }
 
-        return back()->with('mensaje', 'Ya existe un permiso activo con el nombre ingresado.');
+        return back()->with('error', 'Ya existe un permiso activo con el nombre ingresado.');
     }
 
     /**
@@ -145,7 +145,7 @@ class PermisoController extends Controller
 //        $permisoEliminar->activo = false;
 //        $permisoEliminar->save();
 
-        return back()->with('mensaje','se elimino el permiso del sistema :)');
+        return back()->with('mensaje','Se elimino el permiso del sistema');
     }
 
     public function activate($id)

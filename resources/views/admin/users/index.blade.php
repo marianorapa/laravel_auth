@@ -29,19 +29,16 @@
     <table class="table">
         @if ($errors->any())
         <div class="">
-             <p class="errorjs" style="display:none">{{$errors->first()}}</p> 
-            <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>-->
-            </button>
+             <p class="errorjs" style="display:none">{{ $errors->first() }}</p> 
         </div>
         @endif
 
         @if (session('mensaje'))
         <div class="">
-        <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+        <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
         </div>
-
         @endif
+        
         <thead>
           <tr>
             <th scope="col">#</th>

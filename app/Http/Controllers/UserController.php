@@ -146,7 +146,7 @@ class UserController extends Controller
         }
 
         return back()->with('mensaje', 'Usuario registrado')
-            ->with('warning', 'No se han registrado los roles. Necesita permiso "Asignar roles a usuario"');
+            ->with('error', 'No se han registrado los roles. Necesita permiso "Asignar roles a usuario"');
     }
 
     /**

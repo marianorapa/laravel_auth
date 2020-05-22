@@ -33,12 +33,12 @@
     <section class="mt-3">
         @if (session('mensaje'))
         <div class="" role="alert">
-               <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+               <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
             </div>
         @endif
         @if (session('error'))
             <div class="">
-               <p class="errorjs" style="display:none">{{session('error')}}</p> 
+               <p class="errorjs" style="display:none">{{ session('error') }}</p> 
             </div>
         @endif
     </section>
