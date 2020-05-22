@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class StockManager
 {
 
-
     public static function getLotesStockCliente($id_insumo, $id_cliente) : array
     {
         $lotes = DB::table('movimiento as mov')   // Pense que necesitaba mov pero no, queda x las dudas

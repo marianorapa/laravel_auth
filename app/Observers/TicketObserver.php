@@ -10,6 +10,8 @@ use App\MovimientoInsumoTrazable;
 use App\Ticket;
 use App\TipoMovimiento;
 use App\User;
+use App\Utils\PrestamosManager;
+use Illuminate\Support\Facades\DB;
 
 class TicketObserver
 {
@@ -51,33 +53,64 @@ class TicketObserver
             /*Si es de entrada */
             if ($ticket->tara()->exists()){
 
-                /*Si se le asigno el segundo pesaje*/
+               $movimiento = new Movimiento();
+//               $movimiento->user()->associate(Auth::user()); Pendiente para cuando este protegida la ruta
 
-                $movimiento = new Movimiento();
-//                $movimiento->user()->associate(Auth::user()); Pendiente para cuando este protegida la ruta
+               $movimiento->user()->associate(User::all()->first());
 
-                $movimiento->user()->associate(User::all()->first());
+               $tipoMovimiento = TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_ENTRADA);
+               $movimiento->tipoMovimiento()->associate($tipoMovimiento);
 
-                $tipoMovimiento = TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_ENTRADA);
-                $movimiento->tipoMovimiento()->associate($tipoMovimiento);
-                $movimiento->save();
+               $movimientoInsumo = new MovimientoInsumo();
+               $movimientoInsumo->cliente()->associate($ticket->cliente()->first());
 
-                $movimientoInsumo = new MovimientoInsumo();
+               $movimientoInsumoTkte = new MovimientoInsumoTicketEntrada();
+               $movimientoInsumoTkte->ticketEntrada()->associate($ticket);
 
-                $movimientoInsumo->cliente()->associate($ticket->cliente()->first());
+               $noEsTrazable = DB::table('ticket_entrada_insumo_no_trazable')
+                   ->where('id', '=', $ticket->id)
+                   ->exists();
 
-                $movimientoInsumo->cantidad = $ticket->neto;
+               if ($noEsTrazable) {
+                    /* Solo en caso que no sea trazable, puede existir deuda */
 
-                $movimientoInsumo->save();
+                    $idInsumo = DB::table('ticket_entrada_insumo_no_trazable')
+                        ->where('id', '=', $ticket->id)
+                        ->select('insumo_nt_id')
+                        ->get();
 
-                $movimientoInsumoTkte = new MovimientoInsumoTicketEntrada();
-                $movimientoInsumoTkte->movimiento()->associate($movimientoInsumo);
-                $movimientoInsumoTkte->ticketEntrada()->associate($ticket);
-                $movimientoInsumoTkte->save();
+                    $cantRestante = PrestamosManager::registrarDevolucionInsumo(
+                        $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto);
 
-                // 1.1 Detecto si es ticketEntradaTrazable o noTrazable
-                if ($ticket->ticketEntrada()->first()->ticketEntradaInsumoTrazable()->exists()){
-                    /* Si es trazable */
+                    if ($cantRestante > 0) {
+                        // Tengo que registrar el movimiento pq le queda cantidad
+                        $movimientoInsumo->cantidad = $cantRestante;
+
+                        $movimiento->save();
+                        $movimientoInsumo->movimiento()->associate($movimiento);
+                        $movimientoInsumo->save();
+                        $movimientoInsumoTkte->movimiento()->associate($movimientoInsumo);
+                        $movimientoInsumoTkte->save();
+
+                        $movimientoInsumoNoTrazable = new MovimientoInsumoNoTrazable();
+                        $movimientoInsumoNoTrazable->insumo_id = $idInsumo;
+                        $movimientoInsumoNoTrazable->movimientoInsumo()->associate($movimientoInsumo);
+
+                        $movimientoInsumoNoTrazable->save();
+                    }
+                    else {
+                        // No registro movimiento, xq solo se registro una devolucion
+                    }
+                }
+                else {
+                    // Si es trazable
+
+                    $movimiento->save();
+                    $movimientoInsumo->movimiento()->associate($movimiento);
+                    $movimientoInsumo->save();
+                    $movimientoInsumoTkte->movimiento()->associate($movimientoInsumo);
+                    $movimientoInsumoTkte->save();
+
                     $movimientoInsumoTrazable = new MovimientoInsumoTrazable();
                     $movimientoInsumoTrazable->movimientoInsumo()->associate($movimientoInsumo);
 
@@ -88,18 +121,6 @@ class TicketObserver
                     $movimientoInsumoTrazable->loteInsumoEspecifico()->associate($loteInsumoEspecifico);
 
                     $movimientoInsumoTrazable->save();
-                }
-                elseif ($ticket->ticketEntrada()->first()->ticketEntradaInsumoNoTrazable()->exists()){
-                    /* Si no es trazable */
-                    $ticketEntradaInsumoNoTrazable = $ticket->ticketEntrada()
-                        ->first()->ticketEntradaInsumoNoTrazable()->get()->first();
-
-                    $movimientoInsumoNoTrazable = new MovimientoInsumoNoTrazable();
-
-                    $insumoNoTrazable = $ticketEntradaInsumoNoTrazable->insumoNoTrazable()->first();
-
-                    $movimientoInsumoNoTrazable->insumoNoTrazable()->associate($insumoNoTrazable);
-                    $movimientoInsumoNoTrazable->save();
                 }
             }
         }
