@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('publics')
+    <script src="{{ asset('js/RegistroIngresoInsumoFinal.js') }}"></script>
+@endsection
 @section('content')
 <div class="container">
     <div class="bs-example">
@@ -77,17 +79,18 @@
 
                         <div class="form-group row mt-4">
                             <label for="bruto" class="col-md-2 col-form-label text-md-right">Peso Bruto</label>
-                            <input id="bruto" value="{{$viewbag['bruto']}}" type="text" class="form-control col-md-2" placeholder="Bruto" name="bruto" readonly>
+                            <input id="bruto" value="{{$viewbag['bruto']}}" type="text" class="bruto form-control col-md-2" placeholder="Bruto" name="bruto" readonly>
                             <span class="ml-2 mt-2">kg</span>
                         </div>
                         <div class="form-group row mt-5">
                             <label for="tara" class="col-md-2 col-form-label text-md-right">Peso Tara</label>
-                            <input id="tara" type="text" class="form-control col-md-2" placeholder="Tara" name="tara">
+                            <input id="tara" type="text" class="form-control col-md-2" placeholder="Tara" name="tara" readonly>
                             <span class="ml-2 mt-2">kg</span>
 
-                            <button type="submit" class="btn btn-outline-success btn-block col-md-2 offset-md-1">
+                            {{--<button type="submit" class="btn btn-outline-success btn-block col-md-2 offset-md-1">
                                 Leer pesaje
-                            </button>
+                            </button>--}}
+                            <label class="pesajeAleatorio btn btn-outline-success btn-block col-md-2 offset-md-1">Leer pesaje</label>
                         </div>
                         <br>
                         <div class="form-inline row m-3">

@@ -144,7 +144,8 @@
 
                         <div class="form-group row">
                             <label for="pesaje" class="col-lg-2 col-form-label text-md-right">Peso vehiculo</label>
-                                <input id="pesaje" type="text" class="pesajes form-control col-md-2 pesojs" placeholder="peso bruto" name="pesaje" required>
+                                <input id="pesaje" type="text" class="pesajes form-control col-md-2 pesojs" placeholder="peso bruto" name="pesaje" readonly required>
+                                <span class="ml-2 mt-2">kg</span>
 
                             <label class="pesajeAleatorio btn btn-success btn-block col-sm-2 offset-1" >leer pesaje</label>
                         </div>

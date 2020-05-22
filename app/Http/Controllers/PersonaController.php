@@ -9,6 +9,8 @@ use App\Utils\PersonaManager;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 use App\Persona;
 use App\Provincia;
@@ -209,6 +211,15 @@ class PersonaController extends Controller
      */
     public function buscadorprovincia(Request $request){
 
+    }
+
+
+    public function getPdfAll(){
+
+        $personas = Persona::withTrashed()->get();
+
+        $pdf = PDF::loadView('personas.index',compact('personas'));
+        return $pdf->download('personas-list.pdf');
     }
 
 }

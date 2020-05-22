@@ -137,3 +137,5 @@ route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm'
 //peticion asincronica para despacho
 route::get('/getOP', 'DespachoController@getOP');
 
+//pdf
+route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');

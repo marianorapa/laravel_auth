@@ -24,6 +24,7 @@
     </div>
 
         <a class="btn btn-primary btn-sm m-1" href="{{route('personas.create')}}">Agregar</a>
+        <a class="btn btn-info btn-sm m-1" href="{{route('persona.pdf')}}">Descargar Index</a>{{--todavia no anda, primera prueba--}}
 
         <nav class="navbar navbar-light float-right mb-2">
             <form class="form-inline">
@@ -37,7 +38,7 @@
 
     <section class="mt-3">
         <table class="table">
-              
+
         @if ($errors->any())
               <div class="alert alert-danger">
                  {{$errors->first()}}
@@ -57,7 +58,7 @@
 
             @if (session('mensaje'))
             <div class="">
-               <p class="alertajs" style="display:none">{{session('mensaje')}}</p> 
+               <p class="alertajs" style="display:none">{{session('mensaje')}}</p>
             </div>
             @endif
 
@@ -92,14 +93,14 @@
                         <td>
                             <a href="{{route('personas.edit', $persona)}}" class="btn btn-warning btn-sm">Editar</a>
                             @if (!$persona->trashed())
-                            
+
                             <form method="post" id="destroy-appointment-{{ $persona }}" action="{{route('personas.destroy', $persona)}}" onSubmit="return confirm('Desea eliminar?');">
                                     <input type="hidden" name="id" value={{ $persona }}>
                                     @method('DELETE')
                                     @csrf
                                     <button class ="btn btn-danger btn-sm" type="submit" form="destroy-appointment-{{ $persona }}">Eliminar</button>
                                 </form>
-                         
+
                             @else
                                 <a class="btn btn-success btn-sm" href="{{route('personas.activate',$persona->id)}}">Activar</a>
                             @endif
