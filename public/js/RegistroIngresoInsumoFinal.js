@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", function(event)
     bruto = document.querySelector(".bruto");
     tara_Pesaje.addEventListener("click",function () {
         inputPesaje = document.getElementById("tara");
-        var nro_random=getRandomInt(100,1000);
-        while (nro_random>bruto.value){
-            nro_random=getRandomInt(100,1000);
-        }
+        var nro_random=getRandomInt(13000,15000);
+        // while (nro_random>bruto.value){
+        //     nro_random=getRandomInt(100,1000);
+        // }
         inputPesaje.value = nro_random;
     })
 

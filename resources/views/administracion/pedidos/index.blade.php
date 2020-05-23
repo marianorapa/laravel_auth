@@ -53,14 +53,17 @@
                     <tbody>
                     @foreach ($ops as $op)
                         <tr>
-                           <th scope="row">{{$op->op_id}}</th>
-                           {{--<td>{{$op->cliente_id}}</td>--}}
+                            <th scope="row">{{$op->op_id}}</th>
+                            <td>{{$op->empresa}}</td>
+                            <td>{{$op->fecha_fabricacion}}</td>
+                            <td>{{$op->descripcion}}</td>
+                            <td>{{$op->cantidad}}</td>
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
                                 <a class="btn btn-success btn-sm" href="">Finalizar</a>
                             </td>
                         </tr>
--                   @endforeach
+                   @endforeach
                     </tbody>
             </table>
         </section>

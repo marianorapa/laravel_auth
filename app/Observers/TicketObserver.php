@@ -10,7 +10,6 @@ use App\MovimientoInsumoTrazable;
 use App\Ticket;
 use App\TipoMovimiento;
 use App\User;
-use App\Utils\PrestamosManager;
 use Illuminate\Support\Facades\DB;
 
 class TicketObserver
@@ -60,7 +59,6 @@ class TicketObserver
 
                $tipoMovimiento = TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_ENTRADA);
                $movimiento->tipoMovimiento()->associate($tipoMovimiento);
-
                $movimientoInsumo = new MovimientoInsumo();
                $movimientoInsumo->cliente()->associate($ticket->cliente()->first());
 
@@ -71,16 +69,20 @@ class TicketObserver
                    ->where('id', '=', $ticket->id)
                    ->exists();
 
-               if ($noEsTrazable) {
+                if ($noEsTrazable) {
                     /* Solo en caso que no sea trazable, puede existir deuda */
 
-                    $idInsumo = DB::table('ticket_entrada_insumo_no_trazable')
+                    $insumo = DB::table('ticket_entrada_insumo_no_trazable')
                         ->where('id', '=', $ticket->id)
                         ->select('insumo_nt_id')
-                        ->get();
+                        ->get()->first();
 
-                    $cantRestante = PrestamosManager::registrarDevolucionInsumo(
-                        $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto);
+                    $idInsumo = $insumo->insumo_nt_id;
+
+//                    $cantRestante = PrestamosManager::registrarDevolucionInsumo(
+//                        $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto);
+
+                    $cantRestante = $ticket->neto;
 
                     if ($cantRestante > 0) {
                         // Tengo que registrar el movimiento pq le queda cantidad
@@ -106,6 +108,7 @@ class TicketObserver
                     // Si es trazable
                     $movimiento->save();
                     $movimientoInsumo->movimiento()->associate($movimiento);
+                    $movimientoInsumo->cantidad = $ticket->neto;
                     $movimientoInsumo->save();
                     $movimientoInsumoTkte->movimiento()->associate($movimientoInsumo);
                     $movimientoInsumoTkte->save();
