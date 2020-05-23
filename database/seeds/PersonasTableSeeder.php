@@ -19,12 +19,12 @@ class PersonasTableSeeder extends Seeder
         \DB::table('personas')->insert(array (
             0 => 
             array (
-                'id' => 24,
-                'apellidos' => 'Istrador',
+                'id' => 25,
+                'apellidos' => 'Istrator',
                 'nombres' => 'Admin',
-                'fecha_nacimiento' => '1900-01-01',
-                'created_at' => '2020-05-23 05:54:35',
-                'updated_at' => '2020-05-23 05:54:35',
+                'fecha_nacimiento' => '1100-10-10',
+                'created_at' => '2020-05-23 08:13:40',
+                'updated_at' => '2020-05-23 08:13:40',
                 'deleted_at' => NULL,
             ),
         ));
