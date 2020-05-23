@@ -41,17 +41,16 @@ class TicketsEntradaManager
 
     public static function finalizarTicket($id, $tara)
     {
-        $ticket = Ticket::findOrFail($id);
-//        $ticket = DB::table('ticket')
-//            ->where('id', '=', $id)
-//            ->get();
+        $ticket = Ticket::find($id);
 
         $pesaje = new Pesaje();
         $pesaje->peso = $tara;
         $pesaje->save();
 
-        $ticket->tara()->associate($pesaje);
 
+//        $ticket->tara()->associate($pesaje);
+
+        $ticket->tara = $pesaje->id;
         $ticket->save();
 
     }

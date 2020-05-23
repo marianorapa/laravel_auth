@@ -87,6 +87,7 @@ class EntradaController extends Controller
 
     public function guardarEntradaInicial(Request $request){
 
+
         $validated = $request->validate([
             'cliente' => ['required', 'exists:cliente,id'],
             'insumo' => ['required'],
@@ -97,6 +98,7 @@ class EntradaController extends Controller
             'pesaje' => ['required', 'numeric']
         ]);
 
+
         /* Separo en atributos para independizar al manager de los nombres de los inputs en la vista*/
         $idCliente = $validated['cliente'];
         $idInsumo = $validated['insumo'];
@@ -105,6 +107,8 @@ class EntradaController extends Controller
         $patente = $validated['patente'];
         $nroCbte = $validated['nro_cbte'];
         $pesaje = $validated['pesaje'];
+
+
 
         if (!$request->has('isInsumoTrazable')){
             EntradasInsumoManager::registrarEntradaInicialInsumoNoTrazable($idCliente, $idInsumo,
@@ -146,9 +150,12 @@ class EntradaController extends Controller
 
         /* Viewbag con datos para la vista. Complejo por las relaciones, pero ahorra muchos joins*/
         /* Debe ser mas eficiente con joins y select, esto seguro hace un query por cada relacion*/
+
+        $patente = $ticketEntrada->ticket()->first()->patente;
+        $cliente = $ticketEntrada->ticket()->first()->cliente()->first()->empresa()->first()->denominacion;
         $viewbag = [
-            'patente' => $ticketEntrada->ticket()->first()->patente,
-            'cliente' => $ticketEntrada->ticket()->first()->cliente()->first()->empresa()->first()->denominacion,
+            'patente' => $patente,
+            'cliente' => $cliente,
             'insumo' => $ticketEntrada->ticketEntradaInsumoTrazable()->exists() ?
                 $ticketEntrada->ticketEntradaInsumoTrazable()->first()
                     ->loteInsumoEspecifico()->first()
@@ -188,6 +195,7 @@ class EntradaController extends Controller
         ]);
 
         $tara = $validated['tara'];
+
         TicketsEntradaManager::finalizarTicket($id, $tara);
 
         return redirect()->action('EntradaController@index')->with('message', 'Ingreso finalizado con éxito!');

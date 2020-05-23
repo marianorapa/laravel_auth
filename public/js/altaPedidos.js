@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event)
 
     //carga de select de productos
     productos = document.querySelector(".productos");
+    btnCargar = document.getElementById("btnCalcular");
     cliente_id = document.querySelector(".cliente_id");
     cliente_id.addEventListener("change",function () {
         var id = cliente_id.value;
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function(event)
     var tablaInsumosTrazables = document.getElementById("tableInsumosTrazables");
     function limpiarTablaInsumosTrazables() {
         new_tbody = document.createElement('tbody');
+        new_tbody.id = "tableInsumosTrazables";
         new_tbody.className = "tableInsumosTrazables";
         tablaInsumosTrazables.parentNode.replaceChild(new_tbody,tablaInsumosTrazables);
         tablaInsumosTrazables = document.getElementById("tableInsumosTrazables");
@@ -78,12 +80,14 @@ document.addEventListener("DOMContentLoaded", function(event)
     var tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
     function limpiarTablaInsumosNoTrazables() {
         new_tbody = document.createElement('tbody');
-        new_tbody.className = "tableInsumosTrazables";
+        new_tbody.id = "tableInsumosNoTrazables";
+        new_tbody.className = "tableInsumosNoTrazables";
         tablaInsumosNoTrazables.parentNode.replaceChild(new_tbody,tablaInsumosNoTrazables);
         tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
     }
     //tablaInsumosNecesarios = document.querySelector(".insumosnecesarios");
-    productos.addEventListener("change",function () {
+    btnCargar.addEventListener("click",function () {
+
         var productoId = productos.value;
         var cantidad = document.querySelector('.cantidadjs').value;
         axios.get('/getFormulaProducto',{
@@ -93,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function(event)
             }
         })
             .then(function (res) {
+
                 console.log(res.data);
                 if (res.status == 200){
                     var i = 0;
@@ -181,33 +186,41 @@ document.addEventListener("DOMContentLoaded", function(event)
         tdcantidadNecesaria.appendChild(document.createTextNode(element.cantidad_requerida.toString()));
 
         tdLote = document.createElement('td');
-        select_lote = document.createElement('select');
-        select_lote.name = 'insumos_trazables['+i+'][lote_insumo]';
-        select_lote.addEventListener('change',function () {
-            var id_lote = select_lote.value;
-
-        })
 
         // input_lote.type = 'select';
+        if (element.lotes.length > 0) {
 
-        element.lotes.forEach(lote =>{
-            option = document.createElement('option');
-            option.value = lote.nro_lote;
-            //option.addEventListener('change',onChangeSelectLote());
-            input_pesoStock.type = 'hidden';
-            input_pesoStock.name='peso_lote'+lote.nro_lote;
-            input_pesoStock.value = lote.cantidad;
-            option.appendChild(input_pesoStock);
-            option.appendChild(document.createTextNode(lote.nro_lote));
-            select_lote.appendChild(option);
-        })
+            select_lote = document.createElement('select');
+            select_lote.name = 'insumos_trazables['+i+'][lote_insumo]';
+            select_lote.addEventListener('change',function () {
+                var id_lote = select_lote.value;
 
-        select_lote.selectedIndex = 0;
-        tdLote.appendChild(select_lote);
+            })
+            element.lotes.forEach(lote =>{
+                option = document.createElement('option');
+                option.value = lote.nro_lote;
+                //option.addEventListener('change',onChangeSelectLote());
+                input_pesoStock = document.createElement('input');
+                input_pesoStock.type = 'hidden';
+                input_pesoStock.name='peso_lote'+lote.nro_lote;
+                input_pesoStock.value = lote.cantidad;
+                option.appendChild(input_pesoStock);
+                option.appendChild(document.createTextNode(lote.nro_lote));
+                select_lote.appendChild(option);
+            })
 
-        tdStockLote = document.createElement('td');
-        tdStockLote.appendChild(document.createTextNode(element.lotes[0].cantidad));
+            select_lote.selectedIndex = 0;
+            tdLote.appendChild(select_lote);
 
+            tdStockLote = document.createElement('td');
+
+            tdStockLote.appendChild(document.createTextNode(element.lotes[0].cantidad));
+        }
+        else {
+            tdLote.appendChild(document.createTextNode("No existe"));
+            tdStockLote = document.createElement('td');
+            tdStockLote.appendChild(document.createTextNode("N/A"));
+        }
 
         tdStockUtilizar = document.createElement('td');
         input_stock = document.createElement('input');
@@ -229,8 +242,6 @@ document.addEventListener("DOMContentLoaded", function(event)
     function onChangeSelectLote(event){
 
     }
-
-
 
 
     function filaNoTrazable(i,element) {
