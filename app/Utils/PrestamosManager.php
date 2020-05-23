@@ -47,7 +47,7 @@ class PrestamosManager
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$idCliente)
-            ->select('p.id','opd.cantidad - p.cancelado as saldoAdeudado')
+            ->select('p.id',DB::raw('(opd.cantidad - p.cancelado) as saldoAdeudado'))
             ->get();
 
         $saldoIngreso = $cantidadIngreso;

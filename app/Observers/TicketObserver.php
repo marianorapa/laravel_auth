@@ -10,6 +10,7 @@ use App\MovimientoInsumoTrazable;
 use App\Ticket;
 use App\TipoMovimiento;
 use App\User;
+use App\Utils\PrestamosManager;
 use Illuminate\Support\Facades\DB;
 
 class TicketObserver
@@ -71,7 +72,6 @@ class TicketObserver
 
                 if ($noEsTrazable) {
                     /* Solo en caso que no sea trazable, puede existir deuda */
-
                     $insumo = DB::table('ticket_entrada_insumo_no_trazable')
                         ->where('id', '=', $ticket->id)
                         ->select('insumo_nt_id')
@@ -79,8 +79,9 @@ class TicketObserver
 
                     $idInsumo = $insumo->insumo_nt_id;
 
-//                    $cantRestante = PrestamosManager::registrarDevolucionInsumo(
-//                        $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto);
+                    $cantRestante = PrestamosManager::registrarDevolucionInsumo(
+                        $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto
+                    );
 
                     $cantRestante = $ticket->neto;
 

@@ -58,6 +58,19 @@
 
                     <tbody>
                     @foreach ($ticketsEntrada as $ticketEntrada)
+{{--                        @if (is_object($ticketEntrada))--}}
+{{--                            <tr>--}}
+{{--                                <th scope="row">{{$ticketEntrada->id}}</th>--}}
+{{--                                <td scope="row">{{$ticketEntrada->denominacion}}</td>--}}
+{{--                                <td scope="row">{{$ticketEntrada->created_at}}</td>--}}
+{{--                                <td scope="row">{{$ticketEntrada->descripcion}}</td>--}}
+{{--                                <td scope="row">{{$ticketEntrada->bruto}}</td>--}}
+{{--                                <td scope="row">{{$ticketEntrada->tara}}</td>--}}
+{{--                                <td scope="row">{{$ticketEntrada->patente}}</td>--}}
+{{--                            </tr>--}}
+{{--                        @endif--}}
+
+
                         <tr>
                             <th scope="row">{{$ticketEntrada->id}}</th>
                             <td>{{$ticketEntrada->ticket()->first()
@@ -92,16 +105,21 @@
                             @endif
                             <td>{{$ticketEntrada->ticket()->first()->patente}}</td>
                             <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
+
                                 @if (!$ticketEntrada->ticket()->first()->tara()->exists())
+                                    <a href="" class="btn btn-warning btn-sm">Editar</a>
                                     <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
                                 @else
-                                    <span class="btn btn-sm btn-outline-danger disabled" >Finalizado</span>
+                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
                                 @endif
                             </td>
+                        </tr>
                     @endforeach
                     </tbody>
             </table>
+            <div class="row justify-content-center">
+                {{$ticketsEntrada->links()}}
+            </div>
         </section>
 
 
