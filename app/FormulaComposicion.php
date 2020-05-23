@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property integer $formula_id
  * @property integer $insumo_id
- * @property float $proporcion
+ * @property integer $kilos_por_tonelada
  * @property string $created_at
  * @property string $updated_at
  * @property AlimentoFormula $alimentoFormula
@@ -18,14 +18,14 @@ class FormulaComposicion extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'formula_composicion';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -33,7 +33,7 @@ class FormulaComposicion extends Model
     /**
      * @var array
      */
-    protected $fillable = ['formula_id', 'insumo_id', 'proporcion', 'created_at', 'updated_at'];
+    protected $fillable = ['formula_id', 'insumo_id', 'kilos_por_tonelada', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
