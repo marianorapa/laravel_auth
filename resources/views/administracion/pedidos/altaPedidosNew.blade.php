@@ -44,154 +44,19 @@
 
                         </div>
 
-                        <div class="form-group row">
-                            <label for="insumosnecesarios" class="h3 col-md-4 text-md-left mt-5">Insumos Necesarios</label>
-                            <label for="insumosdispcli" class="h3 col-md-4 text-md-left mt-5">Insumos disponible del cliente</label>
-                            <label for="insumosdispfab" class="h3 col-md-4 text-md-left mt-5">Insumos disponible de fabrica</label>
-
-                            {{--TABLA DE insumos necesarios--}}
-                            <table class="table table-bordered mt-2 col-md-4">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            {{$errors->first()}}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                    @endif
-                                    @if (session('error'))
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ session('error') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                    @endif
-
-                                    @if (session('mensaje'))
-                                        <div class="alert alert-success">
-                                            {{session('mensaje')}}
-                                        </div>
-                                    @endif
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Insumo</th>
-                                            <th scope="col">Cantidad necesaria</th>
-                                            <th scope="col">Cantidad pendiente</th>
-                                        </tr>
-
-                                    </thead>
-                                    <tbody class="insumosnecesarios">
-                                        <tr class="trinsumosnecesarios">
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-
-                            {{--TABLA DE CLIENTES--}}
-                            <table class="table table-bordered mt-2 col-md-4">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        {{$errors->first()}}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('error') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                @endif
-
-                                @if (session('mensaje'))
-                                    <div class="alert alert-success">
-                                        {{session('mensaje')}}
-                                    </div>
-                                @endif
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Insumo</th>
-                                    <th scope="col">lote</th>
-                                    <th scope="col">Cantidad stock</th>
-                                    <th scope="col">Cantidad a utilizar</th>
-                                </tr>
-
-                                </thead>
-                                <tbody class="tablacliente">
-                                </tbody>
-                            </table>
-
-                           {{-- <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-10 mt-3">
-                                Verificar
-                            </button>--}}
-
-                            {{--TABLA DE LA FABRICA--}}
-
-                            <table class="table table-bordered mt-2 col-md-4">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        {{$errors->first()}}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ session('error') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                @endif
-
-                                @if (session('mensaje'))
-                                    <div class="alert alert-success">
-                                        {{session('mensaje')}}
-                                    </div>
-                                @endif
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Insumo</th>
-                                    <th scope="col">lote</th>
-                                    <th scope="col">Cantidad stock</th>
-                                    <th scope="col">Cantidad a utilizar</th>
-
-                                </tr>
-
-                                </thead>
-                                <tbody class="tablafabrica">
-                                </tbody>
-                            </table>
-
-                        </div>
 
 
 
-
-
-
-
-
-
-
-                        <label for="insumosTrazables" class="h2 text-md-left mt-5">Insumos trazables requeridos</label>
-                        <div class="form-group row">
-
-                            <table class="table mt-2 col-md-4" id="tableInsumosTrazables">
+                        
+                        <div class="form-group row d-flex justify-content-center">
+                            <label for="insumosTrazables" class="h2 text-md-left mt-5">Insumos trazables requeridos</label>
+                            <table class="table mt-2 col-md-10" id="tableInsumosTrazables">
                                 <thead>
                                 <tr>
                                     <th scope="col">Id insumo</th>
                                     <th scope="col">Nombre Insumo</th>
                                     <th scope="col">Cantidad necesaria</th>
-                                    {{--                                        <th scope="col">Cantidad pendiente</th>--}}
+                                    {{--<th scope="col">Cantidad pendiente</th>--}}
                                     <th scope="col">Lote</th>
                                     <th scope="col">Cantidad en stock cliente</th>
                                     <th scope="col">Cantidad a utilizar cliente</th>
@@ -206,10 +71,10 @@
                         </div>
 
 
+                        <div class="form-group row d-flex justify-content-center">
                         <label for="insumosNoTrazables" class="h2 text-md-left mt-5">Insumos no trazables requeridos</label>
-                        <div class="form-group row">
 
-                            <table class="table mt-2 col-md-4" id="tableInsumosNoTrazables">
+                            <table class="table mt-2 col-md-10" id="tableInsumosNoTrazables">
                                 <thead>
                                 <tr>
                                     <th scope="col">Id insumo</th>
@@ -231,22 +96,7 @@
                         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-md-6 mt-3">
+                        <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-md-9 mt-2">
                             Verificar
                         </button>
                         <div class="form-group row mt-5">
