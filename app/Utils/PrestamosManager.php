@@ -38,6 +38,7 @@ class PrestamosManager
 
 
     public static function registrarDevolucionInsumo($idCliente, $idInsumo, $idTicketEntrada, $cantidadIngreso) : int {
+
         $deudas = DB::table('prestamo_cliente as p')
             ->where('p.cancelado', '<', 'opd.cantidad')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')

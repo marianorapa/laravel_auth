@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function(event)
     butonPesaje = document.querySelector(".pesajeAleatorio");
     butonPesaje.addEventListener("click",function () {
         inputPesaje = document.getElementById("pesaje");
-        inputPesaje.value = getRandomInt(100,1000);
+        inputPesaje.value = getRandomInt(38000,40000);
     })
 
     //evento donde se carga select de insumos de forma dinamica

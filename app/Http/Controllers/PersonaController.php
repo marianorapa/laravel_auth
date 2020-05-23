@@ -223,9 +223,21 @@ class PersonaController extends Controller
 
         $personas = Persona::withTrashed()->get();
 
-
-        $pdf = PDF::loadView('admin.personas.personas-list',compact('personas'));
+        $contxt = stream_context_create([
+            'ssl' => [
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ]
+            ]);
+        
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('admin.personas.personas-list',compact('personas'));
+        $pdf->getDomPDF()->setHttpContext($contxt);
         return $pdf->download('personas-list.pdf');
+
+    
+           
+
     }
 
 }

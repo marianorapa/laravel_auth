@@ -53,14 +53,17 @@
                     <tbody>
                     @foreach ($ops as $op)
                         <tr>
-                           <th scope="row">{{$op->op_id}}</th>
-                           {{--<td>{{$op->cliente_id}}</td>--}}
+                            <th scope="row">{{$op->op_id}}</th>
+                            <td>{{$op->empresa}}</td>
+                            <td>{{$op->fecha_fabricacion}}</td>
+                            <td>{{$op->descripcion}}</td>
+                            <td>{{$op->cantidad}}</td>
                             <td>
                                 <a href="{{route('pedidos.update')}}" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}
                                 <a class="btn btn-success btn-sm" href="{{route('pedidos.destroy')}}">Finalizar</a>{{--es destroy? lo dejo asi cualquier cosa--}}
                             </td>
                         </tr>
--                   @endforeach
+                   @endforeach
                     </tbody>
             </table>
         </section>

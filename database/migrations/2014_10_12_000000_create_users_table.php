@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password')->nullable(false);
-            $table->string('descripcion');
+            $table->string('descripcion')->nullable(true);
             //$table->string('email')->unique(); lo tiene la persona vinculada...
             $table->softDeletes();
             $table->rememberToken();

@@ -17,7 +17,15 @@
 
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div    class="card">
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            <div class="card">
                 <div class="card-header text-center h2"> {{__('Alta de pedido de cliente') }}</div>
                 <div class="card-body">
                     <form action="{{route('pedidos.store')}}" method="POST">
@@ -32,25 +40,27 @@
                                     <option value="{{$cliente->id}}"> {{$cliente->denominacion}}</option>
                                 @endforeach
                             </select>
-                            <label for="producto" class="col-lg-1 col-form-label text-md-right offset-md-1">Producto</label>
+                            <label for="producto" class="col-md-1 col-form-label text-md-right offset-md-1">Producto</label>
 
                             <select name="producto" id="producto" class="productos custom-select col-md-2" >
 
                             </select>
 
-                            <label for="cantidad" class="col-lg-1 col-form-label text-md-right offset-md-1">Cantidad</label>
+                            <label for="cantidad" class="col-md-1 col-form-label text-md-right offset-md-1">Cantidad</label>
 
-                            <input id="cantidad" type="text" class="form-control col-md-2 cantidadjs" placeholder="KG" name="cantidad" required>
+                            <input id="cantidad" type="text" class="form-control col-md-1 mr-5 cantidadjs" placeholder="KG" name="cantidad" required>
+
+                            <a class="btn btn-info" id="btnCalcular">Calcular</a>
 
                         </div>
 
 
 
 
-                        
+
                         <div class="form-group row d-flex justify-content-center">
                             <label for="insumosTrazables" class="h2 text-md-left mt-5">Insumos trazables requeridos</label>
-                            <table class="table mt-2 col-md-10" id="tableInsumosTrazables">
+                            <table class="table mt-2 col-md-10">
                                 <thead>
                                 <tr>
                                     <th scope="col">Id insumo</th>
@@ -62,7 +72,7 @@
                                     <th scope="col">Cantidad a utilizar cliente</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableInsumosTrazables">
                                 <tr>
                                     <th></th>
                                 </tr>
@@ -74,7 +84,7 @@
                         <div class="form-group row d-flex justify-content-center">
                         <label for="insumosNoTrazables" class="h2 text-md-left mt-5">Insumos no trazables requeridos</label>
 
-                            <table class="table mt-2 col-md-10" id="tableInsumosNoTrazables">
+                            <table class="table mt-2 col-md-10">
                                 <thead>
                                 <tr>
                                     <th scope="col">Id insumo</th>
@@ -87,7 +97,7 @@
                                     <th scope="col">Cantidad a utilizar fábrica</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableInsumosNoTrazables">
                                 <tr>
                                     <th></th>
                                 </tr>
