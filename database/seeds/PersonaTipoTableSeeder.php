@@ -303,6 +303,32 @@ class PersonaTipoTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            22 => 
+            array (
+                'id' => 24,
+                'tipo_documento_id' => 96,
+                'nro_documento' => '1010111',
+                'domicilio_id' => 23,
+                'telefono' => NULL,
+                'email' => NULL,
+                'observaciones' => NULL,
+                'deleted_at' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            23 => 
+            array (
+                'id' => 25,
+                'tipo_documento_id' => 96,
+                'nro_documento' => '1100010',
+                'domicilio_id' => 24,
+                'telefono' => '404-404-404',
+                'email' => 'admin@internet',
+                'observaciones' => NULL,
+                'deleted_at' => NULL,
+                'created_at' => '2020-05-23 08:44:06',
+                'updated_at' => '2020-05-23 08:44:06',
+            ),
         ));
         
         
