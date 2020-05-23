@@ -27,8 +27,10 @@ class EntradaController extends Controller
         $cliente = $request->get('cliente');
 
         // Recuperar ultimos ingresos
-        $ticketsEntrada = TicketEntrada::paginate(10);
-// Lo de abajo funciona pero no se va a poder paginar hasta hacerlo manualmente
+//        $ticketsEntrada = DB::table('ticket_entrada')->orderBy('ticket_entrada.id')->paginate(10);
+        $ticketsEntrada = TicketEntrada::orderBy('id', 'desc')->paginate(10);
+
+// Lo de abajo funciona pero es complicada la paginacion
 //        $ticketsEntradaNt =
 //            DB::table('ticket_entrada')
 //                ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
@@ -40,9 +42,10 @@ class EntradaController extends Controller
 //                ->select('ticket.id', 'empresa.denominacion', 'ticket.created_at', 'insumo.descripcion',
 //                    'p1.peso as bruto','p2.peso as tara', 'ticket.patente')
 //                ->orderBy('ticket.created_at', 'desc')
-////                ->paginate(10);
+////                ->paginate(5);
 //                ->get();
 //
+//                //
 //        $ticketsEntradaTra =
 //            DB::table('ticket_entrada')
 //                ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
@@ -56,10 +59,13 @@ class EntradaController extends Controller
 //                ->select('ticket.id', 'empresa.denominacion', 'ticket.created_at', 'insumo.descripcion',
 //                    'p1.peso as bruto','p2.peso as tara', 'ticket.patente')
 //                ->orderBy('ticket.created_at', 'desc')
-////                ->paginate(10);
+////                ->paginate(5);
 //                ->get();
 //
-//        dd($ticketsEntradaNt->union($ticketsEntradaTra));
+//        $tickets = $ticketsEntradaNt->union($ticketsEntradaTra);
+
+//        $ticketsEntrada = new LengthAwarePaginator($tickets, count($ticketsEntrada), 1);
+
 
         return view('balanzas.ingresos.index', compact('ticketsEntrada'));
     }
@@ -84,10 +90,7 @@ class EntradaController extends Controller
             compact('clientes','insumos','proveedores', 'transportistas'));
     }
 
-
     public function guardarEntradaInicial(Request $request){
-
-
         $validated = $request->validate([
             'cliente' => ['required', 'exists:cliente,id'],
             'insumo' => ['required'],
@@ -98,7 +101,6 @@ class EntradaController extends Controller
             'pesaje' => ['required', 'numeric']
         ]);
 
-
         /* Separo en atributos para independizar al manager de los nombres de los inputs en la vista*/
         $idCliente = $validated['cliente'];
         $idInsumo = $validated['insumo'];
@@ -108,13 +110,12 @@ class EntradaController extends Controller
         $nroCbte = $validated['nro_cbte'];
         $pesaje = $validated['pesaje'];
 
-
-
         if (!$request->has('isInsumoTrazable')){
             EntradasInsumoManager::registrarEntradaInicialInsumoNoTrazable($idCliente, $idInsumo,
                 $idProveedor, $idTransportista, $patente, $nroCbte, $pesaje);
 
-            return redirect()->action('EntradaController@index')->with('message', 'Ingreso de insumo no trazable registrado con éxito!');
+            return redirect()->action('EntradaController@index')
+                ->with('message', 'Ingreso de insumo no trazable registrado con éxito!');
         }
         else {
             /* Si es un insumo trazable, hago validacion adicional */
@@ -129,14 +130,12 @@ class EntradaController extends Controller
             $fechaVenc = $validated['fechavencimiento'];
 
             EntradasInsumoManager::registrarEntradaInicialInsumoTrazable(
-                $idCliente, $idInsumo, $nroLote, $fechaElab, $fechaVenc, $idProveedor, $idTransportista, $patente,
-                $nroCbte, $pesaje);
+                $idCliente, $idInsumo, $nroLote, $fechaElab, $fechaVenc,
+                $idProveedor, $idTransportista, $patente, $nroCbte, $pesaje);
 
             return redirect()->action('EntradaController@index')->with('message', 'Ingreso de insumo trazable registrado con éxito!');
         }
     }
-
-
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View

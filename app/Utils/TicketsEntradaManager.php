@@ -46,13 +46,9 @@ class TicketsEntradaManager
         $pesaje = new Pesaje();
         $pesaje->peso = $tara;
         $pesaje->save();
-
-
 //        $ticket->tara()->associate($pesaje);
-
         $ticket->tara = $pesaje->id;
         $ticket->save();
-
     }
 
 }
