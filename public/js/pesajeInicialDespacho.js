@@ -3,6 +3,18 @@ var window = window || {},
     console = console || {};
 document.addEventListener("DOMContentLoaded", function() {
 
+
+
+
+    //funcion para generar nro random en un pesaje.
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    butonPesaje = document.querySelector(".pesajeAleatorio");
+    butonPesaje.addEventListener("click",function () {
+        inputPesaje = document.getElementById("tara");
+        inputPesaje.value = getRandomInt(100,1000);
+    })
     //producto
     validar_nombre = document.querySelector(".nombrejs");
     validar_nombre.addEventListener("blur", function() {

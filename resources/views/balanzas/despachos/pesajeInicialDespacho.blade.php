@@ -112,9 +112,7 @@
         <label for="tara" class="col-md-1 col-form-label text-md-left">Peso vehiculo</label>
         <input id="tara" type="text" class="form-control col-md-2 border-left tarajs"  name="tara" placeholder="Tara" required>
 
-        <button type="submit" class="btn btn-outline-success col-sm-2 offset-1">
-                    Leer pesaje
-        </button>
+        <a class="pesajeAleatorio btn btn-success btn-block col-sm-2 offset-1" >leer pesaje</a>
 
     </div>
     <br>

@@ -26,14 +26,18 @@
 
                 <div class="form-group row">
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
-                                <select name="cliente" id="cliente"  class="cliente custom-select col-md-2 ">
-                                    <option data-tokens=="0">Seleccione</option>
-                                    <option data-tokens="julia"> julia</option>
-                                    <option data-tokens="adasd"> asdasdsa</option>
-                                    <option data-tokens="qweqeq"> qweqweqe</option>
-                                    <option data-tokens="pedro"> pedro</option>
-                                    <option data-tokens="fernando">fernando</option>
-                                </select>
+                    {{--<select name="cliente" id="cliente"  class="cliente custom-select col-md-2 ">
+                        <option data-tokens=="0">Seleccione</option>
+                        <option data-tokens="julia"> julia</option>
+                        <option data-tokens="adasd"> asdasdsa</option>
+                        <option data-tokens="qweqeq"> qweqweqe</option>
+                        <option data-tokens="pedro"> pedro</option>
+                        <option data-tokens="fernando">fernando</option>
+                                </select>--}}
+
+                            <input name="cliente" id="cliente" class="form-control col-md-4"
+                            value="" readonly/>
+
                         </div>
                 <br>
 

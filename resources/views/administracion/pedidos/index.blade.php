@@ -56,8 +56,8 @@
                            <th scope="row">{{$op->op_id}}</th>
                            {{--<td>{{$op->cliente_id}}</td>--}}
                             <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a class="btn btn-success btn-sm" href="">Finalizar</a>
+                                <a href="{{route('pedidos.update')}}" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}
+                                <a class="btn btn-success btn-sm" href="{{route('pedidos.destroy')}}">Finalizar</a>{{--es destroy? lo dejo asi cualquier cosa--}}
                             </td>
                         </tr>
 -                   @endforeach
