@@ -183,12 +183,21 @@ document.addEventListener("DOMContentLoaded", function(event)
         tdLote = document.createElement('td');
         select_lote = document.createElement('select');
         select_lote.name = 'insumos_trazables['+i+'][lote_insumo]';
+        select_lote.addEventListener('change',function () {
+            var id_lote = select_lote.value;
+
+        })
+
         // input_lote.type = 'select';
 
         element.lotes.forEach(lote =>{
             option = document.createElement('option');
             option.value = lote.nro_lote;
-            option.addEventListener('change',onChangeSelectLote());
+            //option.addEventListener('change',onChangeSelectLote());
+            input_pesoStock.type = 'hidden';
+            input_pesoStock.name='peso_lote'+lote.nro_lote;
+            input_pesoStock.value = lote.cantidad;
+            option.appendChild(input_pesoStock);
             option.appendChild(document.createTextNode(lote.nro_lote));
             select_lote.appendChild(option);
         })
@@ -220,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function(event)
     function onChangeSelectLote(event){
 
     }
+
 
 
 
