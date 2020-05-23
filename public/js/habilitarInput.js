@@ -54,12 +54,12 @@ document.addEventListener("DOMContentLoaded", function(event)
                .then(function (res) {
                    if (res.status == 200){
                        var i = 0;
-                       console.log(res.data);
+                       //console.log(res.data);
                         while (i< res.data['length']){
                             opcion = document.createElement("option");
                             opcion.value=res.data[i]['insumo_trazable_id'];
                             opcion.text=res.data[i]['descripcion'];
-                            console.log(res.data[i]['insumo_trazable_id']);
+                            console.log(opcion.value);
                             selectInsumo.appendChild(opcion);
                            i++;
                         }
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(event)
                     //console.log(res.data);
                     while (i< res.data['length']){
                         opcion = document.createElement("option");
-                        opcion.value=res.data[i]['id'];
+                        opcion.value=res.data[i]['insumo_trazable_id'];
                         opcion.text=res.data[i]['descripcion'];
                         opcion.name = "insumo";
                         //console.log(res.data[i]['insumo_trazable_id']);
