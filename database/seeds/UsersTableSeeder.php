@@ -12,24 +12,24 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
+
         \DB::table('users')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 25,
                 'username' => 'administrator',
-                'password' => '$2y$10$Sq8gmi9/o/OCk.oPxvq81uhcUr8B8F6QdkBakGCBo81N0hLJpAp7y',
+                'password' => '$2y$10$kZk1zcGsmKimoawSRyAayum/S7bz6m.wSoZzOZsWuhfU.HHYZUGrC',//admin01
                 'descripcion' => NULL,
                 'deleted_at' => NULL,
                 'remember_token' => NULL,
-                'created_at' => '2020-05-23 08:13:40',
-                'updated_at' => '2020-05-23 08:13:40',
+                'created_at' => '2020-05-23 08:44:06',
+                'updated_at' => '2020-05-23 08:44:06',
             ),
         ));
-        
-        
+
+
     }
 }

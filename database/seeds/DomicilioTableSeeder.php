@@ -259,6 +259,17 @@ class DomicilioTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            22 => 
+            array (
+                'id' => 24,
+                'calle' => '127.0.0.1',
+                'numero' => 404,
+                'piso' => NULL,
+                'dpto' => NULL,
+                'localidad_id' => 3058,
+                'created_at' => '2020-05-23 08:44:06',
+                'updated_at' => '2020-05-23 08:44:06',
+            ),
         ));
         
         

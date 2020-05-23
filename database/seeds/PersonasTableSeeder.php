@@ -22,9 +22,9 @@ class PersonasTableSeeder extends Seeder
                 'id' => 25,
                 'apellidos' => 'Istrator',
                 'nombres' => 'Admin',
-                'fecha_nacimiento' => '1100-10-10',
-                'created_at' => '2020-05-23 08:13:40',
-                'updated_at' => '2020-05-23 08:13:40',
+                'fecha_nacimiento' => '1010-10-11',
+                'created_at' => '2020-05-23 08:44:06',
+                'updated_at' => '2020-05-23 08:44:06',
                 'deleted_at' => NULL,
             ),
         ));
