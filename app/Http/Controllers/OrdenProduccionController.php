@@ -51,7 +51,7 @@ class OrdenProduccionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -64,12 +64,15 @@ class OrdenProduccionController extends Controller
             'precioxkg' => ['required', 'numeric']
         ]);
 
-        $cantidadFabricar = $validated['cantidad'];
-
         $insumosTrazables = $request->insumos_trazables;
         $insumosNoTrazables = $request->insumos_no_trazables;
 
+        $idClienteOrden = $validated['cliente'];
         $idProducto = $validated['producto'];
+        $cantidadFabricar = $validated['cantidad'];
+        $fechaEntrega = $validated['fechaentrega'];
+        $precioXkg = $validated['precioxkg'];
+
 
         $id_formula = DB::table('alimento_formula')
             ->where('alimento_id', '=', $idProducto)
@@ -81,37 +84,73 @@ class OrdenProduccionController extends Controller
         $formula = DB::table('formula_composicion as f')
             ->where('f.formula_id','=',$id_formula->id)
             ->join('insumo', 'f.insumo_id', 'insumo.id')
-            ->select('f.insumo_id', 'insumo.descripcion', 'f.proporcion')
+            ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
             ->get();
 
         $insumosReferencia = [];
 
         foreach ($formula as $key=>$value) {
             $id_insumo = $value->insumo_id;
-            $proporcion = $value->proporcion;
-
-            $insumosReferencia[$id_insumo] = $proporcion;
+            $kilos_por_tonelada = $value->kilos_por_tonelada;
+            $insumosReferencia[$id_insumo] = $kilos_por_tonelada;
         }
 
-        // Primero valido que esten ok de acuerdo a la formula
-        foreach (array_merge($insumosTrazables, $insumosNoTrazables) as $index=>$value) {
+        foreach ($insumosTrazables as $value){
             $idInsumoRecibido = $value['id_insumo_fila_insumos'];
             $stockAUtilizar = $value['stock_utilizar'];
-            $proporcionEsperada = $insumosReferencia[$idInsumoRecibido];
-            if ($proporcionEsperada != ($stockAUtilizar/$cantidadFabricar)) {
-//       if ($proporcionEsperada != ($value['stock_utilizar']/$cantidadFabricar * 1000)) {  <---- DESCOMENTAME
-                    return back()->with('error', "Cantidad de insumo: $idInsumoRecibido no respeta la formula");
+            $loteAUtilizar = $value['lote_insumo'];
+            $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->descripcion;
+
+            if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)){
+                if (!$this->alcanzaStockTrazable($idClienteOrden, $idInsumoRecibido, $loteAUtilizar, $stockAUtilizar)) {
+                    return back()->with('error', "Cantidad de lote $loteAUtilizar de $nombreInsumo insuficiente");
+                }
+            }
+            else {
+                return back()->with('error', "La cantidad $stockAUtilizar kg de $nombreInsumo no respeta la fórmula");
             }
         }
+
+        foreach ($insumosNoTrazables as $value){
+            $idInsumoRecibido = $value['id_insumo_fila_insumos'];
+            $stockAUtilizar = $value['stock_utilizar'];
+            $stockAUtilizarFabrica = $value['stock_utilizar_Fabrica'];
+            $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->descripcion;
+            if (key_exists($idInsumoRecibido, $insumosReferencia)) {
+                if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)) {
+                    // Solo chequea el stock de
+                    if (!$this->alcanzaStockNoTrazableCliente($idClienteOrden, $idInsumoRecibido, $stockAUtilizar)) {
+                        return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo del cliente.");
+                    } else {
+                        if (!$this->alcanzaStockFabrica($idInsumoRecibido, $stockAUtilizarFabrica)) {
+                            return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo de la fábrica.");
+                        }
+                        else {
+                            if (!$this->tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)){
+                                return back()->with('error', "El cliente no tiene crédito suficiente para $nombreInsumo.");
+                            }
+                        }
+                    }
+                } else {
+                    return back()->with('error', "Cantidad de $nombreInsumo no respeta la fórmula.");
+                }
+            }
+            else {
+                return back()->with('error', "Insumo $nombreInsumo no pertenece a la fórmula.");
+            }
+        }
+
         // Si son correctos los insumos recibidos
         $orden = new OrdenProduccion();
         $orden->producto_id = $idProducto;
         $orden->cantidad = $cantidadFabricar;
         $orden->saldo = $cantidadFabricar;
-        $orden->fecha_fabricacion = $validated['fechaentrega'];
-        $orden->precio_venta_por_kilo = $validated['precioxkg'];
+
+        $orden->fecha_fabricacion = $fechaEntrega;
+        $orden->precio_venta_por_kilo = $precioXkg;
         $orden->save();
-        /* Voy creando detalles de la op por cada insumo recibido */
+
+        /* Voy creando detalles de la op por cada insumo trazable recibido */
         foreach ($insumosTrazables as $insumo){
             $opdetalle = new OrdenProduccionDetalle();
             $opdetalle->cantidad = $insumo['stock_utilizar'];
@@ -131,29 +170,33 @@ class OrdenProduccionController extends Controller
                 $opDetalleTrazable->save();
             }
             else {
+                // Si no existe lote
                 return back()->with('error', 'Insumo insuficiente para registrar el pedido');
             }
         }
 
+        /* Voy creando detalles de la op por cada insumo no trazable recibido */
         foreach ($insumosNoTrazables as $insumo){
 
-            if ($insumo['stock_utilizar'] > 0) {
+            $idInsumo = $insumo['id_insumo_fila_insumos'];
+            $cantidadUsarCliente = $insumo['stock_utilizar'];
+            $cantidadUsarFabrica = $insumo['stock_utilizar_Fabrica'];
+
+            if ($cantidadUsarCliente > 0) {
 
                 $opdetalle = new OrdenProduccionDetalle();
-                $opdetalle->cantidad = $insumo['stock_utilizar'];
+                $opdetalle->cantidad = $cantidadUsarCliente;
                 $opdetalle->op_id = $orden->id;
                 $opdetalle->save();
 
                 $opDetalleNoTrazable = new OrdenProduccionDetalleNoTrazable();
                 $opDetalleNoTrazable->op_detalle_id = $opdetalle->id;
-                $opDetalleNoTrazable->insumo_id = $insumo['id_insumo_fila_insumos'];
-                $opDetalleNoTrazable->cliente_id = $validated['cliente'];
+                $opDetalleNoTrazable->insumo_id = $idInsumo;
+                $opDetalleNoTrazable->cliente_id = $idClienteOrden; // La cantidad es del cliente de la orden
                 $opDetalleNoTrazable->save();
             }
 
-            $cantidadUsarFabrica = $insumo['stock_utilizar_Fabrica'];
-
-            // Si hay cantidad de la fabrica
+            // Si piden usar insumos de la fabrica
             if ($cantidadUsarFabrica > 0) {
                 $opdetalle = new OrdenProduccionDetalle();
                 $opdetalle->cantidad = $cantidadUsarFabrica;
@@ -162,30 +205,51 @@ class OrdenProduccionController extends Controller
 
                 $opDetalleNoTrazable = new OrdenProduccionDetalleNoTrazable();
                 $opDetalleNoTrazable->op_detalle_id = $opdetalle->id;
-                $opDetalleNoTrazable->insumo_id = $insumo['id_insumo_fila_insumos'];
+                $opDetalleNoTrazable->insumo_id = $idInsumo;
                 $opDetalleNoTrazable->cliente_id = 1;
                 $opDetalleNoTrazable->save();
 
-                // TODO verificar que tenga credito suficiente
                 $prestamo = new PrestamoCliente();
                 $prestamo->op_detalle_id = $opdetalle->id;
                 $prestamo->save();
             }
         }
 
-        return redirect()->action('OrdenProduccionController@index')->with('message','Pedido registrado con éxito!');
-        /* Espero recibir una lista de insumos trazables y otra de no trazables a utilizar
-         * Puede que haya insumos propios de la fabrica -> registrar prestamos
-        */
+        return redirect()->action('OrdenProduccionController@index')
+            ->with('message','Pedido registrado con éxito!');
 
-        /* Si es de la fabrica, registrar prestamo vinculado a ese detalle ;
-         * El trigger se encarga de tocar stock
-        */
+    }
 
-        // TODO Verificar precio fason
+    public function cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia){
+        $proporcionEsperada = $insumosReferencia[$idInsumoRecibido];
+        if ($proporcionEsperada != ($stockAUtilizar / $cantidadFabricar * 1000)) {
+            return false;
+        }
+        return true;
+    }
 
-        // TODO Verificar capacidad productiva
+    private function alcanzaStockTrazable($idClienteOrden, $idInsumoRecibido, $loteAUtilizar, $stockAUtilizar)
+    {
+        $stock = StockManager::getStockLoteCliente($idClienteOrden, $loteAUtilizar);
+        return $stock >= $stockAUtilizar;
+    }
 
+    private function alcanzaStockNoTrazableCliente($idClienteOrden, $idInsumoRecibido, $stockAUtilizar)
+    {
+        $stock = StockManager::getStockInsumoNoTrazableCliente($idInsumoRecibido, $idClienteOrden);
+        return $stock >= $stockAUtilizar;
+    }
+
+    private function alcanzaStockFabrica($idInsumoRecibido, $stockAUtilizarFabrica)
+    {
+        $stockFabrica = StockManager::getStockInsumoFabrica($idInsumoRecibido);
+        return $stockFabrica >= $stockAUtilizarFabrica;
+    }
+
+    private function tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)
+    {
+        $credito = PrestamosManager::getLimiteRestanteCliente($idClienteOrden);
+        return $credito >= $stockAUtilizarFabrica;
     }
 
     /**
@@ -255,7 +319,8 @@ class OrdenProduccionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    function getformulaProducto(Request $request){
+    function getformulaProducto(Request $request)
+    {
         $id_producto = $request->get('id');
         $cantidad = $request->get('cantidad');
 
@@ -268,46 +333,50 @@ class OrdenProduccionController extends Controller
             ->get()
             ->first();
 
-        $formula = DB::table('formula_composicion as f')
-            ->where('f.formula_id','=',$id_formula->id)
-            ->join('insumo', 'f.insumo_id', 'insumo.id')
-            ->select('f.insumo_id', 'insumo.descripcion', 'f.proporcion')
-            ->get();
+        if (!is_null($id_formula)) {
 
-        $rta = [];
+            $formula = DB::table('formula_composicion as f')
+                ->where('f.formula_id', '=', $id_formula->id)
+                ->join('insumo', 'f.insumo_id', 'insumo.id')
+                ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
+                ->get();
 
-        foreach ($formula as $key=>$value) {
+            $rta = [];
 
-            $id_insumo = $value->insumo_id;
+            foreach ($formula as $key => $value) {
 
-            $is_trazable = DB::table('insumo as i')
-                ->where('i.id', '=', $id_insumo)
-                ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
-                ->exists();
+                $id_insumo = $value->insumo_id;
 
-            $proporcion = $value->proporcion;
+                $is_trazable = DB::table('insumo as i')
+                    ->where('i.id', '=', $id_insumo)
+                    ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
+                    ->exists();
 
-            $element = [];
-            $element['id_insumo'] = $id_insumo;
-            $element['nombre_insumo'] = $value->descripcion;
-            $element['cantidad_requerida'] = $proporcion * $cantidad;
+                $kilos_por_tonelada = $value->kilos_por_tonelada;
 
-            if ($is_trazable) {
+                $element = [];
+                $element['id_insumo'] = $id_insumo;
+                $element['nombre_insumo'] = $value->descripcion;
+                $element['cantidad_requerida'] = $kilos_por_tonelada * $cantidad / 1000;
 
-                $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
-                $element['lotes'] = $lotes;
-            } else {
-                $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
-                $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
-                $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
+                if ($is_trazable) {
+                    $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
+                    $element['lotes'] = $lotes;
+                } else {
+                    $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
+                    $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
+                    $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
+                }
+
+                $rta[] = $element;
             }
 
-            $rta[] = $element;
+            $json = response()->json($rta)->getData();
+
+            return response()->json($rta);
+        } else {
+            return back()->with('error');  // Chequear que pasa con js
         }
-
-        $json = response()->json($rta)->getData();
-
-        return response()->json($rta);
     }
 
 
@@ -344,4 +413,8 @@ class OrdenProduccionController extends Controller
             ->select('cliente.id','empresa.denominacion')->get();*/
         return response()->json();
     }
+
+
+
+
 }

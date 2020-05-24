@@ -21,7 +21,8 @@ class UsersTableSeeder extends Seeder
             array (
                 'id' => 25,
                 'username' => 'administrator',
-                'password' => '$2y$10$kZk1zcGsmKimoawSRyAayum/S7bz6m.wSoZzOZsWuhfU.HHYZUGrC',//admin01
+//                'password' => '$2y$10$kZk1zcGsmKimoawSRyAayum/S7bz6m.wSoZzOZsWuhfU.HHYZUGrC',//admin01
+                'password' => \Illuminate\Support\Facades\Hash::make('admin01'),
                 'descripcion' => NULL,
                 'deleted_at' => NULL,
                 'remember_token' => NULL,

@@ -35,30 +35,39 @@ class StockManager
 
     public static function getStockInsumoNoTrazableCliente($id_insumo, $id_cliente)
     {
-        $stock = DB::table('movimiento_insumo as mi')
+        return DB::table('movimiento_insumo as mi')
             ->where('mi.cliente_id', '=', $id_cliente)
             ->join('movimiento_insumo_ins_no_tra as mnt', 'mnt.id','=','mi.id')
             ->where('mnt.insumo_id', '=', $id_insumo)
             ->sum('mi.cantidad');
-
-        return $stock;
     }
 
     public static function getStockInsumoFabrica($id_insumo)
     {
-        $stock = DB::table('movimiento_insumo as mi')
+        return DB::table('movimiento_insumo as mi')
             ->where('mi.cliente_id', '=', 1)
             ->join('movimiento_insumo_ins_no_tra as mnt', 'mnt.id','=','mi.id')
             ->where('mnt.insumo_id', '=', $id_insumo)
             ->sum('mi.cantidad');
-
-        return $stock;
     }
 
-    public static function registrarDevolucionFabrica(PrestamoDevolucion $prestamoDevolucion){
 
+    public static function getStockLoteCliente($idCliente, $lote)
+    {
+        return DB::table('movimiento_insumo_ins_tra as mt')
+            ->join('lote_insumo_especifico as lie', 'lie.id', 'mt.id')
+            ->where('lie.nro_lote', '=', $lote)
+            ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
+            ->where('mi.cliente_id', '=', $idCliente)
+            ->get();
+    }
+
+    public static function registrarDevolucionFabrica(PrestamoDevolucion $prestamoDevolucion)
+    {
         $movimiento = new Movimiento();
-        $movimiento->tipoMovimiento()->associate(TipoMovimiento::getMovimiento(TipoMovimiento::DEVOLUCION_INSUMOS));
+        $movimiento->tipoMovimiento()->associate(
+            TipoMovimiento::getMovimiento(TipoMovimiento::DEVOLUCION_INSUMOS)
+        );
 //        $movimiento->user()->associate(Auth::user()); TODO cambiar a usuario logueado
         $movimiento->user()->associate(User::all()->first());
         $movimiento->save();
@@ -97,7 +106,7 @@ class StockManager
 
         $movimientoInsumo = new MovimientoInsumo();
         $movimientoInsumo->cliente_id = $idCliente;
-        $movimientoInsumo->cantidad = $cantidad;
+        $movimientoInsumo->cantidad = 0 - $cantidad;                        // Movimiento negativo
         $movimientoInsumo->movimiento()->associate($movimiento);
         $movimientoInsumo->save();
 
@@ -122,7 +131,7 @@ class StockManager
 
         $movimientoInsumo = new MovimientoInsumo();
         $movimientoInsumo->cliente_id = $idCliente;
-        $movimientoInsumo->cantidad = $cantidad;
+        $movimientoInsumo->cantidad = 0 - $cantidad;                        // Movimiento negativo
         $movimientoInsumo->movimiento()->associate($movimiento);
         $movimientoInsumo->save();
 
