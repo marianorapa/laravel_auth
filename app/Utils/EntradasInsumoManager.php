@@ -23,13 +23,11 @@ class EntradasInsumoManager
             $nroCbte, $pesaje);
 
 
-
         $insumoEspecifico = DB::table('insumo_especifico')
             ->where('insumo_trazable_id', '=', $idInsumo)
             ->where('proveedor_id', '=', $idProveedor)
             ->get()
             ->first();
-
 
 
 //        $insumoTrazable = InsumoTrazable::findOrFail($idInsumo);
