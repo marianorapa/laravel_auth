@@ -23,16 +23,15 @@ class OrdenProduccionDetalleTrazableObserver
             ->where('opd.id', '=', $opDetalleId)
             ->join('orden_de_produccion as op', 'op.id', 'opd.op_id')
             ->join('alimento as a', 'a.id', 'op.producto_id')
-            ->select('a.id_cliente', 'opd.cantidad')
+            ->select('a.cliente_id', 'opd.cantidad')
             ->get()->first();
 
-        $idCliente = $data['id_cliente'];
-        $cantidad = $data['cantidad'];
+
+        $idCliente = $data->cliente_id;
+        $cantidad = $data->cantidad;
+
 
         StockManager::registrarConsumoOpTrazable($opDetalleId, $idLoteInsumo, $idCliente, $cantidad);
-
-
-
     }
 
     /**

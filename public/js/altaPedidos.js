@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function(event)
 {
 
     //carga de select de productos
-    productos = document.querySelector(".productos");
-    btnCargar = document.getElementById("btnCalcular");
-    cliente_id = document.querySelector(".cliente_id");
+    var productos = document.querySelector(".productos");
+    var btnCargar = document.getElementById("btnCalcular");
+    var cliente_id = document.querySelector(".cliente_id");
     cliente_id.addEventListener("change",function () {
         var id = cliente_id.value;
         axios.get('/getProductoCliente',{
@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", function(event)
                 if (res.status == 200){
                     var i = 0;
                     console.log(res.data);
+                    productos.innerHTML="";
                     while (i< res.data['length']){
                         opcion = document.createElement("option");
                         opcion.value=res.data[i]['id'];
                         opcion.text=res.data[i]['descripcion'];
-                        //console.log(res.data[i]['insumo_trazable_id']);
                         productos.appendChild(opcion);
                         i++;
                     }
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         tablaInsumosNoTrazables.parentNode.replaceChild(new_tbody,tablaInsumosNoTrazables);
         tablaInsumosNoTrazables = document.getElementById("tableInsumosNoTrazables");
     }
-    //tablaInsumosNecesarios = document.querySelector(".insumosnecesarios");
+
     btnCargar.addEventListener("click",function () {
 
         var productoId = productos.value;
@@ -105,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function(event)
                     limpiarTablaInsumosTrazables();
                     limpiarTablaInsumosNoTrazables();
                     res.data.forEach(element => {
-                        // filainsumos(element.id_insumo, element.id_insumo, element.nombre_insumo, element.cantidad_requerida)
                         if (element.hasOwnProperty("lotes")) {
                             filaTrazable(i, element);
                         }
@@ -115,47 +114,12 @@ document.addEventListener("DOMContentLoaded", function(event)
                         i++;
                     })
 
-
-                    // while (i< res.data.length){
-                    //         filainsumos(i,res.data[i]['id_insumo'],res.data[i]['cantidad_requerida']);
-                    //         if (!res.data[i].includes('lotes')){//checkear que ande esto, lo saque de un ejemplo en internet
-                    //
-                    //             filaclientes(i,0,res.data[i]['stock_cliente']);
-                    //             filafabrica(i,0,res.data[i]['stock_fabrica']);
-                    //
-                    //         }else{
-                    //             var j = 0;
-                    //             var lote=null;
-                    //             var bool=true;
-                    //             while((j <= Object.Keys(res.data[i]['lotes']).length) &&(bool)){
-                    //                 if (res.data[i]['lotes'][j].cantidad>=res.data[i]['cantidad_requerida']){
-                    //                     lote = j;
-                    //                     bool=false;
-                    //                 }
-                    //                 j++;
-                    //             }
-                    //             filaclientes((i,res.data[i]['lotes'][lote].nrolote,res.data[i]['lotes'][lote].cantidad))//si no funciona esta forma de acceder al objeto, avisar que deben enviarme un array.
-                    //             filafabrica(i,0,0,0)//creo que la fabrica no maneja trazables entonces no deberia ir nada en esta.
-                    //         }
-                    //     i++;
-                    //
-                    //
-                    // }
                 }
             })
             .catch(function (err) {
                 console.log(err);
             });
 
-            //cargarTablaCliente(productoId);
-            //cargarTablaFabrica(productoId);
-
-        //prueba para ver como carga
-
-
-        /*filainsumos();
-        filaclientes();
-        filafabrica();*/
     });
 
 
@@ -170,42 +134,31 @@ document.addEventListener("DOMContentLoaded", function(event)
 
 
         tddescripcion = document.createElement('td');
-        // input_name = document.createElement('input');
-        // input_name.type = 'hidden';
-        // input_name.value = element.nombre_insumo;
-        // input_name.name ='insumos['+i+'][descripcion_fila_insumos]';
-        // tddescripcion.appendChild(input_name);
         tddescripcion.appendChild(document.createTextNode(element.nombre_insumo.toString()));
 
         tdcantidadNecesaria = document.createElement('td');
-        // input_cantidadNecesaria = document.createElement('input');
-        // input_cantidadNecesaria.type = 'hidden';
-        // input_cantidadNecesaria.value = element.cantidad_requerida;
-        // input_cantidadNecesaria.name ='insumos['+i+'][cantidad_fila_insumos]';
-        // tdcantidadNecesaria.appendChild(input_cantidadNecesaria);
         tdcantidadNecesaria.appendChild(document.createTextNode(element.cantidad_requerida.toString()));
 
         tdLote = document.createElement('td');
 
-        // input_lote.type = 'select';
         if (element.lotes.length > 0) {
 
             select_lote = document.createElement('select');
             select_lote.name = 'insumos_trazables['+i+'][lote_insumo]';
             select_lote.addEventListener('change',function () {
-                var id_lote = select_lote.value;
+                var id_lote = this.value;
                 console.log("entro al evento de change");
-                var hijos = select_lote.childNodes;
+                var hijos = this.childNodes;
+                tdchange = document.querySelector('.td'+i);
                 hijos.forEach(hijo =>{
                     if (hijo.value== id_lote){
-                        tdStockLote.value = hijo.firstChild.value;
-                        console.log(hijo.firstChild.value);
+                        tdchange.value = hijo.firstChild.value;
+                        tdchange.removeChild(tdchange.firstChild);
+                        tdchange.appendChild(document.createTextNode(hijo.firstChild.value));
                     };
                 })
-
-
-
             })
+
             element.lotes.forEach(lote =>{
                 option = document.createElement('option');
                 option.value = lote.nro_lote;
@@ -214,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function(event)
                 input_pesoStock.type = 'hidden';
                 input_pesoStock.name='peso_lote'+lote.nro_lote;
                 input_pesoStock.value = lote.cantidad;
-                option.cantidad = lote.cantidad;
+                //option.cantidad = lote.cantidad;
                 option.appendChild(input_pesoStock);
                 option.appendChild(document.createTextNode(lote.nro_lote));
                 select_lote.appendChild(option);
@@ -224,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function(event)
             tdLote.appendChild(select_lote);
 
             tdStockLote = document.createElement('td');
-
+            tdStockLote.className="td"+i;
             tdStockLote.appendChild(document.createTextNode(element.lotes[0].cantidad));
         }
         else {
@@ -247,11 +200,6 @@ document.addEventListener("DOMContentLoaded", function(event)
         tr.appendChild(tdStockUtilizar);
 
         tablaInsumosTrazables.appendChild(tr);
-    }
-
-
-    function onChangeSelectLote(event){
-
     }
 
 
@@ -300,219 +248,6 @@ document.addEventListener("DOMContentLoaded", function(event)
         tablaInsumosNoTrazables.appendChild(tr);
 
     }
-    // implementar la matriz para cada tabla en cuanto tenga todos los datos para poder cargar.
-    /*function filainsumos (i,id,insumo,cantidadNecesaria) {
-        th = document.createElement("th");
-        input_id = document.createElement('input');
-        input_id.type = 'hidden';
-        input_id.value = id;
-        input_id.name ='insumos['+i+'][id_insumo_fila_insumos]';
-        th.appendChild(input_id);
-        th.appendChild(document.createTextNode(i.toString()));
-
-
-        tddescripcion = document.createElement('td');
-        input_name = document.createElement('input');
-        input_name.type = 'hidden';
-        input_name.value = insumo;
-        input_name.name ='insumos['+i+'][descripcion_fila_insumos]';
-        tddescripcion.appendChild(input_name);
-        tddescripcion.appendChild(document.createTextNode(insumo.toString()));
-
-        tdcantidadstock = document.createElement('td');
-        input_cantidadstock = document.createElement('input');
-        input_cantidadstock.type = 'hidden';
-        input_cantidadstock.value = cantidadNecesaria;
-        input_cantidadstock.name ='insumos['+i+'][cantidad_fila_insumos]';
-        tdcantidadstock.appendChild(input_cantidadstock);
-        tdcantidadstock.appendChild(document.createTextNode(cantidadNecesaria.toString()));
-
-        tr = document.createElement('tr');
-        tr.appendChild(th);
-        tr.appendChild(tddescripcion);
-        tr.appendChild(tdcantidadstock);
-
-        tablaInsumosNecesarios.appendChild(tr);
-
-    }
-
-    function filaclientes (i,lote,catidadStock,cantidadUtilizar) {
-        th = document.createElement("th");
-        input_lote = document.createElement('input');
-        input_lote.type = 'hidden';
-        input_lote.value = lote;
-        input_lote.name ='cliente['+i+'][lote_insumo_fila_clientes]';
-        th.appendChild(input_lote);
-        th.appendChild(document.createTextNode(lote.toString()));
-
-
-        tdcatidadStock = document.createElement('td');
-        input_catidadStock = document.createElement('input');
-        input_catidadStock.type = 'hidden';
-        input_catidadStock.value = catidadStock;
-        input_catidadStock.name ='cliente['+i+'][cantidadStock_fila_clientes]';
-        tddescripcion.appendChild(input_catidadStock);
-        tddescripcion.appendChild(document.createTextNode(cantidadstock.toString()));
-
-        tdcantidadUtilizar = document.createElement('td');
-        input_cantidadUtilizar = document.createElement('input');
-        input_cantidadUtilizar.type = 'hidden';
-        input_cantidadUtilizar.value = cantidadUtilizar;
-        input_cantidadUtilizar.name ='cliente['+i+'][cantidadUtilizar_fila_clientes]';
-        tdcantidadUtilizar.appendChild(input_cantidadUtilizar);
-        tdcantidadUtilizar.appendChild(document.createTextNode(cantidadUtilizar.toString()));
-
-        tr1 = document.createElement('tr');
-        tr1.appendChild(th);
-        tr1.appendChild(tdcatidadStock);
-        tr1.appendChild(tdcantidadUtilizar);
-
-        tablaInsumosCliente.appendChild(tr1);
-    }
-
-    function filafabrica (i,lote,cantidadStockFabrica) {
-        th = document.createElement("th");
-        input_lote = document.createElement('input');
-        input_lote.type = 'hidden';
-        input_lote.value = lote;
-        input_lote.name ='fabrica['+i+'][lote_insumo_fila_fabrica]';
-        th.appendChild(input_lote);
-        th.appendChild(document.createTextNode(lote.toString()));
-
-
-        tdcantidadstockFabrica = document.createElement('td');
-        input_cantidadstockFabrica = document.createElement('input');
-        input_cantidadstockFabrica.type = 'hidden';
-        input_cantidadstockFabrica.value = cantidadStockFabrica;
-        input_cantidadstockFabrica.name ='fabrica['+i+'][cantidad_fila_fabrica]';
-        tdcantidadstockFabrica.appendChild(input_cantidadstockFabrica);
-        tdcantidadstockFabrica.appendChild(document.createTextNode(cantidadStockFabrica.toString()));
-
-        tr2 = document.createElement('tr');
-        tr2.appendChild(th);
-        tr2.appendChild(tdcantidadstockFabrica);
-
-
-        tablaInsumosFabrica.appendChild(tr2);
-
-    }
-
-
-
-
-   /* function cargarTablaCliente($id_producto) {
-        var id_cliente = cliente_id.value;
-
-        axios.get('/getClienteProdForm',{
-            params:{
-                id_prod :$id_producto,
-                id_cliente: id_cliente
-            }
-        })
-            .then(function (res) {
-                console.log(res.data);
-                if (res.status == 200){
-                    var i = 0;
-                    console.log(res.data);
-                    limpiarTablaInsumosCliente()
-                    while (i< res.data['length']){
-                        //celda del id
-                        th = document.createElement("th");
-                        input_id = document.createElement('input');
-                        input_id.type = 'hidden';
-                        input_id.value = res.data[i]['insumo_id'];
-                        input_id.name ='id';
-                        th.appendChild(input_id);
-
-                        //celda del insumo
-                        tddescripcion = document.createElement('td');
-                        input_name = document.createElement('input');
-                        input_name.type = 'hidden';
-                        input_name.value = res.data[i]['descripcion'];
-                        input_name.name ='descripcion';
-                        tddescripcion.appendChild(input_name);
-
-                        //celda de la cantidad stock
-                        tdcantidadstock = document.createElement('td');
-                        input_cantidadstock = document.createElement('input');
-                        input_cantidadstock.type = 'hidden';
-                        input_cantidadstock.value = res.data[i]['cantidad'];
-                        input_cantidadstock.name ='cantidad';
-                        tdcantidadstock.appendChild(input_cantidadstock);
-
-                        //CREO LA FILA
-                        tr = document.createElement('tr');
-                        tr.appendChild(th);
-                        tr.appendChild(tddescripcion);
-                        tr.appendChild(tdcantidadstock);
-
-                        tablaInsumosCliente.appendChild(tr);
-                        i++;
-                    }
-                }
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-    }
-
-    function cargarTablaFabrica($id_producto) {
-        var id_cliente = cliente_id.value;
-
-        axios.get('/getFabricaProdForm',{
-            params:{
-                id_prod :$id_producto,
-                id_cliente: id_cliente
-            }
-        })
-            .then(function (res) {
-                console.log(res.data);
-                if (res.status == 200){
-                    var i = 0;
-                    console.log(res.data);
-                    limpiarTablaInsumosFabrica();
-                    while (i< res.data['length']){
-                        //celda del id
-                        th = document.createElement("th");
-                        input_id = document.createElement('input');
-                        input_id.type = 'hidden';
-                        input_id.value = res.data[i]['insumo_id'];
-                        input_id.name ='id';
-                        th.appendChild(input_id);
-
-                        //celda del insumo
-                        tddescripcion = document.createElement('td');
-                        input_name = document.createElement('input');
-                        input_name.type = 'hidden';
-                        input_name.value = res.data[i]['descripcion'];
-                        input_name.name ='descripcion';
-                        tddescripcion.appendChild(input_name);
-
-                        //celda de la cantidad stock
-                        tdcantidadstock = document.createElement('td');
-                        input_cantidadstock = document.createElement('input');
-                        input_cantidadstock.type = 'hidden';
-                        input_cantidadstock.value = res.data[i]['cantidad'];
-                        input_cantidadstock.name ='cantidad';
-                        tdcantidadstock.appendChild(input_cantidadstock);
-
-                        //CREO LA FILA
-                        tr = document.createElement('tr');
-                        tr.appendChild(th);
-                        tr.appendChild(tddescripcion);
-                        tr.appendChild(tdcantidadstock);
-
-                        tablaInsumosFabrica.appendChild(tr);
-                        i++;
-                    }
-                }
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-    };*/
 
 });
 

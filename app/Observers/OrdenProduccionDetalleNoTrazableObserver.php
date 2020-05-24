@@ -25,8 +25,8 @@ class OrdenProduccionDetalleNoTrazableObserver
             ->select('opd.cantidad')
             ->get()->first();
 
-        $idCliente = $data['id_cliente'];
-        $cantidad = $data['cantidad'];
+        $idCliente = $ordenProduccionDetalleNoTrazable->cliente_id;
+        $cantidad = $data->cantidad;
 
         StockManager::registrarConsumoOpNoTrazable($opDetalleId, $idInsumo, $idCliente, $cantidad);
     }
