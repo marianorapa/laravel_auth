@@ -194,6 +194,16 @@ document.addEventListener("DOMContentLoaded", function(event)
             select_lote.name = 'insumos_trazables['+i+'][lote_insumo]';
             select_lote.addEventListener('change',function () {
                 var id_lote = select_lote.value;
+                console.log("entro al evento de change");
+                var hijos = select_lote.childNodes;
+                hijos.forEach(hijo =>{
+                    if (hijo.value== id_lote){
+                        tdStockLote.value = hijo.firstChild.value;
+                        console.log(hijo.firstChild.value);
+                    };
+                })
+
+
 
             })
             element.lotes.forEach(lote =>{
@@ -204,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function(event)
                 input_pesoStock.type = 'hidden';
                 input_pesoStock.name='peso_lote'+lote.nro_lote;
                 input_pesoStock.value = lote.cantidad;
+                option.cantidad = lote.cantidad;
                 option.appendChild(input_pesoStock);
                 option.appendChild(document.createTextNode(lote.nro_lote));
                 select_lote.appendChild(option);
