@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/permisoscreate.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
 @endsection
 @section('content')
@@ -19,7 +20,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header text-center h2">
-                        Editar persona
+                        Editar permiso
                     </div>
                     <div class="card-body">
                         <form action="{{route('permisos.update', $permiso->id)}}" method="POST">
