@@ -101,7 +101,7 @@ class EntradaController extends Controller
             'pesaje' => ['required', 'numeric']
         ]);
 
-        dd($request);
+        //dd($request);
 
         /* Separo en atributos para independizar al manager de los nombres de los inputs en la vista*/
         $idCliente = $validated['cliente'];

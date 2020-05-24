@@ -81,14 +81,14 @@ class OrdenProduccionController extends Controller
         $formula = DB::table('formula_composicion as f')
             ->where('f.formula_id','=',$id_formula->id)
             ->join('insumo', 'f.insumo_id', 'insumo.id')
-            ->select('f.insumo_id', 'insumo.descripcion', 'f.proporcion')
+            ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
             ->get();
 
         $insumosReferencia = [];
 
         foreach ($formula as $key=>$value) {
             $id_insumo = $value->insumo_id;
-            $proporcion = $value->proporcion;
+            $proporcion = $value->kilos_por_tonelada;
 
             $insumosReferencia[$id_insumo] = $proporcion;
         }
@@ -271,7 +271,7 @@ class OrdenProduccionController extends Controller
         $formula = DB::table('formula_composicion as f')
             ->where('f.formula_id','=',$id_formula->id)
             ->join('insumo', 'f.insumo_id', 'insumo.id')
-            ->select('f.insumo_id', 'insumo.descripcion', 'f.proporcion')
+            ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
             ->get();
 
         $rta = [];
@@ -285,7 +285,7 @@ class OrdenProduccionController extends Controller
                 ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
                 ->exists();
 
-            $proporcion = $value->proporcion;
+            $proporcion = $value->kilos_por_tonelada;
 
             $element = [];
             $element['id_insumo'] = $id_insumo;
