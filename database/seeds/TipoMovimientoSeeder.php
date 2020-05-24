@@ -17,6 +17,9 @@ class TipoMovimientoSeeder extends Seeder
         $tipoMov->descripcion = "Ingreso de insumo";
         $tipoMov->save();
 
+        $tipoMov = new \App\TipoMovimiento();
+        $tipoMov->descripcion = "Consumo de insumo en OP";
+        $tipoMov->save();
 
     }
 }

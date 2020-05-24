@@ -98,12 +98,18 @@ class OrdenProduccionController extends Controller
             $idInsumoRecibido = $value['id_insumo_fila_insumos'];
             $stockAUtilizar = $value['stock_utilizar'];
             $proporcionEsperada = $insumosReferencia[$idInsumoRecibido];
-            if ($proporcionEsperada != ($stockAUtilizar/$cantidadFabricar)) {
-//       if ($proporcionEsperada != ($value['stock_utilizar']/$cantidadFabricar * 1000)) {  <---- DESCOMENTAME
-                    return back()->with('error', "Cantidad de insumo: $idInsumoRecibido no respeta la formula");
+        if ($proporcionEsperada != ($stockAUtilizar/$cantidadFabricar * 1000)) {
+                $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->get()->first();
+                return back()->with('error', "Cantidad de insumo: $nombreInsumo no respeta la formula");
             }
         }
         // Si son correctos los insumos recibidos
+
+        // TODO Verificar precio fason
+
+        // TODO Verificar capacidad productiva
+
+        // Si esta ok eso tambien
         $orden = new OrdenProduccion();
         $orden->producto_id = $idProducto;
         $orden->cantidad = $cantidadFabricar;
@@ -135,10 +141,9 @@ class OrdenProduccionController extends Controller
             }
         }
 
-        foreach ($insumosNoTrazables as $insumo){
+        foreach ($insumosNoTrazables as $insumo) {
 
             if ($insumo['stock_utilizar'] > 0) {
-
                 $opdetalle = new OrdenProduccionDetalle();
                 $opdetalle->cantidad = $insumo['stock_utilizar'];
                 $opdetalle->op_id = $orden->id;
@@ -155,6 +160,12 @@ class OrdenProduccionController extends Controller
 
             // Si hay cantidad de la fabrica
             if ($cantidadUsarFabrica > 0) {
+
+                // Verifico que tenga credito suficiente
+                if ($cantidadUsarFabrica > PrestamosManager::getLimiteRestanteCliente($validated['cliente'])){
+                    return back()->with('error', 'La cantidad a prestarle al cliente supera su límite.');
+                }
+
                 $opdetalle = new OrdenProduccionDetalle();
                 $opdetalle->cantidad = $cantidadUsarFabrica;
                 $opdetalle->op_id = $orden->id;
@@ -166,7 +177,6 @@ class OrdenProduccionController extends Controller
                 $opDetalleNoTrazable->cliente_id = 1;
                 $opDetalleNoTrazable->save();
 
-                // TODO verificar que tenga credito suficiente
                 $prestamo = new PrestamoCliente();
                 $prestamo->op_detalle_id = $opdetalle->id;
                 $prestamo->save();
@@ -182,9 +192,7 @@ class OrdenProduccionController extends Controller
          * El trigger se encarga de tocar stock
         */
 
-        // TODO Verificar precio fason
 
-        // TODO Verificar capacidad productiva
 
     }
 
@@ -268,46 +276,52 @@ class OrdenProduccionController extends Controller
             ->get()
             ->first();
 
-        $formula = DB::table('formula_composicion as f')
-            ->where('f.formula_id','=',$id_formula->id)
-            ->join('insumo', 'f.insumo_id', 'insumo.id')
-            ->select('f.insumo_id', 'insumo.descripcion', 'f.proporcion')
-            ->get();
+        if (!is_null($id_formula)) {
 
-        $rta = [];
+            $formula = DB::table('formula_composicion as f')
+                ->where('f.formula_id', '=', $id_formula->id)
+                ->join('insumo', 'f.insumo_id', 'insumo.id')
+                ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
+                ->get();
 
-        foreach ($formula as $key=>$value) {
+            $rta = [];
 
-            $id_insumo = $value->insumo_id;
+            foreach ($formula as $key => $value) {
 
-            $is_trazable = DB::table('insumo as i')
-                ->where('i.id', '=', $id_insumo)
-                ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
-                ->exists();
+                $id_insumo = $value->insumo_id;
 
-            $proporcion = $value->proporcion;
+                $is_trazable = DB::table('insumo as i')
+                    ->where('i.id', '=', $id_insumo)
+                    ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
+                    ->exists();
 
-            $element = [];
-            $element['id_insumo'] = $id_insumo;
-            $element['nombre_insumo'] = $value->descripcion;
-            $element['cantidad_requerida'] = $proporcion * $cantidad;
+                $proporcion = $value->kilos_por_tonelada;
 
-            if ($is_trazable) {
+                $element = [];
+                $element['id_insumo'] = $id_insumo;
+                $element['nombre_insumo'] = $value->descripcion;
+                $element['cantidad_requerida'] = $proporcion * $cantidad / 1000;
 
-                $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
-                $element['lotes'] = $lotes;
-            } else {
-                $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
-                $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
-                $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
+                if ($is_trazable) {
+
+                    $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
+                    $element['lotes'] = $lotes;
+                } else {
+                    $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
+                    $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
+                    $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
+                }
+
+                $rta[] = $element;
             }
 
-            $rta[] = $element;
+//        $json = response()->json($rta)->getData();
+
+            return response()->json($rta);
         }
-
-        $json = response()->json($rta)->getData();
-
-        return response()->json($rta);
+        else {
+            return back()->with('error');  // Chequear que pasa con js
+        }
     }
 
 

@@ -7,7 +7,9 @@ namespace App\Utils;
 use App\Movimiento;
 use App\MovimientoInsumo;
 use App\MovimientoInsumoNoTrazable;
+use App\MovimientoInsumoOrdenProduccionDetalle;
 use App\MovimientoInsumoTicketEntrada;
+use App\MovimientoInsumoTrazable;
 use App\PrestamoDevolucion;
 use App\TipoMovimiento;
 use App\User;
@@ -84,4 +86,57 @@ class StockManager
         $movimientoInsumoTicketEntrada->ticket_id = $prestamoDevolucion->ticket_entrada_id;
         $movimientoInsumoTicketEntrada->save();
     }
+
+    public static function registrarConsumoOpTrazable(int $opDetalleId, int $idLoteInsumo,
+                                                      int $idCliente, $cantidad)
+    {
+        $movimiento = new Movimiento();
+        $movimiento->tipo_movimiento_id = 2;
+        $movimiento->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+        $movimiento->save();
+
+        $movimientoInsumo = new MovimientoInsumo();
+        $movimientoInsumo->cliente_id = $idCliente;
+        $movimientoInsumo->cantidad = $cantidad;
+        $movimientoInsumo->movimiento()->associate($movimiento);
+        $movimientoInsumo->save();
+
+        $movimientoInsumoTrazable = new MovimientoInsumoTrazable();
+        $movimientoInsumoTrazable->insumo_id = $idLoteInsumo;
+        $movimientoInsumoTrazable->movimientoInsumo()->associate($movimientoInsumo);
+        $movimientoInsumoTrazable->save();
+
+        $movimientoInsumoOrdenProduccionDetalle = new MovimientoInsumoOrdenProduccionDetalle();
+        $movimientoInsumoOrdenProduccionDetalle->opd_id = $opDetalleId;
+        $movimientoInsumoOrdenProduccionDetalle->movimientoInsumo()->associate($movimientoInsumo);
+        $movimientoInsumoOrdenProduccionDetalle->save();
+    }
+
+    public static function registrarConsumoOpNoTrazable(int $opDetalleId,
+                                                        int $idInsumo, int $idCliente, $cantidad)
+    {
+        $movimiento = new Movimiento();
+        $movimiento->tipo_movimiento_id = 2;
+        $movimiento->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+        $movimiento->save();
+
+        $movimientoInsumo = new MovimientoInsumo();
+        $movimientoInsumo->cliente_id = $idCliente;
+        $movimientoInsumo->cantidad = $cantidad;
+        $movimientoInsumo->movimiento()->associate($movimiento);
+        $movimientoInsumo->save();
+
+        $movimientoInsumoNoTrazable = new MovimientoInsumoNoTrazable();
+        $movimientoInsumoNoTrazable->insumo_id = $idInsumo;
+        $movimientoInsumoNoTrazable->movimientoInsumo()->associate($movimientoInsumo);
+        $movimientoInsumoNoTrazable->save();
+
+        $movimientoInsumoOrdenProduccionDetalle = new MovimientoInsumoOrdenProduccionDetalle();
+        $movimientoInsumoOrdenProduccionDetalle->opd_id = $opDetalleId;
+        $movimientoInsumoOrdenProduccionDetalle->movimientoInsumo()->associate($movimientoInsumo);
+        $movimientoInsumoOrdenProduccionDetalle->save();
+    }
+
+
+
 }
