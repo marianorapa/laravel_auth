@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\EstadoOpOrdenProduccion;
+use App\EstadoOrdenProduccion;
 use App\OrdenProduccion;
 use App\OrdenProduccionDetalle;
 use App\OrdenProduccionDetalleNoTrazable;
 use App\OrdenProduccionDetalleTrazable;
 use App\PrestamoCliente;
+use App\User;
 use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
@@ -117,13 +120,12 @@ class OrdenProduccionController extends Controller
             $stockAUtilizarFabrica = $value['stock_utilizar_Fabrica'];
             $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->descripcion;
             if (key_exists($idInsumoRecibido, $insumosReferencia)) {
-                if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)) {
-                    // Solo chequea el stock de
-                    if (!$this->alcanzaStockNoTrazableCliente($idClienteOrden, $idInsumoRecibido, $stockAUtilizar)) {
-                        return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo del cliente.");
-                    } else {
+                if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar + $stockAUtilizarFabrica,
+                    $cantidadFabricar, $insumosReferencia)) {
+
+                    if ($this->alcanzaStockNoTrazableCliente($idClienteOrden, $idInsumoRecibido, $stockAUtilizar)) {
                         if (!$this->alcanzaStockFabrica($idInsumoRecibido, $stockAUtilizarFabrica)) {
-                            return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo de la fábrica.");
+                            return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo de la fabrica.");
                         }
                         else {
                             if (!$this->tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)){
@@ -131,7 +133,11 @@ class OrdenProduccionController extends Controller
                             }
                         }
                     }
-                } else {
+                    else {
+                        return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo del cliente.");
+                    }
+                }
+                else {
                     return back()->with('error', "Cantidad de $nombreInsumo no respeta la fórmula.");
                 }
             }
@@ -183,7 +189,6 @@ class OrdenProduccionController extends Controller
             $cantidadUsarFabrica = $insumo['stock_utilizar_Fabrica'];
 
             if ($cantidadUsarCliente > 0) {
-
                 $opdetalle = new OrdenProduccionDetalle();
                 $opdetalle->cantidad = $cantidadUsarCliente;
                 $opdetalle->op_id = $orden->id;
@@ -210,7 +215,8 @@ class OrdenProduccionController extends Controller
                 $opDetalleNoTrazable->save();
 
                 $prestamo = new PrestamoCliente();
-                $prestamo->op_detalle_id = $opdetalle->id;
+                $prestamo->op_detalle_id = $opDetalleNoTrazable->id;
+                $prestamo->cancelado = 0;
                 $prestamo->save();
             }
         }
@@ -251,6 +257,31 @@ class OrdenProduccionController extends Controller
         $credito = PrestamosManager::getLimiteRestanteCliente($idClienteOrden);
         return $credito >= $stockAUtilizarFabrica;
     }
+
+
+    /**
+     * Finalize the specified order
+     *
+     * @param int $id The order's id
+     */
+    public function finalize($id){
+        $op = OrdenProduccion::findOrFail($id);
+
+//        if ($op->isPendiente()){
+            $estadoOpOrden = new EstadoOpOrdenProduccion();
+            $estadoOpOrden->estado_id = EstadoOrdenProduccion::getEstadoFinalizada()->id;
+            $estadoOpOrden->ord_pro_id = $id;
+            $estadoOpOrden->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+            $estadoOpOrden->save();
+            return redirect()->action('OrdenProduccionController@index')
+                ->with('message', 'Orden finalizada con éxito.');
+//        }
+
+        /* Si la op estaba finalizada o anulada, no puede finalizarse de nuevo */
+        return redirect()->action('OrdenProduccionController@index')
+            ->with('error', 'La orden no pudo finalizarse.');
+    }
+
 
     /**
      * Display the specified resource.

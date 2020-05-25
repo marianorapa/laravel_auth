@@ -12,7 +12,6 @@ class TipoMovimientoSeeder extends Seeder
     public function run()
     {
         //
-
         $tipoMov = new \App\TipoMovimiento();
         $tipoMov->descripcion = "Ingreso de insumo";
         $tipoMov->save();
@@ -21,5 +20,16 @@ class TipoMovimientoSeeder extends Seeder
         $tipoMov->descripcion = "Consumo de insumo en OP";
         $tipoMov->save();
 
+        $tipoMov = new \App\TipoMovimiento();
+        $tipoMov->descripcion = "Finalización de OP";
+        $tipoMov->save();
+
+        $tipoMov = new \App\TipoMovimiento();
+        $tipoMov->descripcion = "Restauración de insumo de OP anulada";
+        $tipoMov->save();
+
+        $tipoMov = new \App\TipoMovimiento();
+        $tipoMov->descripcion = "Devolución de insumo";
+        $tipoMov->save();
     }
 }

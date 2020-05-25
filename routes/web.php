@@ -63,7 +63,7 @@ Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaIn
 Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
 
 Route::resource('pedidos', 'OrdenProduccionController');
-
+Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
 
 Route::resource('despachos', 'DespachoController');
 Route::get('despachos/finalize/{id}', 'DespachoController@finalize')->name('despachos.finalize');

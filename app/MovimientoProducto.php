@@ -19,14 +19,14 @@ class MovimientoProducto extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'movimiento_producto';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -57,7 +57,7 @@ class MovimientoProducto extends Model
      */
     public function movimientoProductoOrdPro()
     {
-        return $this->hasOne('App\MovimientoProductoOrdPro', 'id');
+        return $this->hasOne('App\MovimientoProductoOrdenProduccion', 'id');
     }
 
     /**

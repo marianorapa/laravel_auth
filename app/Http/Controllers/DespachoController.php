@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\OrdenProduccion;
 use App\Ticket;
 use App\TicketSalida;
 use Illuminate\Http\Request;
@@ -64,6 +63,7 @@ class DespachoController extends Controller
             'patente' => ['required'],
             'peso' => ['required', 'numeric']
         ]);
+
 
         $ticketSalida = new TicketSalida();
         $ticketSalida->op_id = $validated['op_id'];
@@ -149,7 +149,7 @@ class DespachoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Retrieves the pending orders for the specified client in the request
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -157,7 +157,7 @@ class DespachoController extends Controller
     public function getOP(Request $request)
     {
         $cliente_id = $request->get('id');
-        $arrayOP =DB::table('orden_de_produccion')
+        $arrayOP = DB::table('orden_de_produccion')
             ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
             ->where('alimento.cliente_id','=',$cliente_id)
             ->select('orden_de_produccion.id','orden_de_produccion.fecha_fabricacion','orden_de_produccion.producto_id','orden_de_produccion.saldo')

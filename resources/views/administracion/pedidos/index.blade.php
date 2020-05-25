@@ -60,7 +60,7 @@
                             <td>{{$op->cantidad}}</td>
                             <td>
                                 <a href="#" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}
-                                <a class="btn btn-success btn-sm" href="#">Finalizar</a>{{--es destroy? lo dejo asi cualquier cosa--}}
+                                <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>
                             </td>
                         </tr>
                    @endforeach

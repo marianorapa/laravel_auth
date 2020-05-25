@@ -12,10 +12,16 @@ class PrestamosManager
 
     public static function getLimiteRestanteCliente($id_cliente)
     {
-        $limite = DB::table('credito_cliente')
+        $credito = DB::table('credito_cliente')
             ->where('cliente_id', '=',$id_cliente)
             ->where('fecha_hasta', '=', null)
             ->get()->first();
+
+        if (is_null($credito)) {
+            return 0;
+        }
+
+        $limite = $credito->limite;
 
         $prestado = DB::table('prestamo_cliente as p')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')
@@ -32,6 +38,7 @@ class PrestamosManager
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$id_cliente)
             ->sum('pd.cantidad');
+
 
         return $limite - $prestado + $devuelto;
     }

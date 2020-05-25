@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\EstadoOpOrdenProduccion;
 use App\Observers\DevolucionObserver;
+use App\Observers\EstadoOpOrdenProduccionObserver;
 use App\Observers\OrdenProduccionDetalleNoTrazableObserver;
 use App\Observers\OrdenProduccionDetalleTrazableObserver;
+use App\Observers\OrdenProduccionObserver;
 use App\Observers\TicketEntradaObserver;
 use App\Observers\TicketObserver;
+use App\OrdenProduccion;
 use App\OrdenProduccionDetalleNoTrazable;
 use App\OrdenProduccionDetalleTrazable;
 use App\PrestamoDevolucion;
@@ -43,5 +47,7 @@ class AppServiceProvider extends ServiceProvider
         PrestamoDevolucion::observe(DevolucionObserver::class);
         OrdenProduccionDetalleNoTrazable::observe(OrdenProduccionDetalleNoTrazableObserver::class);
         OrdenProduccionDetalleTrazable::observe(OrdenProduccionDetalleTrazableObserver::class);
+        OrdenProduccion::observe(OrdenProduccionObserver::class);
+        EstadoOpOrdenProduccion::observe(EstadoOpOrdenProduccionObserver::class);
     }
 }
