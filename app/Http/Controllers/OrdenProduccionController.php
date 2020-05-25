@@ -25,13 +25,45 @@ class OrdenProduccionController extends Controller
     public function index()
     {
         //
-        $ops = DB::table('orden_de_produccion')
-            ->join('alimento','orden_de_produccion.producto_id','=','alimento.id')
-            ->join('empresa','alimento.cliente_id','=','empresa.id')
-            ->select('orden_de_produccion.id as op_id','empresa.denominacion as empresa',
-                'orden_de_produccion.fecha_fabricacion','alimento.descripcion',
-                'orden_de_produccion.cantidad')
-            ->get();
+
+        $ops = DB::select(DB::raw("select `op`.`id` as `op_id`,
+               `empresa`.`denominacion` as `empresa`,
+               `op`.`fecha_fabricacion`,
+               `alimento`.`descripcion` as `producto`,
+               `op`.`cantidad`, eop.descripcion
+                from `orden_de_produccion` as `op`
+                inner join `alimento` on `op`.`producto_id` = `alimento`.`id`
+                inner join `empresa` on `alimento`.`cliente_id` = `empresa`.`id`
+                inner join (SELECT ord_pro_id, max(estado_id) as estado_id FROM estado_op_orden_de_produccion
+                    GROUP BY ord_pro_id) as e on `e`.`ord_pro_id` = `op`.`id`
+                inner join `estado_ord_pro` as `eop` on `eop`.`id` = `e`.`estado_id`
+                order by `op_id` desc"));
+
+//        $ops = DB::table('orden_de_produccion as op')
+//            ->join('alimento','op.producto_id','=','alimento.id')
+//            ->join('empresa','alimento.cliente_id','=','empresa.id')
+//            ->join(
+//                DB::raw('SELECT ord_pro_id, max(estado_id) as estado_id FROM estado_op_orden_de_produccion
+//GROUP BY ord_pro_id'),
+//                'e.ord_pro_id', 'op.id'
+//            )
+//            ->join('estado_ord_pro as eop','eop.id','e.estado_id')
+//            ->select('op.id as op_id','empresa.denominacion as empresa',
+//                'op.fecha_fabricacion','alimento.descripcion as producto',
+//                'op.cantidad', 'eop.descripcion')
+//            ->orderBy('op_id', 'desc')->get();
+
+//
+//        $ops = DB::table('orden_de_produccion as op')
+//            ->join('alimento','op.producto_id','=','alimento.id')
+//            ->join('empresa','alimento.cliente_id','=','empresa.id')
+//            ->join('estado_op_orden_de_produccion as e', 'e.ord_pro_id', 'op.id')
+//            ->join('estado_ord_pro as eop','eop.id','e.estado_id')
+//            ->select('op.id as op_id','empresa.denominacion as empresa',
+//                'op.fecha_fabricacion','alimento.descripcion as producto',
+//                'op.cantidad', /*'eop.descripcion'*/)
+//            ->orderBy('op_id', 'desc')
+//            ->paginate(10);
 
         return view('administracion.pedidos.index', compact('ops'));
     }

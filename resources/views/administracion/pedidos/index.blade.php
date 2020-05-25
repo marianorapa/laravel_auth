@@ -56,16 +56,27 @@
                             <th scope="row">{{$op->op_id}}</th>
                             <td>{{$op->empresa}}</td>
                             <td>{{$op->fecha_fabricacion}}</td>
-                            <td>{{$op->descripcion}}</td>
+                            <td>{{$op->producto}}</td>
                             <td>{{$op->cantidad}}</td>
-                            <td>
-                                <a href="#" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}
-                                <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>
-                            </td>
+                            @if ($op->descripcion == "Pendiente")
+                                <td>
+                                    <a href="#" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}
+                                    <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>
+                                </td>
+                            @else
+                                <td>
+                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
+                                </td>
+                            @endif
                         </tr>
                    @endforeach
                     </tbody>
             </table>
+
+            <div class="row justify-content-center mt-5">
+{{--                {{$ops->links()}}--}}
+            </div>
+
         </section>
 
 
