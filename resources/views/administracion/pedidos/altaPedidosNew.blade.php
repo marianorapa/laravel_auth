@@ -114,7 +114,7 @@
                             <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"  name="fechaentrega" required>
 
                             <label for="precioxkg" class="col-md-2 col-form-label text-md-right">precio por kg</label>
-                            <input id="precioxkg" type="text" class="form-control col-md-2 preciojs"  name="precioxkg" >
+                            <input id="precioxkg" type="text" class="form-control col-md-2 preciojs" placeholder="$" name="precioxkg" >
 
                         </div>
 

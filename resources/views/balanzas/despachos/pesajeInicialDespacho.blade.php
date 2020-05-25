@@ -88,13 +88,13 @@
         </button>
     </div>
 
-    <div class="form-inline row mt-5 offset-1">
-        <label for="producto_id" class="col-md-1 col-form-label text-md-left">Producto</label>
+    <div class="form-inline row mt-5 offset-0">
+        <label for="producto_id" class="col-md-2 col-form-label text-md-left">Producto</label>
         <input id="producto_id" type="text" class="form-control col-md-2 nombrejs"  name="producto_id" placeholder="Producto seleccionado" required>
     </div>
 
-    <div class="form-inline row mt-5 offset-1">
-        <label for="Transportista" class="col-md-1 col-form-label text-md-left">Transportista</label>
+    <div class="form-inline row mt-5 offset-0">
+        <label for="Transportista" class="col-md-2 col-form-label text-md-left">Transportista</label>
             <select name="Transportista" id="transportista_id"  class="custom-select col-md-2 ">
                 <option data-tokens=="0">Seleccione</option>
                 <option data-tokens="julia"> julia</option>
@@ -108,9 +108,10 @@
         <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" placeholder="abc123 / ab123ab" required>
     </div>
 
-    <div class="form-inline row mt-5 offset-1">
-        <label for="tara" class="col-md-1 col-form-label text-md-left">Peso vehiculo</label>
+    <div class="form-inline row mt-5 offset-0">
+        <label for="tara" class="col-md-2 col-form-label text-md-left">Peso vehiculo</label>
         <input id="tara" type="text" class="form-control col-md-2 border-left tarajs"  name="tara" placeholder="Tara" required>
+        <label for="" class="col-form-label text-md-right"> Kg </label>
 
         <a class="pesajeAleatorio btn btn-success btn-block col-sm-2 offset-1" >leer pesaje</a>
 
