@@ -58,16 +58,16 @@
                     <tbody>
                     @foreach ($despachos as $despacho)
                         <tr>
-                            <th scope="row">{{$despacho['id']}}</th>
-                            <td>{{$despacho['denominacion']}}</td>
-                            <td>{{$despacho['fecha']}}</td>
-                            <td>{{$despacho['descripcion']}}</td>
-                            <td>{{$despacho['cantidad']}}</td>
-                            <td>{{$despacho['patente']}}</td>
+                            <th scope="row">{{$despacho->id}}</th>
+                            <td>{{$despacho->denominacion}}</td>
+                            <td>{{$despacho->fecha}}</td>
+                            <td>{{$despacho->descripcion}}</td>
+                            <td>{{$despacho->cantidad}}</td>
+                            <td>{{$despacho->patente}}</td>
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
                                 <a class="btn btn-success btn-sm"
-                                   href="{{route('despachos.finalize', $despacho['id'])}}">
+                                   href="{{route('despachos.finalize', $despacho->id)}}">
                                     Finalizar
                                 </a>
                             </td>

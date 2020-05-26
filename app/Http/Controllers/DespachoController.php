@@ -30,9 +30,10 @@ class DespachoController extends Controller
             ->where('empresa.denominacion', 'like', "%$cliente%")
             ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
             ->join('alimento','alimento.id','=','orden_de_produccion.producto_id')
-            ->select('ticket_salida.id','empresa.denominacion', 'ticket.created_at', 'alimento.descripcion',
+            ->select('ticket_salida.id','empresa.denominacion', 'ticket.created_at as fecha', 'alimento.descripcion',
                        'orden_de_produccion.cantidad', 'ticket.patente')
             ->paginate(10);
+
 
         return View('balanzas.despachos.index', compact('despachos'));
     }
