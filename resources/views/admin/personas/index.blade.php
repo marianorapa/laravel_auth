@@ -6,6 +6,7 @@
     <script src="{{ asset('js/sweetAlert2.js') }}"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
     <script src="{{ asset('js/errorCartel.js') }}"></script>
+    <script src="{{ asset('js/filtros_index_persona.js') }}"></script>
 @endsection
 
 @section('content')
@@ -27,12 +28,12 @@
         <a class="btn btn-primary btn-sm m-1" href="{{route('personas.create')}}">Agregar</a>
         <nav class="navbar navbar-light float-right mb-2">
             <form class="form-inline">
-                <a type="submit" class="btn btn-info btn-sm m-1" href="{{route('persona.pdf')}}">Descargar Index</a><!--todavia no anda, primera prueba-->
+                <a type="submit" class="btn btn-info btn-sm m-1 btn_pdf">Descargar Index</a><!--todavia no anda, primera prueba-->
 
-                <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
-                <input name='apellido' class="form-control mr-sm-2" type="search" placeholder="Apellido" aria-label="buscar por apellido">
-                <input name='nrodocumento' class="form-control mr-sm-2" type="search" placeholder="NroDoc" aria-label="buscar por dni">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                <input name='name' class="form-control mr-sm-2 nombre2js" type="search" placeholder="Nombre" aria-label="buscar por nombre">
+                <input name='apellido' class="form-control mr-sm-2 apellidojs" type="search" placeholder="Apellido" aria-label="buscar por apellido">
+                <input name='nrodocumento' class="form-control mr-sm-2 nrodocjs" type="search" placeholder="NroDoc" aria-label="buscar por dni">
+                <button class="btn btn-outline-success my-2 my-sm-0 buscarjs" type="submit">Buscar</button>
             </form>
         </nav>
     </section>

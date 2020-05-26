@@ -221,7 +221,15 @@ class PersonaController extends Controller
 
     public function getPdfAll(Request $request){
 
-        $personas = Persona::withTrashed()->get();
+        $name = $request->get('nombre');
+        $apellido = $request->get('apellido');
+        $doc = $request->get('documento');
+
+        $personas = Persona::withTrashed()
+                    ->name($name)
+                    ->apellido($apellido)
+                    ->nrodoc($doc)
+                    ->get();
 
         $contxt = stream_context_create([
             'ssl' => [
@@ -230,13 +238,13 @@ class PersonaController extends Controller
             'allow_self_signed'=> TRUE
             ]
             ]);
-        
+
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('admin.personas.personas-list',compact('personas'));
         $pdf->getDomPDF()->setHttpContext($contxt);
         return $pdf->download('personas-list.pdf');
 
-    
-           
+
+
 
     }
 

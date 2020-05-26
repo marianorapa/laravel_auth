@@ -32,7 +32,7 @@ class Persona extends Model
     public function scopeNrodoc($query, $nrodocumento){
 
         if($nrodocumento){
-            return $query->where('nroDocumento', 'LIKE',"%$nrodocumento%"); //esta query devuelve semejanzas.
+            return $query->join('persona_tipo','persona_tipo.id','=','personas.id')->where('persona_tipo.nro_documento', 'LIKE',"%$nrodocumento%"); //esta query devuelve semejanzas.
         }
     }
 
