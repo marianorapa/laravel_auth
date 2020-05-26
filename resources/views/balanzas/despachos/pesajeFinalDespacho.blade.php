@@ -23,9 +23,9 @@
                         <div class="form-group row">
                             <label for="patente" class="col-md-1 col-form-label text-md-right">Patente</label>
                             <input id="patente" type="text" class="form-control col-md-2" placeholder="patente" name="patente" required>
-                            <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-1">
-                                Retomar despacho
-                            </button>
+{{--                            <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-1">--}}
+{{--                                Retomar despacho--}}
+{{--                            </button>--}}
                         </div>
 
                         <div class="form-group row mt-5">
