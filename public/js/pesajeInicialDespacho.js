@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function() {
     select_cliente = document.querySelector('.cliente_select');
     select_cliente.addEventListener('change',function (){
         var id_cliente = select_cliente.value;
-        console.log("asdasd");
         axios.get('/getOP',{
             params:{
                 id :id_cliente
@@ -80,41 +79,59 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     });
 
+    select_idop = document.querySelector(".selectop");
+
+    select_idop.addEventListener("change",function () {
+        prod = sessionStorage.getItem(select_idop.value);
+        document.querySelector(".nombreprod").value =prod;
+    })
     function cargarTablaOp(i,element) {
+        //cargo el select
+        option_sop = document.createElement('option');
+        option_sop.text=element.id;
+        option_sop.value = element.id;
+        select_idop.appendChild(option_sop);
+
+
+
         id = document.createElement('th');
-        input_id = document.createElement('input');
+        /*input_id = document.createElement('input');
         input_id.readOnly = "true";
         input_id.className = "ReadOnly form-control";
         input_id.value=element.id;
         input_id.type = "text";
-        id.appendChild(input_id);
+        id.appendChild(input_id);*/
+        id.innerText = element.id;
 
 
         fecha_entrega = document.createElement('td');
-        input_fe = document.createElement('input');
+        /*input_fe = document.createElement('input');
         input_fe.readOnly = "true";
         input_fe.className = "ReadOnly form-control";
         input_fe.value=element.fecha_fabricacion;
         input_fe.type = "text";
-        fecha_entrega.appendChild(input_fe);
+        fecha_entrega.appendChild(input_fe);*/
+        fecha_entrega.innerText=element.fecha_fabricacion;
 
 
         producto = document.createElement('td');
-        input_p = document.createElement('input');
+        /*input_p = document.createElement('input');
         input_p.readOnly = "true";
         input_p.className = "ReadOnly form-control";
         input_p.value=element.producto_id;
         input_p.type = "text";
-        producto.appendChild(input_p);
+        producto.appendChild(input_p);*/
+        producto.innerText= element.producto_id;
 
 
         cant_disponible = document.createElement('td');
-        input_cd = document.createElement('input');
+        /*input_cd = document.createElement('input');
         input_cd.readOnly = "true";
         input_cd.className = "ReadOnly form-control";
         input_cd.value=element.saldo;
         input_cd.type = "text";
-        cant_disponible.appendChild(input_cd);
+        cant_disponible.appendChild(input_cd);*/
+        cant_disponible.innerText = element.saldo;
 
         fila = document.createElement('tr');
         fila.appendChild(id);
@@ -122,8 +139,12 @@ document.addEventListener("DOMContentLoaded", function() {
         fila.appendChild(producto);
         fila.appendChild(cant_disponible);
         tbody.appendChild(fila);
+
+        sessionStorage.setItem(element.id,element.producto_id);
         //carga
 
     }
+
+
 
 });
