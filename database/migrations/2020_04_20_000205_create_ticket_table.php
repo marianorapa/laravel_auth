@@ -21,8 +21,8 @@ class CreateTicketTable extends Migration
             $table->string('patente');
             $table->foreignId('chofer_id')->constrained('chofer');
             $table->foreignId('bruto')->constrained('pesaje');
-            $table->foreignId('tara')->constrained('pesaje');
-            $table->integer('neto');
+            $table->foreignId('tara')->constrained('pesaje')->deferrable();
+            $table->integer('neto')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

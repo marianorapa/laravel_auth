@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Pesaje;
 use App\Ticket;
 use App\TicketSalida;
+use App\Utils\TicketsSalidaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DespachoController extends Controller
 {
@@ -57,22 +60,19 @@ class DespachoController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'cliente'=>['required','exists:cliente'],
+            'cliente'=>['required','exists:cliente,id'],
             'op_id' => ['required','exists:orden_de_produccion,id'],
             'transportista' => ['required', 'exists:transportista,id'],
             'patente' => ['required'],
             'peso' => ['required', 'numeric']
         ]);
 
-
-        $ticketSalida = new TicketSalida();
-        $ticketSalida->op_id = $validated['op_id'];
         $ticket = new Ticket();
 
         $ticket->cliente_id = DB::table('orden_de_produccion')
                                 ->where('orden_de_produccion.id', '=', $validated['op_id'])
                                 ->join('alimento', 'alimento.id', '=','orden_de_produccion.producto_id')
-                                ->select('alimento.cliente_id');
+                                ->select('alimento.cliente_id')->get()->first()->cliente_id;
 
         if ($ticket->cliente_id != $validated['cliente']){
             return back()->with('error', 'Ciente seleccionado no coincide con el de la OP seleccionada');
@@ -80,13 +80,25 @@ class DespachoController extends Controller
 
         $ticket->transportista_id = $validated['transportista'];
         $ticket->patente = $validated['patente'];
-        $ticket->tara = $validated['peso'];
-        $ticketSalida->ticket()->associate($ticket);
+
+        $pesaje = new Pesaje();
+        $pesaje->peso = $validated['peso'];
+        $pesaje->save();
+        $ticket->tara = $pesaje->id;
+
+        $ticket->save();
+
+        $ticketSalida = new TicketSalida();
+        $ticketSalida->op_id = $validated['op_id'];
+//        $ticketSalida->ticket()->associate($ticket);
+
+        $ticketSalida->id = $ticket->id;
+
         $ticketSalida->save();
     }
 
 
-    public function finalize($id){
+    public function finalizeView($id){
         $ticketSalida = DB::table('ticket_salida')
             ->where('ticket_salida.id', '=', $id)
             ->join('ticket','ticket.id','=','ticket_salida.id')
@@ -98,8 +110,29 @@ class DespachoController extends Controller
                         'ticket.tara')
             ->get();
 
-        dd($ticketSalida);
+        /* Guardo en la sesión el id a finalizar */
+        Session::put('id_ticket_salida', $id);
+
         return view('balanzas.despachos.pesajeFinalDespacho', compact('ticketSalida'));
+    }
+
+
+    public function finalize(Request $request, $id){
+//        $id = Session::get('id_ticket_salida');
+
+        $validated = $request->validate([
+            'bruto' => ['required','numeric']
+        ]);
+
+        $bruto = $validated['bruto'];
+
+        $pesaje = new Pesaje();
+        $pesaje->peso = $bruto;
+        $pesaje->save();
+
+        TicketsSalidaManager::finalizarTicket($id, $pesaje);
+
+        return redirect()->action('DespachoController@index')->with('message', 'Despacho finalizado con éxito.');
     }
 
 

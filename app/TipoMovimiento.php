@@ -18,6 +18,7 @@ class TipoMovimiento extends Model
     const FINALIZACION_OP = 3;
     const ANULACION_OP = 4;
     const DEVOLUCION_INSUMO = 5;
+    const FINALIZACION_SALIDA = 6;
 
     /**
      * The table associated with the model.

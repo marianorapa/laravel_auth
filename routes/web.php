@@ -58,16 +58,15 @@ Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaIn
     ->name('balanzas.ingresos.final.guardar');
 
 
-
-
 Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
 
 Route::resource('pedidos', 'OrdenProduccionController');
 Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
 
 Route::resource('despachos', 'DespachoController');
-Route::get('despachos/finalize/{id}', 'DespachoController@finalize')->name('despachos.finalize');
+Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize');
 
+Route::post('despachos/finalize', 'DespachoController@finalizePost')->name('despachos.finalize.post');
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
