@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     butonPesaje = document.querySelector(".pesajeAleatorio");
     butonPesaje.addEventListener("click",function () {
         inputPesaje = document.getElementById("tara");
-        inputPesaje.value = getRandomInt(100,1000);
+        inputPesaje.value = getRandomInt(13000,15000);
     })
     //producto
     validar_nombre = document.querySelector(".nombrejs");
