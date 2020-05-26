@@ -19,10 +19,11 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="{{route('despachos.finalize.post')}}" method="POST">
+                        @csrf
                         <div class="form-group row">
                             <label for="patente" class="col-md-1 col-form-label text-md-right">Patente</label>
-                            <input id="patente" type="text" class="form-control col-md-2" placeholder="patente" name="patente" required>
+                            <input id="patente" type="text" class="form-control col-md-2" placeholder="patente" name="patente" >
 {{--                            <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-1">--}}
 {{--                                Retomar despacho--}}
 {{--                            </button>--}}
@@ -30,17 +31,17 @@
 
                         <div class="form-group row mt-5">
                             <label for="cliente" class="col-md-1 col-form-label text-md-right">Cliente</label>
-                            <input id="cliente" type="text" class="form-control col-md-2" placeholder="" name="cliente" required>
+                            <input id="cliente" type="text" class="form-control col-md-2" placeholder="" name="cliente" >
 
 
                         </div>
 
                         <div class="form-group row mt-2">
                             <label for="producto" class="col-md-1 col-form-label text-md-right">Producto</label>
-                            <input id="producto" type="text" class="form-control col-md-2 " placeholder="" name="producto" required>
+                            <input id="producto" type="text" class="form-control col-md-2 " placeholder="" name="producto" >
 
                             <label for="nro orden" class="col-lg-2 col-form-label text-md-right offset-md-0">nro orden</label>
-                            <input id="nroorden" type="text" class="form-control col-md-2 " placeholder="" name="nroorden" required>
+                            <input id="nroorden" type="text" class="form-control col-md-2 " placeholder="" name="nroorden" >
 
 
 
@@ -48,15 +49,15 @@
 
                         <div class="form-group row mt-5">
                             <label for="transportista" class="col-md-1 col-form-label text-md-left">Transportista</label>
-                            <input id="transportista" type="text" class="form-control col-md-2" placeholder="" name="transportista" required>
+                            <input id="transportista" type="text" class="form-control col-md-2" placeholder="" name="transportista" >
                         </div>
 
                         <div class="form-group row mt-3">
                             <label for="pesovehiculo" class="col-md-1 col-form-label text-md-left">Peso vehiculo</label>
-                            <input id="peso" type="text" class="form-control col-md-2" placeholder="" name="peso" required>
+                            <input id="peso" type="text" class="form-control col-md-2" placeholder="" name="peso" >
 
                             <label for="pesovcargado" class="col-lg-2 col-form-label text-md-right offset-md-0">peso vehiculo cargado</label>
-                            <input id="pesocargado" type="text" class="form-control col-md-2" placeholder="" name="pesocargado" required>
+                            <input id="pesocargado" type="text" class="form-control col-md-2" placeholder="" name="pesocargado" >
                             <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-1">
                                leer pesaje
                             </button>

@@ -115,19 +115,19 @@ class DespachoController extends Controller
          /* Guardo en la sesión el id a finalizar */
         Session::put('id_ticket_salida', $id);
 
-
         return view('balanzas.despachos.pesajeFinalDespacho', compact('ticketSalida'));
     }
 
 
-    public function finalize(Request $request, $id){
-//        $id = Session::get('id_ticket_salida');
+    public function finalizeDespacho(Request $request){
+
+        $id = Session::get('id_ticket_salida');
 
         $validated = $request->validate([
-            'bruto' => ['required','numeric']
+            'pesocargado' => ['required','numeric']
         ]);
 
-        $bruto = $validated['bruto'];
+        $bruto = $validated['pesocargado'];
 
         $pesaje = new Pesaje();
         $pesaje->peso = $bruto;

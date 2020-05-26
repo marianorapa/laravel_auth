@@ -67,7 +67,7 @@
                             <td>
                                 <a href="" class="btn btn-warning btn-sm">Editar</a>
                                 <a class="btn btn-success btn-sm"
-                                   href="{{route('despachos.finalize', $despacho->id)}}">
+                                   href="{{route('despachos.finalize.view', $despacho->id)}}">
                                     Finalizar
                                 </a>
                             </td>

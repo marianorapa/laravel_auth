@@ -19,8 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::resource('despachos', 'DespachoController');
+//Route::resource('despachos', 'DespachoController');
 
-Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize');
-
-Route::post('despachos/finalize/{id}', 'DespachoController@finalize')->name('despachos.finalize.post');
+//Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize');
+//
+//Route::post('despachos/finalize/{id}', 'DespachoController@finalize')->name('despachos.finalize.post');
