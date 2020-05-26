@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
-<script src="{{ asset('js/pesajeInicialDespacho.js') }}"></script>
+@section('publics')
+    <script src="{{ asset('js/pesajeInicialDespacho.js') }}"></script>
+@endsection
+
 @section('content')
 
 
@@ -9,6 +12,9 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('balanzas.menu')}}" >Balanzas</a></li>
+                <li class="breadcrumb-item"><a href="{{route('despachos.index')}}" >Gestion de despacho</a></li>
+                <li class="breadcrumb-item active">Nuevo despacho</li>
             </ol>
         </nav>
     </div>
@@ -23,8 +29,8 @@
 
 
                 <div class="form-group row">
-                            <label for="cliente" class="col-md-1 col-form-label text-md-left clientejs">Cliente</label>
-                                <select name="cliente" id="cliente"  class="custom-select col-md-2 ">
+                            <label for="cliente" class="col-md-1 col-form-label text-md-left c">Cliente</label>
+                                <select name="cliente" id="cliente"  class="custom-select col-md-2 cliente_select">
                                     <option data-tokens=="0">Seleccione</option>
                                     @foreach ($clientes as $cliente)
                                         <option value="{{$cliente->id}}"> {{$cliente->denominacion}}</option>
@@ -71,7 +77,7 @@
                 <th scope="col">Cant. disponible</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="tbodyop">
                 <tr>
                     <th></th>
                     <th></th>

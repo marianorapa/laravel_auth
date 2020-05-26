@@ -6,6 +6,9 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('balanzas.menu')}}" >Balanzas</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('despachos.index')}}" >Gestion de despacho</a></li>
+                    <li class="breadcrumb-item active">Finalizar despacho</li>
                 </ol>
             </nav>
         </div>
