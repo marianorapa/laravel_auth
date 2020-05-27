@@ -10,11 +10,10 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
-
-
 use App\Persona;
 use App\Provincia;
 use App\localidad;
+use SebastianBergmann\Environment\Console;
 
 class PersonaController extends Controller
 {
@@ -220,7 +219,6 @@ class PersonaController extends Controller
      */
 
     public function getPdfAll(Request $request){
-
         $name = $request->get('nombre');
         $apellido = $request->get('apellido');
         $doc = $request->get('documento');
@@ -230,8 +228,10 @@ class PersonaController extends Controller
                     ->apellido($apellido)
                     ->nrodoc($doc)
                     ->get();
+        
+        return view('admin.personas.personas-list', compact('personas'));
 
-        $contxt = stream_context_create([
+        /*$contxt = stream_context_create([
             'ssl' => [
             'verify_peer' => FALSE,
             'verify_peer_name' => FALSE,
@@ -241,7 +241,8 @@ class PersonaController extends Controller
 
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('admin.personas.personas-list',compact('personas'));
         $pdf->getDomPDF()->setHttpContext($contxt);
-        return $pdf->download('personas-list.pdf');
+        return $pdf->download('personas-list.pdf');*/
+
 
 
 

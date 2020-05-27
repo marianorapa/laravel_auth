@@ -1,7 +1,9 @@
 <head>
     <title>Informe de personas</title>
-    <script src="{{ asset('css/informe.css') }}"></script>
+    <script src="html2pdf.bundle.min.js"></script>
 </head>
+<button onclick="generatePDF()">Download as PDF</button>
+<div id="pdf">
 
 <style>
     table {
@@ -79,28 +81,17 @@
             </tbody>
     </table>
     </div>
+</div>
 
-   <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+  
 
-        var options = {
-          title: 'My Daily Activities'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
+    <script>
+     function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById("pdf");
+        // Choose the element and save the PDF for our user.
+        html2pdf()
+          .from(element)
+          .save();
       }
     </script>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>-->
