@@ -43,7 +43,7 @@ Route::resource('personas', 'PersonaController');
 Route::get('balanzas', 'BalanzaController@index')->name('balanzas.menu');
 
 Route::resource('ingresos', 'EntradaController');
-
+Route::get('/balanzas/ingreso/destroy/{id}', 'EntradaController@destroy')->name('balanzas.ingresos.destroy');
 
 Route::get('/balanzas/ingreso/inicial', 'EntradaController@registroInsumoInicial')
     ->name('balanzas.ingresos.inicial');

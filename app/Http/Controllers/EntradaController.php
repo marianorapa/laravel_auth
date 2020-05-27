@@ -6,6 +6,7 @@ use App\Cliente;
 use App\Insumo;
 use App\InsumoNoTrazable;
 use App\Proveedor;
+use App\Ticket;
 use App\TicketEntrada;
 use App\Transportista;
 use App\Utils\EntradasInsumoManager;
@@ -29,6 +30,15 @@ class EntradaController extends Controller
         // Recuperar ultimos ingresos
 //        $ticketsEntrada = DB::table('ticket_entrada')->orderBy('ticket_entrada.id')->paginate(10);
         $ticketsEntrada = TicketEntrada::orderBy('id', 'desc')->paginate(10);
+
+//        $ticketsEntrada = DB::table('ticket as t')->where('t.deleted_at', '=', null)
+//            ->join('ticket_entrada as te', 't.id', 'te.id')
+//            ->where('t.patente', 'like', "%$patente%")
+//            ->join('empresa as e', 'e.id', 't.cliente_id')
+//            ->where('e.denominacion', 'like', "%$cliente%")
+//            ->paginate(10);
+
+//        dd($ticketsEntrada);
 
 // Lo de abajo funciona pero es complicada la paginacion
 //        $ticketsEntradaNt =
@@ -264,7 +274,10 @@ class EntradaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Ticket::destroy($id);
+
+        return back()->with('message', "Ingreso anulado con exito.");
+
     }
 
     /**

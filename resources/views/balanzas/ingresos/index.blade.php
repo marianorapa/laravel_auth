@@ -58,6 +58,7 @@
 
                     <tbody>
                     @foreach ($ticketsEntrada as $ticketEntrada)
+                        @if ($ticketEntrada->ticket()->exists())
 {{--                        @if (is_object($ticketEntrada))--}}
 {{--                            <tr>--}}
 {{--                                <th scope="row">{{$ticketEntrada->id}}</th>--}}
@@ -71,49 +72,52 @@
 {{--                        @endif--}}
 
 
-                        <tr>
-                            <th scope="row">{{$ticketEntrada->id}}</th>
-                            <td>{{$ticketEntrada->ticket()->first()
-                                                ->cliente()->first()
-                                                ->empresa()->first()->denominacion}}
-                            </td>
-                            <td>{{$ticketEntrada->ticket()->first()->created_at}}</td>
-
-                            @if ($ticketEntrada->ticketEntradaInsumoNoTrazable()->exists())
-                                <td>{{$ticketEntrada->ticketEntradaInsumoNoTrazable()->first()
-                                                    ->insumoNoTrazable()->first()
-                                                    ->insumo()->first()->descripcion}}
+                            <tr>
+                                <th scope="row">{{$ticketEntrada->id}}</th>
+                                <td>{{$ticketEntrada->ticket()->first()
+                                                    ->cliente()->first()
+                                                    ->empresa()->first()->denominacion}}
                                 </td>
-                            @else
-                                @if ($ticketEntrada->ticketEntradaInsumoTrazable()->exists())
-                                <td>{{$ticketEntrada->ticketEntradaInsumoTrazable()->first()
-                                                    ->loteInsumoEspecifico()->first()
-                                                    ->insumoEspecifico()->first()
-                                                    ->insumoTrazable()->first()
-                                                    ->insumo()->first()->descripcion}}
+                                <td>{{$ticketEntrada->ticket()->first()->created_at}}</td>
+
+                                @if ($ticketEntrada->ticketEntradaInsumoNoTrazable()->exists())
+                                    <td>{{$ticketEntrada->ticketEntradaInsumoNoTrazable()->first()
+                                                        ->insumoNoTrazable()->first()
+                                                        ->insumo()->first()->descripcion}}
+                                    </td>
+                                @else
+                                    @if ($ticketEntrada->ticketEntradaInsumoTrazable()->exists())
+                                    <td>{{$ticketEntrada->ticketEntradaInsumoTrazable()->first()
+                                                        ->loteInsumoEspecifico()->first()
+                                                        ->insumoEspecifico()->first()
+                                                        ->insumoTrazable()->first()
+                                                        ->insumo()->first()->descripcion}}
+                                    </td>
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                @endif
+
+                                <td>{{$ticketEntrada->ticket()->first()->bruto()->first()->peso}}</td>
+                                @if ($ticketEntrada->ticket()->first()->tara()->exists())
+                                    <td>{{$ticketEntrada->ticket()->first()->tara()->first()->peso}}</td>
+                                @else
+                                    <td>(pendiente)</td>
+                                @endif
+                                <td>{{$ticketEntrada->ticket()->first()->patente}}</td>
+                                <td>
+
+                                    @if (!$ticketEntrada->ticket()->first()->tara()->exists())
+    {{--                                    <a href="" class="btn btn-warning btn-sm">Editar</a>--}}
+                                        <a class="btn btn-success btn-sm mr-3" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
+                                        <a class="btn btn-danger btn-sm font-weight-bolder" href="{{route('balanzas.ingresos.destroy', $ticketEntrada->id)}}">X</a>
+
+                                    @else
+                                        <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
+                                    @endif
                                 </td>
-                                @else
-                                    <td>-</td>
-                                @endif
-                            @endif
-
-                            <td>{{$ticketEntrada->ticket()->first()->bruto()->first()->peso}}</td>
-                            @if ($ticketEntrada->ticket()->first()->tara()->exists())
-                                <td>{{$ticketEntrada->ticket()->first()->tara()->first()->peso}}</td>
-                            @else
-                                <td>(pendiente)</td>
-                            @endif
-                            <td>{{$ticketEntrada->ticket()->first()->patente}}</td>
-                            <td>
-
-                                @if (!$ticketEntrada->ticket()->first()->tara()->exists())
-                                    <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                    <a class="btn btn-success btn-sm" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
-                                @else
-                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
-                                @endif
-                            </td>
-                        </tr>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
             </table>
