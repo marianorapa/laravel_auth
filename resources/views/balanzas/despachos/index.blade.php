@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('publics')
+
+@endsection
 
 @section('content')
     <section class="container">

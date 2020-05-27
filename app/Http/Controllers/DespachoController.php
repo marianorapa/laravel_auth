@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pesaje;
 use App\Ticket;
 use App\TicketSalida;
+use App\Transportista;
 use App\Utils\TicketsSalidaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,8 @@ class DespachoController extends Controller
         $clientes = DB::table('cliente')
             ->join('empresa','cliente.id','=','empresa.id')
             ->select('cliente.id','empresa.denominacion')->get();
-        return view('balanzas.despachos.pesajeInicialDespacho',compact('clientes'));
+        $transportistas = Transportista::all();
+        return view('balanzas.despachos.pesajeInicialDespacho',compact('clientes','transportistas'));
     }
 
     /**

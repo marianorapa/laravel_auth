@@ -137,3 +137,6 @@ route::get('/getOP', 'DespachoController@getOP');
 
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
+
+//peticion asincrona para create user
+route::get('/autocompletar','PersonaController@autocompletar')->name('autocompletarPersonas');
