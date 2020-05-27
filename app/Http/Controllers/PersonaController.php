@@ -249,4 +249,10 @@ class PersonaController extends Controller
 
     }
 
+    public function autocompletar (Request $request) {
+        $texto = $request->get('texto');
+        $persona = Persona::where("nombres","like","%$texto%")->take(10)->get();
+        return response()->json($persona);
+    }
+
 }

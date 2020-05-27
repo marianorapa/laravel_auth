@@ -57,16 +57,15 @@ Route::get('/balanzas/ingreso/finalizar/{id}', 'EntradaController@registroInsumo
 Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaInsumo')
     ->name('balanzas.ingresos.final.guardar');
 
-
 Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
 
 Route::resource('pedidos', 'OrdenProduccionController');
 Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
 
 Route::resource('despachos', 'DespachoController');
-Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize');
+Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');
+Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
 
-Route::post('despachos/finalize', 'DespachoController@finalizePost')->name('despachos.finalize.post');
 
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
@@ -138,3 +137,6 @@ route::get('/getOP', 'DespachoController@getOP');
 
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
+
+//peticion asincrona para create user
+route::get('/autocompletar','PersonaController@autocompletar')->name('autocompletarPersonas');

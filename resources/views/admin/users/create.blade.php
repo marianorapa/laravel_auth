@@ -5,6 +5,8 @@
     <script src="{{ asset('js/sweetAlert2.js') }}"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
     <script src="{{ asset('js/errorCartel.js') }}"></script>
+    <script src="{{ asset('js/autocompletar.js') }}"></script>
+
 @endsection
 @section('content')
 
@@ -23,17 +25,17 @@
         <div class="col-md-8">
             @if (session('error'))
             <div role="alert">
-                <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
             </div>
             @endif
             @if (session('mensaje'))
-                <div role="alert">          
-                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                <div role="alert">
+                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                 </div>
             @endif
             @if (session('warning'))
                 <div>
-                    <p class="errorjs" style="display:none">{{ session('warning') }}</p> 
+                    <p class="errorjs" style="display:none">{{ session('warning') }}</p>
                 </div>
             @endif
 
@@ -70,6 +72,12 @@
                                         <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
                                     @endforeach
                                 </select>
+                                <div class="col-10 mt-2">
+                                    <div class="dropdown mb-3 divautjs">
+                                        <input type="text" class="form-control custom-select autocompletarjs"  placeholder="ingrese nombre">
+
+                                    </div>
+                                </div>
                                 <p class="mt-2 mb-3"><a class="" href="{{route('personas.create')}}" target="_blank">Nueva persona</a></p>
                             </div>
 
