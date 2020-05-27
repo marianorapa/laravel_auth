@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         inputPesaje.value = getRandomInt(13000,15000);
     })
     //producto
-    validar_nombre = document.querySelector(".nombrejs");
+    validar_nombre = document.querySelector(".nombreprod");
     validar_nombre.addEventListener("blur", function() {
         var nombre = /^[a-zA-Z]{3,40}$/;
         if (nombre.exec(validar_nombre.value)) {
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
         input_p.value=element.producto_id;
         input_p.type = "text";
         producto.appendChild(input_p);*/
-        producto.innerText= element.producto_id;
+        producto.innerText= element.descripcion;
 
 
         cant_disponible = document.createElement('td');
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fila.appendChild(cant_disponible);
         tbody.appendChild(fila);
 
-        sessionStorage.setItem(element.id,element.producto_id);
+        sessionStorage.setItem(element.id,element.descripcion);
         //carga
 
     }

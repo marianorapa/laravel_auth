@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btn_pesaje.addEventListener("click",function () {
         inputPesaje = document.getElementById("pesocargado");
+        console.log(inputPesaje)
         inputPesaje.value = getRandomInt(13000,15000);// ajustar este valor.
     });
 

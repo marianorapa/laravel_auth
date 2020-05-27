@@ -58,22 +58,24 @@ class DespachoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'cliente'=>['required','exists:cliente,id'],
-            'op_id' => ['required','exists:orden_de_produccion,id'],
-            'transportista' => ['required', 'exists:transportista,id'],
+            'id_ordenproduccion' => ['required','exists:orden_de_produccion,id'],
+            'Transportista' => ['required', 'exists:transportista,id'],
             'patente' => ['required'],
-            'peso' => ['required', 'numeric']
+            'tara' => ['required', 'numeric']
         ]);
+
+        $op_id = $validated['id_ordenproduccion'];
 
         $ticket = new Ticket();
 
         $ticket->cliente_id = DB::table('orden_de_produccion')
-                                ->where('orden_de_produccion.id', '=', $validated['op_id'])
+                                ->where('orden_de_produccion.id', '=', $op_id)
                                 ->join('alimento', 'alimento.id', '=','orden_de_produccion.producto_id')
                                 ->select('alimento.cliente_id')->get()->first()->cliente_id;
 
@@ -81,23 +83,25 @@ class DespachoController extends Controller
             return back()->with('error', 'Ciente seleccionado no coincide con el de la OP seleccionada');
         }
 
-        $ticket->transportista_id = $validated['transportista'];
+        $ticket->transportista_id = $validated['Transportista'];
         $ticket->patente = $validated['patente'];
 
         $pesaje = new Pesaje();
-        $pesaje->peso = $validated['peso'];
+        $pesaje->peso = $validated['tara'];
         $pesaje->save();
         $ticket->tara = $pesaje->id;
 
         $ticket->save();
 
         $ticketSalida = new TicketSalida();
-        $ticketSalida->op_id = $validated['op_id'];
+        $ticketSalida->op_id = $op_id;
 //        $ticketSalida->ticket()->associate($ticket);
 
         $ticketSalida->id = $ticket->id;
 
         $ticketSalida->save();
+
+        return redirect()->action('DespachoController@index')->with('message', 'Despacho iniciado con exito.');
     }
 
 
@@ -198,7 +202,7 @@ class DespachoController extends Controller
         $arrayOP = DB::table('orden_de_produccion')
             ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
             ->where('alimento.cliente_id','=',$cliente_id)
-            ->select('orden_de_produccion.id','orden_de_produccion.fecha_fabricacion','orden_de_produccion.producto_id','orden_de_produccion.saldo')
+            ->select('orden_de_produccion.id','orden_de_produccion.fecha_fabricacion','alimento.descripcion','orden_de_produccion.saldo')
             ->get();
 
         return response()->json($arrayOP);

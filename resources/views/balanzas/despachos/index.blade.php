@@ -40,9 +40,9 @@
                     </div>
                 @endif
 
-                @if (session('mensaje'))
+                @if (session('message'))
                     <div class="alert alert-success">
-                        {{session('mensaje')}}
+                        {{session('message')}}
                     </div>
                 @endif
 
