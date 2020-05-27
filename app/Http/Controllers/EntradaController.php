@@ -274,9 +274,15 @@ class EntradaController extends Controller
      */
     public function destroy($id)
     {
-        Ticket::destroy($id);
+        if (!Ticket::findOrFail($id)->tara()->exists()){
+            Ticket::destroy($id);
 
-        return back()->with('message', "Ingreso anulado con exito.");
+            return back()->with('message', "Ingreso anulado con exito.");
+        }
+        else {
+            return back()->with('error', "El ingreso ya fue finalizado y no puede anularse.");
+        }
+
 
     }
 
