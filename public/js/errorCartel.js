@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         Toast: true,
         position: 'top-right',
         showConfirmButton: false,
-        timer: 2500,
+        timer: 3000,
         timerProgressBar: false,
         onOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
