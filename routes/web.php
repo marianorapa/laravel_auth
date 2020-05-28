@@ -128,7 +128,7 @@ Route::get('/pesajeFinalDespacho', function() {
 route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
 route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables');
 route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
-route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente');
+route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente')->name("productos");
 route::get('/getFormulaProducto', 'OrdenProduccionController@getFormulaProducto'); // este es el que se usa
 route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm');
 
@@ -140,3 +140,10 @@ route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
 
 //peticion asincrona para create user
 route::get('/autocompletar','PersonaController@autocompletar')->name('autocompletarPersonas');
+
+
+
+//vistas para formula
+Route::get('/createFormula', function() {
+    return view('formula.createFormula');
+});
