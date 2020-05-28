@@ -1,4 +1,7 @@
 @extends('layouts.app')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @section('content')
     <div class="container">
         <div class="bs-example">
@@ -57,18 +60,15 @@
                                         </div>
                                     @endif
                                     @if (session('error'))
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ session('error') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
+                                    <div class="">
+                                        <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                                    </div>
                                     @endif
 
                                     @if (session('mensaje'))
-                                        <div class="alert alert-success">
-                                            {{session('mensaje')}}
-                                        </div>
+                                    <div class="" role="alert">
+                                        <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                                    </div>
                                     @endif
                                     <thead>
                                         <tr>

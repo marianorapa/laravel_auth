@@ -4,6 +4,9 @@
 @section('publics')
 <script src="{{ asset('js/habilitarinput.js') }}"></script>
 <script src="{{ asset('js/registroInsumo.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('js/notifCartel.js') }}"></script>
+<script src="{{ asset('js/errorCartel.js') }}"></script>
 
 @endsection
 @section('content')
@@ -32,17 +35,14 @@
                 </div>
             @endif
             @if (session('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="">
+                    <p class="errorjs" style="display:none">{{ session('error') }}</p> 
                 </div>
             @endif
 
             @if (session('mensaje'))
-                <div class="alert alert-success">
-                    {{session('mensaje')}}
+                 <div class="" role="alert">
+                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
                 </div>
             @endif
 
