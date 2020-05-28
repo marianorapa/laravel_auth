@@ -198,10 +198,12 @@ class DespachoController extends Controller
      */
     public function getOP(Request $request)
     {
+
         $cliente_id = $request->get('id');
         $arrayOP = DB::table('orden_de_produccion')
             ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
             ->where('alimento.cliente_id','=',$cliente_id)
+            ->where('orden_de_produccion.saldo', '>', 0)
             ->select('orden_de_produccion.id','orden_de_produccion.fecha_fabricacion','alimento.descripcion','orden_de_produccion.saldo')
             ->get();
 

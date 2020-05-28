@@ -13,9 +13,28 @@ document.addEventListener("DOMContentLoaded", function() {
     btn_pesaje = document.querySelector(".pesajeAleatorio");
 
     btn_pesaje.addEventListener("click",function () {
-        inputPesaje = document.getElementById("pesocargado");
-        console.log(inputPesaje)
-        inputPesaje.value = getRandomInt(13000,15000);// ajustar este valor.
+        var op_id = document.getElementById('nroorden').value;
+        axios.get('/getSaldoOp', {
+            params: {
+                op_id: op_id
+            }
+        })
+
+            .then(function (res){
+                if (res.status == 200) {
+                    inputPesaje = document.getElementById("pesocargado");
+                    let tara = document.getElementById("peso").value;
+                    let saldo = res.data[0].saldo;
+
+                    inputPesaje.value = parseInt(tara) + parseInt(saldo);
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+
+
     });
 
 

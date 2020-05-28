@@ -478,6 +478,16 @@ class OrdenProduccionController extends Controller
     }
 
 
+    function getSaldoOp(Request $request){
+
+        $op_id = $request->get('op_id');
+
+        $saldo = DB::table('orden_de_produccion')->where('id', '=', $op_id)
+            ->select('saldo')->get();
+
+        return response()->json($saldo);
+    }
+
 
 
 }
