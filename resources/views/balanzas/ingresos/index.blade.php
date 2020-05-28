@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @section('content')
     <section class="container">
 
@@ -38,14 +40,14 @@
                 @endif
 
                 @if (session('message'))
-                    <div class="alert alert-success">
-                        {{session('message')}}
+                    <div class="" role="alert">
+                    <p class="alertajs" style="display:none">{{ session('message') }}</p> 
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{session('error')}}
+                    <div class="">
+                    <p class="errorjs" style="display:none">{{ session('error') }}</p> 
                     </div>
                 @endif
 
