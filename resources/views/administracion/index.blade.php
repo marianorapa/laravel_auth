@@ -11,9 +11,23 @@
 {{--    {{route('despachos.index')}}--}}
     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Productos</h5>
+            <h5 class="mb-1">Fórmulas y productos</h5>
         </div>
         <p class="mb-1">Menú de gestión de productos y fórmulas.</p>
+    </a>
+
+    <a href="{{route('administracion.stock')}}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Stock</h5>
+        </div>
+        <p class="mb-1">Menú de stock de insumos y productos de clientes.</p>
+    </a>
+
+    <a href="{{route('administracion.empresas')}}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Empresas</h5>
+        </div>
+        <p class="mb-1">Menú de gestión de clientes, proveedores y transportistas.</p>
     </a>
 
 </section>

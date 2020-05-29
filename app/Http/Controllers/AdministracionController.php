@@ -10,4 +10,6 @@ class AdministracionController extends Controller
         return view('administracion.index');
     }
 
+
+
 }
