@@ -21,9 +21,8 @@
             <div class="card-header text-center h2">
             </div>
             <div class="card-body">
-                <form action="" method="POST" >
-
-
+                <form action="{{route('parametros.precio.post')}}" method="POST" >
+                    @csrf
                 <div class="form-group row">
                         <label class="col-md-4 col-form-label text-md-right" for="precioXkg">Precio por KG</label>
                         <div class="col-md-6">
@@ -31,37 +30,36 @@
                         </div>
 
                         <span class="invalid-feedback">
-                            <strong>asdasdasdasd</strong>
+                            <strong>Error</strong>
                         </span>
                 </div>
 
                 <div class="form-group row">
-                        <label class="col-md-4 col-form-label text-md-right" for="variacion">Variacion</label>
-                        <div class="col-md-6">
-                            <input class="variacion form-control" type="text" id="variacion" name="variacion" placeholder="%" required>
-                        </div>
+                    <label class="col-md-4 col-form-label text-md-right" for="variacion">Variacion</label>
+                    <div class="col-md-6">
+                        <input class="variacion form-control" type="text" id="variacion" name="variacion" placeholder="%" required>
+                    </div>
                 </div>
 
                 <div class="form-group row">
-                        <label class="col-md-4 col-form-label text-md-right" for="fechaDesde">Fecha desde</label>
-                        <div class="col-md-6">
-                            <input class="fecha_desde form-control" type="date" id="fecha_desde" name="fecha_desde" required>
-                        </div>
+                    <label class="col-md-4 col-form-label text-md-right" for="fechaDesde">Fecha desde</label>
+                    <div class="col-md-6">
+                        <input class="fecha_desde form-control" type="date" id="fecha_desde" name="fecha_desde" required>
+                    </div>
                 </div>
 
                 <div class="form-group row">
-                        <label class="col-md-4 col-form-label text-md-right" for="fechaHasta">Fecha hasta</label>
-                        <div class="col-md-6">
-                            <input class="fecha_hasta form-control" type="date" id="fecha_hasta" name="fecha_hasta" >
-                        </div>
+                    <label class="col-md-4 col-form-label text-md-right" for="fechaHasta">Fecha hasta</label>
+                    <div class="col-md-6">
+                        <input class="fecha_hasta form-control" type="date" id="fecha_hasta" name="fecha_hasta" >
+                    </div>
                 </div>
                 <br>
 
                 <div class="form-inline row">
-                            <button class="btn btn-secondary col-sm-3">Cancelar</button>
-                            <button class="boton btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                    <a class="btn btn-secondary col-sm-3" href="{{route('parametros.precio.index')}}">Cancelar</a>
+                    <button class="boton btn btn-primary col-sm-3 offset-md-6">Registrar</button>
                 </div>
-
                 </form>
             </div>
         </div>

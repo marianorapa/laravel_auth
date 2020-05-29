@@ -222,4 +222,20 @@ class StockManager
         return $movimientoInsumo;
     }
 
+    public static function getListadoStockInsumos()
+    {
+
+        // TODO Listado de stock de insumos
+
+        return [];
+    }
+
+    public static function getListadoStockProductos()
+    {
+
+        // TODO Listado de stock de productos
+
+        return [];
+    }
+
 }

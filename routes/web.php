@@ -59,12 +59,38 @@ Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaIn
 
 Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
 
+Route::get('/administracion/stock', 'StockController@index')->name('administracion.stock');
+Route::get('/administracion/stock/insumos', 'StockController@indexInsumos')->name('administracion.stock.insumos');
+Route::get('/administracion/stock/productos', 'StockController@indexProductos')->name('administracion.stock.productos');
+
+
+Route::get('/administracion/empresas', 'EmpresasController@index')
+    ->name('administracion.empresas');
+
+
 Route::resource('pedidos', 'OrdenProduccionController');
 Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
 
 Route::resource('despachos', 'DespachoController');
 Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');
 Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
+
+
+Route::get('/parametros', 'ParametrosController@index')->name('parametros.index');
+
+Route::get('/parametros/precio/definir', 'ParametrosController@definirPrecio')->name('parametros.precio.view');
+Route::post('/parametros/precio/guardar', 'ParametrosController@registrarPrecio')->name('parametros.precio.post');
+Route::get('/parametros/precio', 'ParametrosController@indexPrecio')->name('parametros.precio.index');
+
+
+Route::get('/parametros/capacidad/definir', 'ParametrosController@definirCapacidad')
+    ->name('parametros.capacidad.view');
+Route::post('/parametros/capacidad/guardar', 'ParametrosController@registrarCapacidad')
+    ->name('parametros.capacidad.post');
+
+Route::get('/parametros/capacidad', 'ParametrosController@indexCapacidad')->name('parametros.capacidad.index');
+
+
 
 
 // Rutas de errores
@@ -134,6 +160,7 @@ route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm'
 
 //peticion asincronica para despacho
 route::get('/getOP', 'DespachoController@getOP');
+route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp');
 
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
@@ -144,6 +171,11 @@ route::get('/autocompletar','PersonaController@autocompletar')->name('autocomple
 
 
 //vistas para formula
-Route::get('/createFormula', function() {
-    return view('formula.createFormula');
-});
+//Route::get('/createFormula', function() {
+//    return view('formula.createFormula');
+//});
+route::get('/formulaIndex','FormulaController@index')->name('formulaIndex');
+
+route::get('/formulaCreate','FormulaController@create')->name('formulaCreate');
+route::get('/getAllInsumos','FormulaController@getAllInsumos')->name('allInsumos');
+

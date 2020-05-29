@@ -70,8 +70,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         cargarTablaOp(i,element)
                         i++;
                     })
-
-
                 }
             })
             .catch(function (err) {
