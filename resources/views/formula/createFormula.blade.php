@@ -28,7 +28,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header text-md-center h2"></div>
+                <div class="card-header text-md-center h2"> Registro de nueva formula</div>
                 <div class="card-body">
                     <form action="" method="">
                         <div class="form-inline row">
@@ -60,7 +60,7 @@
                         <div class="form-group row d-flex justify-content-center">
                             <label for="tablainsumos" class="h2 text-md-center mt-5 col-md-10">Insumos</label>
 
-                            <table class="table mt-2 col-md-10">
+                            <table class="table mt-2 col-md-10 tablageneral">
                                 <thead>
                                     <tr>
                                         <th scope="col">Id insumo</th>
@@ -70,14 +70,25 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyinsumos">
-                                    <tr>
-                                        <th></th>
-                                    </tr>
                                 </tbody>
 
                             </table>
 
                         </div>
+
+                       <div class="form-inline row">
+                           <label for="fechadesde" class="col-md-2 col-form-label text-md-right">Fecha desde</label>
+                           <input id="fechadesde" type="date" class="fechadesde form-control" name="fechadesde" value="{{old('fechadesde')}}" required>
+
+                           <label for="fechahasta" class="col-md-2 col-form-label text-md-right offset-md-1">Fecha hasta</label>
+                           <input id="fechahasta" type="date" class="fechahasta form-control" name="fechahasta" value="{{old('fechahasta')}}" >
+                       </div>
+
+                        <div class="form-inline row mt-5">
+                            <button class="btn btn-secondary col-sm-3">Cancelar</button>
+                            <button  type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                        </div>
+
                     </form>
 
 
