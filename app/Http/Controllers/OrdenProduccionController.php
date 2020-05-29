@@ -14,6 +14,10 @@ use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
+
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrdenProduccionController extends Controller
 {
@@ -487,6 +491,29 @@ class OrdenProduccionController extends Controller
 
         return response()->json($saldo);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getPdfAll(Request $request){
+       /* $name = $request->get('nombre');
+        $apellido = $request->get('apellido');
+        $doc = $request->get('documento');*/
+
+        $pedidos = DB::table('orden_de_produccion')
+                    /*->name($name)
+                    ->apellido($apellido)
+                    ->nrodoc($doc)*/
+                    ->get();
+        
+        /*dd($pedidos);*/          
+        return view('administracion.pedidos.pedidos-list', compact('pedidos'));
+    }
+
 
 
 
