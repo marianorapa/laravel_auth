@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function(event)
     var dat = [];
     select_insumo = document.querySelector(".insumo");
     function cargarinsumo() {
-        axios.get('/insumostodosasinc',{
+        axios.get('/getAllInsumos',{
             params:{
 
             }
@@ -58,12 +58,12 @@ document.addEventListener("DOMContentLoaded", function(event)
                 if (res.status == 200){
                     var i = 1;
                     console.log(res.data);
-                    dat[0]=res.data[0];
-                    dat[1]=res.data[1];
-                    while (i< res.data[1]){
+                    dat = res.data;
+                    while (i< res.data['length']){
                         opcion = document.createElement("option");
-                        opcion.value=i;
-                        opcion.text=res.data[0][i];
+                        opcion.value=res.data[i]['id'];
+                        opcion.text=res.data[i]['descripcion'];
+                        console.log(res.data[i]);
                         select_insumo.appendChild(opcion);
 
                         i++;
@@ -79,13 +79,15 @@ document.addEventListener("DOMContentLoaded", function(event)
     //evento para cargar una fila
     select_insumo.addEventListener("change",function () {
         var i = 1;
-        while (i<dat[1]){ //hago esto pq no lo puedo recorrer con el element
-            if (i==select_insumo.value){
-                filasInsumo(i,dat[0][i]);
+        while (i<dat['length']){ //hago esto pq no lo puedo recorrer con el element
+            if (dat[i]['id']==select_insumo.value){
+                filasInsumo(dat[i]['id'],dat[i]['descripcion']);
             };
             i++;
         };
+
     })
+
 
     //cargar filas de la tabla
     tabla_insumos = document.getElementById("tbodyinsumos");

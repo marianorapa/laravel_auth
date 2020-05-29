@@ -90,6 +90,7 @@
                 <a href="{{route('administracion.menu')}}">Administración (restringido en futuro)</a>
 
                 <a href="{{route('parametros.index')}}">Gestión de parámetros</a>
+                <a href="{{route('formulaIndex')}}">Gestión de formulas</a>
                 {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>

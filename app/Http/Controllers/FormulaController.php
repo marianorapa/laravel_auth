@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
+use App\Insumo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FormulaController extends Controller
 {
@@ -14,6 +17,11 @@ class FormulaController extends Controller
     public function index()
     {
         //
+
+        $formulas = DB::table('alimento_formula')->paginate(10);
+        return view('formula.index',compact('formulas'));
+
+
     }
 
     /**
@@ -24,6 +32,8 @@ class FormulaController extends Controller
     public function create()
     {
         //
+        $clientes = Cliente::all();
+        return view('formula.createFormula',compact('clientes'));
     }
 
     /**
@@ -80,5 +90,10 @@ class FormulaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAllInsumos(){
+        $insumos = Insumo::all();
+        return response()->json($insumos);
     }
 }

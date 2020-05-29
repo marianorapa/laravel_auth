@@ -171,6 +171,11 @@ route::get('/autocompletar','PersonaController@autocompletar')->name('autocomple
 
 
 //vistas para formula
-Route::get('/createFormula', function() {
-    return view('formula.createFormula');
-});
+//Route::get('/createFormula', function() {
+//    return view('formula.createFormula');
+//});
+route::get('/formulaIndex','FormulaController@index')->name('formulaIndex');
+
+route::get('/formulaCreate','FormulaController@create')->name('formulaCreate');
+route::get('/getAllInsumos','FormulaController@getAllInsumos')->name('allInsumos');
+

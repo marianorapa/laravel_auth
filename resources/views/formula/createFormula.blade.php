@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @inject('Cliente', 'App\Cliente'){{--POR AHORA--}}
+    {{--@inject('Cliente', 'App\Cliente')--}}{{--POR AHORA--}}
     <div class="container">
         <div class="bs-example">
             <nav>
@@ -37,7 +37,7 @@
                             <select name="cliente" id="cliente"  class="cliente_id custom-select col-md-2 form-check-input:invalid"> {{--checkear que form-check-input:invalid ande--}}
                                 <option data-tokens=="0">Seleccione</option>
 
-                                @foreach (\App\Cliente::all() as $cliente){{--esto lo hago por ahora, despues recibiria cliente desde el controller--}}
+                                @foreach ($clientes as $cliente){{--esto lo hago por ahora, despues recibiria cliente desde el controller--}}
                                     <option value="{{$cliente->id}}"> {{$cliente->empresa()->first()->denominacion}}</option>
                                 @endforeach
                             </select>
