@@ -35,7 +35,7 @@ class PersonaController extends Controller
         $name = $request->get('name');
         $nrdoc= $request->get('nrodocumento');
         $apellido = $request->get('apellido');
-//        $personas = Persona::all();
+       $personas = Persona::all();
 
 
         $personas = Persona::withTrashed()

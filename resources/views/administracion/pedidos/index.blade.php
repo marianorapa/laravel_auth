@@ -19,6 +19,7 @@
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
+                <a type="submit" class="btn btn-info btn-sm m-1 btn_pdf" href="{{ route('pedido.pdf') }}">Descargar PDF</a><!--todavia no anda, primera prueba-->
                     <input name="patente" class="form-control mr-sm-2" type="search" placeholder="Producto" aria-label="buscar por producto">
                     <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -64,8 +65,8 @@
                             <th scope="row">{{$op->op_id}}</th>
                             <td>{{$op->empresa}}</td>
                             <td>{{$op->fecha_fabricacion}}</td>
-                            <td>{{$op->producto}}</td>
-                            <td>{{$op->cantidad}}</td>
+                            <td id="producto">{{$op->producto}}</td>
+                            <td id="cantidad">{{$op->cantidad}}</td>
                             @if ($op->descripcion == "Pendiente")
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}

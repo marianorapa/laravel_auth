@@ -91,10 +91,14 @@
 </div>
 
 <?php
-    $array = null;
+
+use SebastianBergmann\Environment\Console;
+
+$array = null;
     foreach ($personas as $persona){
-        $array = [$persona->personaTipo()->first()->tipoDocumento()->first()->descripcion];
+        $array = [$persona->personaTipo()->first()->tipoDocumento()->first()->descripcion => $persona->personaTipo()->first()->nro_documento];
     }
+    print_r($array);
 ?>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -114,14 +118,14 @@
           ['Sleep',    7]
         ]);
 
-       /* var data = google.visualization.arrayToDataTable([
-            <?php
-              $array = null;
-              foreach ($personas as $persona){
-                  $array = [$persona->personaTipo()->first()->tipoDocumento()->first()->descripcion];
-              }
-            ?>
-        ]);*/
+        <?php
+            $array = null;
+            foreach ($personas as $persona){
+                $array = [$persona->personaTipo()->first()->tipoDocumento()->first()->descripcion => $persona->personaTipo()->first()->nro_documento];
+            }
+        ?>
+        var data2 = '<?php $array ?>';
+        console.log(data2);
 
         var options = {
           title: 'My Daily Activities'

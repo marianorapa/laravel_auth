@@ -164,6 +164,8 @@ route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp');
 
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
+//pdf pedidos
+route::get('/pedidopdf', 'OrdenProduccionController@getPdfAll')->name('pedido.pdf');
 
 //peticion asincrona para create user
 route::get('/autocompletar','PersonaController@autocompletar')->name('autocompletarPersonas');
