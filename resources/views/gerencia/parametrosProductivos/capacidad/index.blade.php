@@ -42,9 +42,9 @@
                     </div>
                 @endif
 
-                @if (session('mensaje'))
+                @if (session('message'))
                     <div class="">
-                       <p class="alertajs" style="display:none"> {{ session('mensaje') }} </p>
+                       <p class="alertajs" style="display:none"> {{ session('message') }} </p>
                     </div>
                 @endif
 

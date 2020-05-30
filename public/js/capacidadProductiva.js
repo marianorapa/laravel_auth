@@ -14,5 +14,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
+    inputFechaHasta = document.getElementById('fecha_hasta');
+    inputFechaHasta.disabled = true;
+    radioTemporal = document.getElementById('radioTemporal');
+    radioTemporal.addEventListener('change', function(){
+        inputFechaHasta.disabled = false;
+    })
+
+    radioPermanente = document.getElementById('radioPermanente');
+    radioPermanente.addEventListener('change', function(){
+        inputFechaHasta.disabled = true;
+    })
 
 });

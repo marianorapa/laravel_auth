@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function(event)
             });
     })
 
+
+
 //------CARGA DE TABLAS-------//
 
     var tablaInsumosNecesarios = document.querySelector(".insumosnecesarios");//TBODY
@@ -121,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function(event)
             });
 
     });
+
+
 
 
     function filaTrazable(i, element) {
@@ -248,6 +252,34 @@ document.addEventListener("DOMContentLoaded", function(event)
         tablaInsumosNoTrazables.appendChild(tr);
 
     }
+
+
+
+    let fechaEntrega = document.getElementById("fechaentrega");
+    let labelCapRest = document.getElementById("capacidad_restante")
+    fechaEntrega.addEventListener("change", function(){
+        let fecha = fechaEntrega.value;
+
+        axios.get('/getCapacidadProductivaRestante', {
+            params:{
+                fecha: fecha
+            }
+        })
+            .then(function(res) {
+                let capRest = res.data;
+                labelCapRest.innerText = capRest;
+                let cantFabricar = document.getElementById("cantidad").value;
+                if (capRest < cantFabricar) {
+                    labelCapRest.classList.add("text-danger")
+                    labelCapRest.classList.remove("text-success")
+                }
+                else {
+                    labelCapRest.classList.remove("text-danger")
+                    labelCapRest.classList.add("text-success")
+                }
+            })
+
+    })
 
 });
 

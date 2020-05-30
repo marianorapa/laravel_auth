@@ -31,10 +31,9 @@ class DespachoController extends Controller
             ->where('empresa.denominacion', 'like', "%$cliente%")
             ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
             ->join('alimento','alimento.id','=','orden_de_produccion.producto_id')
-            ->select('ticket_salida.id','empresa.denominacion', 'ticket.created_at as fecha', 'alimento.descripcion',
-                       'orden_de_produccion.cantidad', 'ticket.patente')
+            ->select('ticket_salida.id', 'empresa.denominacion', 'ticket.created_at as fecha',
+                'alimento.descripcion', 'orden_de_produccion.cantidad', 'ticket.patente', 'ticket.bruto')
             ->paginate(10);
-
 
         return View('balanzas.despachos.index', compact('despachos'));
     }
@@ -116,12 +115,19 @@ class DespachoController extends Controller
             ->join('empresa as p','p.id','=','ticket.transportista_id')
             ->select('ticket_salida.id','ticket.patente','e.denominacion as cliente',
                         'alimento.descripcion as producto','ticket_salida.op_id', 'p.denominacion as transporte',
-                        'pesaje.peso as tara')
+                        'pesaje.peso as tara', 'ticket.bruto as bruto')
             ->get()->first();
-         /* Guardo en la sesión el id a finalizar */
-        Session::put('id_ticket_salida', $id);
 
-        return view('balanzas.despachos.pesajeFinalDespacho', compact('ticketSalida'));
+
+        if (is_null($ticketSalida->bruto)) {
+            /* Guardo en la sesión el id a finalizar */
+            Session::put('id_ticket_salida', $id);
+            return view('balanzas.despachos.pesajeFinalDespacho', compact('ticketSalida'));
+        }
+        else
+        {
+            return redirect()->action('DespachoController@index')->with('error', "El ticket $id ya fue finalizado.");
+        }
     }
 
 
@@ -129,19 +135,26 @@ class DespachoController extends Controller
 
         $id = Session::get('id_ticket_salida');
 
-        $validated = $request->validate([
-            'pesocargado' => ['required','numeric']
-        ]);
+        if (!is_null($id)) {
 
-        $bruto = $validated['pesocargado'];
+            $validated = $request->validate([
+                'pesocargado' => ['required', 'numeric']
+            ]);
 
-        $pesaje = new Pesaje();
-        $pesaje->peso = $bruto;
-        $pesaje->save();
+            $bruto = $validated['pesocargado'];
 
-        TicketsSalidaManager::finalizarTicket($id, $pesaje);
+            $pesaje = new Pesaje();
+            $pesaje->peso = $bruto;
+            $pesaje->save();
 
-        return redirect()->action('DespachoController@index')->with('message', 'Despacho finalizado con éxito.');
+            TicketsSalidaManager::finalizarTicket($id, $pesaje);
+
+            return redirect()->action('DespachoController@index')->with('message', 'Despacho finalizado con éxito.');
+        }
+        else
+        {
+            return back()->with('error', 'Se produjo un error al intentar finalizar el ticket');
+        }
     }
 
 

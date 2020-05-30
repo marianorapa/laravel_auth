@@ -45,14 +45,14 @@
 
                 @if (session('message'))
                 <div class="" role="alert">
-                    <p class="alertajs" style="display:none">{{ session('message') }}</p> 
+                    <p class="alertajs" style="display:none">{{ session('message') }}</p>
                 </div>
                 @endif
 
 
                 @if (session('error'))
                 <div class="">
-                    <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                    <p class="errorjs" style="display:none">{{ session('error') }}</p>
                 </div>
                 @endif
 
@@ -77,13 +77,19 @@
                             <td>{{$despacho->descripcion}}</td>
                             <td>{{$despacho->cantidad}}</td>
                             <td>{{$despacho->patente}}</td>
-                            <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a class="btn btn-success btn-sm"
-                                   href="{{route('despachos.finalize.view', $despacho->id)}}">
-                                    Finalizar
-                                </a>
-                            </td>
+                            @if ($despacho->bruto)
+                                <td>
+                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
+                                </td>
+                            @else
+                                <td>
+                                    <a href="" class="btn btn-warning btn-sm">Editar</a>
+                                    <a class="btn btn-success btn-sm"
+                                       href="{{route('despachos.finalize.view', $despacho->id)}}">
+                                        Finalizar
+                                    </a>
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
 

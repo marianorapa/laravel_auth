@@ -78,7 +78,7 @@ class StockManager
         $idInsumo = DB::table('prestamo_cliente as pc')
             ->where('pc.id', '=', $prestamoDevolucion->prestamo_id)
             ->join('op_detalle_no_trazable as opnt', 'opnt.id', '=', 'pc.op_detalle_id')
-            ->select('opnt.insumo_id')->get();
+            ->select('opnt.insumo_id')->get()->first()->insumo_id;
 
         $movimientoInsumoNoTra->insumo_id = $idInsumo;
 

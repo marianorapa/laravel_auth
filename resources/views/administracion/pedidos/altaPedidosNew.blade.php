@@ -20,16 +20,16 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center container-fluid">
         <div class="col-md-10">
             @if (session('error'))
             <div class="">
-                <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
             </div>
             @endif
             @if (session('mensaje'))
                 <div class="" role="alert">
-                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                 </div>
             @endif
             <div class="card">
@@ -60,8 +60,6 @@
                             <a class="btn btn-info" id="btnCalcular">Calcular</a>
 
                         </div>
-
-
 
 
 
@@ -119,8 +117,9 @@
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"  name="fechaentrega" required>
+                            <p class="ml-5 mt-2">Capacidad disp. día: <span class="" id="capacidad_restante">-</span> tns</p>
 
-                            <label for="precioxkg" class="col-md-2 col-form-label text-md-right">precio por kg</label>
+                            <label for="precioxkg" class="col-md-2 col-form-label text-md-right">Precio por tn.</label>
                             <input id="precioxkg" type="text" class="form-control col-md-2 preciojs" placeholder="$" name="precioxkg" >
 
                         </div>
@@ -134,8 +133,6 @@
 
             </div>
         </div>
-
-
     </div>
 
 @endsection
