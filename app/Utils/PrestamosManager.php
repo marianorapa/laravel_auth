@@ -47,14 +47,15 @@ class PrestamosManager
     public static function registrarDevolucionInsumo($idCliente, $idInsumo, $idTicketEntrada, $cantidadIngreso) : int {
 
         $deudas = DB::table('prestamo_cliente as p')
-            ->where('p.cancelado', '<', 'opd.cantidad')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')
             ->join('op_detalle_no_trazable as opnt', 'opnt.id', '=', 'opd.id')
             ->where('opnt.insumo_id', '=', $idInsumo)
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$idCliente)
-            ->select('p.id',DB::raw('(opd.cantidad - p.cancelado) as saldoAdeudado'))
+            ->select('p.id','p.cancelado', 'opd.cantidad',DB::raw('(opd.cantidad - p.cancelado) as saldoAdeudado'))
+//            ->where('p.cancelado', '=', 'opd.cantidad')
+
             ->get();
 
         $saldoIngreso = $cantidadIngreso;
@@ -62,8 +63,8 @@ class PrestamosManager
         $i = 0;
         while ($saldoIngreso > 0 && $i < sizeof($deudas)) {
             $deuda = $deudas[$i];
-            $idPrestamo = $deuda['id'];
-            $saldoAdeudado = $deuda['saldoAdeudado'];
+            $idPrestamo = $deuda->id;
+            $saldoAdeudado = $deuda->saldoAdeudado;
 
             $devolucion = new PrestamoDevolucion();
             $devolucion->prestamo_id = $idPrestamo;

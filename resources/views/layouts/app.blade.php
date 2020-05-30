@@ -76,6 +76,7 @@
                     </ul>
                 </div>
             </div>
+            {{date('d.m.Y')}}
         </nav>
 
         <main class="py-4">

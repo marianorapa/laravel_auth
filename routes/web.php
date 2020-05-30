@@ -157,7 +157,7 @@ route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un c
 route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente')->name("productos");
 route::get('/getFormulaProducto', 'OrdenProduccionController@getFormulaProducto'); // este es el que se usa
 route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm');
-
+route::get('/getCapacidadProductivaRestante', 'ParametrosController@getCapacidadRestante');
 //peticion asincronica para despacho
 route::get('/getOP', 'DespachoController@getOP');
 route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp');

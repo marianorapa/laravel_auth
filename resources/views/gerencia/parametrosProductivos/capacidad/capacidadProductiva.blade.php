@@ -14,8 +14,31 @@
     </div>
 </div>
 
+
 <div class="row justify-content-center">
     <div class="col-md-4">
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                {{$errors->first()}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="">
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
+            </div>
+        @endif
+
+        @if (session('mensaje'))
+            <div class="" role="alert">
+                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
+            </div>
+        @endif
+
         <div class="card">
             <div class="card-header text-center h2">
                 <h5 class="mb-1">Definir capacidad productiva</h5>
@@ -38,6 +61,27 @@
                             <input class="fechadesdejs form-control" type="date" id="fecha_desde" name="fecha_desde" required>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right">Tipo:</label>
+                        <div class="col-md-8">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo_capacidad" id="radioPermanente"
+                                       value="permanente" checked>
+                                <label class="form-check-label" for="radioPermanente">
+                                    Permanente
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo_capacidad" id="radioTemporal"
+                                       value="temporal">
+                                <label class="form-check-label" for="radioTemporal">
+                                    Temporal
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label text-md-right" for="fechaHasta">Fecha hasta</label>
