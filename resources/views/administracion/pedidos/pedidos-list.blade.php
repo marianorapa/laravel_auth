@@ -59,16 +59,16 @@
         <table class="">
         <thead>
                         <tr>
-                            <th scope="col">#</th>                            
+                            <th scope="col">#</th>
                             <th scope="col">Producto</th>
                             <th scope="col">Cantidad</th>
-                     
+
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($pedidos as $op)
                         <tr>
-                            <th scope="row">{{$op->id}}</th>                           
+                            <th scope="row">{{$op->id}}</th>
                             <td id="producto">{{$op->producto_id}}</td>
                             <td id="cantidad">{{$op->cantidad}}</td>
                         </tr>
@@ -80,7 +80,7 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
+{{--<script>
 $(".pdf").click(function(e) {
 	e.preventDefault();
 	var producto = $("#producto").val(),
@@ -97,33 +97,58 @@ $(".pdf").click(function(e) {
 			console.log(JSON.stringify(datos));
 	});
 });
-</script>
+</script>--}}
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script type="text/javascript">
+
+        var arraypedidos=[];
+        /**/
+        function llamada (){
+            axios.get('/getpedidosjs',{
+                params:{
+                }
+            })
+                .then(function (res) {
+                    console.log(res.data);
+                    if (res.status == 200){
+                        var i = 0;
+                        while (i< res.data['length']){
+                            arraypedidos[i]=res.data[i]['cantidad'];
+                            //console.log(res.data[i]['producto_id']);
+                            i++
+                        }
+                        //
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        }
+
       google.charts.load('current', {'packages':['corechart']});
+      llamada();
+      console.log(arraypedidos);
       google.charts.setOnLoadCallback(drawChart);
+
+
 
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
+          var data = google.visualization.arrayToDataTable(arraypedidos);
 
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-
-        <?php
+          {{--<?php
             $array = null;
             foreach ($pedidos as $op){
                 $array = [$op->producto_id => $op->cantidad];
             }
         ?>
+
         var data2 = '<?php $array ?>';
-        console.log(data2);
+        console.log(data2);--}}
 
         var options = {
           title: 'My Daily Activities'
@@ -134,7 +159,7 @@ $(".pdf").click(function(e) {
         chart.draw(data, options);
       }
     </script>
-  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
     <script>
      function generatePDF() {
@@ -150,17 +175,17 @@ $(".pdf").click(function(e) {
         const options = {
         margin: 0,
         filename: 'codepen-test.pdf',
-        image: { 
-            type: 'jpeg', 
-            quality: 0.99 
+        image: {
+            type: 'jpeg',
+            quality: 0.99
         },
-        html2canvas: { 
+        html2canvas: {
             scale: 2
         },
-        jsPDF: { 
-            unit: 'in', 
-            format: 'letter', 
-            orientation: 'portrait' 
+        jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'portrait'
         }
         }
         html2pdf().from(element).set(options).save();

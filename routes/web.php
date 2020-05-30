@@ -181,3 +181,7 @@ route::get('/formulaIndex','FormulaController@index')->name('formulaIndex');
 route::get('/formulaCreate','FormulaController@create')->name('formulaCreate');
 route::get('/getAllInsumos','FormulaController@getAllInsumos')->name('allInsumos');
 
+
+//pedidos asincronico
+
+route::get('/getpedidosjs','OrdenProduccionController@getpedidosjs')->name('allPedidos');

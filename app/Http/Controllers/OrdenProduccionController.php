@@ -509,9 +509,29 @@ class OrdenProduccionController extends Controller
                     ->apellido($apellido)
                     ->nrodoc($doc)*/
                     ->get();
-        
-        /*dd($pedidos);*/          
+
         return view('administracion.pedidos.pedidos-list', compact('pedidos'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getpedidosjs(Request $request){
+        /* $name = $request->get('nombre');
+         $apellido = $request->get('apellido');
+         $doc = $request->get('documento');*/
+
+        $pedidos = DB::table('orden_de_produccion')
+            /*->name($name)
+            ->apellido($apellido)
+            ->nrodoc($doc)*/
+            ->get();
+
+        return response()->json($pedidos);
     }
 
 
