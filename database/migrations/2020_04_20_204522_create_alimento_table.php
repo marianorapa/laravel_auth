@@ -18,7 +18,7 @@ class CreateAlimentoTable extends Migration
             $table->string('descripcion');
             $table->foreignId('tipo')->constrained('alimento_tipo');
             $table->foreignId('cliente_id')->constrained('cliente');
-            $table->string('gtin')->nullable(true);
+            $table->string('gtin')->nullable();
             $table->timestamps();
         });
     }

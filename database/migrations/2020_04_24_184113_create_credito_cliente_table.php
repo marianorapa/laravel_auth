@@ -18,7 +18,7 @@ class CreateCreditoClienteTable extends Migration
             $table->foreignId('cliente_id')->constrained('cliente');
             $table->integer('limite')->nullable(false);
             $table->date('fecha_desde')->nullable(false)->default(now());
-            $table->date('fecha_hasta')->nullable(true);
+            $table->date('fecha_hasta')->nullable();
             $table->timestamps();
         });
     }

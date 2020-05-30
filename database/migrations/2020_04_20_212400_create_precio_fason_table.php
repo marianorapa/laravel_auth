@@ -18,7 +18,7 @@ class CreatePrecioFasonTable extends Migration
             $table->decimal('precio_por_kilo',15,2)->nullable(false);
             $table->decimal('variacion_admitida',3,2)->comment('valor 0 y 1 que define el rango personalizable del precio')->nullable(false);
             $table->date('fecha_desde')->nullable(false)->default(now());
-            $table->date('fecha_hasta')->nullable(true);
+            $table->date('fecha_hasta')->nullable();
             $table->foreignId('prioridad_id')->constrained('nivel_prioridad');
             $table->timestamps();
         });

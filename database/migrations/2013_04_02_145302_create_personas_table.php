@@ -17,7 +17,7 @@ class CreatePersonasTable extends Migration
             $table->id();
             $table->string('apellidos');
             $table->string('nombres');
-            $table->date('fecha_nacimiento')->nullable(true);
+            $table->date('fecha_nacimiento')->nullable();
             $table->timestamps();
             $table->foreign('id')->references('id')->on('persona_tipo');
             $table->softDeletes();
