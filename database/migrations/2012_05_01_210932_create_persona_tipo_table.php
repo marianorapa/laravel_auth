@@ -17,10 +17,10 @@ class CreatePersonaTipoTable extends Migration
             $table->id();
             $table->foreignId('tipo_documento_id')->constrained('tipo_documento');
             $table->string('nro_documento');
-            $table->foreignId('domicilio_id')->constrained('domicilio')->nullable(true);
-            $table->string('telefono')->nullable(true);
-            $table->string('email')->nullable(true);
-            $table->string('observaciones')->nullable(true);;
+            $table->foreignId('domicilio_id')->unsigned()->nullable()->constrained('domicilio');
+            $table->string('telefono')->nullable();
+            $table->string('email')->nullable();
+            $table->string('observaciones')->nullable();;
             $table->softDeletes();
             $table->timestamps();
             $table->unique(['tipo_documento_id','nro_documento']);
