@@ -22,24 +22,23 @@ class EntradasInsumoManager
         $ticketEntrada = TicketsEntradaManager::registrarTicketEntrada($idCliente, $idTransportista, $patente,
             $nroCbte, $pesaje);
 
-
         $insumoEspecifico = DB::table('insumo_especifico')
             ->where('insumo_trazable_id', '=', $idInsumo)
             ->where('proveedor_id', '=', $idProveedor)
             ->get()
             ->first();
 
-
 //        $insumoTrazable = InsumoTrazable::findOrFail($idInsumo);
 //        $insumoEspecifico = $insumoTrazable->insumosEspecificos()->get()->where('id_proveedor', $idProveedor);
 //
 //        $loteInsumoEspecifico = $insumoEspecifico->lotesInsumoEspecifico()->all()->where('nro_lote', $nroLote);
 
-
         $loteInsumoEspecifico = DB::table('lote_insumo_especifico')
-            ->where('insumo_especifico', '=', $insumoEspecifico->gtin)
+            ->where([
+                ['insumo_especifico', '=', $insumoEspecifico->gtin],
+                ['nro_lote', '=', $nroLote]
+            ])
             ->get()->first();
-
 
 
         // Si no existe el lote aun, lo guardo por primera vez

@@ -107,7 +107,7 @@ class EntradaController extends Controller
             'proveedor' => ['required', 'exists:proveedor,id'],
             'transportista' => ['required', 'exists:transportista,id'],
             'patente' => ['required'],
-            'nro_cbte' => ['required'],
+            'nro_cbte' => ['required', 'numeric'],
             'pesaje' => ['required', 'numeric']
         ]);
 
@@ -131,7 +131,7 @@ class EntradaController extends Controller
         else {
             /* Si es un insumo trazable, hago validacion adicional */
             $validated = $request->validate([
-                'nrolote' => ['required'],
+                'nrolote' => ['required', 'numeric'],
                 'fechaelaboracion' =>['required', 'date'],
                 'fechavencimiento' =>['required', 'date']
             ]);
