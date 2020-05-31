@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $precio_venta_por_kilo
  * @property string $created_at
  * @property string $updated_at
+ * @property boolean $anulada
  * @property Granja $granja
  * @property Alimento $alimento
  * @property EstadoOpOrdenDeProduccion[] $estadoOpOrdenDeProduccions
@@ -100,5 +101,23 @@ class OrdenProduccion extends Model
     public function ticketSalidas()
     {
         return $this->hasMany('App\TicketSalida', 'op_id');
+    }
+
+    public function isPendiente() : bool {
+        $estado = $this->estadoOpOrdenDeProduccions()
+            ->orderByDesc('created_at')->get()->first();
+
+        return $estado->estado_id == EstadoOrdenProduccion::getEstadoPendiente()->id;
+    }
+
+    public function anularOrden() {
+        $estadoOp = new EstadoOpOrdenProduccion();
+        $estadoOp->ord_pro_id = $this->id;
+        $estadoOp->estado_id = EstadoOrdenProduccion::getEstadoAnulada()->id;
+//        $estadoOp->user()->associate(Auth::user());
+        $estadoOp->user()->associate(User::all()->first());
+        $this->anulada = true;
+        $this->save();
+        $estadoOp->save();
     }
 }

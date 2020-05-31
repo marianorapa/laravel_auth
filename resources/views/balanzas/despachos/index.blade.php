@@ -77,18 +77,25 @@
                             <td>{{$despacho->descripcion}}</td>
                             <td>{{$despacho->cantidad}}</td>
                             <td>{{$despacho->patente}}</td>
-                            @if ($despacho->bruto)
+                            @if ($despacho->deleted_at)
                                 <td>
-                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
+                                    <span class="border border-danger btn-sm btn-outline-danger disabled">Anulado</span>
                                 </td>
                             @else
-                                <td>
-                                    <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                    <a class="btn btn-success btn-sm"
-                                       href="{{route('despachos.finalize.view', $despacho->id)}}">
-                                        Finalizar
-                                    </a>
-                                </td>
+                                @if ($despacho->bruto)
+                                    <td>
+                                        <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>
+                                    </td>
+                                @else
+                                    <td>{{--                                    <a href="" class="btn btn-warning btn-sm">Editar</a>--}}
+                                        <a class="btn btn-success btn-sm"
+                                           href="{{route('despachos.finalize.view', $despacho->id)}}">
+                                            Finalizar
+                                        </a>
+                                        <a class="btn btn-danger btn-sm"
+                                           href="{{route('despachos.destroy', $despacho->id)}}">X</a>
+                                    </td>
+                                @endif
                             @endif
                         </tr>
                     @endforeach

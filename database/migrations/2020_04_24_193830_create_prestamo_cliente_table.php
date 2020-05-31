@@ -17,6 +17,7 @@ class CreatePrestamoClienteTable extends Migration
             $table->id();
             $table->foreignId('op_detalle_id')->constrained('op_detalle_no_trazable');
             $table->integer('cancelado')->nullable(false);
+            $table->boolean('anulado')->default(false);
             $table->timestamps();
         });
     }
