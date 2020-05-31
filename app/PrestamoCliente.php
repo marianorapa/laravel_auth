@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property integer $op_detalle_id
  * @property int $cancelado
+ * @property boolean $anulado
  * @property string $created_at
  * @property string $updated_at
  * @property OpDetalleNoTrazable $opDetalleNoTrazable
@@ -17,14 +18,14 @@ class PrestamoCliente extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'prestamo_cliente';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';

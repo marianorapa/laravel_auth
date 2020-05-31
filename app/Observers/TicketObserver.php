@@ -141,7 +141,7 @@ class TicketObserver
                 $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto
             );
 
-            $cantRestante = $ticket->neto;
+//            $ticket->neto = $cantRestante;
 
             if ($cantRestante > 0) {
                 // Tengo que registrar el movimiento pq le queda cantidad

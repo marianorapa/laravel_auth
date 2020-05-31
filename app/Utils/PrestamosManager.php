@@ -24,17 +24,25 @@ class PrestamosManager
         $limite = $credito->limite;
 
         $prestado = DB::table('prestamo_cliente as p')
-            ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')
+            ->where('p.anulado', '=', false)
+            ->join('op_detalle_no_trazable as opnt', 'opnt.id', 'p.op_detalle_id')
+            ->join('orden_de_produccion_detalle as opd', 'opd.id', 'opnt.op_detalle_id')
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
+            ->where('op.anulada','=', false)
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$id_cliente)
             ->sum('opd.cantidad');
 
 
+
+
         $devuelto = DB::table('prestamo_devoluciones as pd')
             ->join('prestamo_cliente as p', 'pd.prestamo_id', '=', 'p.id')
-            ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')
+            ->where('p.anulado', '=', false)
+            ->join('op_detalle_no_trazable as opnt', 'opnt.id', 'p.op_detalle_id')
+            ->join('orden_de_produccion_detalle as opd', 'opd.id', 'opnt.op_detalle_id')
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
+            ->where('op.anulada','=', false)
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$id_cliente)
             ->sum('pd.cantidad');
@@ -51,6 +59,7 @@ class PrestamosManager
             ->join('op_detalle_no_trazable as opnt', 'opnt.id', '=', 'opd.id')
             ->where('opnt.insumo_id', '=', $idInsumo)
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
+            ->where('op.anulada','=', false)
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$idCliente)
             ->select('p.id','p.cancelado', 'opd.cantidad',DB::raw('(opd.cantidad - p.cancelado) as saldoAdeudado'))

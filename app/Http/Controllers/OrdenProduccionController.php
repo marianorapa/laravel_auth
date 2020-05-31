@@ -26,19 +26,18 @@ class OrdenProduccionController extends Controller
     public function index()
     {
         //
-
-        $ops = DB::select(DB::raw("select `op`.`id` as `op_id`,
-               `empresa`.`denominacion` as `empresa`,
-               `op`.`fecha_fabricacion`,
-               `alimento`.`descripcion` as `producto`,
-               `op`.`cantidad`, eop.descripcion
-                from `orden_de_produccion` as `op`
-                inner join `alimento` on `op`.`producto_id` = `alimento`.`id`
-                inner join `empresa` on `alimento`.`cliente_id` = `empresa`.`id`
+        $ops = DB::select(DB::raw("select op.id as op_id,
+               empresa.denominacion as empresa,
+               op.fecha_fabricacion,
+               alimento.descripcion as producto,
+               op.cantidad, eop.descripcion
+                from orden_de_produccion as op
+                inner join alimento on op.producto_id = alimento.id
+                inner join empresa on alimento.cliente_id = empresa.id
                 inner join (SELECT ord_pro_id, max(estado_id) as estado_id FROM estado_op_orden_de_produccion
-                    GROUP BY ord_pro_id) as e on `e`.`ord_pro_id` = `op`.`id`
-                inner join `estado_ord_pro` as `eop` on `eop`.`id` = `e`.`estado_id`
-                order by `op_id` desc"));
+                    GROUP BY ord_pro_id) as e on e.ord_pro_id = op.id
+                inner join estado_ord_pro as eop on eop.id = e.estado_id
+                order by op_id desc"));
 
 //        $ops = DB::table('orden_de_produccion as op')
 //            ->join('alimento','op.producto_id','=','alimento.id')
@@ -96,7 +95,7 @@ class OrdenProduccionController extends Controller
             'cliente' => ['required', 'exists:cliente,id'],
             'producto' => ['required', 'exists:alimento,id'],
             'cantidad' => ['required', 'numeric', 'integer', 'min:0'],
-            'fechaentrega' => ['required', 'date'],
+            'fechaentrega' => ['required', 'date', 'after:tomorrow'],
             'precioxkg' => ['required', 'numeric']
         ]);
 
@@ -133,7 +132,7 @@ class OrdenProduccionController extends Controller
         foreach ($insumosTrazables as $value){
             $idInsumoRecibido = $value['id_insumo_fila_insumos'];
             $stockAUtilizar = is_null($value['stock_utilizar']) ? 0 : $value['stock_utilizar'];
-            $loteAUtilizar = $value['lote_insumo'];
+            $loteAUtilizar = isset($value['lote_insumo']) ? $value['lote_insumo'] : 0;
             $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->descripcion;
 
             if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)){
@@ -293,6 +292,7 @@ class OrdenProduccionController extends Controller
     private function tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)
     {
         $credito = PrestamosManager::getLimiteRestanteCliente($idClienteOrden);
+
         return $credito >= $stockAUtilizarFabrica;
     }
 
@@ -305,7 +305,7 @@ class OrdenProduccionController extends Controller
     public function finalize($id){
         $op = OrdenProduccion::findOrFail($id);
 
-//        if ($op->isPendiente()){
+        if ($op->isPendiente()){
             $estadoOpOrden = new EstadoOpOrdenProduccion();
             $estadoOpOrden->estado_id = EstadoOrdenProduccion::getEstadoFinalizada()->id;
             $estadoOpOrden->ord_pro_id = $id;
@@ -313,7 +313,7 @@ class OrdenProduccionController extends Controller
             $estadoOpOrden->save();
             return redirect()->action('OrdenProduccionController@index')
                 ->with('message', 'Orden finalizada con éxito.');
-//        }
+        }
 
         /* Si la op estaba finalizada o anulada, no puede finalizarse de nuevo */
         return redirect()->action('OrdenProduccionController@index')
@@ -366,6 +366,26 @@ class OrdenProduccionController extends Controller
         //
 
     }
+
+
+    /**
+     * Sets the state of the order to Cancelled
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function cancel($id)
+    {
+        $op = OrdenProduccion::find($id);
+        if ($op->isPendiente()){
+            $op->anularOrden();
+            return back()->with('message', 'La orden se ha finalizado con éxito');
+        }
+        else {
+            return back()->with('error', 'Una orden finalizada no puede anularse.');
+        }
+    }
+
 
 
     /**
@@ -465,7 +485,6 @@ class OrdenProduccionController extends Controller
             ->join()
             ->select('cliente.id','empresa.denominacion')->get();*/
         return response()->json();
-
     }
     /**
      * Update the specified resource in storage.
@@ -529,8 +548,5 @@ class OrdenProduccionController extends Controller
                     ->get();
         return response()->json(json_encode($pedidos));
     }
-
-
-
 
 }
