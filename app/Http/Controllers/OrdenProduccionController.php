@@ -132,7 +132,7 @@ class OrdenProduccionController extends Controller
         foreach ($insumosTrazables as $value){
             $idInsumoRecibido = $value['id_insumo_fila_insumos'];
             $stockAUtilizar = is_null($value['stock_utilizar']) ? 0 : $value['stock_utilizar'];
-            $loteAUtilizar = $value['lote_insumo'];
+            $loteAUtilizar = isset($value['lote_insumo']) ? $value['lote_insumo'] : 0;
             $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->descripcion;
 
             if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)){
@@ -292,6 +292,7 @@ class OrdenProduccionController extends Controller
     private function tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)
     {
         $credito = PrestamosManager::getLimiteRestanteCliente($idClienteOrden);
+
         return $credito >= $stockAUtilizarFabrica;
     }
 

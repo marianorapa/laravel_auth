@@ -31,7 +31,6 @@ class EstadoOpOrdenProduccionObserver
         else
             if ($estadoOpOrdenProduccion->estado_id == EstadoOrdenProduccion::getEstadoAnulada()->id) {
                 /* Si se esta anulando, aumenta el stock de los insumos involucrados */
-
                 StockManager::registrarAnulacionOp($op);
         }
     }

@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $precio_venta_por_kilo
  * @property string $created_at
  * @property string $updated_at
+ * @property boolean $anulada
  * @property Granja $granja
  * @property Alimento $alimento
  * @property EstadoOpOrdenDeProduccion[] $estadoOpOrdenDeProduccions
@@ -115,6 +116,8 @@ class OrdenProduccion extends Model
         $estadoOp->estado_id = EstadoOrdenProduccion::getEstadoAnulada()->id;
 //        $estadoOp->user()->associate(Auth::user());
         $estadoOp->user()->associate(User::all()->first());
+        $this->anulada = true;
+        $this->save();
         $estadoOp->save();
     }
 }

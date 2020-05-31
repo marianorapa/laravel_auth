@@ -12,6 +12,7 @@ use App\MovimientoInsumoTicketEntrada;
 use App\MovimientoInsumoTrazable;
 use App\MovimientoProducto;
 use App\MovimientoProductoOrdenProduccion;
+use App\PrestamoCliente;
 use App\PrestamoDevolucion;
 use App\TipoMovimiento;
 use App\User;
@@ -188,7 +189,8 @@ class StockManager
         /* Luego, lo mismo con los detalles no trazables */
         $detallesNoTrazables = DB::table('op_detalle_no_trazable as opnt')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', 'opnt.op_detalle_id')
-            ->select('opd.id','opnt.insumo_id', 'opnt.cliente_id', 'opd.cantidad')
+            ->select('opnt.id as opnt_id', 'opd.id','opnt.insumo_id', 'opnt.cliente_id', 'opd.cantidad')
+            ->where('opd.op_id', '=', $op->id)
             ->get();
 
 
@@ -197,6 +199,15 @@ class StockManager
                 TipoMovimiento::getMovimiento(TipoMovimiento::ANULACION_OP),
                 $detalle->cliente_id, $detalle->cantidad
             );
+
+           /* Verifico si es un prestamo, que hay que anular */
+           $prestamo = PrestamoCliente::all()
+                    ->where('op_detalle_id', '=', $detalle->opnt_id)->first();
+
+            if (!is_null($prestamo)){
+                $prestamo->anulado = true;
+                $prestamo->save();
+            }
 
             $movimientoInsumoNoTrazable = new MovimientoInsumoNoTrazable();
             $movimientoInsumoNoTrazable->movimientoInsumo()->associate($movimientoInsumo);
