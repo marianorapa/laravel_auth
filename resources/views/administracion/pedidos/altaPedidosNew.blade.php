@@ -121,7 +121,7 @@
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"  name="fechaentrega" value="{{old('fechaentrega')}}" required>
-                            <p class="ml-5 mt-2">Capacidad disp. día: <span class="" id="capacidad_restante">-</span> tns</p>
+                            <p class="ml-5 mt-2">Capacidad disp. día: <span class="" id="capacidad_restante">-</span> Kg</p>
 
                             <label for="precioxkg" class="col-md-2 col-form-label text-md-right">Precio por tn.</label>
                             <input id="precioxkg" type="text" class="form-control col-md-2 preciojs" placeholder="$" value="{{old('precioxkg')}}" name="precioxkg" >

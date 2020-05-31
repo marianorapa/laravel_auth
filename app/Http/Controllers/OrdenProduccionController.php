@@ -532,8 +532,21 @@ class OrdenProduccionController extends Controller
                     ->nrodoc($doc)*/
                     ->get();
 
-        /*dd($pedidos);*/
-        return view('administracion.pedidos.pedidos-list', compact('pedidos'));
+        /*dd($pedidos);
+        response()->json('pedidos')*/
+        return view('administracion.pedidos.pedidos-list',compact('pedidos'));
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getpedidosjs(Request $request){
+        $pedidos = DB::table('orden_de_produccion')
+                    ->select('producto_id','cantidad')
+                    ->get();
+        return response()->json(json_encode($pedidos));
     }
 
 }
