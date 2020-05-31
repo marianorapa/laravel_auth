@@ -16,7 +16,7 @@ class CreateEmpresaTable extends Migration
         Schema::create('empresa', function (Blueprint $table) {
             $table->id();
             $table->string('denominacion');
-            $table->date('fecha_inicio_actividades')->nullable(true);
+            $table->date('fecha_inicio_actividades')->nullable();
             $table->timestamps();
             $table->foreign('id')->references('id')->on('persona_tipo');
         });
