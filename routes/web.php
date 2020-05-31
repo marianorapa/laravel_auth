@@ -70,6 +70,7 @@ Route::get('/administracion/empresas', 'EmpresasController@index')
 
 Route::resource('pedidos', 'OrdenProduccionController');
 Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
+Route::get('pedidos/cancel/{id}', 'OrdenProduccionController@cancel')->name('pedidos.cancel');
 
 Route::resource('despachos', 'DespachoController');
 Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');

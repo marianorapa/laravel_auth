@@ -23,6 +23,7 @@ class CapacidadProductivaManager
      */
     public static function getCapacidadRestante($fechaEntrega)
     {
+
         $capacidadFecha = DB::table('capacidad_productiva')
             ->where([
                 ['fecha_hasta', '<>', 'null'],
@@ -36,9 +37,13 @@ class CapacidadProductivaManager
             ->orderBy('prioridad_id')->orderByDesc('fecha_desde')->get()->first()->capacidad;
 
 
-        $capacidadOcupada = DB::table('orden_de_produccion')
-            ->where('fecha_fabricacion', '=', $fechaEntrega)
-            ->sum('cantidad');
+
+        $capacidadOcupada = DB::table('orden_de_produccion as op')
+            ->where('op.fecha_fabricacion', '=', $fechaEntrega)
+            ->where('op.anulada', '=', 0)
+            ->sum('op.cantidad');
+
+        dd($capacidadOcupada);
 
         return $capacidadFecha - $capacidadOcupada;
     }

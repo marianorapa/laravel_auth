@@ -101,4 +101,20 @@ class OrdenProduccion extends Model
     {
         return $this->hasMany('App\TicketSalida', 'op_id');
     }
+
+    public function isPendiente() : bool {
+        $estado = $this->estadoOpOrdenDeProduccions()
+            ->orderByDesc('created_at')->get()->first();
+
+        return $estado->estado_id == EstadoOrdenProduccion::getEstadoPendiente()->id;
+    }
+
+    public function anularOrden() {
+        $estadoOp = new EstadoOpOrdenProduccion();
+        $estadoOp->ord_pro_id = $this->id;
+        $estadoOp->estado_id = EstadoOrdenProduccion::getEstadoAnulada()->id;
+//        $estadoOp->user()->associate(Auth::user());
+        $estadoOp->user()->associate(User::all()->first());
+        $estadoOp->save();
+    }
 }

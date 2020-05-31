@@ -12,8 +12,8 @@
         <div class="bs-example">
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/" >Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}">Administracion</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}">Administración</a></li>
                     <li class="breadcrumb-item"><a href="{{route('pedidos.index')}}">Pedidos</a></li>
                 </ol>
             </nav>
@@ -22,6 +22,10 @@
 
     <div class="row justify-content-center container-fluid">
         <div class="col-md-10">
+            @error('fechaentrega')
+                <div class="alert alert-danger">La fecha de entrega debe ser posterior a mañana.</div>
+            @enderror
+
             @if (session('error'))
             <div class="">
                 <p class="errorjs" style="display:none">{{ session('error') }}</p>

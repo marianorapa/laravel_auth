@@ -12,7 +12,6 @@ use App\MovimientoInsumoTicketEntrada;
 use App\MovimientoInsumoTrazable;
 use App\MovimientoProducto;
 use App\MovimientoProductoOrdenProduccion;
-use App\OrdenProduccion;
 use App\PrestamoDevolucion;
 use App\TipoMovimiento;
 use App\User;
@@ -150,13 +149,16 @@ class StockManager
     }
 
 
-    public static function registrarAnulacionOp(OrdenProduccion $op)
+    public static function registrarAnulacionOp($op)
     {
         /* TODO Si puede anularse una op cuando estaba finalizada, falta restar stock del prod terminado */
 
         /* Por el momento, solo restauramos los insumos de la orden */
 
-        $idClienteOp = $op->alimento()->first()->cliente()->first()->id;
+//        $idClienteOp = $op->alimento()->first()->cliente()->first()->id;
+        $idClienteOp = DB::table('orden_de_produccion as op')->where('op.id', '=', $op->id)
+            ->join('alimento', 'alimento.id', 'op.producto_id')
+            ->select('cliente_id')->get()->first()->cliente_id;
 
         /* Primero, obtengo todos los detalles trazables de esta orden y sumo un movimiento por cu */
         $detallesTrazables = DB::table('op_detalle_trazable as opdt')
@@ -164,6 +166,7 @@ class StockManager
             ->where('opd.op_id', '=', $op->id)
             ->select('opd.id','opdt.lote_insumo_id', 'opd.cantidad')
             ->get();
+
 
         foreach ($detallesTrazables as $detalle) {
             $movimientoInsumo = self::createMovimientoInsumo(
@@ -187,6 +190,7 @@ class StockManager
             ->join('orden_de_produccion_detalle as opd', 'opd.id', 'opnt.op_detalle_id')
             ->select('opd.id','opnt.insumo_id', 'opnt.cliente_id', 'opd.cantidad')
             ->get();
+
 
         foreach($detallesNoTrazables as $detalle){
             $movimientoInsumo = self::createMovimientoInsumo(

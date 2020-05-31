@@ -40,13 +40,13 @@
 
             @if (session('error'))
             <div class="">
-                <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
             </div>
             @endif
 
             @if (session('message'))
             <div class="" role="alert">
-                <p class="alertajs" style="display:none">{{ session('message') }}</p> 
+                <p class="alertajs" style="display:none">{{ session('message') }}</p>
             </div>
             @endif
                     <thead>
@@ -69,13 +69,19 @@
                             <td id="cantidad">{{$op->cantidad}}</td>
                             @if ($op->descripcion == "Pendiente")
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-sm">Editar</a>{{--es update? lo dejo asi cualquier cosa--}}
                                     <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>
+                                    <a class="btn btn-danger btn-sm" href="{{route('pedidos.cancel', $op->op_id)}}">X</a>
                                 </td>
                             @else
-                                <td>
-                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
-                                </td>
+                                @if ($op->descripcion == "Finalizada")
+                                    <td>
+                                        <span class="btn btn-sm btn-outline-success disabled">Finalizado</span>
+                                    </td>
+                                @else
+                                    <td>
+                                        <span class="btn btn-sm btn-outline-danger disabled">Anulado</span>
+                                    </td>
+                                @endif
                             @endif
                         </tr>
                    @endforeach
