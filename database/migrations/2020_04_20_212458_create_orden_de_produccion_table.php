@@ -24,7 +24,7 @@ class CreateOrdenDeProduccionTable extends Migration
             //$table->foreignId('capacidad_traza_id')->constrained('capacidad_productiva');
             $table->decimal('precio_venta_por_kilo',15,2);
             //$table->foreignId('precio_traza_id')->constrained('precio_fason');
-            $table->foreignId('destino')->constrained('granja');
+            $table->foreignId('destino')->unsigned()->nullable()->constrained('granja');
             $table->timestamps();
             $table->softDeletes();
         });
