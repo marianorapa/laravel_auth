@@ -270,7 +270,7 @@ class EntradaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -282,8 +282,6 @@ class EntradaController extends Controller
         else {
             return back()->with('error', "El ingreso ya fue finalizado y no puede anularse.");
         }
-
-
     }
 
     /**
