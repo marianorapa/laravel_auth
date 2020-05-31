@@ -14,7 +14,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/" >Home</a></li>
                     <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}">Administracion</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('pedidos.index')}}">Pedidos</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('pedidos.index')}}">Gestión de Pedidos</a></li>
+                    <li class="breadcrumb-item active">Nuevo pedido</li>
                 </ol>
             </nav>
         </div>
@@ -125,7 +126,7 @@
                         </div>
 
                         <div class="form-inline row mt-5">
-                            <button class="btn btn-secondary col-sm-3">Cancelar</button>
+                            <a class="btn btn-secondary col-sm-3" href="{{route('pedidos.index')}}">Cancelar</a>
                             <button  type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
                         </div>
                     </form>

@@ -40,13 +40,13 @@
 
             @if (session('error'))
             <div class="">
-                <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
             </div>
             @endif
 
             @if (session('message'))
             <div class="" role="alert">
-                <p class="alertajs" style="display:none">{{ session('message') }}</p> 
+                <p class="alertajs" style="display:none">{{ session('message') }}</p>
             </div>
             @endif
                     <thead>
@@ -88,6 +88,6 @@
 
         </section>
 
-
+        <a class="btn btn-secondary btn-sm" href="{{route('administracion.menu')}}">Volver</a>
     </section>
 @endsection

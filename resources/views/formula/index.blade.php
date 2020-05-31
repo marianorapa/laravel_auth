@@ -6,7 +6,7 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/" >Home</a></li>
-
+                        <li class="breadcrumb-item active">Gestión de Formula</li>
                     </ol>
                 </nav>
             </div>
@@ -60,5 +60,6 @@
 
 
         </section>
+        <a class="btn btn-secondary btn-sm" href="/">Volver</a>{{--Cambiar en un futuro--}}
     </section>
 @endsection

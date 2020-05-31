@@ -87,6 +87,6 @@
 
         </section>
 
-
+        <a class="btn btn-secondary btn-sm" href="{{route('administracion.stock')}}">Volver</a>
     </section>
 @endsection

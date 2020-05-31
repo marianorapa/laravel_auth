@@ -15,7 +15,7 @@
                 </nav>
             </div>
             <div class="row justify-content-center mt-4">
-                <a class="btn btn-primary btn m-1 col-3" href="{{route('pedidos.create')}}">Nueva empresa</a>
+                <a class="btn btn-primary btn m-1 col-3" href="">Nueva empresa</a>
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
