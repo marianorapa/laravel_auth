@@ -79,7 +79,6 @@
                             <td>{{$despacho->patente}}</td>
                             @if ($despacho->deleted_at)
                                 <td>
-<<<<<<< HEAD
                                     <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
                                     <a href="{{ route('ticketSalida.pdf', $despacho->id )}}" class="btn btn-warning btn-sm btn_pdf">Ticket</a>
                                 </td>
@@ -91,25 +90,6 @@
                                         Finalizar
                                     </a>
                                 </td>
-=======
-                                    <span class="border border-danger btn-sm btn-outline-danger disabled">Anulado</span>
-                                </td>
-                            @else
-                                @if ($despacho->bruto)
-                                    <td>
-                                        <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>
-                                    </td>
-                                @else
-                                    <td>{{--                                    <a href="" class="btn btn-warning btn-sm">Editar</a>--}}
-                                        <a class="btn btn-success btn-sm"
-                                           href="{{route('despachos.finalize.view', $despacho->id)}}">
-                                            Finalizar
-                                        </a>
-                                        <a class="btn btn-danger btn-sm"
-                                           href="{{route('despachos.destroy', $despacho->id)}}">X</a>
-                                    </td>
-                                @endif
->>>>>>> 472b59d100297546a9ba1666f0c9f5d1879b598c
                             @endif
                         </tr>
                     @endforeach
