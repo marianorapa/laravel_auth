@@ -26,6 +26,7 @@ class CreateOrdenDeProduccionTable extends Migration
             //$table->foreignId('precio_traza_id')->constrained('precio_fason');
             $table->foreignId('destino')->constrained('granja');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
