@@ -193,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         tdStockUtilizar = document.createElement('td');
         input_stock = document.createElement('input');
         input_stock.name ='insumos_trazables['+i+'][stock_utilizar]';
+        input_stock.value=element.cantidad_requerida;
         tdStockUtilizar.appendChild(input_stock);
 
         tr = document.createElement('tr');
@@ -229,6 +230,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         tdStockUtilizar = document.createElement('td');
         input_stock = document.createElement('input');
         input_stock.name ='insumos_no_trazables['+i+'][stock_utilizar]';
+        input_stock.value=element.cantidad_requerida;
         tdStockUtilizar.appendChild(input_stock);
 
 
@@ -280,6 +282,8 @@ document.addEventListener("DOMContentLoaded", function(event)
             })
 
     })
+
+    //Auto carga de insumos a usar.
 
 });
 

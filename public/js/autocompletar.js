@@ -20,8 +20,10 @@ window.addEventListener('load',function () {
                         option.value=element['id'];
                         option.text=element['nombres']+" "+element['apellidos'];
 
-                        divaut.appendChild(option);
+                        aut.appendChild(option);
+
                     })
+                    aut.size =5;
                     }
 
             })

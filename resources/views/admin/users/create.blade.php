@@ -73,8 +73,8 @@
                                     @endforeach
                                 </select>
                                 <div class="col-10 mt-2">
-                                    <div class="dropdown mb-3 divautjs">
-                                        <input type="text" class="form-control custom-select autocompletarjs"  placeholder="ingrese nombre">
+                                    <div class="mb-3 divautjs">
+                                        <input type="text" class="custom-select autocompletarjs"  placeholder="ingrese nombre">
 
                                     </div>
                                 </div>
