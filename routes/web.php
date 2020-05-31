@@ -75,7 +75,7 @@ Route::get('pedidos/cancel/{id}', 'OrdenProduccionController@cancel')->name('ped
 Route::resource('despachos', 'DespachoController');
 Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');
 Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
-
+Route::get('despachos/cancel/{id}', 'DespachoController@destroy')->name('despachos.destroy');
 
 Route::get('/parametros', 'ParametrosController@index')->name('parametros.index');
 

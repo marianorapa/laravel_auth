@@ -26,6 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     let tara = document.getElementById("peso").value;
                     let saldo = res.data[0].saldo;
 
+                    // Defino 40000 como el max que carga el camion
+                    if (saldo > 40000){
+                        saldo = 40000;
+                    }
+
                     inputPesaje.value = parseInt(tara) + parseInt(saldo);
                 }
             })

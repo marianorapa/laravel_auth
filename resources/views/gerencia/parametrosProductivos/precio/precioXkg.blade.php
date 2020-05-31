@@ -10,6 +10,9 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="/gestionParametrosProductivos" >Parámetros</a></li>
+                <li class="breadcrumb-item"><a href="{{route('parametros.precio.index')}}" >Gestión de precios</a></li>
+                <li class="breadcrumb-item active">Nuevo precio</li>
             </ol>
         </nav>
     </div>

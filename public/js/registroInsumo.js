@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             validar_fecha_elab.style.background = "#ffffff";
         }
+
+        window.sessionStorage.setItem("fecha_elaboracion",this.value);
     });
 
     //vencimiento
@@ -58,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             validar_fecha_vencimiento.style.background = "#ffffff";
         }
-
+        window.sessionStorage.setItem("fecha_vencimiento",this.value);
     });
 
 
@@ -97,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+// CODIGO PARA GUARDAR DATOS DE FECHAS.
 
 
 });

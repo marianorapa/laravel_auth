@@ -94,6 +94,6 @@
 
         </section>
 
-
+        <a class="btn btn-secondary btn-sm" href="{{route('administracion.menu')}}">Volver</a>
     </section>
 @endsection

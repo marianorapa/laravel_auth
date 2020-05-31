@@ -16,7 +16,7 @@ class DespachoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -32,7 +32,9 @@ class DespachoController extends Controller
             ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
             ->join('alimento','alimento.id','=','orden_de_produccion.producto_id')
             ->select('ticket_salida.id', 'empresa.denominacion', 'ticket.created_at as fecha',
-                'alimento.descripcion', 'orden_de_produccion.cantidad', 'ticket.patente', 'ticket.bruto')
+                'alimento.descripcion', 'orden_de_produccion.cantidad', 'ticket.patente', 'ticket.bruto',
+                'ticket.deleted_at')
+            ->orderByDesc('ticket.created_at')
             ->paginate(10);
 
         return View('balanzas.despachos.index', compact('despachos'));
@@ -41,7 +43,7 @@ class DespachoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -117,7 +119,6 @@ class DespachoController extends Controller
                         'alimento.descripcion as producto','ticket_salida.op_id', 'p.denominacion as transporte',
                         'pesaje.peso as tara', 'ticket.bruto as bruto')
             ->get()->first();
-
 
         if (is_null($ticketSalida->bruto)) {
             /* Guardo en la sesión el id a finalizar */
@@ -196,11 +197,17 @@ class DespachoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        if (!Ticket::findOrFail($id)->bruto()->exists()){
+            Ticket::destroy($id);
+            return back()->with('message', "Despacho anulado con éxito.");
+        }
+        else {
+            return back()->with('error', "El despacho ya fue finalizado y no puede anularse.");
+        }
     }
 
     /**
@@ -211,9 +218,9 @@ class DespachoController extends Controller
      */
     public function getOP(Request $request)
     {
-
         $cliente_id = $request->get('id');
         $arrayOP = DB::table('orden_de_produccion')
+            ->where('orden_de_produccion.anulada', '=', false)
             ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
             ->where('alimento.cliente_id','=',$cliente_id)
             ->where('orden_de_produccion.saldo', '>', 0)

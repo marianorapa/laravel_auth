@@ -33,9 +33,6 @@ class PrestamosManager
             ->where('a.cliente_id','=',$id_cliente)
             ->sum('opd.cantidad');
 
-
-
-
         $devuelto = DB::table('prestamo_devoluciones as pd')
             ->join('prestamo_cliente as p', 'pd.prestamo_id', '=', 'p.id')
             ->where('p.anulado', '=', false)
@@ -55,8 +52,8 @@ class PrestamosManager
     public static function registrarDevolucionInsumo($idCliente, $idInsumo, $idTicketEntrada, $cantidadIngreso) : int {
 
         $deudas = DB::table('prestamo_cliente as p')
-            ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'p.op_detalle_id')
-            ->join('op_detalle_no_trazable as opnt', 'opnt.id', '=', 'opd.id')
+            ->join('op_detalle_no_trazable as opnt', 'opnt.id', '=', 'p.op_detalle_id')
+            ->join('orden_de_produccion_detalle as opd', 'opd.id', '=', 'opnt.op_detalle_id')
             ->where('opnt.insumo_id', '=', $idInsumo)
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
             ->where('op.anulada','=', false)
@@ -64,7 +61,6 @@ class PrestamosManager
             ->where('a.cliente_id','=',$idCliente)
             ->select('p.id','p.cancelado', 'opd.cantidad',DB::raw('(opd.cantidad - p.cancelado) as saldoAdeudado'))
 //            ->where('p.cancelado', '=', 'opd.cantidad')
-
             ->get();
 
         $saldoIngreso = $cantidadIngreso;

@@ -20,7 +20,7 @@
 {{--            </div>--}}
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
-                    <input name="patente" class="form-control mr-sm-2" type="search" placeholder="Producto" aria-label="buscar por producto">
+                    <input name="patente" class="form-control mr-sm-2" type="search" placeholder="Insumo" aria-label="buscar por producto">
                     <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
@@ -89,6 +89,6 @@
 
         </section>
 
-
+        <a class="btn btn-secondary btn-sm" href="{{route('administracion.stock')}}">Volver</a>
     </section>
 @endsection
