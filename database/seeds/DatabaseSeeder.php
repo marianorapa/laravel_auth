@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
         //creditoCli                                            ----
         //prestamoCli, prestamoDev
         //tipoMovimiento                                        ----
+        $this->call(TipoMovimientoSeeder::class);
         //movimientos: movIns, movProd, etc.
     }
 }

@@ -15,10 +15,6 @@ use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
-
-use Barryvdh\DomPDF\Facade as PDF;
 
 class OrdenProduccionController extends Controller
 {
@@ -368,6 +364,7 @@ class OrdenProduccionController extends Controller
     public function destroy($id)
     {
         //
+
     }
 
 
@@ -515,8 +512,8 @@ class OrdenProduccionController extends Controller
                     ->apellido($apellido)
                     ->nrodoc($doc)*/
                     ->get();
-        
-        /*dd($pedidos);*/          
+
+        /*dd($pedidos);*/
         return view('administracion.pedidos.pedidos-list', compact('pedidos'));
     }
 

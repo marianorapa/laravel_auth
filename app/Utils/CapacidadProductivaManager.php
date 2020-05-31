@@ -30,9 +30,11 @@ class CapacidadProductivaManager
                 ['fecha_hasta', '>=', $fechaEntrega]
             ])
             ->orWhere([
-                ['fecha_hasta', '=', null]
+                ['fecha_hasta', '=', null],
+                ['fecha_desde', '<=', $fechaEntrega]
             ])
-            ->orderBy('prioridad_id')->get()->first()->capacidad;
+            ->orderBy('prioridad_id')->orderByDesc('fecha_desde')->get()->first()->capacidad;
+
 
         $capacidadOcupada = DB::table('orden_de_produccion')
             ->where('fecha_fabricacion', '=', $fechaEntrega)

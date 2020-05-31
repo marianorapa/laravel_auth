@@ -48,19 +48,20 @@ class CapacidadProductivaObserver
      */
     public function created(CapacidadProductiva $capacidadProductiva)
     {
-        if (is_null($capacidadProductiva->fecha_hasta)){
-            /* Es una capacidad permanente */
-            // Tengo que finalizar la anterior
-
-            $capacidadActual = CapacidadProductiva::all()
-                ->where('fecha_hasta', '=', null)->first();
-
-            $capacidadActual->fecha_hasta = date('Y-m-d ');
-            $capacidadActual->save();
-        }
-        else {
-            /* Es una capacidad temporal */
-        }
+//        Upd. queda siempre null la de las prioridades 2
+//        if (is_null($capacidadProductiva->fecha_hasta)){
+//            /* Es una capacidad permanente */
+//            // Tengo que finalizar la anterior
+//
+//            $capacidadActual = CapacidadProductiva::all()
+//                ->where('fecha_hasta', '=', null)->first();
+//
+//            $capacidadActual->fecha_hasta = date('Y-m-d ');
+//            $capacidadActual->save();
+//        }
+//        else {
+//            /* Es una capacidad temporal */
+//        }
     }
 
     /**

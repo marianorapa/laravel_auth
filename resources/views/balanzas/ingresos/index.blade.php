@@ -41,13 +41,13 @@
 
                 @if (session('message'))
                     <div class="" role="alert">
-                    <p class="alertajs" style="display:none">{{ session('message') }}</p> 
+                    <p class="alertajs" style="display:none">{{ session('message') }}</p>
                     </div>
                 @endif
 
                 @if (session('error'))
                     <div class="">
-                    <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                    <p class="errorjs" style="display:none">{{ session('error') }}</p>
                     </div>
                 @endif
 
@@ -86,7 +86,7 @@
                                                     ->cliente()->first()
                                                     ->empresa()->first()->denominacion}}
                                 </td>
-                                <td>{{$ticketEntrada->ticket()->first()->created_at}}</td>
+                                <td>{{date_format($ticketEntrada->ticket()->first()->created_at, 'd-m-Y H:i')}}</td>
 
                                 @if ($ticketEntrada->ticketEntradaInsumoNoTrazable()->exists())
                                     <td>{{$ticketEntrada->ticketEntradaInsumoNoTrazable()->first()
