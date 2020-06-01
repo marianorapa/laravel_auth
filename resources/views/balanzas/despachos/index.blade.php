@@ -80,7 +80,7 @@
                             @if ($despacho->deleted_at)
                                 <td>
                                     <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>
-                                    <a href="{{ route('ticketSalida.pdf', $despacho->id )}}" class="btn btn-warning btn-sm btn_pdf">Ticket</a>
+                                    
                                 </td>
                             @else
                                 <td>
@@ -89,8 +89,11 @@
                                        href="{{route('despachos.finalize.view', $despacho->id)}}">
                                         Finalizar
                                     </a>
+                                    <!-- esto tiene que ir dentro  del if cuando funcione -->
+                                    <a href="{{ route('ticketSalida.pdf', $despacho->id )}}" class="btn btn-primary btn-sm btn_pdf">Ticket</a>
                                 </td>
                             @endif
+                            
                         </tr>
                     @endforeach
 
