@@ -116,11 +116,11 @@
 
                         <div class="form-group row mt-4">
                             <label for="elaboracion" class="col-lg-2 col-form-label text-md-right">Elaboracion</label>
-                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-2 elaboracionjs" name="fechaelaboracion" value="{{old("fechaelaboracion")}}">
+                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-3 elaboracionjs" name="fechaelaboracion" value="{{old("fechaelaboracion")}}">
                         </div>
                         <div class="form-group row mt-4">
                             <label for="vencimiento" class="col-lg-2 col-form-label text-md-right">Vencimiento</label>
-                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-2 vencimientojs" name="fechavencimiento" value="{{old("fechavencimiento")}}">
+                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-3 vencimientojs" name="fechavencimiento" value="{{old("fechavencimiento")}}">
                         </div>
 
                         <br>
