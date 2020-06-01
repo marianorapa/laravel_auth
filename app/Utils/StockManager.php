@@ -237,20 +237,40 @@ class StockManager
         return $movimientoInsumo;
     }
 
-    public static function getListadoStockInsumos()
+    public static function getListadoStockInsumos($cliente)
     {
+      $stockNt = DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
+            ->where('e.denominacion', 'like', "%$cliente%")
+            ->join('movimiento_insumo as mi', 'mi.cliente_id', 'c.id')
+            ->join('movimiento_insumo_ins_no_tra as mnt', 'mnt.id', 'mi.id')
+            ->join('insumo as i', 'mnt.insumo_id', 'i.id')
+            ->select(DB::raw('sum(mi.cantidad) as stock'), 'e.denominacion as cliente', 'i.descripcion')
+            ->groupBy('cliente')->groupBy('i.descripcion')->get();
 
-        // TODO Listado de stock de insumos
+        $stockT = DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
+            ->where('e.denominacion', 'like', "%$cliente%")
+            ->join('movimiento_insumo as mi', 'mi.cliente_id', 'c.id')
+            ->join('movimiento_insumo_ins_tra as mt', 'mt.id', 'mi.id')
+            ->join('lote_insumo_especifico as lie', 'lie.id', 'mt.insumo_id')
+            ->join('insumo_especifico as ie', 'ie.gtin', 'lie.insumo_especifico')
+            ->join('insumo as i', 'i.id', 'ie.insumo_trazable_id')
+            ->join('proveedor as p', 'p.id', 'ie.proveedor_id')
+            ->join('empresa as e2', 'e2.id', 'p.id')
+            ->select(DB::raw('sum(mi.cantidad) as stock'), 'e.denominacion as cliente',
+                'i.descripcion', 'lie.nro_lote', 'e2.denominacion as proveedor')
+            ->groupBy('cliente')->groupBy('i.descripcion')->groupBy('proveedor')->groupBy('lie.nro_lote')->get();
 
-        return [];
+        return $stockT->union($stockNt)->sortBy('cliente');
     }
 
-    public static function getListadoStockProductos()
+    public static function getListadoStockProductos($cliente)
     {
-
-        // TODO Listado de stock de productos
-
-        return [];
+        return DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
+            ->where('e.denominacion', 'like', "%$cliente%")
+            ->join('alimento as a', 'a.cliente_id', 'c.id')
+            ->join('movimiento_producto as mp', 'mp.producto_id', 'a.id')
+            ->select(DB::raw('sum(mp.cantidad) as stock'), 'a.descripcion as producto', 'e.denominacion as cliente')
+            ->groupBy('a.descripcion', 'e.denominacion')->get();
     }
 
 }

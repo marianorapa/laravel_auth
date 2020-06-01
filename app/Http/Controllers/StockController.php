@@ -13,14 +13,19 @@ class StockController extends Controller
         return view('administracion.stock.index');
     }
 
-    public function indexInsumos(){
-        $insumos = StockManager::getListadoStockInsumos();
+    public function indexInsumos(Request $request){
+
+        $cliente = $request->get('cliente');
+
+        $insumos = StockManager::getListadoStockInsumos($cliente);
 
         return view('administracion.stock.insumos.index', compact('insumos'));
     }
 
-    public function indexProductos(){
-        $productos = StockManager::getListadoStockProductos();
+    public function indexProductos(Request $request){
+
+        $cliente = $request->get('cliente');
+        $productos = StockManager::getListadoStockProductos($cliente);
 
         return view('administracion.stock.productos.index', compact('productos'));
     }
