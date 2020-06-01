@@ -52,13 +52,13 @@
                               @endif
                             @if (session('error'))
                             <div class="">
-                            <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                            <p class="errorjs" style="display:none">{{ session('error') }}</p>
                             </div>
                             @endif
 
                             @if (session('mensaje'))
                             <div class="" role="alert">
-                            <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                            <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                             </div>
                             @endif
 
@@ -99,7 +99,7 @@
                             </select>
 
                         <label for="patente" class="col-md-2 col-form-label text-md-right">Patente</label>
-                        <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" placeholder="abc123 / ab123ab" required>
+                        <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" value="{{old('patente')}}" placeholder="abc123 / ab123ab" required>
                     </div>
 
                     <div class="form-inline row mt-5 offset-0">
@@ -114,7 +114,7 @@
                     <br>
 
                     <div class="form-inline row">
-                        <button class="btn btn-secondary col-sm-3">Cancelar</button>
+                        <a class="btn btn-secondary col-sm-3" href="{{route('despachos.index')}}">Cancelar</a>
                         <button type="submit" class="btn btn-primary col-sm-3 offset-md-6">Guardar</button>
                     </div>
 

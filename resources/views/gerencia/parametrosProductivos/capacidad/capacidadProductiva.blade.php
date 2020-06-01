@@ -9,6 +9,9 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="/gestionParametrosProductivos" >Parámetros</a></li>
+                <li class="breadcrumb-item"><a href="{{route('parametros.capacidad.index')}}" >Gestion de capacidad productiva</a></li>
+                <li class="breadcrumb-item active">Nuevo Capacidad producctiva</li>
             </ol>
         </nav>
     </div>

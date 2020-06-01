@@ -36,13 +36,13 @@
             @endif
             @if (session('error'))
                 <div class="">
-                    <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                    <p class="errorjs" style="display:none">{{ session('error') }}</p>
                 </div>
             @endif
 
             @if (session('mensaje'))
                 <div class="" role="alert">
-                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                 </div>
             @endif
 
@@ -109,18 +109,18 @@
 
                         <div class="form-group row">
                             <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
-                                <input id="nrolote" type="text" class="form-control col-md-2 lotejs" name="nrolote" required>
+                                <input id="nrolote" type="text" class="form-control col-md-2 lotejs" name="nrolote" value="{{old("nrolote")}}" required>
                                 <label for="estrazable" class="col-lg-2 col-form-label text-md-right">es trazable?</label>
                                 <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable">
                         </div>
 
                         <div class="form-group row mt-4">
                             <label for="elaboracion" class="col-lg-2 col-form-label text-md-right">Elaboracion</label>
-                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-2 elaboracionjs" name="fechaelaboracion">
+                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-2 elaboracionjs" name="fechaelaboracion" value="{{old("fechaelaboracion")}}">
                         </div>
                         <div class="form-group row mt-4">
                             <label for="vencimiento" class="col-lg-2 col-form-label text-md-right">Vencimiento</label>
-                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-2 vencimientojs" name="fechavencimiento">
+                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-2 vencimientojs" name="fechavencimiento" value="{{old("fechavencimiento")}}">
                         </div>
 
                         <br>
@@ -134,13 +134,13 @@
                             </select>
 
                             <label for="patente" class="col-lg-2 col-form-label text-md-right offset-md-2">Patente</label>
-                            <input id="patente" type="text" class="form-control col-md-2 patentejs" name="patente" placeholder="abc123 / ab123ab" required>
+                            <input id="patente" type="text" class="form-control col-md-2 patentejs" name="patente" placeholder="abc123 / ab123ab"  value="{{old('patente')}}" required>
 
                         </div>
                         <br>
                         <div class="form-group row">
                             <label for="nro_cbte" class="col-lg-2 col-form-label text-md-right">NRO Remito/Carta de porte</label>
-                                <input id="nro_cbte" type="text" class="form-control col-md-2 cartajs" name="nro_cbte" required>
+                                <input id="nro_cbte" type="text" class="form-control col-md-2 cartajs" name="nro_cbte" value="{{old('nro_cbte')}}" required>
 
                         </div>
                         <br>
