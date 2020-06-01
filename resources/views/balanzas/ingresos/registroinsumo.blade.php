@@ -65,8 +65,7 @@
 
 
                         </div>
-                        <br>
-                        <div class="form-group row">
+                        <div class="form-group row mt-1" >
                             <label for="proveedor" class="col-md-2 col-form-label text-md-right">Proveedor</label>
 
                             <select name="proveedor" id="proveedor" class="selectProveedor custom-select col-md-2" >
@@ -75,8 +74,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <br>
-                        <div class="form-group row">
+
+                        <div class="form-group row mt-1">
                                 <label for="insumo" class="col-md-2 col-form-label text-md-right">Insumo</label>
 
                                 <select name="insumo" id="insumo"  class="selectInsumo custom-select col-md-2">
@@ -86,12 +85,12 @@
 
 
                             <label for="estrazable" class="col-lg-2 col-form-label text-md-right">es trazable?</label>
-                            <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable">
+                            <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable" data-toggle="collapse" data-target="#demo">
 
                         </div>
                         <br>
 
-                        <div class="trazables">
+                        <div id="demo" class="collapse">
                             <div class="form-group row">
                                 <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
                                     <input id="nrolote" type="text" class="form-control col-md-2 lotejs" name="nrolote" value="{{old("nrolote")}}" required>
@@ -131,9 +130,9 @@
                                 </span>
                                 @enderror
                         </div>
-                        <br>
 
-                        <div class="form-group row">
+
+                        <div class="form-group row mt-1">
                             <label for="pesaje" class="col-lg-2 col-form-label text-md-right">Peso vehiculo</label>
                                 <input id="pesaje" type="text" class="pesajes form-control col-md-2 pesojs" placeholder="peso bruto" name="pesaje" readonly required>
                                 <span class="ml-2 mt-2">kg</span>

@@ -8,20 +8,20 @@ document.addEventListener("DOMContentLoaded", function(event)
     check_habilitar = document.querySelector(".checknrolote");
 
     div_trazables = document.querySelector(".trazables");
-    div_trazables.style.display='none';
+    //div_trazables.style.display='none';
     //elaboracion = document.querySelector(".fechaelaboracion");
     //vencimiento = document.querySelector(".fechavencimiento");
     check_habilitar.addEventListener("change", function(){
 
             if (check_habilitar.checked){
-                div_trazables.style.display='block';
+                //div_trazables.style.display='block';
                 document.getElementById("fechavencimiento").disabled = false;
                 document.getElementById("fechaelaboracion").disabled = false;
                 document.getElementById('nrolote').disabled= false;
 
 
                    } else{
-                    div_trazables.style.display='none';
+                    //div_trazables.style.display='none';
                     document.getElementById('nrolote').disabled = true;
                     document.getElementById("fechaelaboracion").disabled = true;
                     document.getElementById("fechavencimiento").disabled = true;
