@@ -20,7 +20,6 @@
 {{--            </div>--}}
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
-                    <input name="patente" class="form-control mr-sm-2" type="search" placeholder="Producto" aria-label="buscar por producto">
                     <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
@@ -51,33 +50,29 @@
             @endif
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Insumo</th>
+                            <th scope="col">Tipo</th>
                             <th scope="col">Lote</th>
                             <th scope="col">Proveedor</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Stock (kgs)</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($insumos as $insumo)
                         <tr>
-{{--                            <th scope="row">{{$op->op_id}}</th>--}}
-{{--                            <td>{{$op->empresa}}</td>--}}
-{{--                            <td>{{$op->fecha_fabricacion}}</td>--}}
-{{--                            <td>{{$op->producto}}</td>--}}
-{{--                            <td>{{$op->cantidad}}</td>--}}
-{{--                            @if ($op->descripcion == "Pendiente")--}}
-{{--                                <td>--}}
-{{--                                    <a href="#" class="btn btn-warning btn-sm">Editar</a>--}}{{--es update? lo dejo asi cualquier cosa--}}
-{{--                                    <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>--}}
-{{--                                </td>--}}
-{{--                            @else--}}
-{{--                                <td>--}}
-{{--                                    <span class="btn btn-sm btn-outline-danger disabled">Finalizado</span>--}}
-{{--                                </td>--}}
-{{--                            @endif--}}
+                            <td scope="row">{{$insumo->cliente}}</td>
+                            <td>{{$insumo->descripcion}}</td>
+                            @if (isset($insumo->nro_lote))
+                                <td>Trazable</td>
+                                <td>{{$insumo->nro_lote}}</td>
+                                <td>{{$insumo->proveedor}}</td>
+                            @else
+                                <td>No Trazable</td>
+                                <td>-</td>
+                                <td>-</td>
+                            @endif
+                            <td>{{$insumo->stock}}</td>
                         </tr>
                    @endforeach
                     </tbody>
