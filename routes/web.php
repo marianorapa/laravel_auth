@@ -169,6 +169,8 @@ route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
 route::get('/pedidopdf', 'OrdenProduccionController@getPdfAll')->name('pedido.pdf');
 //pdf ticket salida
 route::get('/ticketSalidapdf/{id}', 'DespachoController@getPdfAll')->name('ticketSalida.pdf');
+//pdf ticket entrada
+route::get('/ticketEntradapdf/{id}', 'EntradaController@getPdfAll')->name('ticketEntrada.pdf');
 
 
 //peticion asincrona para create user

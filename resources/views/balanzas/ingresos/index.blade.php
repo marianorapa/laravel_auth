@@ -121,7 +121,10 @@
                                         <a class="btn btn-danger btn-sm font-weight-bolder" href="{{route('balanzas.ingresos.destroy', $ticketEntrada->id)}}">X</a>
 
                                     @else
-                                        <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>
+                                       <!-- <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>  -->
+
+                                        <a href="{{ route('ticketEntrada.pdf', $ticketEntrada->id )}}" target="_blank"
+                                           class="btn btn-outline-success btn-sm btn_pdf">Imprimir</a>
                                     @endif
                                 </td>
                             </tr>

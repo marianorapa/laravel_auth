@@ -115,20 +115,23 @@
     </style>
     <div class="all">
         <div class="titulo">
-            <h2>TICKET SALIDA</h2> 
+            <h2>TICKET ENTRADA</h2> 
             <P> <BR></BR></P>     
         </div>
         <div class="contenedor">
             <div class="central">
-            @foreach ($ticketSalida as $ticket)
+            @foreach ($ticketEntrada as $ticket)
                 <div class="receipt-section pull-left">
                 <span class="receipt-label text-large distancia">Número: </span> <span class="text-large">{{ $ticket->id }} <br></span>
+                <span class="receipt-label text-large distancia">Comprobante asociado: </span> <span class="text-large">{{ $ticket->cbte_asociado }} <br></span>
+                <span class="receipt-label text-large distancia">Cliente: </span> <span class="text-large">{{ $ticket->denominacion }} <br></span>
+                <span class="receipt-label text-large distancia">Transportista: </span> <span class="text-large">{{ $ticket->transportista_id }} <br></span>
                 <span class="receipt-label text-large distancia">Patente: </span> <span class="text-large">{{ $ticket->patente }} <br></span>
-                <span class="receipt-label text-large distancia">Cliente: </span> <span class="text-large">{{ $ticket->cliente }} <br></span>
-                <span class="receipt-label text-large distancia">Producto: </span> <span class="text-large">{{ $ticket->producto }} <br></span>
-                <span class="receipt-label text-large distancia">Transporte: </span> <span class="text-large">{{ $ticket->transporte }} <br></span>
-                <span class="receipt-label text-large distancia">Tara: </span> <span class="text-large">{{ $ticket->tara }} <br></span>
+                <span class="receipt-label text-large distancia">Chofer: </span> <span class="text-large">{{ $ticket->chofer_id }} <br></span>
                 <span class="receipt-label text-large distancia">Bruto: </span> <span class="text-large">{{ $ticket->bruto }} <br></span>
+                <span class="receipt-label text-large distancia">Tara: </span> <span class="text-large">{{ $ticket->tara }} <br></span>
+                <span class="receipt-label text-large distancia">Neto: </span> <span class="text-large">{{ $ticket->neto }} <br></span>
+                <span class="receipt-label text-large distancia">Inicio actividad: </span> <span class="text-large">{{ $ticket->fecha_inicio_actividades }} <br></span>
             </div>
         </div>
             @endforeach
@@ -139,34 +142,6 @@
                 <p>2323-596823</p>
                 <p>Giles, Buenos Aires, Argentina</p>
             </div>
-        </div> 
-            <!--  <table class="">
-            <thead>
-                            <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">patente</th>
-                                <th scope="col">cliente</th>
-                                <th scope="col">producto</th>
-                                <th scope="col">transporte</th>
-                                <th scope="col">tara</th>
-                                <th scope="col">bruto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($ticketSalida as $ticket)
-                            <tr>
-                                <th scope="row">{{ $ticket->id }}</th>
-                                <th scope="row">{{ $ticket->patente }}</th>
-                                <th scope="row">{{ $ticket->cliente }}</th>
-                                <th scope="row">{{ $ticket->producto }}</th>
-                                <th scope="row">{{ $ticket->transporte }}</th>
-                                <th scope="row">{{ $ticket->tara }}</th>
-                                <th scope="row">{{ $ticket->bruto }}</th>
-                            </tr>
-                        @endforeach
-                        </tbody>
-            </table>-->
-        </div>
 </div>
 </div>
 <script>
@@ -199,3 +174,4 @@
         html2pdf().from(element).set(options).save();
       }
     </script>
+

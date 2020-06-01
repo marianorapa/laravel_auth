@@ -13,6 +13,7 @@ use App\Utils\EntradasInsumoManager;
 use App\Utils\TicketsEntradaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 
 class EntradaController extends Controller
@@ -324,6 +325,22 @@ class EntradaController extends Controller
         return response()->json($data = [$arrayins,count($arrayins)]);
     }
 
+         /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
+    public function getPdfAll(Request $request , $id){
+        $ticketEntrada = DB::table('ticket_entrada')
+                        ->where('ticket_entrada.id', '=', $id)
+                        ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
+                        ->join('empresa', 'empresa.id', '=', 'cliente_id')
+
+                       ->get();
+
+        return view('balanzas.ingresos.ingresos-list',compact('ticketEntrada'));
+        }
 
 }
