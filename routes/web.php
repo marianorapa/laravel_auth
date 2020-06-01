@@ -167,6 +167,11 @@ route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp');
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
 //pdf pedidos
 route::get('/pedidopdf', 'OrdenProduccionController@getPdfAll')->name('pedido.pdf');
+//pdf ticket salida
+route::get('/ticketSalidapdf/{id}', 'DespachoController@getPdfAll')->name('ticketSalida.pdf');
+//pdf ticket entrada
+route::get('/ticketEntradapdf/{id}', 'EntradaController@getPdfAll')->name('ticketEntrada.pdf');
+
 
 //peticion asincrona para create user
 route::get('/autocompletar','PersonaController@autocompletar')->name('autocompletarPersonas');
@@ -186,3 +191,6 @@ route::get('/getAllInsumos','FormulaController@getAllInsumos')->name('allInsumos
 //pedidos asincronico
 
 route::get('/getpedidosjs','OrdenProduccionController@getpedidosjs')->name('allPedidos');
+
+
+//

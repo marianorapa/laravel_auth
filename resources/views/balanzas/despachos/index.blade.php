@@ -79,16 +79,18 @@
                             <td>{{$despacho->patente}}</td>
                             @if ($despacho->deleted_at)
                                 <td>
-                                    <span class="border border-danger btn-sm btn-outline-danger disabled">Anulado</span>
+                                    <span class="btn btn-sm btn-outline-danger disabled">Anulado</span>
                                 </td>
                             @else
                                 @if ($despacho->bruto)
                                     <td>
-                                        <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>
+{{--                                        <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>--}}
+                                        <a href="{{ route('ticketSalida.pdf', $despacho->id )}}" target="_blank"
+                                           class="btn btn-outline-success btn-sm btn_pdf">Imprimir</a>
                                     </td>
                                 @else
                                     <td>{{--                                    <a href="" class="btn btn-warning btn-sm">Editar</a>--}}
-                                        <a class="btn btn-success btn-sm"
+                                        <a class="btn btn-success btn-sm mr-2"
                                            href="{{route('despachos.finalize.view', $despacho->id)}}">
                                             Finalizar
                                         </a>

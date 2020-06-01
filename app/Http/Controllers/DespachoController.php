@@ -229,4 +229,31 @@ class DespachoController extends Controller
 
         return response()->json($arrayOP);
     }
+
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getPdfAll($id){
+        $ticketSalida = DB::table('ticket_salida')
+        ->where('ticket_salida.id', '=', $id)
+        ->join('ticket','ticket.id','=','ticket_salida.id')
+        ->join('pesaje', 'ticket.tara', 'pesaje.id')
+        ->join('empresa as e','e.id','=','ticket.cliente_id')
+        ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
+        ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
+        ->join('empresa as p','p.id','=','ticket.transportista_id')
+        ->select('ticket_salida.id','ticket.patente','e.denominacion as cliente',
+                    'alimento.descripcion as producto','ticket_salida.op_id', 'p.denominacion as transporte',
+                    'pesaje.peso as tara', 'ticket.bruto as bruto')
+        ->get();
+
+        
+        return view('balanzas.despachos.despachos-list',compact('ticketSalida'));
+
+     }
 }
