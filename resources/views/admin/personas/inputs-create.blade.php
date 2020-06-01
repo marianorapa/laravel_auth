@@ -39,7 +39,7 @@
 
     <div class="col-md-6">
         <input id="fecha_nacimiento" type="date" class="fechaNacjs form-control" name="fecha_nacimiento" value="{{old('fecha_nacimiento')}}" required>
-        @error('apellidos')
+        @error('fecha_nacimiento')
         <span class="invalid-feedback" role="alert">
             <strong>Fecha invalida</strong>
         </span>

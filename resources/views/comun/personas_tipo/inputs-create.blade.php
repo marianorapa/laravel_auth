@@ -27,6 +27,7 @@
 
     <div class="col-md-6">
         <input id="nro_documento" type="text" class="nroDocumentojs form-control" name="nro_documento" value="{{old('nro_documento')}}" required>
+
     </div>
 </div>
 

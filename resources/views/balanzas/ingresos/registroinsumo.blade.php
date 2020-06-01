@@ -58,26 +58,22 @@
 
                                 <select name="cliente" id="cliente"  class="custom-select col-md-2">
                                     <option data-tokens=="0">Seleccione</option>
-
-{{--                                    @foreach ($Cliente->getClientesAsArray() as $index => $cli )--}}
-
-{{--                                        <option data-tokens="{{$cli}}"> {{$cli}}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                    Edit. Marian. El controller me pasa los clientes, yo en la vista no "conozco" el modelo--}}
                                     @foreach ($clientes as $cli )
                                         <option data-tokens="{{$cli->id}}" value="{{$cli->id}}"> {{$cli->empresa()->first()->denominacion}}</option>
                                     @endforeach
-{{--                                    <option data-tokens="julia"> julia</option>--}}
-{{--                                    <option data-tokens="adasd"> asdasdsa</option>--}}
-{{--                                    <option data-tokens="qweqeq"> qweqweqe</option>--}}
-{{--                                    <option data-tokens="pedro"> pedro</option>--}}
-{{--                                    <option data-tokens="fernando">fernando</option>--}}
                                 </select>
-                            {{--<div class="autocomplete"  >
-                                <input type="miinput" type="text" name="misnombres" placeholder="nombre">
-                            </div>--}}
 
 
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="proveedor" class="col-md-2 col-form-label text-md-right">Proveedor</label>
+
+                            <select name="proveedor" id="proveedor" class="selectProveedor custom-select col-md-2" >
+                                @foreach($proveedores as $proveedor)
+                                    <option value="{{$proveedor->id}}">{{$proveedor->empresa()->first()->denominacion}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <br>
                         <div class="form-group row">
@@ -85,44 +81,32 @@
 
                                 <select name="insumo" id="insumo"  class="selectInsumo custom-select col-md-2">
                                     <option value="0">Seleccione</option>
-
-{{--                                    @foreach ($Insumo->getinsumo() as $index => $ins)--}}
-{{--                                        <option data-tokens="{{$index}}"> {{$ins}}</option> --}}{{--puede que esto no busque bien por que tiene el index en data tokens--}}
-{{--                                    @endforeach--}}
-                                    {{--@foreach ($insumos as $insumo )
-                                        <option data-tokens="{{$insumo->id}}" value="{{$insumo->id}}"> {{$insumo->descripcion}}</option>
-                                    @endforeach--}}
-                                </select>
-
-                                <label for="proveedor" class="col-lg-2 col-form-label text-md-right offset-md-2">Proveedor</label>
-
-                                <select name="proveedor" id="proveedor" class="selectProveedor custom-select col-md-2" >
-                                    @foreach($proveedores as $proveedor)
-                                        <option value="{{$proveedor->id}}">{{$proveedor->empresa()->first()->denominacion}}</option>
-                                    @endforeach
                                 </select>
 
 
+
+                            <label for="estrazable" class="col-lg-2 col-form-label text-md-right">es trazable?</label>
+                            <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable">
 
                         </div>
                         <br>
 
-                        <div class="form-group row">
-                            <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
-                                <input id="nrolote" type="text" class="form-control col-md-2 lotejs" name="nrolote" value="{{old("nrolote")}}" required>
-                                <label for="estrazable" class="col-lg-2 col-form-label text-md-right">es trazable?</label>
-                                <input type="checkbox" class="checknrolote mt-md-2" id="chec" name="isInsumoTrazable">
-                        </div>
+                        <div class="trazables">
+                            <div class="form-group row">
+                                <label for="nrolote" class="col-lg-2 col-form-label text-md-right">Nro Lote</label>
+                                    <input id="nrolote" type="text" class="form-control col-md-2 lotejs" name="nrolote" value="{{old("nrolote")}}" required>
 
-                        <div class="form-group row mt-4">
-                            <label for="elaboracion" class="col-lg-2 col-form-label text-md-right">Elaboracion</label>
-                            <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-3 elaboracionjs" name="fechaelaboracion" value="{{old("fechaelaboracion")}}">
-                        </div>
-                        <div class="form-group row mt-4">
-                            <label for="vencimiento" class="col-lg-2 col-form-label text-md-right">Vencimiento</label>
-                            <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-3 vencimientojs" name="fechavencimiento" value="{{old("fechavencimiento")}}">
-                        </div>
+                            </div>
 
+                            <div class="form-group row mt-4">
+                                <label for="elaboracion" class="col-lg-2 col-form-label text-md-right">Elaboracion</label>
+                                <input id="fechaelaboracion" type="date" class="fechaelaboracion form-control col-md-3 elaboracionjs" name="fechaelaboracion" value="{{old("fechaelaboracion")}}">
+                            </div>
+                            <div class="form-group row mt-4">
+                                <label for="vencimiento" class="col-lg-2 col-form-label text-md-right">Vencimiento</label>
+                                <input id="fechavencimiento" type="date" class="fechavencimiento form-control col-md-3 vencimientojs" name="fechavencimiento" value="{{old("fechavencimiento")}}">
+                            </div>
+                        </div>
                         <br>
                         <div class="form-group row">
                             <label for="transportista" class="col-md-2 col-form-label text-md-right">Transportista</label>
@@ -141,7 +125,11 @@
                         <div class="form-group row">
                             <label for="nro_cbte" class="col-lg-2 col-form-label text-md-right">NRO Remito/Carta de porte</label>
                                 <input id="nro_cbte" type="text" class="form-control col-md-2 cartajs" name="nro_cbte" value="{{old('nro_cbte')}}" required>
-
+                                @error('nro_cbte')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>Fecha invalida</strong>
+                                </span>
+                                @enderror
                         </div>
                         <br>
 
