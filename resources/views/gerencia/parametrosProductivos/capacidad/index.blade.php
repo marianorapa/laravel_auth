@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 {{-- Lo comento pq no se si aca funcionaria tambien. --}}
-{{--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>--}}
-{{--    <script src="{{ asset('js/sweetAlert2.js') }}"></script>--}}
-{{--    <script src="{{ asset('js/notifCartel.js') }}"></script>--}}
-{{--    <script src="{{ asset('js/errorCartel.js') }}"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+   <script src="{{ asset('js/sweetAlert2.js') }}"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+   <script src="{{ asset('js/errorCartel.js') }}"></script>
 
 
 @section('content')

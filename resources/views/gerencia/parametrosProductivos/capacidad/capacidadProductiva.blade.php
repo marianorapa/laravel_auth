@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/capacidadProductiva.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @endsection
 @section('content')
 

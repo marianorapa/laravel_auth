@@ -2,6 +2,9 @@
 
 @section('publics')
     <script src="{{ asset('js/precioXkg.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @endsection
 @section('content')
 
@@ -17,7 +20,26 @@
         </nav>
     </div>
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        {{$errors->first()}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
 
+@if (session('mensaje'))
+    <div class="">
+        <p class="alertajs" style="display:none"> {{ session('mensaje') }} </p>
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="">
+        <p class="errorjs" style="display:none"> {{ session('error') }} </p>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-md-4">
         <div class="tarjeta card">

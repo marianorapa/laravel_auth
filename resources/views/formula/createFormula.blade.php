@@ -2,6 +2,9 @@
 @section('publics')
     <script src="{{ asset('js/createFormulajs.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.5/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @endsection
 
 @section('content')
@@ -34,7 +37,8 @@
             <div class="card">
                 <div class="card-header text-md-center h2"> Registro de nueva formula</div>
                 <div class="card-body">
-                    <form action="" method="">
+                    <form action="{{route('formula.store')}}" method="POST">
+                        @csrf
                         <div class="form-inline row">
                             {{--cliente--}}
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
@@ -90,7 +94,7 @@
 
                         <div class="form-inline row mt-5">
                             <button class="btn btn-secondary col-sm-3">Cancelar</button>
-                            <button  type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                            <button  type="submit" class="btn btn-primary col-sm-3 offset-md-6" >Registrar</button>
                         </div>
 
                     </form>

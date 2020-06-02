@@ -45,6 +45,11 @@ class FormulaController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
+
+        return redirect()->action('FormulaController@index')
+            ->with('mensaje', 'Formula registrada con éxito!');
+
     }
 
     /**

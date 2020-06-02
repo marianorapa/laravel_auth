@@ -1,4 +1,10 @@
 @extends('layouts.app')
+
+@section('publics')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
+@endsection
 @section('content')
     <section class="container">
         <section>
@@ -10,7 +16,17 @@
                     </ol>
                 </nav>
             </div>
-
+            <div class="col-md-10">
+                @if (session('error'))
+                    <div class="">
+                        <p class="errorjs" style="display:none">{{ session('error') }}</p>
+                    </div>
+                @endif
+                @if (session('mensaje'))
+                    <div class="" role="alert">
+                        <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
+                    </div>
+                @endif
             <div class="row justify-content-center mt-4">
                 <a class="btn btn-primary btn m-1 col-3" href="{{route('formulaCreate')}}">Nueva Formula</a>
             </div>
@@ -26,6 +42,7 @@
 
         <section>
             <table class="table mt-5">
+
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         {{$errors->first()}}
@@ -34,6 +51,8 @@
                         </button>
                     </div>
                 @endif
+
+
 
                     <thead>
                     <tr>

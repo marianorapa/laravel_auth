@@ -187,6 +187,7 @@ route::get('/formulaIndex','FormulaController@index')->name('formulaIndex');
 route::get('/formulaCreate','FormulaController@create')->name('formulaCreate');
 route::get('/getAllInsumos','FormulaController@getAllInsumos')->name('allInsumos');
 
+Route::resource('formula', 'FormulaController');
 
 //pedidos asincronico
 

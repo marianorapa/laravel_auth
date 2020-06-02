@@ -14,6 +14,26 @@
             </ol>
         </nav>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            {{$errors->first()}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="">
+            <p class="errorjs" style="display:none">{{ session('error') }}</p>
+        </div>
+    @endif
+
+    @if (session('message'))
+        <div class="" role="alert">
+            <p class="alertajs" style="display:none">{{ session('message') }}</p>
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
