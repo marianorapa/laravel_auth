@@ -116,9 +116,12 @@
                                 <td>
 
                                     @if (!$ticketEntrada->ticket()->first()->tara()->exists())
-    {{--                                    <a href="" class="btn btn-warning btn-sm">Editar</a>--}}
-                                        <a class="btn btn-success btn-sm mr-3" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
-                                        <a class="btn btn-danger btn-sm font-weight-bolder" href="{{route('balanzas.ingresos.destroy', $ticketEntrada->id)}}">X</a>
+    {{--<a href="" class="btn btn-warning btn-sm">Editar</a>--}}                                        
+
+                                    <form method="get" id="destroy-appointment-{{ $ticketEntrada }}" action="{{route('balanzas.ingresos.destroy', $ticketEntrada->id)}}" onSubmit="return confirm('Desea eliminar?');">
+                                    <a class="btn btn-success btn-sm mr-3" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
+                                    <button class ="btn btn-danger btn-sm font-weight-bolder" type="submit" form="destroy-appointment-{{ $ticketEntrada }}">X</button>
+                                    </form>
 
                                     @else
                                        <!-- <span class="border border-success btn-sm btn-outline-success disabled">Finalizado</span>  -->

@@ -68,9 +68,11 @@
                             <td id="producto">{{$op->producto}}</td>
                             <td id="cantidad">{{$op->cantidad}}</td>
                             @if ($op->descripcion == "Pendiente")
-                                <td>
+                                <td>                                   
+                                    <form method="get" id="destroy-appointment" action="{{route('pedidos.cancel', $op->op_id)}}" onSubmit="return confirm('Desea eliminar?');">
                                     <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>
-                                    <a class="btn btn-danger btn-sm" href="{{route('pedidos.cancel', $op->op_id)}}">X</a>
+                                    <button class ="btn btn-danger btn-sm" type="submit" form="destroy-appointment">X</button>
+                                  
                                 </td>
                             @else
                                 @if ($op->descripcion == "Finalizada")
