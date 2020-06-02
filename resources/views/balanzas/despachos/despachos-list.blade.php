@@ -140,44 +140,10 @@
                 <p>Giles, Buenos Aires, Argentina</p>
             </div>
         </div> 
-            <!--  <table class="">
-            <thead>
-                            <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">patente</th>
-                                <th scope="col">cliente</th>
-                                <th scope="col">producto</th>
-                                <th scope="col">transporte</th>
-                                <th scope="col">tara</th>
-                                <th scope="col">bruto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($ticketSalida as $ticket)
-                            <tr>
-                                <th scope="row">{{ $ticket->id }}</th>
-                                <th scope="row">{{ $ticket->patente }}</th>
-                                <th scope="row">{{ $ticket->cliente }}</th>
-                                <th scope="row">{{ $ticket->producto }}</th>
-                                <th scope="row">{{ $ticket->transporte }}</th>
-                                <th scope="row">{{ $ticket->tara }}</th>
-                                <th scope="row">{{ $ticket->bruto }}</th>
-                            </tr>
-                        @endforeach
-                        </tbody>
-            </table>-->
         </div>
 </div>
 </div>
 <script>
-     function generatePDF() {
-        // Choose the element that our invoice is rendered in.
-        const element = document.getElementById("pdf");
-        // Choose the element and save the PDF for our user.
-        html2pdf()
-          .from(element)
-          .save();
-      }
       function generar(){
         const element = document.getElementById("pdf");
         const options = {
