@@ -379,7 +379,7 @@ class OrdenProduccionController extends Controller
         $op = OrdenProduccion::find($id);
         if ($op->isPendiente()){
             $op->anularOrden();
-            return back()->with('message', 'La orden se ha finalizado con éxito');
+            return back()->with('message', 'La orden se ha anulado');
         }
         else {
             return back()->with('error', 'Una orden finalizada no puede anularse.');
