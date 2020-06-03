@@ -30,7 +30,7 @@
                 @endif
             </div>
             <div class="row justify-content-center mt-4">
-                <a class="btn btn-primary btn m-1 col-3" href="{{route('formulaCreate')}}">Nueva Formula</a>
+                <a class="btn btn-primary btn m-1 col-3" href="{{route('formula.create')}}">Nueva Formula</a>
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">

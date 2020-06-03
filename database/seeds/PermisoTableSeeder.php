@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Permiso;
+use Illuminate\Database\Seeder;
 
 class PermisoTableSeeder extends Seeder
 {
@@ -17,6 +17,14 @@ class PermisoTableSeeder extends Seeder
         $this->seed_permisos_personas();
         $this->seed_permisos_permisos();
         $this->seed_permisos_roles();
+        $this->seed_permisos_balanzas();
+        $this->seed_permisos_administracion();
+        $this->seed_permisos_entrada();
+        $this->seed_permisos_despacho();
+        $this->seed_permisos_formulas();
+        $this->seed_permisos_ordenProduccion();
+        $this->seed_permisos_parametros();
+
     }
 
     public function seed_permisos_users(): void
@@ -250,4 +258,244 @@ class PermisoTableSeeder extends Seeder
 //        $permiso->activo = true;
         $permiso->save();
     }
+
+    public function seed_permisos_balanzas(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'balanzas.menu';
+        $permiso->descr = 'Menu balanzas';
+        $permiso->funcionalidad = 'Permite visualizar el menu del sector balanzas';
+        $permiso->save();
+    }
+
+    public function seed_permisos_administracion(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.menu';
+        $permiso->descr = 'Menu administración';
+        $permiso->funcionalidad = 'Permite visualizar el menu del sector administración';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock';
+        $permiso->descr = 'Menu administración de stock';
+        $permiso->funcionalidad = 'Permite visualizar el menu de stock del sector administración';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.insumos';
+        $permiso->descr = 'Menu administración de stock de insumos';
+        $permiso->funcionalidad = 'Permite visualizar el menu de stock de insumos del sector administración';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.productos';
+        $permiso->descr = 'Menu administración de stock de productos';
+        $permiso->funcionalidad = 'Permite visualizar el menu de stock de productos del sector administración';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.empresas';
+        $permiso->descr = 'Menu administración de empresas';
+        $permiso->funcionalidad = 'Permite visualizar el menu de administración de empresas';
+        $permiso->save();
+    }
+
+    public function seed_permisos_entrada(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'ingresos.index';
+        $permiso->descr = 'Ver ingresos';
+        $permiso->funcionalidad = 'Permite ver los ingresos registrados';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'balanzas.ingresos.inicial';
+        $permiso->descr = 'Crear ingresos';
+        $permiso->funcionalidad = 'Permite ver el formulario para crear nuevos ingresos';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'balanzas.ingresos.inicial.guardar';
+        $permiso->descr = 'Guardar ingresos en proceso';
+        $permiso->funcionalidad = 'Permite guardar nuevos ingresos en proceso';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'balanzas.ingresos.final';
+        $permiso->descr = 'Formulario de finalizacion de ingreso';
+        $permiso->funcionalidad = 'Permite ver el formulario para finalizar ingresos';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'balanzas.ingresos.final.guardar';
+        $permiso->descr = 'Finalizar ingresos';
+        $permiso->funcionalidad = 'Permite registrar ingresos finalizados';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'balanzas.ingresos.destroy';
+        $permiso->descr = 'Eliminar ingresos en proceso';
+        $permiso->funcionalidad = 'Permite eliminar ingresos en proceso de forma logica';
+//        $permiso->activo = true;
+        $permiso->save();
+    }
+
+    public function seed_permisos_despacho(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'despachos.index';
+        $permiso->descr = 'Ver despachos';
+        $permiso->funcionalidad = 'Permite ver los despachos registrados';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'despachos.create';
+        $permiso->descr = 'Crear despachos';
+        $permiso->funcionalidad = 'Permite ver el formulario para crear nuevos despachos';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'despachos.store';
+        $permiso->descr = 'Guardar despachos';
+        $permiso->funcionalidad = 'Permite guardar nuevos despachos en proceso';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'despachos.finalize.view';
+        $permiso->descr = 'Vista de finalización de despachos';
+        $permiso->funcionalidad = 'Permite ver el formulario para finalizar despachos';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'despachos.finalize.post';
+        $permiso->descr = 'Finalizar despachos';
+        $permiso->funcionalidad = 'Permite finalizar despachos en proceso';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'despachos.destroy';
+        $permiso->descr = 'Eliminar despachos en proceso';
+        $permiso->funcionalidad = 'Permite eliminar despachos en proceso de forma lógica';
+//        $permiso->activo = true;
+        $permiso->save();
+    }
+
+    public function seed_permisos_formulas(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'formula.index';
+        $permiso->descr = 'Ver fórmulas registradas';
+        $permiso->funcionalidad = 'Permite visualizar las fórmulas registradas';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'formula.create';
+        $permiso->descr = 'Crear una fórmula';
+        $permiso->funcionalidad = 'Permite crear una nueva fórmula';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'formula.store';
+        $permiso->descr = 'Guardar una fórmula';
+        $permiso->funcionalidad = 'Permite guardar una nueva fórmula';
+//        $permiso->activo = true;
+        $permiso->save();
+    }
+
+    public function seed_permisos_ordenProduccion(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedidos.index';
+        $permiso->descr = 'Ver pedidos';
+        $permiso->funcionalidad = 'Permite ver los pedidos registrados';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedidos.create';
+        $permiso->descr = 'Crear pedidos';
+        $permiso->funcionalidad = 'Permite ver el formulario para crear nuevos pedidos';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedidos.store';
+        $permiso->descr = 'Guardar pedidos';
+        $permiso->funcionalidad = 'Permite guardar nuevos pedidos en proceso';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedidos.finalize';
+        $permiso->descr = 'Finalizar pedidos';
+        $permiso->funcionalidad = 'Permite finalizar pedidos en proceso';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedidos.cancel';
+        $permiso->descr = 'Cancelar pedidos en proceso';
+        $permiso->funcionalidad = 'Permite cancelar pedidos en proceso';
+//        $permiso->activo = true;
+        $permiso->save();
+    }
+
+    public function seed_permisos_parametros(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.index';
+        $permiso->descr = 'Ver menu de parametros';
+        $permiso->funcionalidad = 'Permite ver el menu de gestión de parámetros';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.precio.index';
+        $permiso->descr = 'Ver precios';
+        $permiso->funcionalidad = 'Permite ver los parámetros de precio';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.precio.view';
+        $permiso->descr = 'Ver parametros de precio';
+        $permiso->funcionalidad = 'Permite ver los parámetros de precio';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.precio.post';
+        $permiso->descr = 'Guardar parámetros de precio';
+        $permiso->funcionalidad = 'Permite guardar los parámetros de precio';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.capacidad.index';
+        $permiso->descr = 'Ver capacidades';
+        $permiso->funcionalidad = 'Permite ver los parámetros de capacidad';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.capacidad.view';
+        $permiso->descr = 'Ver parametros de capacidad';
+        $permiso->funcionalidad = 'Permite ver los parámetros de capacidad';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.capacidad.post';
+        $permiso->descr = 'Guardar parámetros de capacidad';
+        $permiso->funcionalidad = 'Permite guardar los parámetros de capacidad';
+//        $permiso->activo = true;
+        $permiso->save();
+    }
+
 }

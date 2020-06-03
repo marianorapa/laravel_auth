@@ -15,7 +15,6 @@ class PersonaController extends Controller
     {
 //        $this->middleware('App\Http\Middleware\IsAdmin');
         $this->middleware('permission');
-
     }
       /**
      * Display a listing of the resource.

@@ -182,12 +182,12 @@ route::get('/autocompletar','PersonaController@autocompletar')->name('autocomple
 //Route::get('/createFormula', function() {
 //    return view('formula.createFormula');
 //});
-route::get('/formulaIndex','FormulaController@index')->name('formulaIndex');
-
-route::get('/formulaCreate','FormulaController@create')->name('formulaCreate');
+Route::resource('formula', 'FormulaController');
+//route::get('/formulaIndex','FormulaController@index')->name('formula.index');
+//route::get('/formulaCreate','FormulaController@create')->name('formula.create');
 route::get('/getAllInsumos','FormulaController@getAllInsumos')->name('allInsumos');
 
-Route::resource('formula', 'FormulaController');
+
 
 //pedidos asincronico
 

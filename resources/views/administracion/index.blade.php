@@ -9,7 +9,7 @@
         <p class="mb-1">Menú de gestión de pedidos/órdenes de producción.</p>
     </a>
 {{--    {{route('despachos.index')}}--}}
-    <a href="{{route('formulaIndex')}}" class="list-group-item list-group-item-action flex-column align-items-start">{{--por ahora solo lleva al index de formula--}}
+    <a href="{{route('formula.index')}}" class="list-group-item list-group-item-action flex-column align-items-start">{{--por ahora solo lleva al index de formula--}}
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">Fórmulas y productos</h5>
         </div>

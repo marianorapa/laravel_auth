@@ -12,12 +12,14 @@ use App\Transportista;
 use App\Utils\EntradasInsumoManager;
 use App\Utils\TicketsEntradaManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 
 class EntradaController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
