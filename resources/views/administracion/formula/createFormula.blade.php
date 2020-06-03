@@ -107,12 +107,7 @@
 
 @endsection
 @section('script')
-    {{--<script>
-        $('.basicAutoComplete').autoComplete({
-            resolverSettings: {
-                url: '{{route('productos')}}'
-            }
-        });
+    <script src="{{ asset('js/CreateFormulajs2.js') }}"></script>
 
-    </script>--}}
+
 @endsection

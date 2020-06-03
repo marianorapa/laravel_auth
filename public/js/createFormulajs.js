@@ -7,7 +7,7 @@ var window = window ||{},
 
 document.addEventListener("DOMContentLoaded", function(event)
 {
-
+    sessionStorage.clear();//limpio el sessionStorage cada vez que se recarga la pag
     cliente = document.querySelector(".cliente_id");
     productos = document.querySelector(".productos");
     insumos = document.querySelector(".insumo");
@@ -81,13 +81,23 @@ document.addEventListener("DOMContentLoaded", function(event)
         var i = 1;
         while (i<dat['length']){ //hago esto pq no lo puedo recorrer con el element
             if (dat[i]['id']==select_insumo.value){
-                filasInsumo(dat[i]['id'],dat[i]['descripcion']);
+                if (sessionStorage.getItem(dat[i]['id']) === null) {
+                    console.log(sessionStorage.getItem(dat[i]['descripcion']));
+                    filasInsumo(dat[i]['id'], dat[i]['descripcion']);
+                    sessionStorage.setItem(dat[i]['id'],dat[i]['descripcion']);
+                }
             };
             i++;
         };
 
     })
 
+   /*function esta(nombre){
+        bool = false;
+        if (sessionStorage.getItem(nombre)){
+
+        }
+    }*/
 
     //cargar filas de la tabla
     tabla_insumos = document.getElementById("tbodyinsumos");
@@ -98,14 +108,17 @@ document.addEventListener("DOMContentLoaded", function(event)
         td_nombre = document.createElement("td");
         td_nombre.appendChild(document.createTextNode(nombre));
 
+
         td_cantidad = document.createElement("td");
         input_cantidad = document.createElement("input");
         input_cantidad.name="insumos["+i+"][cantidad]";
+
         input_cantidad.className = "form-control proporcion col-md-5";
         td_cantidad.appendChild(input_cantidad);
 
         td_eliminar = document.createElement("td");
         btn_eliminar = document.createElement("a");
+        btn_eliminar.setAttribute("onclick","deleteRow(this)");
         btn_eliminar.className = "btn btn-danger btneliminarjs";
         btn_eliminar.appendChild(document.createTextNode("Eliminar"));
         td_eliminar.appendChild(btn_eliminar);
@@ -120,9 +133,10 @@ document.addEventListener("DOMContentLoaded", function(event)
         tabla_insumos.appendChild(tr);
 
         //evento para eliminar la fila
-        btn_eliminar.addEventListener("click",function () {
-            tablageneral.deleteRow(tr.rowIndex);
-        })
+        /*btn_eliminar.addEventListener("click",function () {
+            console.log(btn_eliminar.parentNode.rowIndex);
+            //tablageneral.deleteRow(btn_eliminar.parentNode.parentNode.rowIndex);//tr.rowIndex);
+        })*/
     }
 
 
