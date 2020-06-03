@@ -12,6 +12,7 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}" >Administración</a></li>
                         <li class="breadcrumb-item active">Gestión de Formula</li>
                     </ol>
                 </nav>
@@ -27,6 +28,7 @@
                         <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                     </div>
                 @endif
+            </div>
             <div class="row justify-content-center mt-4">
                 <a class="btn btn-primary btn m-1 col-3" href="{{route('formulaCreate')}}">Nueva Formula</a>
             </div>
@@ -57,9 +59,10 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Empresa</th>
                         <th scope="col">Alimento</th>
-                        <th scope="col">fecha desde</th>
-                        <th scope="col">fecha hasta</th>
+                        <th scope="col">Desde</th>
+                        <th scope="col">Hasta</th>
                         <th scope="col">Acciones</th>
                     </tr>
                     </thead>
@@ -68,15 +71,24 @@
                 @foreach($formulas as $formula)
                     <tr>
                         <th scope="row">{{$formula->id}}</th>
-                        <td>{{--{{$formula->alimento()->first()->descripcion}}--}}</td>
+                        <td>{{$formula->alimento()->first()->cliente()->first()->empresa()->first()->denominacion}}</td>
+                        <td>{{$formula->alimento()->first()->descripcion}}</td>
                         <td>{{$formula->fecha_desde}}</td>
-                        <td>{{$formula->fecha_hasta}}</td>
-                        <td></td>
+                        @if ($formula->fecha_hasta)
+                            <td>{{$formula->fecha_hasta}}</td>
+                        @else
+                            <td>Activa</td>
+                        @endif
+                        <td><a class="btn btn-outline-success btn-sm"
+                               href="{{route('formula.show', $formula->id)}}">Ver</a></td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
 
+            <div class="row justify-content-center">
+                {{$formulas->links()}}
+            </div>
 
         </section>
         <a class="btn btn-secondary btn-sm" href="/">Volver</a>{{--Cambiar en un futuro--}}

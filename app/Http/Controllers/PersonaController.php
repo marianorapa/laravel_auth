@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Domicilio;
-use App\PersonaTipo;
-use App\TipoDocumento;
+use App\Persona;
 use App\Utils\DomicilioManager;
 use App\Utils\PersonaManager;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade as PDF;
-use App\Persona;
-use App\Provincia;
-use App\localidad;
-use SebastianBergmann\Environment\Console;
 
 class PersonaController extends Controller
 {
@@ -186,10 +179,6 @@ class PersonaController extends Controller
         }
         $personaEliminar->delete();
         return back()->with('mensaje','Se desactivó a la persona del sistema');
-
-
-
-
     }
 
 
@@ -228,7 +217,7 @@ class PersonaController extends Controller
                     ->apellido($apellido)
                     ->nrodoc($doc)
                     ->get();
-        
+
         return view('admin.personas.personas-list', compact('personas'));
 
         /*$contxt = stream_context_create([

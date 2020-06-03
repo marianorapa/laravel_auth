@@ -73,8 +73,8 @@
                                     <tr>
                                         <th scope="col">Id insumo</th>
                                         <th scope="col">Nombre Insumo</th>
-                                        <th scope="col">Proporcion</th>
-                                        <th scope="col">Accion</th>
+                                        <th scope="col">Proporción (kg. por tn)</th>
+                                        <th scope="col">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyinsumos">
