@@ -11,6 +11,7 @@ use App\OrdenProduccionDetalleTrazable;
 use App\PrestamoCliente;
 use App\User;
 use App\Utils\CapacidadProductivaManager;
+use App\Utils\PrecioManager;
 use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
@@ -79,7 +80,10 @@ class OrdenProduccionController extends Controller
         $clientes = DB::table('cliente')
             ->join('empresa','cliente.id','=','empresa.id')
             ->select('cliente.id','empresa.denominacion')->get();
-        return view('administracion.pedidos.altaPedidosNew',compact('clientes'));
+
+        $precioFason = PrecioManager::getPrecioReferencia();
+
+        return view('administracion.pedidos.altaPedidosNew',compact('clientes', 'precioFason'));
     }
 
     /**
@@ -106,7 +110,7 @@ class OrdenProduccionController extends Controller
         $idProducto = $validated['producto'];
         $cantidadFabricar = $validated['cantidad'];
         $fechaEntrega = $validated['fechaentrega'];
-        $precioXkg = $validated['precioxkg'];
+        $precioXtn = $validated['precioxkg'];
 
         $id_formula = DB::table('alimento_formula')
             ->where('alimento_id', '=', $idProducto)
@@ -178,89 +182,93 @@ class OrdenProduccionController extends Controller
             }
         }
 
-
         if (!CapacidadProductivaManager::existeCapacidadProductiva($fechaEntrega, $cantidadFabricar)) {
             return back()->with('error', "No hay suficiente capacidad productiva
                                             restante para la fecha seleccionada");
         }
-        else {
-            // Si son correctos los insumos recibidos
-            $orden = new OrdenProduccion();
-            $orden->producto_id = $idProducto;
-            $orden->cantidad = $cantidadFabricar;
-            $orden->saldo = $cantidadFabricar;
 
-            $orden->fecha_fabricacion = $fechaEntrega;
-            $orden->precio_venta_por_kilo = $precioXkg;
-            $orden->save();
+        if (!PrecioManager::isPrecioValido($precioXtn)){
+            return back()->with('error', "El precio ingresado no es válido.");
+        }
 
-            /* Voy creando detalles de la op por cada insumo trazable recibido */
-            foreach ($insumosTrazables as $insumo) {
+
+        // Si son correctos los insumos recibidos
+        $orden = new OrdenProduccion();
+        $orden->producto_id = $idProducto;
+        $orden->cantidad = $cantidadFabricar;
+        $orden->saldo = $cantidadFabricar;
+
+        $orden->fecha_fabricacion = $fechaEntrega;
+        $orden->precio_venta_por_tn = $precioXtn;
+        $orden->save();
+
+        /* Voy creando detalles de la op por cada insumo trazable recibido */
+        foreach ($insumosTrazables as $insumo) {
+            $opdetalle = new OrdenProduccionDetalle();
+            $opdetalle->cantidad = $insumo['stock_utilizar'];
+            $opdetalle->op_id = $orden->id;
+            $opdetalle->save();
+            $opDetalleTrazable = new OrdenProduccionDetalleTrazable();
+            $opDetalleTrazable->op_detalle_id = $opdetalle->id;
+            if (isset($insumo['lote_insumo'])) {
+                $loteInsumo = DB::table('lote_insumo_especifico as lie')
+                    ->where('lie.nro_lote', '=', $insumo['lote_insumo'])
+                    ->join('insumo_especifico as ie', 'ie.gtin', 'lie.insumo_especifico')
+                    ->where('ie.insumo_trazable_id', '=', $insumo['id_insumo_fila_insumos'])
+                    ->select('lie.id')
+                    ->get()->first();
+
+                $opDetalleTrazable->lote_insumo_id = $loteInsumo->id;
+                $opDetalleTrazable->save();
+            } else {
+                // Si no existe lote
+                return back()->with('error', 'Insumo insuficiente para registrar el pedido');
+            }
+        }
+
+        /* Voy creando detalles de la op por cada insumo no trazable recibido */
+        foreach ($insumosNoTrazables as $insumo) {
+
+            $idInsumo = $insumo['id_insumo_fila_insumos'];
+            $cantidadUsarCliente = $insumo['stock_utilizar'];
+            $cantidadUsarFabrica = $insumo['stock_utilizar_Fabrica'];
+
+            if ($cantidadUsarCliente > 0) {
                 $opdetalle = new OrdenProduccionDetalle();
-                $opdetalle->cantidad = $insumo['stock_utilizar'];
+                $opdetalle->cantidad = $cantidadUsarCliente;
                 $opdetalle->op_id = $orden->id;
                 $opdetalle->save();
-                $opDetalleTrazable = new OrdenProduccionDetalleTrazable();
-                $opDetalleTrazable->op_detalle_id = $opdetalle->id;
-                if (isset($insumo['lote_insumo'])) {
-                    $loteInsumo = DB::table('lote_insumo_especifico as lie')
-                        ->where('lie.nro_lote', '=', $insumo['lote_insumo'])
-                        ->join('insumo_especifico as ie', 'ie.gtin', 'lie.insumo_especifico')
-                        ->where('ie.insumo_trazable_id', '=', $insumo['id_insumo_fila_insumos'])
-                        ->select('lie.id')
-                        ->get()->first();
 
-                    $opDetalleTrazable->lote_insumo_id = $loteInsumo->id;
-                    $opDetalleTrazable->save();
-                } else {
-                    // Si no existe lote
-                    return back()->with('error', 'Insumo insuficiente para registrar el pedido');
-                }
+                $opDetalleNoTrazable = new OrdenProduccionDetalleNoTrazable();
+                $opDetalleNoTrazable->op_detalle_id = $opdetalle->id;
+                $opDetalleNoTrazable->insumo_id = $idInsumo;
+                $opDetalleNoTrazable->cliente_id = $idClienteOrden; // La cantidad es del cliente de la orden
+                $opDetalleNoTrazable->save();
             }
 
-            /* Voy creando detalles de la op por cada insumo no trazable recibido */
-            foreach ($insumosNoTrazables as $insumo) {
+            // Si piden usar insumos de la fabrica
+            if ($cantidadUsarFabrica > 0) {
+                $opdetalle = new OrdenProduccionDetalle();
+                $opdetalle->cantidad = $cantidadUsarFabrica;
+                $opdetalle->op_id = $orden->id;
+                $opdetalle->save();
 
-                $idInsumo = $insumo['id_insumo_fila_insumos'];
-                $cantidadUsarCliente = $insumo['stock_utilizar'];
-                $cantidadUsarFabrica = $insumo['stock_utilizar_Fabrica'];
+                $opDetalleNoTrazable = new OrdenProduccionDetalleNoTrazable();
+                $opDetalleNoTrazable->op_detalle_id = $opdetalle->id;
+                $opDetalleNoTrazable->insumo_id = $idInsumo;
+                $opDetalleNoTrazable->cliente_id = 1;
+                $opDetalleNoTrazable->save();
 
-                if ($cantidadUsarCliente > 0) {
-                    $opdetalle = new OrdenProduccionDetalle();
-                    $opdetalle->cantidad = $cantidadUsarCliente;
-                    $opdetalle->op_id = $orden->id;
-                    $opdetalle->save();
-
-                    $opDetalleNoTrazable = new OrdenProduccionDetalleNoTrazable();
-                    $opDetalleNoTrazable->op_detalle_id = $opdetalle->id;
-                    $opDetalleNoTrazable->insumo_id = $idInsumo;
-                    $opDetalleNoTrazable->cliente_id = $idClienteOrden; // La cantidad es del cliente de la orden
-                    $opDetalleNoTrazable->save();
-                }
-
-                // Si piden usar insumos de la fabrica
-                if ($cantidadUsarFabrica > 0) {
-                    $opdetalle = new OrdenProduccionDetalle();
-                    $opdetalle->cantidad = $cantidadUsarFabrica;
-                    $opdetalle->op_id = $orden->id;
-                    $opdetalle->save();
-
-                    $opDetalleNoTrazable = new OrdenProduccionDetalleNoTrazable();
-                    $opDetalleNoTrazable->op_detalle_id = $opdetalle->id;
-                    $opDetalleNoTrazable->insumo_id = $idInsumo;
-                    $opDetalleNoTrazable->cliente_id = 1;
-                    $opDetalleNoTrazable->save();
-
-                    $prestamo = new PrestamoCliente();
-                    $prestamo->op_detalle_id = $opDetalleNoTrazable->id;
-                    $prestamo->cancelado = 0;
-                    $prestamo->save();
-                }
+                $prestamo = new PrestamoCliente();
+                $prestamo->op_detalle_id = $opDetalleNoTrazable->id;
+                $prestamo->cancelado = 0;
+                $prestamo->save();
             }
-
-            return redirect()->action('OrdenProduccionController@index')
-                ->with('message', 'Pedido registrado con éxito!');
         }
+
+        return redirect()->action('OrdenProduccionController@index')
+            ->with('message', 'Pedido registrado con éxito!');
+
     }
 
     public function cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia){
@@ -418,7 +426,7 @@ class OrdenProduccionController extends Controller
 
         $id_formula = DB::table('alimento_formula')
             ->where('alimento_id', '=', $id_producto)
-            ->where('fecha_hasta', '=', null)
+            ->where('fecha_hasta', '=', null) //FIXME el query siempre devuelve la ultima formula y no la actual...
             ->select('alimento_formula.id')
             ->get()
             ->first();

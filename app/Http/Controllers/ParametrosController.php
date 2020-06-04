@@ -24,7 +24,7 @@ class ParametrosController extends Controller
 
     public function registrarPrecio(Request $request){
         $validated = $request->validate([
-            'precio_por_kilo' => ['required','numeric'],
+            'precio_por_tn' => ['required','numeric'],
             'variacion' => ['required'],
             'fecha_desde' => ['required', 'date'],
             'fecha_hasta' => ['required', 'date']

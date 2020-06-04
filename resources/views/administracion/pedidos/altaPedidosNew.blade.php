@@ -117,15 +117,21 @@
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"  name="fechaentrega" value="{{old('fechaentrega')}}" required>
-                            <p class="ml-5 mt-2">Capacidad disp. día: <span class="" id="capacidad_restante">-</span> tns</p>
+                            <p class="ml-5 mt-2 col-md-2">Capacidad disp. día: <span class="" id="capacidad_restante">-</span> tns</p>
 
-                            <label for="precioxkg" class="col-md-2 col-form-label text-md-right">Precio por tn.</label>
-                            <input id="precioxkg" type="text" class="form-control col-md-2 preciojs" placeholder="$" value="{{old('precioxkg')}}" name="precioxkg" >
+
+                            <label for="precioxkg" class="col-md-1 col-form-label text-md-right">Precio por tn.</label>
+                            <input id="precioxkg" type="text" class="form-control col-md-1 preciojs" placeholder="$" value="{{old('precioxkg')}}" name="precioxkg" >
+                            <p class="col-3 mt-2">Precio min por tn.: $
+                                <span class="">{{$precioFason->precio_por_tn}}</span> +-
+                                <span>${{$precioFason->variacion_admitida * $precioFason->precio_por_tn}}</span>
+                            </p>
+
 
                         </div>
 
                         <div class="form-inline row mt-5">
-                            <button class="btn btn-secondary col-sm-3">Cancelar</button>
+                            <a href="{{route('pedidos.index')}}" class="btn btn-secondary col-sm-3">Cancelar</a>
                             <button  type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
                         </div>
                     </form>

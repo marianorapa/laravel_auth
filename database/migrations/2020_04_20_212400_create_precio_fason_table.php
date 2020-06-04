@@ -15,7 +15,7 @@ class CreatePrecioFasonTable extends Migration
     {
         Schema::create('precio_fason', function (Blueprint $table) {
             $table->id();
-            $table->decimal('precio_por_kilo',15,2)->nullable(false);
+            $table->decimal('precio_por_tn',15,2)->nullable(false);
             $table->decimal('variacion_admitida',3,2)->comment('valor 0 y 1 que define el rango personalizable del precio')->nullable(false);
             $table->date('fecha_desde')->nullable(false)->default(now());
             $table->date('fecha_hasta')->nullable();

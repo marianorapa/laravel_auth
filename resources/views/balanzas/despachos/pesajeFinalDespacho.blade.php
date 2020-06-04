@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-inline row mt-5">
-                            <button class="btn btn-secondary col-sm-2">Cancelar</button>
+                            <a href="{{back()}}"class="btn btn-secondary col-sm-2">Cancelar</a>
                             <button class="btn btn-primary col-sm-2 offset-md-8">Finalizar</button>
                         </div>
                     </form>

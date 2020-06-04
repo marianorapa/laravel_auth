@@ -12,16 +12,16 @@ class PrecioFasonTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('precio_fason')->delete();
-        
+
         \DB::table('precio_fason')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
-                'precio_por_kilo' => '0.75',
-                'variacion_admitida' => '0.50',
+                'precio_por_tn' => '750',
+                'variacion_admitida' => '0.05',
                 'fecha_desde' => '2020-05-23',
                 'fecha_hasta' => NULL,
                 'prioridad_id' => 2,
@@ -29,7 +29,7 @@ class PrecioFasonTableSeeder extends Seeder
                 'updated_at' => '2020-05-23 05:28:48',
             ),
         ));
-        
-        
+
+
     }
 }

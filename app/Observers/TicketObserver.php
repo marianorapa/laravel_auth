@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\EstadoTicket;
+use App\EstadoTicketTicket;
 use App\Movimiento;
 use App\MovimientoInsumo;
 use App\MovimientoInsumoNoTrazable;
@@ -26,6 +28,13 @@ class TicketObserver
     public function created(Ticket $ticket)
     {
         //
+        // Insertar estado ticket en proceso
+        $estadoTicket = new EstadoTicketTicket();
+        $estadoTicket->ticket()->associate($ticket);
+        $estadoTicket->estadoTicket()->associate(EstadoTicket::getEstadoEnProceso());
+        $estadoTicket->user()->associate(User::all()->first()); // TODO Cambiar a usuario logueado
+        $estadoTicket->save();
+
     }
 
     public function updating(Ticket $ticket)
@@ -71,6 +80,13 @@ class TicketObserver
                 $this->finalizarTicketSalida($ticket);
             }
         }
+
+        // Siempre insertar estado ticket finalizado porque no permitimos actualizar de otra manera
+        $estadoTicket = new EstadoTicketTicket();
+        $estadoTicket->ticket()->associate($ticket);
+        $estadoTicket->estadoTicket()->associate(EstadoTicket::getEstadoFinalizado());
+        $estadoTicket->user()->associate(User::all()->first()); // TODO Cambiar a usuario logueado
+        $estadoTicket->save();
     }
 
     /**
@@ -82,6 +98,13 @@ class TicketObserver
     public function deleted(Ticket $ticket)
     {
         //
+        $estadoTicket = new EstadoTicketTicket();
+        $estadoTicket->ticket()->associate($ticket);
+
+        $estadoTicket->estadoTicket()->associate(EstadoTicket::getEstadoAnulado());
+        $estadoTicket->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+
+        $estadoTicket->save();
     }
 
     /**

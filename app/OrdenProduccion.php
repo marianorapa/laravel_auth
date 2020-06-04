@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cantidad
  * @property int $saldo
  * @property string $fecha_fabricacion
- * @property float $precio_venta_por_kilo
+ * @property float $precio_venta_por_tn
  * @property string $created_at
  * @property string $updated_at
  * @property boolean $anulada
