@@ -114,8 +114,8 @@
                         </div>
                         <br>
                         <div class="form-inline row m-3">
-                            <button class="btn btn-secondary col-sm-3">Cancelar</button>
-                            <button class="btn btn-primary col-sm-3 offset-md-6">Finalizar</button>
+                            <a class="btn btn-secondary col-sm-3" href="{{route('ingresos.index')}}">Cancelar</a>
+                            <button type="submit" class="btn btn-primary col-sm-3 offset-md-6">Finalizar</button>
                         </div>
                     </form>
                 </div>
