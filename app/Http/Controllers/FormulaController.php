@@ -117,8 +117,9 @@ class FormulaController extends Controller
                     ->join("alimento","alimento.id","alimento_formula.alimento_id")
                     ->join("insumo","insumo.id","formula_composicion.insumo_id")
                     ->where("alimento_formula.alimento_id","=",$id)
+                    ->where("alimento_formula.fecha_hasta","=",null)
                     ->select("formula_composicion.insumo_id","insumo.descripcion","formula_composicion.kilos_por_tonelada")->get();
-        //dd($nombreAlimento);
+        //dd($formula);
         return view("administracion.formula.showFormula",compact('formula','nombreAlimento'));
         //return back()->with('error', 'Funcionalidad aun no disponible!');
     }

@@ -197,8 +197,8 @@ class UserController extends Controller
         // Si viene una password, desea cambiarla. Si no viene, no la toco
         if ($request['password'] != null){
             $this->validate($request, [
-                'password' => 'required|confirmed',
-                'password_confirmation'=>'required'
+                'password' => 'required|confirmed|min:6',
+                'password_confirmation'=>'required|min:6'
             ]);
             $user->password = Hash::make($request['password']); // La tengo que hashear
         }

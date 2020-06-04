@@ -118,6 +118,7 @@ class ParametrosController extends Controller
 
 
     public function renewCreditoPost(Request $request){
+
         $validated = $request->validate([
             'cliente' => ['required', 'exists:empresa,denominacion'],
             'limite' => ['required', 'numeric', 'min:0'],
@@ -128,8 +129,8 @@ class ParametrosController extends Controller
 
         $creditoCliente = DB::table('credito_cliente')->where('cliente_id', '=', $idCliente)
             ->where('fecha_hasta', '=', null)->get()->first();
-
         if ($creditoCliente != null) {
+
             $creditoModel = CreditoCliente::find($creditoCliente->id);
             $creditoModel->fecha_hasta = $validated['desde'];
             $creditoModel->save();

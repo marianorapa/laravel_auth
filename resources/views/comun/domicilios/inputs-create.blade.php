@@ -20,7 +20,7 @@
     <label for="numero" class="col-md-4 col-form-label text-md-right">{{ __('Numero') }}</label>
 
     <div class="col-md-6">
-        <input id="numero" type="text" class="numerojs form-control" name="numero" value="{{old('numero')}}" required>
+        <input id="numero" type="number" class="numerojs form-control" name="numero" value="{{old('numero')}}" required>
         @error('numero')
         <span class="invalid-feedback" role="alert">
             <strong>Numero invalido</strong>

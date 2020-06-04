@@ -69,12 +69,13 @@ document.addEventListener("DOMContentLoaded", function() {
     validar_patente.addEventListener("blur", function() {
         var patente = /^[a-zA-Z]{3}[0-9]{3}$/;
         var patente2 = /^[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}$/;
-
-        if (patente.exec(validar_patente.value) || patente2.exec(validar_patente.value)) {
-            validar_patente.style.background = "#ffffff";
-        } else {
-            validar_patente.style.background = "#e05f5f";
-        }
+        if (validar_patente.value!= ""){
+            if (patente.exec(validar_patente.value) || patente2.exec(validar_patente.value)) {
+                validar_patente.style.background = "#ffffff";
+            } else {
+                validar_patente.style.background = "#e05f5f";
+            }
+        };
     });
 
 

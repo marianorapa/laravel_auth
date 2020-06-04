@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('publics')
-    <script src="{{ asset('js/capacidadProductiva.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
     <script src="{{ asset('js/errorCartel.js') }}"></script>
@@ -63,7 +62,7 @@
                     <div class="form-group row">
                         <label class="col-md-4 col-form-label text-md-right" for="idCliente">Nuevo límite:</label>
                         <div class="col-md-6">
-                            <input class="form-control col-md-5" type="text"
+                            <input class="form-control col-md-5" type="number"
                                    id="limite" name="limite" placeholder="Límite kgs" required>
                         </div>
                     </div>
@@ -78,7 +77,7 @@
 
                     <div class="form-inline row">
                         <a class="btn btn-secondary col-sm-3 " href="{{route('parametros.credito.index')}}">Cancelar</a>
-                        <button class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                        <button type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
                     </div>
 
                 </form>

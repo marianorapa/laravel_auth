@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function(event)
             .then(function (res) {
                 console.log(res.data);
                 if (res.status == 200){
-                    var i = 1;
+                    var i = 0;
                     console.log(res.data);
                     dat = res.data;
                     while (i< res.data['length']){
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function(event)
 
     //evento para cargar una fila
     select_insumo.addEventListener("change",function () {
-        var i = 1;
+        var i = 0;
         while (i<dat['length']){ //hago esto pq no lo puedo recorrer con el element
             if (dat[i]['id']==select_insumo.value){
                 if (sessionStorage.getItem(dat[i]['id']) === null) {
