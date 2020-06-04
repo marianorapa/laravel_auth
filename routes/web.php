@@ -91,7 +91,9 @@ Route::post('/parametros/capacidad/guardar', 'ParametrosController@registrarCapa
 
 Route::get('/parametros/capacidad', 'ParametrosController@indexCapacidad')->name('parametros.capacidad.index');
 
-
+Route::get('/parametros/credito', 'ParametrosController@indexCredito')->name('parametros.credito.index');
+Route::get('/parametros/credito/{id}', 'ParametrosController@renewCredito')->name('parametros.credito.edit');
+Route::post('/parametros/credito/save', 'ParametrosController@renewCreditoPost')->name('parametros.credito.post');
 
 
 // Rutas de errores

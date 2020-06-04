@@ -419,61 +419,69 @@ class OrdenProduccionController extends Controller
      */
     function getformulaProducto(Request $request)
     {
+
         $id_producto = $request->get('id');
         $cantidad = $request->get('cantidad');
 
-        $id_cliente = DB::table('alimento')->where('id', '=', $id_producto)->get()->first()->cliente_id;
+        if ($id_producto && $cantidad) {
 
-        $id_formula = DB::table('alimento_formula')
-            ->where('alimento_id', '=', $id_producto)
-            ->where('fecha_hasta', '=', null) //FIXME el query siempre devuelve la ultima formula y no la actual...
-            ->select('alimento_formula.id')
-            ->get()
-            ->first();
+            $id_cliente = DB::table('alimento')->where('id', '=', $id_producto)->get()->first()->cliente_id;
 
-        if (!is_null($id_formula)) {
+            $id_formula = DB::table('alimento_formula')
+                ->where('alimento_id', '=', $id_producto)
+                ->where([
+                    ['fecha_desde', '>=', getdate()],
+                    ['fecha_hasta', '<=', getdate()]
+                ])
+                ->orWhere('fecha_hasta', '=', null) //FIXME el query siempre devuelve la ultima formula y no la actual...
+                ->select('alimento_formula.id')
+                ->get()
+                ->first();
 
-            $formula = DB::table('formula_composicion as f')
-                ->where('f.formula_id', '=', $id_formula->id)
-                ->join('insumo', 'f.insumo_id', 'insumo.id')
-                ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
-                ->get();
+            if (!is_null($id_formula)) {
 
-            $rta = [];
+                $formula = DB::table('formula_composicion as f')
+                    ->where('f.formula_id', '=', $id_formula->id)
+                    ->join('insumo', 'f.insumo_id', 'insumo.id')
+                    ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
+                    ->get();
 
-            foreach ($formula as $key => $value) {
+                $rta = [];
 
-                $id_insumo = $value->insumo_id;
+                foreach ($formula as $key => $value) {
 
-                $is_trazable = DB::table('insumo as i')
-                    ->where('i.id', '=', $id_insumo)
-                    ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
-                    ->exists();
+                    $id_insumo = $value->insumo_id;
 
-                $kilos_por_tonelada = $value->kilos_por_tonelada;
+                    $is_trazable = DB::table('insumo as i')
+                        ->where('i.id', '=', $id_insumo)
+                        ->join('insumo_trazable', 'insumo_trazable.id', '=', 'i.id')
+                        ->exists();
 
-                $element = [];
-                $element['id_insumo'] = $id_insumo;
-                $element['nombre_insumo'] = $value->descripcion;
-                $element['cantidad_requerida'] = $kilos_por_tonelada * $cantidad / 1000;
+                    $kilos_por_tonelada = $value->kilos_por_tonelada;
 
-                if ($is_trazable) {
-                    $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
-                    $element['lotes'] = $lotes;
-                } else {
-                    $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
-                    $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
-                    $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
+                    $element = [];
+                    $element['id_insumo'] = $id_insumo;
+                    $element['nombre_insumo'] = $value->descripcion;
+                    $element['cantidad_requerida'] = $kilos_por_tonelada * $cantidad / 1000;
+
+                    if ($is_trazable) {
+                        $lotes = StockManager::getLotesStockCliente($id_insumo, $id_cliente);
+                        $element['lotes'] = $lotes;
+                    } else {
+                        $element['stock_cliente'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
+                        $element['stock_fabrica'] = StockManager::getStockInsumoFabrica($id_insumo);
+                        $element['limite_cliente'] = PrestamosManager::getLimiteRestanteCliente($id_cliente);
+                    }
+
+                    $rta[] = $element;
                 }
 
-                $rta[] = $element;
+                $json = response()->json($rta)->getData();
+
+                return response()->json($rta);
+            } else {
+                return back()->with('error');  // Chequear que pasa con js
             }
-
-            $json = response()->json($rta)->getData();
-
-            return response()->json($rta);
-        } else {
-            return back()->with('error');  // Chequear que pasa con js
         }
     }
 

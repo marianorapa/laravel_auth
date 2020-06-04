@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CapacidadProductiva;
+use App\CreditoCliente;
 use App\Utils\CapacidadProductivaManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -89,4 +90,58 @@ class ParametrosController extends Controller
         return response()->json($capacidad);
     }
 
+
+
+    public function indexCredito(){
+
+        $creditos = DB::table('credito_cliente as c')
+            ->join('empresa as e', 'e.id', 'c.cliente_id')
+            ->orderBy('c.created_at')
+            ->select('c.id', 'e.id as id_cliente', 'e.denominacion as cliente', 'c.limite', 'c.fecha_desde', 'c.fecha_hasta')
+            ->get();
+
+        return view('gerencia.parametrosProductivos.credito.index', compact('creditos'));
+    }
+
+
+    public function renewCredito($id){
+
+        $credito = DB::table('credito_cliente as cc')->where('cc.id', '=', $id)
+            ->join('cliente as c', 'c.id', 'cc.cliente_id')
+            ->join('empresa as e', 'e.id', 'c.id')
+            ->select('e.denominacion as cliente')
+            ->get()->first();
+
+
+        return view('gerencia.parametrosProductivos.credito.renew', compact('credito'));
+    }
+
+
+    public function renewCreditoPost(Request $request){
+        $validated = $request->validate([
+            'cliente' => ['required', 'exists:empresa,denominacion'],
+            'limite' => ['required', 'numeric', 'min:0'],
+            'desde' => ['date', 'after:yesterday']
+        ]);
+
+        $idCliente = DB::table('empresa as e')->where('denominacion', 'like', $validated['cliente'])->get()->first()->id;
+
+        $creditoCliente = DB::table('credito_cliente')->where('cliente_id', '=', $idCliente)
+            ->where('fecha_hasta', '=', null)->get()->first();
+
+        if ($creditoCliente != null) {
+            $creditoModel = CreditoCliente::find($creditoCliente->id);
+            $creditoModel->fecha_hasta = $validated['desde'];
+            $creditoModel->save();
+            $nuevoCredito = new CreditoCliente();
+            $nuevoCredito->cliente_id = $idCliente;
+            $nuevoCredito->limite = $validated['limite'];
+            $nuevoCredito->fecha_desde = $validated['desde'];
+            $nuevoCredito->save();
+            return redirect()->action('ParametrosController@indexCredito')->with('message', 'Crédito renovado con éxito!');
+        }
+
+        return back()->with('Error', 'Se produjo un error');
+
+    }
 }
