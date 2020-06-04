@@ -70,4 +70,18 @@ class TicketEntrada extends Model
     {
         return $this->hasOne('App\TicketEntradaInsumoTrazable', 'id');
     }
+
+    public function scopeCliente($query, $cliente){
+
+        if($cliente){
+            return $query->where('cliente_id', 'LIKE',"%$cliente%"); //esta query devuelve semejanzas.
+        }
+    }
+
+    public function scopePatente($query, $patente){
+
+        if($patente){
+            return $query->where('patente', 'LIKE',"%$patente%"); //esta query devuelve semejanzas.
+        }
+    }
 }

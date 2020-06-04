@@ -24,6 +24,16 @@ class FormulaController extends Controller
 //        $formulas = DB::table('alimento_formula')->paginate(10);
         $formulas = AlimentoFormula::cliente($cliente)->alimento($alimento)
             ->paginate(10);
+        //id_formula/empresa.denominacion/alimento.descripcion/fecha_desde/fechahasta
+        $formulas2 = DB::table("alimento_formula")
+                          ->join("alimento","alimento.id","alimento_formula.alimento_id")
+                          ->join("cliente","cliente.id","alimento.cliente_id")
+                          ->join("empresa","empresa.id","cliente.id")
+                          ->where("empresa.denominacion","like","%$cliente%")
+                          ->where("alimento.descripcion","like","%$alimento%")
+                          ->select("alimento_formula.id as id","empresa.denominacion as denominacion","alimento.descripcion as descripcion","alimento_formula.fecha_desde","alimento_formula.fecha_hasta")
+                          ->paginate(10);
+
 
         return view('administracion.formula.index',compact('formulas'));
     }
