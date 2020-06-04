@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         td_cantidad = document.createElement("td");
         input_cantidad = document.createElement("input");
         input_cantidad.name="insumos["+i+"][cantidad]";
+        input_cantidad.type="number";
 
         input_cantidad.className = "form-control proporcion col-md-5";
         td_cantidad.appendChild(input_cantidad);

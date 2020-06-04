@@ -99,7 +99,7 @@
                             </select>
 
                         <label for="patente" class="col-md-2 col-form-label text-md-right">Patente</label>
-                        <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" value="{{old('patente')}}" placeholder="abc123 / ab123ab" required>
+                        <input id="patente" type="text" class="form-control col-md-2 patentejs"  name="patente" value="{{old('patente')}}" placeholder="abc123 / ab123ab" pattern="[A-Za-z]{3}[0-9]{3}|[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}" required>
                     </div>
 
                     <div class="form-inline row mt-5 offset-0">

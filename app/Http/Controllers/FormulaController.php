@@ -109,7 +109,18 @@ class FormulaController extends Controller
      */
     public function show($id)
     {
-        return back()->with('error', 'Funcionalidad aun no disponible!');
+        $nombreAlimento = DB::table("alimento")
+                            ->where("alimento.id",'=',$id)
+                            ->select("alimento.descripcion")->first();
+        $formula= DB::table('formula_composicion')
+                    ->join("alimento_formula","alimento_formula.id","formula_composicion.formula_id")
+                    ->join("alimento","alimento.id","alimento_formula.alimento_id")
+                    ->join("insumo","insumo.id","formula_composicion.insumo_id")
+                    ->where("alimento_formula.alimento_id","=",$id)
+                    ->select("formula_composicion.insumo_id","insumo.descripcion","formula_composicion.kilos_por_tonelada")->get();
+        //dd($nombreAlimento);
+        return view("administracion.formula.showFormula",compact('formula','nombreAlimento'));
+        //return back()->with('error', 'Funcionalidad aun no disponible!');
     }
 
     /**

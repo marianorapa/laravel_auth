@@ -34,7 +34,7 @@
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
-                    <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por Cliente">
+                    <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Empresa" aria-label="buscar por Cliente">
                     <input name="alimento" class="form-control mr-sm-2" type="search" placeholder="Alimento" aria-label="buscar por Alimento">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
