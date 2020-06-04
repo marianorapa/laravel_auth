@@ -55,7 +55,7 @@
 
                             <label for="cantidad" class="col-md-1 col-form-label text-md-right offset-md-1">Cantidad</label>
 
-                            <input id="cantidad" type="text" class="form-control col-md-1 mr-5 cantidadjs" placeholder="KG" name="cantidad"  value="{{old('cantidad')}}" required>
+                            <input id="cantidad" type="number" class="form-control col-md-1 mr-5 cantidadjs" placeholder="KG" name="cantidad"  value="{{old('cantidad')}}" required>
 
                             <a class="btn btn-info" id="btnCalcular">Calcular</a>
 
@@ -121,12 +121,11 @@
 
 
                             <label for="precioxkg" class="col-md-1 col-form-label text-md-right">Precio por tn.</label>
-                            <input id="precioxkg" type="text" class="form-control col-md-1 preciojs" placeholder="$" value="{{old('precioxkg')}}" name="precioxkg" >
+                            <input id="precioxkg" type="number" class="form-control col-md-1 preciojs" placeholder="$" value="{{old('precioxkg')}}" name="precioxkg" >
                             <p class="col-3 mt-2">Precio min por tn.: $
                                 <span class="">{{$precioFason->precio_por_tn}}</span> +-
                                 <span>${{$precioFason->variacion_admitida * $precioFason->precio_por_tn}}</span>
                             </p>
-
 
                         </div>
 

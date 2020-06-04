@@ -117,13 +117,13 @@
                             </select>
 
                             <label for="patente" class="col-lg-2 col-form-label text-md-right offset-md-2">Patente</label>
-                            <input id="patente" type="text" class="form-control col-md-2 patentejs" name="patente" placeholder="abc123 / ab123ab"  value="{{old('patente')}}" required>
+                            <input id="patente" type="text" class="form-control col-md-2 patentejs" name="patente" placeholder="abc123 / ab123ab" pattern="[A-Za-z]{3}[0-9]{3}|[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}" value="{{old('patente')}}" required>
 
                         </div>
                         <br>
                         <div class="form-group row">
                             <label for="nro_cbte" class="col-lg-2 col-form-label text-md-right">NRO Remito/Carta de porte</label>
-                                <input id="nro_cbte" type="text" class="form-control col-md-2 cartajs" name="nro_cbte" value="{{old('nro_cbte')}}" required>
+                                <input id="nro_cbte" type="text" class="form-control col-md-2 cartajs" name="nro_cbte"  pattern="[0-9]{6,8}" value="{{old('nro_cbte')}}" required>
                                 @error('nro_cbte')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>Fecha invalida</strong>
