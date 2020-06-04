@@ -110,10 +110,6 @@
                             </table>
                         </div>
 
-
-                        <button type="submit" class="btn btn-outline-success btn-block col-sm-2 offset-md-9 mt-2">
-                            Verificar
-                        </button>
                         <div class="form-group row mt-5">
                             <label for="fechaentrega" class="col-md-2 col-form-label text-md-right">Fecha de entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"  name="fechaentrega" value="{{old('fechaentrega')}}" required>
@@ -139,5 +135,10 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('script')
+    <script src="{{ asset('js/altaPedidos2.js') }}"></script>
 
 @endsection

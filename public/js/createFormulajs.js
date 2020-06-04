@@ -7,6 +7,8 @@ var window = window ||{},
 
 document.addEventListener("DOMContentLoaded", function(event)
 {
+
+    document.getElementById("fechahasta").disable=false;
     sessionStorage.clear();//limpio el sessionStorage cada vez que se recarga la pag
     cliente = document.querySelector(".cliente_id");
     productos = document.querySelector(".productos");

@@ -11,4 +11,6 @@ function deleteRow(btn) {
     sessionStorage.removeItem(row.firstChild.textContent);
     row.parentNode.removeChild(row);
 
+
+
 }

@@ -88,7 +88,7 @@ class FormulaController extends Controller
         $formula = AlimentoFormula::all()->where('alimento_id', '=', $idProducto)
             ->where('fecha_hasta', '=', null)
             ->first();
-
+        
         $formula->fecha_hasta = $fechaDesde;
         $formula->save();
 

@@ -240,6 +240,9 @@ document.addEventListener("DOMContentLoaded", function(event)
         tdStockUtilizarFabrica = document.createElement('td');
         input_stockFabrica = document.createElement('input');
         input_stockFabrica.name ='insumos_no_trazables['+i+'][stock_utilizar_Fabrica]';
+        if (element.cantidad_requerida>element.stock_cliente){
+            input_stockFabrica.value=element.cantidad_requerida-element.stock_cliente;
+        }
         tdStockUtilizarFabrica.appendChild(input_stockFabrica);
 
         tr = document.createElement('tr');
