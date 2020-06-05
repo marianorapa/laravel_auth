@@ -80,7 +80,7 @@
             </table>
 
             <div class="row justify-content-center mt-5">
-{{--                {{$ops->links()}}--}}
+{{--                {{$insumos->links()}}--}}
             </div>
 
         </section>

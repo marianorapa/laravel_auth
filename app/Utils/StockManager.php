@@ -260,7 +260,10 @@ class StockManager
                 'i.descripcion', 'lie.nro_lote', 'e2.denominacion as proveedor')
             ->groupBy('cliente')->groupBy('i.descripcion')->groupBy('proveedor')->groupBy('lie.nro_lote')->get();
 
-        return $stockT->union($stockNt)->sortBy('cliente');
+
+        return $stockT->merge($stockNt)->sortBy('cliente');
+
+//        return $stockT->union($stockNt)->sortBy('cliente');
     }
 
     public static function getListadoStockProductos($cliente)
