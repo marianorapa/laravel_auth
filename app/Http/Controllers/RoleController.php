@@ -130,7 +130,7 @@ class RoleController extends Controller
 
             $validatedData = $request->validate([
                 'name' => 'required',
-                'descripcion' => 'required|max:255'
+                'descr' => 'required|max:255'
             ]);
 
             $rol->fill($validatedData);

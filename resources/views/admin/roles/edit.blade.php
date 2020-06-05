@@ -27,12 +27,12 @@
                 <div class="card-body">
                     @if (session('mensaje'))
                     <div class="" role="alert">
-                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                    <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                     </div>
                     @endif
                     @if (session('error'))
                         <div class="">
-                            <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                            <p class="errorjs" style="display:none">{{ session('error') }}</p>
                         </div>
                     @endif
                     <form action="{{route('roles.update', $rol->id)}}" method="POST">
@@ -67,7 +67,7 @@
 
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
-                            <input type="text" name="descripcion" id="descripcion"
+                            <input type="text" name="descr" id="descr"
                             value="{{$rol->descr}}"
                             placeholder="Descripcion"  class="observacionjs form-control mb-2" required>
                          </div>
