@@ -340,10 +340,16 @@ class EntradaController extends Controller
                         ->where('ticket_entrada.id', '=', $id)
                         ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
                         ->join('empresa', 'empresa.id', '=', 'cliente_id')
+                       ->first();
+        $transportista = DB::table("empresa")
+                        ->where("empresa.id","=",$ticketEntrada->transportista_id)->first();
+        $bruto = DB::table("pesaje")
+                 ->where("pesaje.id","=",$ticketEntrada->bruto)->first();
+        $tara=DB::table("pesaje")
+              ->where("pesaje.id","=",$ticketEntrada->tara) ->first() ;
 
-                       ->get();
-
-        return view('balanzas.ingresos.ingresos-list',compact('ticketEntrada'));
+        //dd($ticketEntrada);
+        return view('balanzas.ingresos.ingresos-list',compact('ticketEntrada','transportista','bruto','tara'));
         }
 
 }
