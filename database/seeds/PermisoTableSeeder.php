@@ -24,7 +24,7 @@ class PermisoTableSeeder extends Seeder
         $this->seed_permisos_formulas();
         $this->seed_permisos_ordenProduccion();
         $this->seed_permisos_parametros();
-
+        $this->seed_permisos_asincronos();
     }
 
     public function seed_permisos_users(): void
@@ -497,5 +497,114 @@ class PermisoTableSeeder extends Seeder
 //        $permiso->activo = true;
         $permiso->save();
     }
+
+    public function seed_permisos_asincronos(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.insumosTrazabes';
+        $permiso->descr = 'Retorna Lista de insumos Trazables';
+        $permiso->funcionalidad = 'Permite obtener una lista de insumos Trazables';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.insumosNoTrazables';
+        $permiso->descr = 'Retorna Lista de insumos no Trazables';
+        $permiso->funcionalidad = 'Permite obtener una lista de insumos no Trazables';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.localidades';
+        $permiso->descr = 'Retorna Lista de localidades';
+        $permiso->funcionalidad = 'Permite obtener una lista de localidades';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.productos';
+        $permiso->descr = 'Retorna Lista de productos';
+        $permiso->funcionalidad = 'Permite obtener una lista de productos de un respectivo cliente';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.formulaProductos';
+        $permiso->descr = 'Retorna Lista de formula de un producto';
+        $permiso->funcionalidad = 'Permite obtener una formula de un respectivo producto';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.capacidadProductivaRestante';
+        $permiso->descr = 'Retorna capacidad productiva restante respectivo a un dia';
+        $permiso->funcionalidad = 'Permite obtener el valor de la capacidad productiva restante respectiva a un dia';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.ordenProduccion';
+        $permiso->descr = 'Retorna lista de orden de produccion respectiva a un cliente';
+        $permiso->funcionalidad = 'Permite obtener el listado de ordenes de produccion respectivo';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'asinc.saldoOp';
+        $permiso->descr = 'Retorna saldo de una orden de produccion';
+        $permiso->funcionalidad = 'Permite obtener el saldo respectivo a una orden de produccion';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'persona.pdf';
+        $permiso->descr = 'Retorna datos para el pdf de personas';
+        $permiso->funcionalidad = 'Permite obtener los datos correspondientes para poder retornarlos en un pdf';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedido.pdf';
+        $permiso->descr = 'Retorna datos para el pdf de pedidos';
+        $permiso->funcionalidad = 'Permite obtener los datos correspondientes para poder retornarlos en un pdf';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'ticketSalida.pdf';
+        $permiso->descr = 'Retorna datos para el pdf de tickets de salida';
+        $permiso->funcionalidad = 'Permite obtener los datos correspondientes para poder retornarlos en un pdf';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'ticketEntrada.pdf';
+        $permiso->descr = 'Retorna datos para el pdf de tickets de Entrada';
+        $permiso->funcionalidad = 'Permite obtener los datos correspondientes para poder retornarlos en un pdf';
+//        $permiso->activo = true;
+        $permiso->save();
+
+
+        //esta esta de uso solo para pruebas de autocomplete
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'autocompletarPersona';
+        $permiso->descr = 'Retorna coincidencia de personas';
+        $permiso->funcionalidad = 'Permite obtener lista de coincidencia de personas';
+//        $permiso->activo = true;
+        $permiso->save();
+
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'allPedidos';
+        $permiso->descr = 'Retorna todos los pedidos';
+        $permiso->funcionalidad = 'Permite obtener lista de todos los pedidos';
+//        $permiso->activo = true;
+        $permiso->save();
+
+
+
+    }
+
+
+
 
 }

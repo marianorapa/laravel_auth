@@ -152,16 +152,16 @@ Route::get('/pesajeFinalDespacho', function () {
 
 
 ///peticiones asincrionas js
-route::get('/insumosasinc', 'EntradaController@getInsumosTrazables');
-route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables');
-route::get('/localidades', 'LocalidadController@getLocalidad'); //cambiar a un controlador o ponerlo en el controlador de persona.
-route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente')->name("productos");
-route::get('/getFormulaProducto', 'FormulaController@getFormulaProducto'); // este es el que se usa
-route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm');
-route::get('/getCapacidadProductivaRestante', 'ParametrosController@getCapacidadRestante');
+route::get('/insumosasinc', 'EntradaController@getInsumosTrazables')->name("asinc.insumosTrazabes");
+route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables')->name("asinc.insumosNoTrazables");
+route::get('/localidades', 'LocalidadController@getLocalidad')->name("asinc.localidades"); //cambiar a un controlador o ponerlo en el controlador de persona.
+route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente')->name("asinc.productos");
+route::get('/getFormulaProducto', 'FormulaController@getFormulaProducto')->name("asinc.formulaProducto"); // este es el que se usa
+//route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm')->name("asinc.fabricaProducto");
+route::get('/getCapacidadProductivaRestante', 'ParametrosController@getCapacidadRestante')->name("asinc.capacidadProductivaRestante");
 //peticion asincronica para despacho
-route::get('/getOP', 'DespachoController@getOP');
-route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp');
+route::get('/getOP', 'DespachoController@getOP')->name("asinc.ordenProduccion");
+route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp')->name("asinc.saldoOp");
 
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
