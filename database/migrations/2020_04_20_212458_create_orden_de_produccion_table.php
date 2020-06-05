@@ -22,7 +22,7 @@ class CreateOrdenDeProduccionTable extends Migration
             $table->integer('saldo')->comment('cantidad - sum(ticket_salida)');
             $table->date('fecha_fabricacion');
             //$table->foreignId('capacidad_traza_id')->constrained('capacidad_productiva');
-            $table->decimal('precio_venta_por_kilo',15,2);
+            $table->decimal('precio_venta_por_tn',15,2);
             //$table->foreignId('precio_traza_id')->constrained('precio_fason');
             $table->foreignId('destino')->unsigned()->nullable()->constrained('granja');
             $table->timestamps();
