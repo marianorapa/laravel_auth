@@ -98,7 +98,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>La password debe tener 4 caracteres minimo y deben coincidir</strong>
+                                        <strong>La password debe tener 6 caracteres minimo y deben coincidir</strong>
                                     </span>
                                 @enderror
 
@@ -110,25 +110,18 @@
 
                         </div>
 
-{{--Update 06-5 Marian. Email ya no esta en el usuario--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label for="email">Email</label>--}}
-{{--                                <input type="text" name="email" id="email"--}}
-{{--                                value="{{old('email')}}" placeholder="Email"--}}
-{{--                                class="form-control mb-2" >--}}
-{{--                            </div>--}}
-
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
                                 <input type="text" name="descripcion" id="descripcion"
                                 value="{{old('descripcion')}}"
-                                placeholder="Descripcion" class="observacionjs form-control mb-2" >
-                            </div>
-                            @error('descripcion')
-                            <span class="invalid-feedback" role="alert">
+                                placeholder="Descripcion" class="observacionjs form-control mb-2 @error('descripcion') is-invalid @enderror" >
+                                @error('descripcion')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>La descripcion es obligatoria.</strong>
                                     </span>
-                            @enderror
+                                @enderror
+                            </div>
+
 
 {{--                            <p>Seleccione los roles del usuario:</p>--}}
 {{--                            @foreach ($roles as $rol)--}}
