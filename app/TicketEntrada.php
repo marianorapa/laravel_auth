@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Barryvdh\LaravelIdeHelper\Eloquent;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin Builder
@@ -74,14 +73,18 @@ class TicketEntrada extends Model
     public function scopeCliente($query, $cliente){
 
         if($cliente){
-            return $query->where('cliente_id', 'LIKE',"%$cliente%"); //esta query devuelve semejanzas.
+            return $query->join('ticket as t', 't.id', 'ticket_entrada.id')
+                ->join('empresa as e', 'e.id', 't.cliente_id')
+                ->where('e.denominacion', 'LIKE',"%$cliente%")
+                ->select('t.id as id'); //esta query devuelve semejanzas.
         }
     }
 
     public function scopePatente($query, $patente){
 
         if($patente){
-            return $query->where('patente', 'LIKE',"%$patente%"); //esta query devuelve semejanzas.
+            return $query->join('ticket as t2', 't2.id', 'ticket_entrada.id')
+                ->where('t2.patente', 'LIKE',"%$patente%"); //esta query devuelve semejanzas.
         }
     }
 }

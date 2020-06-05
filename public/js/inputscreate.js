@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //nombres
     validar_nombre = document.querySelector(".nombrepjs");
     validar_nombre.addEventListener("blur", function() {
-        var nombre = /^[a-zA-Z]{3,20}$/;
+        var nombre = /^[a-zA-Z ]{3,20}$/;
         if (nombre.exec(validar_nombre.value)) {
             validar_nombre.style.background = "#ffffff";
         } else {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //apellidos
     validar_apellidos = document.querySelector(".apellidosjs");
     validar_apellidos.addEventListener("blur", function() {
-        var apellidos = /^[a-zA-Z]{3,20}$/;
+        var apellidos = /^[a-zA-Z ]{3,20}$/;
         if (apellidos.exec(validar_apellidos.value)) {
             validar_apellidos.style.background = "#ffffff";
         } else {

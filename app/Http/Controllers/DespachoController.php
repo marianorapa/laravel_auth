@@ -224,6 +224,8 @@ class DespachoController extends Controller
             ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
             ->where('alimento.cliente_id','=',$cliente_id)
             ->where('orden_de_produccion.saldo', '>', 0)
+            ->join('estado_op_orden_de_produccion as eop', 'eop.ord_pro_id', 'orden_de_produccion.id')
+            ->where('eop.estado_id', '=', 3)
             ->select('orden_de_produccion.id','orden_de_produccion.fecha_fabricacion','alimento.descripcion','orden_de_produccion.saldo')
             ->get();
 

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //calles
     validar_calle = document.querySelector(".callejs");
     validar_calle.addEventListener("blur", function() {
-        var calle = /^[a-zA-Z1-9]+\.?(( |\-)[a-zA-Z1-9]+\.?)*/;
+        var calle = /^[a-zA-Z1-9 ]+\.?(( |\-)[a-zA-Z0-9]+\.?)*/;
         if (calle.exec(validar_calle.value)) {
             validar_calle.style.background = "#ffffff";
         } else {

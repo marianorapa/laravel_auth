@@ -2,6 +2,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
     <script src="{{ asset('js/errorCartel.js') }}"></script>
+    <script src="{{ asset('js/validarFiltros.js') }}"></script>
 @section('content')
     <section class="container">
 
@@ -21,8 +22,8 @@
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
-                    <input name="patente" class="form-control mr-sm-2" type="search" placeholder="Patente" aria-label="buscar por patente">
-                    <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente" aria-label="buscar por cliente">
+                    <input name="patente" class="form-control mr-sm-2 patentejs" type="search" placeholder="Patente" aria-label="buscar por patente" >
+                    <input name="cliente" class="form-control mr-sm-2 clientejs" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
@@ -66,7 +67,9 @@
 
                     <tbody>
                     @foreach ($ticketsEntrada as $ticketEntrada)
+
                         @if ($ticketEntrada->ticket()->exists())
+
 {{--                        @if (is_object($ticketEntrada))--}}
 {{--                            <tr>--}}
 {{--                                <th scope="row">{{$ticketEntrada->id}}</th>--}}
@@ -116,7 +119,7 @@
                                 <td>
 
                                     @if (!$ticketEntrada->ticket()->first()->tara()->exists())
-    {{--<a href="" class="btn btn-warning btn-sm">Editar</a>--}}                                        
+    {{--<a href="" class="btn btn-warning btn-sm">Editar</a>--}}
 
                                     <form method="get" id="destroy-appointment-{{ $ticketEntrada }}" action="{{route('balanzas.ingresos.destroy', $ticketEntrada->id)}}" onSubmit="return confirm('Desea eliminar?');">
                                     <a class="btn btn-success btn-sm mr-3" href="{{route('balanzas.ingresos.final', $ticketEntrada->id)}}">Finalizar</a>
