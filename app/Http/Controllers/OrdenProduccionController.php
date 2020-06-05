@@ -24,17 +24,21 @@ class OrdenProduccionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+
+        $producto = $request->get('producto');
+        $cliente = $request->get('cliente');
+
         $ops = DB::select(DB::raw("select op.id as op_id,
                empresa.denominacion as empresa,
                op.fecha_fabricacion,
                alimento.descripcion as producto,
                op.cantidad, eop.descripcion
                 from orden_de_produccion as op
-                inner join alimento on op.producto_id = alimento.id
-                inner join empresa on alimento.cliente_id = empresa.id
+                inner join alimento on op.producto_id = alimento.id AND alimento.descripcion LIKE '%$producto%'
+                inner join empresa on alimento.cliente_id = empresa.id AND empresa.denominacion LIKE '%$cliente%'
                 inner join (SELECT ord_pro_id, max(estado_id) as estado_id FROM estado_op_orden_de_produccion
                     GROUP BY ord_pro_id) as e on e.ord_pro_id = op.id
                 inner join estado_ord_pro as eop on eop.id = e.estado_id
@@ -78,18 +82,18 @@ class OrdenProduccionController extends Controller
     {
         //
         $clientes = DB::table('cliente')
-            ->join('empresa','cliente.id','=','empresa.id')
-            ->select('cliente.id','empresa.denominacion')->get();
+            ->join('empresa', 'cliente.id', '=', 'empresa.id')
+            ->select('cliente.id', 'empresa.denominacion')->get();
 
         $precioFason = PrecioManager::getPrecioReferencia();
 
-        return view('administracion.pedidos.altaPedidosNew',compact('clientes', 'precioFason'));
+        return view('administracion.pedidos.altaPedidosNew', compact('clientes', 'precioFason'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -120,36 +124,35 @@ class OrdenProduccionController extends Controller
             ->first();
 
         $formula = DB::table('formula_composicion as f')
-            ->where('f.formula_id','=',$id_formula->id)
+            ->where('f.formula_id', '=', $id_formula->id)
             ->join('insumo', 'f.insumo_id', 'insumo.id')
             ->select('f.insumo_id', 'insumo.descripcion', 'f.kilos_por_tonelada')
             ->get();
 
         $insumosReferencia = [];
 
-        foreach ($formula as $key=>$value) {
+        foreach ($formula as $key => $value) {
             $id_insumo = $value->insumo_id;
             $kilos_por_tonelada = $value->kilos_por_tonelada;
             $insumosReferencia[$id_insumo] = $kilos_por_tonelada;
         }
 
-        foreach ($insumosTrazables as $value){
+        foreach ($insumosTrazables as $value) {
             $idInsumoRecibido = $value['id_insumo_fila_insumos'];
             $stockAUtilizar = is_null($value['stock_utilizar']) ? 0 : $value['stock_utilizar'];
             $loteAUtilizar = isset($value['lote_insumo']) ? $value['lote_insumo'] : 0;
             $nombreInsumo = DB::table('insumo')->find($idInsumoRecibido)->descripcion;
 
-            if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)){
+            if ($this->cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)) {
                 if (!$this->alcanzaStockTrazable($idClienteOrden, $idInsumoRecibido, $loteAUtilizar, $stockAUtilizar)) {
                     return back()->with('error', "Cantidad de lote $loteAUtilizar de $nombreInsumo insuficiente");
                 }
-            }
-            else {
+            } else {
                 return back()->with('error', "La cantidad $stockAUtilizar kg de $nombreInsumo no respeta la fórmula");
             }
         }
 
-        foreach ($insumosNoTrazables as $value){
+        foreach ($insumosNoTrazables as $value) {
             $idInsumoRecibido = $value['id_insumo_fila_insumos'];
             $stockAUtilizar = is_null($value['stock_utilizar']) ? 0 : $value['stock_utilizar'];
             $stockAUtilizarFabrica = is_null($value['stock_utilizar_Fabrica']) ? 0 : $value['stock_utilizar_Fabrica'];
@@ -162,22 +165,18 @@ class OrdenProduccionController extends Controller
                     if ($this->alcanzaStockNoTrazableCliente($idClienteOrden, $idInsumoRecibido, $stockAUtilizar)) {
                         if (!$this->alcanzaStockFabrica($idInsumoRecibido, $stockAUtilizarFabrica)) {
                             return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo de la fabrica.");
-                        }
-                        else {
-                            if (!$this->tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)){
+                        } else {
+                            if (!$this->tieneCreditoCliente($idClienteOrden, $stockAUtilizarFabrica)) {
                                 return back()->with('error', "El cliente no tiene crédito suficiente para $nombreInsumo.");
                             }
                         }
-                    }
-                    else {
+                    } else {
                         return back()->with('error', "Cantidad INSUFICIENTE de $nombreInsumo del cliente.");
                     }
-                }
-                else {
+                } else {
                     return back()->with('error', "Cantidad de $nombreInsumo no respeta la fórmula.");
                 }
-            }
-            else {
+            } else {
                 return back()->with('error', "Insumo $nombreInsumo no pertenece a la fórmula.");
             }
         }
@@ -187,7 +186,7 @@ class OrdenProduccionController extends Controller
                                             restante para la fecha seleccionada");
         }
 
-        if (!PrecioManager::isPrecioValido($precioXtn)){
+        if (!PrecioManager::isPrecioValido($precioXtn)) {
             return back()->with('error', "El precio ingresado no es válido.");
         }
 
@@ -271,7 +270,8 @@ class OrdenProduccionController extends Controller
 
     }
 
-    public function cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia){
+    public function cumpleProporcion($idInsumoRecibido, $stockAUtilizar, $cantidadFabricar, $insumosReferencia)
+    {
         $proporcionEsperada = $insumosReferencia[$idInsumoRecibido];
         if ($proporcionEsperada != ($stockAUtilizar / $cantidadFabricar * 1000)) {
             return false;
@@ -310,10 +310,11 @@ class OrdenProduccionController extends Controller
      *
      * @param int $id The order's id
      */
-    public function finalize($id){
+    public function finalize($id)
+    {
         $op = OrdenProduccion::findOrFail($id);
 
-        if ($op->isPendiente()){
+        if ($op->isPendiente()) {
             $estadoOpOrden = new EstadoOpOrdenProduccion();
             $estadoOpOrden->estado_id = EstadoOrdenProduccion::getEstadoFinalizada()->id;
             $estadoOpOrden->ord_pro_id = $id;
@@ -332,7 +333,7 @@ class OrdenProduccionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -343,7 +344,7 @@ class OrdenProduccionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -354,8 +355,8 @@ class OrdenProduccionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -366,7 +367,7 @@ class OrdenProduccionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -379,61 +380,45 @@ class OrdenProduccionController extends Controller
     /**
      * Sets the state of the order to Cancelled
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function cancel($id)
     {
         $op = OrdenProduccion::find($id);
-        if ($op->isPendiente()){
+        if ($op->isPendiente()) {
             $op->anularOrden();
             return back()->with('message', 'La orden se ha anulado');
-        }
-        else {
+        } else {
             return back()->with('error', 'Una orden finalizada no puede anularse.');
         }
     }
 
 
-
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    function getProductoCliente(Request $request){
-       $id_cliente = $request->get('id');
+    function getProductoCliente(Request $request)
+    {
+        $id_cliente = $request->get('id');
 
-       $productos = DB::table('alimento')
-                    ->where('cliente_id','=',$id_cliente)->get();
-       return response()->json($productos);
+        $productos = DB::table('alimento')
+            ->where('cliente_id', '=', $id_cliente)->get();
+        return response()->json($productos);
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    function getClienteProdForm (Request $request){
-        $id_producto = $request->get('id_prod');
-        $id_cliente = $request->get('id_cliente');
-
-        /*$formula = DB::table('')
-            ->join('movimiento_insumo','movimiento_insumo.cliente_id','=',$id_cliente)
-            ->join()
-            ->select('cliente.id','empresa.denominacion')->get();*/
-        return response()->json();
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    function getFabricaProdForm (Request $request){
+    function getClienteProdForm(Request $request)
+    {
         $id_producto = $request->get('id_prod');
         $id_cliente = $request->get('id_cliente');
 
@@ -444,8 +429,27 @@ class OrdenProduccionController extends Controller
         return response()->json();
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    function getFabricaProdForm(Request $request)
+    {
+        $id_producto = $request->get('id_prod');
+        $id_cliente = $request->get('id_cliente');
 
-    function getSaldoOp(Request $request){
+        /*$formula = DB::table('')
+            ->join('movimiento_insumo','movimiento_insumo.cliente_id','=',$id_cliente)
+            ->join()
+            ->select('cliente.id','empresa.denominacion')->get();*/
+        return response()->json();
+    }
+
+
+    function getSaldoOp(Request $request)
+    {
 
         $op_id = $request->get('op_id');
 
@@ -458,35 +462,38 @@ class OrdenProduccionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
 
-    public function getPdfAll(Request $request){
-       /* $name = $request->get('nombre');
-        $apellido = $request->get('apellido');
-        $doc = $request->get('documento');*/
+    public function getPdfAll(Request $request)
+    {
+        /* $name = $request->get('nombre');
+         $apellido = $request->get('apellido');
+         $doc = $request->get('documento');*/
 
         $pedidos = DB::table('orden_de_produccion')
-                    /*->name($name)
-                    ->apellido($apellido)
-                    ->nrodoc($doc)*/
-                    ->get();
+            /*->name($name)
+            ->apellido($apellido)
+            ->nrodoc($doc)*/
+            ->get();
 
         /*dd($pedidos);
         response()->json('pedidos')*/
-        return view('administracion.pedidos.pedidos-list',compact('pedidos'));
+        return view('administracion.pedidos.pedidos-list', compact('pedidos'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function getpedidosjs(Request $request){
+    public function getpedidosjs(Request $request)
+    {
         $pedidos = DB::table('orden_de_produccion')
-                    ->select('producto_id','cantidad')
-                    ->get();
+            ->select('producto_id', 'cantidad')
+            ->get();
         return response()->json(json_encode($pedidos));
     }
 
