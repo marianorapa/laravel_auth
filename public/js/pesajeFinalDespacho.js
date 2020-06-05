@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     // Defino 40000 como el max que carga el camion
                     if (saldo > 40000){
-                        saldo = 40000;
+                        saldo = getRandomInt(35000, 40000);
                     }
 
                     inputPesaje.value = parseInt(tara) + parseInt(saldo);
