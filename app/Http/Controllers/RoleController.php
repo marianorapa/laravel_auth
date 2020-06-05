@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Role;
 use App\Permiso;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 
 class RoleController extends Controller
@@ -175,6 +176,12 @@ class RoleController extends Controller
             return back()->with('error', 'El rol de administrador no puede eliminarse.');
         };
 
+        $noDelete = DB::table("role_user")->where("role_id","=",$rol->id)
+                        ->join("users","users.id","role_user.user_id")
+                        ->where("users.deleted_at","=",null)->get(); //checkea que el rol no este asociado a un user activo.
+        if ($noDelete->isNotEmpty()){
+            return back()->with('error', 'El rol pertenece a un usuario.');
+        }
         $rol->delete();
         return back()->with('mensaje', 'Rol desactivado correctamente.');
     }
