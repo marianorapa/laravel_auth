@@ -25,8 +25,8 @@ class PrecioManager
         $precioRef = self::getPrecioReferencia();
         $precio = $precioRef->precio_por_tn;
         $variacion = $precioRef->variacion_admitida;
-        $min = $precio - $variacion;
-        $max = $precio + $variacion;
+        $min = $precio - $variacion * $precio;
+        $max = $precio + $variacion * $precio;
 
         return ($precioXtn >= $min && $precioXtn <= $max);
     }
