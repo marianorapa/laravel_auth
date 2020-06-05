@@ -55,7 +55,7 @@
 
                             <label for="cantidad" class="col-md-1 col-form-label text-md-right offset-md-1">Cantidad</label>
 
-                            <input id="cantidad" type="number" class="form-control col-md-1 mr-5 cantidadjs" placeholder="KG" name="cantidad"  value="{{old('cantidad')}}" required>
+                            <input id="cantidad" type="number" class="form-control col-md-1 mr-5 cantidadjs" placeholder="KG" step="1000" name="cantidad"  value="{{old('cantidad')}}" required>
 
                             <a class="btn btn-info" id="btnCalcular">Calcular</a>
 
