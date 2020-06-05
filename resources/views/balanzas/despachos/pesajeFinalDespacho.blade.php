@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/pesajeFinalDespacho.js') }}"></script>
+    
 @endsection
 
 @section('content')

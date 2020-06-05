@@ -5,7 +5,7 @@
    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
    <script src="{{ asset('js/errorCartel.js') }}"></script>
-
+   <script src="{{ asset('js/validarFiltros.js') }}"></script>
 
 @section('content')
 <section class="container">
@@ -24,8 +24,8 @@
 
         <nav class="float-right">
             <form class="form-inline">
-                <input name='name' class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="buscar por nombre">
-                <input name='descr' class="form-control mr-sm-2" type="search" placeholder="Descr" aria-label="buscar por descripcion">
+                <input name='name' class="form-control mr-sm-2 clientejs" type="search" placeholder="Nombre" aria-label="buscar por nombre">
+                <input name='descr' class="form-control mr-sm-2 productojs" type="search" placeholder="Descr" aria-label="buscar por descripcion">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </nav>

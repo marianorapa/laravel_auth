@@ -5,6 +5,7 @@
    <script src="{{ asset('js/sweetAlert2.js') }}"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
    <script src="{{ asset('js/errorCartel.js') }}"></script>
+   <script src="{{ asset('js/validarFiltros.js') }}"></script>
 
 
 @section('content')
@@ -23,7 +24,7 @@
 
         <nav class="float-right">
             <form class="form-inline">
-                <input name="cliente" class="form-control mr-sm-2" type="search" placeholder="Cliente..." aria-label="buscar por cliente">
+                <input name="cliente" class="form-control mr-sm-2 clientejs" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </nav>
