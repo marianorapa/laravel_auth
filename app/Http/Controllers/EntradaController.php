@@ -30,10 +30,12 @@ class EntradaController extends Controller
         $patente = $request->get('patente');
         $cliente = $request->get('cliente');
 
+
         // Recuperar ultimos ingresos
 //        $ticketsEntrada = DB::table('ticket_entrada')->orderBy('ticket_entrada.id')->paginate(10);
-        $ticketsEntrada = TicketEntrada::orderBy('id', 'desc')
-
+        $ticketsEntrada = TicketEntrada::orderBy('ticket_entrada.id', 'desc')
+                                        ->cliente($cliente)
+                                        ->patente($patente)
                                         ->paginate(10);
 //        $ticketsEntrada = DB::table('ticket as t')->where('t.deleted_at', '=', null)
 //            ->join('ticket_entrada as te', 't.id', 'te.id')
