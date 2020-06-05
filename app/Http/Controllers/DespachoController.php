@@ -247,12 +247,13 @@ class DespachoController extends Controller
         ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
         ->join('alimento', 'alimento.id','=','orden_de_produccion.producto_id')
         ->join('empresa as p','p.id','=','ticket.transportista_id')
+        ->join("pesaje as pbruto","ticket.bruto","pbruto.id")
         ->select('ticket_salida.id','ticket.patente','e.denominacion as cliente',
                     'alimento.descripcion as producto','ticket_salida.op_id', 'p.denominacion as transporte',
-                    'pesaje.peso as tara', 'ticket.bruto as bruto')
+                    'pesaje.peso as tara', 'pbruto.peso as bruto')
         ->get();
 
-        
+
         return view('balanzas.despachos.despachos-list',compact('ticketSalida'));
 
      }
