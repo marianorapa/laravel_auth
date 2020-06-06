@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CapacidadProductivaTableSeeder::class);
         $this->call(PrecioFasonTableSeeder::class);
         //ordpro, opDetNoTra, opDetTra, tktSalida, remito
-        //creditoCli                                            ----
+        $this->call(CreditoClienteTableSeeder::class);
         //prestamoCli, prestamoDev
         //tipoMovimiento                                        ----
         $this->call(TipoMovimientoSeeder::class);
