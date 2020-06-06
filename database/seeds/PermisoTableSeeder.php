@@ -408,6 +408,13 @@ class PermisoTableSeeder extends Seeder
         $permiso->funcionalidad = 'Permite guardar una nueva fórmula';
 //        $permiso->activo = true;
         $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'formula.show';
+        $permiso->descr = 'Ver una fórmula';
+        $permiso->funcionalidad = 'Permite visualizar una fórmula existente';
+//        $permiso->activo = true;
+        $permiso->save();
     }
 
     public function seed_permisos_ordenProduccion(){
@@ -494,6 +501,27 @@ class PermisoTableSeeder extends Seeder
         $permiso->nombre_ruta = 'parametros.capacidad.post';
         $permiso->descr = 'Guardar parámetros de capacidad';
         $permiso->funcionalidad = 'Permite guardar los parámetros de capacidad';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.credito.index';
+        $permiso->descr = 'Ver parámetros de crédito';
+        $permiso->funcionalidad = 'Permite visualizar el crédito de los clientes';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.credito.edit';
+        $permiso->descr = 'Modificar crédito cliente';
+        $permiso->funcionalidad = 'Permite modificar el crédito de un cliente';
+//        $permiso->activo = true;
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'parametros.credito.post';
+        $permiso->descr = 'Actualizar crédito cliente';
+        $permiso->funcionalidad = 'Permite actualizar el crédito de un cliente';
 //        $permiso->activo = true;
         $permiso->save();
     }

@@ -12,11 +12,13 @@ use App\Observers\MovimientoProductoTicketSalidaObserver;
 use App\Observers\OrdenProduccionDetalleNoTrazableObserver;
 use App\Observers\OrdenProduccionDetalleTrazableObserver;
 use App\Observers\OrdenProduccionObserver;
+use App\Observers\PrestamoObserver;
 use App\Observers\TicketEntradaObserver;
 use App\Observers\TicketObserver;
 use App\OrdenProduccion;
 use App\OrdenProduccionDetalleNoTrazable;
 use App\OrdenProduccionDetalleTrazable;
+use App\PrestamoCliente;
 use App\PrestamoDevolucion;
 use App\Ticket;
 use Illuminate\Support\Facades\Schema;
@@ -55,5 +57,6 @@ class AppServiceProvider extends ServiceProvider
         EstadoOpOrdenProduccion::observe(EstadoOpOrdenProduccionObserver::class);
         MovimientoProductoTicketSalida::observe(MovimientoProductoTicketSalidaObserver::class);
         CapacidadProductiva::observe(CapacidadProductivaObserver::class);
+        PrestamoCliente::observe(PrestamoObserver::class);
     }
 }
