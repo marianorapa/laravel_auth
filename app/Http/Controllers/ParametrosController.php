@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class ParametrosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission');
+    }
+
+
     //
     public function index(){
         return view('gerencia.parametrosProductivos.gestionParametrosProductivos');

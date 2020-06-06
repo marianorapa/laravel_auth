@@ -601,7 +601,12 @@ class PermisoTableSeeder extends Seeder
         $permiso->save();
 
 
-
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'allInsumos';
+        $permiso->descr = 'Retorna todos los insumos';
+        $permiso->funcionalidad = 'Permite obtener lista de todos los insumos';
+//        $permiso->activo = true;
+        $permiso->save();
     }
 
 

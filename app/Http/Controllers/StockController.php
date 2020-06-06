@@ -9,6 +9,11 @@ class StockController extends Controller
 {
     //
 
+    public function __construct()
+    {
+        $this->middleware('permission');
+    }
+
     public function index(){
         return view('administracion.stock.index');
     }

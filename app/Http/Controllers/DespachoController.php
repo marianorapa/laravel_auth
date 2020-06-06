@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Session;
 
 class DespachoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -255,8 +261,6 @@ class DespachoController extends Controller
                     'pesaje.peso as tara', 'pbruto.peso as bruto')
         ->get();
 
-
         return view('balanzas.despachos.despachos-list',compact('ticketSalida'));
-
      }
 }
