@@ -156,7 +156,7 @@ route::get('/insumosasinc', 'EntradaController@getInsumosTrazables')->name("asin
 route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables')->name("asinc.insumosNoTrazables");
 route::get('/localidades', 'LocalidadController@getLocalidad')->name("asinc.localidades"); //cambiar a un controlador o ponerlo en el controlador de persona.
 route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente')->name("asinc.productos");
-route::get('/getFormulaProducto', 'FormulaController@getFormulaProducto')->name("asinc.formulaProducto"); // este es el que se usa
+route::get('/getFormulaProducto', 'FormulaController@getFormulaProducto')->name("asinc.formulaProductos"); // este es el que se usa
 //route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm')->name("asinc.fabricaProducto");
 route::get('/getCapacidadProductivaRestante', 'ParametrosController@getCapacidadRestante')->name("asinc.capacidadProductivaRestante");
 //peticion asincronica para despacho

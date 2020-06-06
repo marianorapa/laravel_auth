@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class FormulaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission');
+    }
+
     /**
      * Display a listing of the resource.
      *

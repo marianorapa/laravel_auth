@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Session;
 class EntradaController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('permission');
+    }
 
     /**
      * Display a listing of the resource.

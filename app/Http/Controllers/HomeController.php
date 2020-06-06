@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -23,11 +22,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('admin'))
+        if (Auth::user()->hasPermiso('admin.menu'))
         {
             return redirect(route('admin.menu'));
-        };
+        }
 
-        return redirect(route('balanzas.menu'));
+        if (Auth::user()->hasPermiso('balanzas.menu')){
+            return redirect(route('balanzas.menu'));
+        }
+
+        if (Auth::user()->hasPermiso('administracion.menu')){
+            return redirect(route('administracion.menu'));
+        }
+
+        if (Auth::user()->hasPermiso('parametros.index')){
+            return redirect(route('parametros.index'));
+        }
+
+
+
     }
 }
