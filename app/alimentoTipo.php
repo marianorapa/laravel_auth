@@ -15,14 +15,14 @@ class alimentoTipo extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'alimento_tipo';
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -38,5 +38,13 @@ class alimentoTipo extends Model
     public function alimentos()
     {
         return $this->hasMany('App\Alimento', 'tipo');
+    }
+
+    public function getAlimentoTipo(){
+        $aliementoTipo = alimentoTipo::all();
+        foreach($aliementoTipo as $tipo){
+            $tipoArray[$tipo->id] = $tipo->descripcion;
+        }
+        return $tipoArray;
     }
 }

@@ -192,4 +192,8 @@ route::get('/getAllInsumos', 'FormulaController@getAllInsumos')->name('allInsumo
 route::get('/getpedidosjs', 'OrdenProduccionController@getpedidosjs')->name('allPedidos');
 
 
-//
+//productocreate
+Route::get('/createProducto', function () {
+    return view('/administracion.producto.createProducto');
+})->name('producto.create');
+//productoIndex

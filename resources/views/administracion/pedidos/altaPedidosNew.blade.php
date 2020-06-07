@@ -24,7 +24,9 @@
         <div class="col-md-10">
             @if (session('error'))
                 <div class="">
-                    <p class="errorjs" style="display:none">{{ session('error') }}</p>
+                    <p class="errorjs" style="display:none">{{ session('error') }}
+
+                    </p>
                 </div>
             @endif
             @if (session('message'))
@@ -41,8 +43,8 @@
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
 
                             <select name="cliente" id="cliente"
-                                    class="cliente_id custom-select col-md-2 form-check-input:invalid"> {{--checkear que form-check-input:invalid ande--}}
-                                <option data-tokens=="0">Seleccione</option>
+                                    class="cliente_id custom-select col-md-2 form-check-input:invalid" value="{{old("cliente")}}"> {{--checkear que form-check-input:invalid ande--}}
+                                <option data-tokens=="0" selected="true" disabled="disabled">Seleccione</option>
 
                                 @foreach ($clientes as $cliente)
                                     <option value="{{$cliente->id}}"> {{$cliente->denominacion}}</option>
@@ -52,7 +54,7 @@
                                    class="col-md-1 col-form-label text-md-right offset-md-1">Producto</label>
 
                             <select name="producto" id="producto" class="productos custom-select col-md-2">
-
+                                <option data-tokens=="0" selected="true" disabled="disabled">Seleccione</option>
                             </select>
 
                             <label for="cantidad"

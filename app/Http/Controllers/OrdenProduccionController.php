@@ -187,7 +187,7 @@ class OrdenProduccionController extends Controller
         }
 
         if (!PrecioManager::isPrecioValido($precioXtn)) {
-            return back()->with('error', "El precio ingresado no es válido.");
+            return back()->with('error', "El precio ingresado no es válido.")->with(compact('validated'));//////////////////////////////////////////////////////
         }
 
 
