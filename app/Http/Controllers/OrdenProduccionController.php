@@ -170,9 +170,9 @@ class OrdenProduccionController extends Controller
                                             restante para la fecha seleccionada");
         }
 
-        /*if (!PrecioManager::isPrecioValido($precioXtn)) {
+        if (!PrecioManager::isPrecioValido($precioXtn)) {
             return back()->with('error', "El precio ingresado no es válido.");
-        }*/
+        }
 
 
         // Si son correctos los insumos recibidos
