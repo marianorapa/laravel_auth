@@ -65,7 +65,14 @@
                                 <th id="producto">{{$op->prod_id}}</th>
                                 <th id="cantidad">{{$op->cant}}</th>
                             </tr>
-                    @endforeach
+                        @endforeach
+                        @foreach ($pedidost as $op)
+                            <tr>
+                                <th >{{$op->gtin}}</th>
+                                <th id="producto">{{$op->descripcion}}</th>
+                                <th id="cantidad">{{$op->cantidad}}</th>
+                            </tr>
+                        @endforeach
                         </tbody>
             </table>
             </div>
