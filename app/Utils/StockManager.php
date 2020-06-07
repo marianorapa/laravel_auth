@@ -62,7 +62,8 @@ class StockManager
             ->where('lie.nro_lote', '=', $lote)
             ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
             ->where('mi.cliente_id', '=', $idCliente)
-            ->select(DB::raw('sum(mi.cantidad)'))->get()->first();
+            ->sum('mi.cantidad');
+            //->select(DB::raw('sum(mi.cantidad)'))->get()->first();
     }
 
     public static function getStockIdLoteCliente($idCliente, $id_lote)
@@ -72,7 +73,8 @@ class StockManager
             ->where('lie.id', '=', $id_lote)
             ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
             ->where('mi.cliente_id', '=', $idCliente)
-            ->select(DB::raw('sum(mi.cantidad) as stock'))->get()->first();
+            ->sum('mi.cantidad');
+            //->select(DB::raw('sum(mi.cantidad) as stock'))->get()->first();
     }
 
     public static function registrarDevolucionFabrica(PrestamoDevolucion $prestamoDevolucion)

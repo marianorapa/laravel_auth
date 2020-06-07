@@ -57,10 +57,10 @@ class PrestamosManager
             ->where('opnt.insumo_id', '=', $idInsumo)
             ->join('orden_de_produccion as op','op.id','=','opd.op_id')
             ->where('op.anulada','=', false)
+            ->where('p.anulado', '=', false)                    // Es redundante pq si prestamo anulado -> op anulada
             ->join('alimento as a','op.producto_id','=','a.id')
             ->where('a.cliente_id','=',$idCliente)
             ->select('p.id','p.cancelado', 'opd.cantidad',DB::raw('(opd.cantidad - p.cancelado) as saldoAdeudado'))
-//            ->where('p.cancelado', '=', 'opd.cantidad')
             ->get();
 
         $saldoIngreso = $cantidadIngreso;

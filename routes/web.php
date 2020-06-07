@@ -64,10 +64,10 @@ Route::get('/administracion/stock/insumos', 'StockController@indexInsumos')->nam
 Route::get('/administracion/stock/productos', 'StockController@indexProductos')->name('administracion.stock.productos');
 
 Route::get('/administracion/stock/insumos/aumentarNoTrazable/{id}/{cliente}',
-    'StockController@aumentarStockInsumoNoTrazable')->name('administracion.stock.insumos.ajustarNoTrazable');
+    'StockController@actualizarStockInsumoNoTrazable')->name('administracion.stock.insumos.ajustarNoTrazable');
 
 Route::get('/administracion/stock/insumos/aumentarTrazable/{lote}/{cliente}',
-    'StockController@aumentarStockInsumoTrazable')->name('administracion.stock.insumos.ajustarTrazable');
+    'StockController@actualizarStockInsumoTrazable')->name('administracion.stock.insumos.ajustarTrazable');
 
 Route::post('/administracion/stock/insumos/registrarAjusteTrazable/{lote}/{cliente}',
     'StockController@registrarAjusteTrazable')
