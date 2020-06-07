@@ -14,7 +14,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/" >Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}" >Administración</a></li>
-                        <li class="breadcrumb-item active">Gestión de Formula</li>
+                        <li class="breadcrumb-item active">Gestión de Fórmula</li>
                     </ol>
                 </nav>
             </div>
@@ -31,7 +31,7 @@
                 @endif
             </div>
             <div class="row justify-content-center mt-4">
-                <a class="btn btn-primary btn m-1 col-3" href="{{route('formula.create')}}">Nueva Formula</a>
+                <a class="btn btn-primary btn m-1 col-3" href="{{route('formula.create')}}">Nueva Fórmula</a>
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
@@ -92,6 +92,6 @@
             </div>
 
         </section>
-        <a class="btn btn-secondary btn-sm" href="/">Volver</a>{{--Cambiar en un futuro--}}
+        <a class="btn btn-secondary btn-sm" href="{{route('administracion.menu')}}">Volver</a>{{--Cambiar en un futuro--}}
     </section>
 @endsection

@@ -10,7 +10,7 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}">Administracion</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}">Administración</a></li>
                         <li class="breadcrumb-item"><a href="{{route('administracion.stock')}}">Stock</a></li>
                         <li class="breadcrumb-item active">Gestión de Stock de Productos</li>
                     </ol>
