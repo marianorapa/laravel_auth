@@ -34,7 +34,7 @@ class CapacidadProductivaManager
                 ['fecha_hasta', '=', null],
                 ['fecha_desde', '<=', $fechaEntrega]
             ])
-            ->orderBy('prioridad_id')->orderByDesc('fecha_desde')->get()->first()->capacidad;
+            ->orderBy('prioridad_id')->orderByDesc('id')->get()->first()->capacidad;
 
 
         $capacidadOcupada = DB::table('orden_de_produccion as op')

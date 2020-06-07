@@ -12,11 +12,26 @@ class PrecioManager
 
     public static function getPrecioReferencia()
     {
-        return DB::table('precio_fason')
-            ->where('fecha_desde', '>=', getdate())
-            ->where('fecha_hasta', '<=', getdate())
-            ->orWhere('fecha_hasta', '=', null)
-            ->get()->first();
+        return DB::select(DB::raw("SELECT * FROM precio_fason
+                        WHERE (fecha_desde <= CURDATE() AND fecha_hasta >= CURDATE())
+                        OR (fecha_hasta IS NULL)
+                        ORDER BY id DESC LIMIT 1"));
+
+
+//        return DB::table('precio_fason')
+////            ->where(function($query) {
+////                $query->where([
+////                    ['fecha_desde', '>=', getdate()],
+////                    ['fecha_hasta', '<=', getdate()]
+////                ])->orWhere('fecha_hasta', '=', null);
+////            })
+//            ->where([
+//                ['fecha_desde', '>=', getdate()],
+//                ['fecha_hasta', '<=', getdate()]
+//            ])
+//            ->orWhere('fecha_hasta', '=', null)
+//            ->orderByDesc('id')
+//            ->get()->first();
     }
 
 
