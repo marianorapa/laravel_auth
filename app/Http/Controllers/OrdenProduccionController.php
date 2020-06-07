@@ -69,7 +69,7 @@ class OrdenProduccionController extends Controller
             ->join('empresa', 'cliente.id', '=', 'empresa.id')
             ->select('cliente.id', 'empresa.denominacion')->get();
 
-        $precioFason = PrecioManager::getPrecioReferencia()[0];
+        $precioFason = PrecioManager::getPrecioReferencia();
 
         return view('administracion.pedidos.altaPedidosNew', compact('clientes', 'precioFason'));
     }

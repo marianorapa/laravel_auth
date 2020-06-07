@@ -15,6 +15,7 @@ use App\Ticket;
 use App\TipoMovimiento;
 use App\User;
 use App\Utils\PrestamosManager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TicketObserver
@@ -85,7 +86,7 @@ class TicketObserver
         $estadoTicket = new EstadoTicketTicket();
         $estadoTicket->ticket()->associate($ticket);
         $estadoTicket->estadoTicket()->associate(EstadoTicket::getEstadoFinalizado());
-        $estadoTicket->user()->associate(User::all()->first()); // TODO Cambiar a usuario logueado
+        $estadoTicket->user()->associate(Auth::user()); // Cambiado
         $estadoTicket->save();
     }
 
@@ -102,7 +103,7 @@ class TicketObserver
         $estadoTicket->ticket()->associate($ticket);
 
         $estadoTicket->estadoTicket()->associate(EstadoTicket::getEstadoAnulado());
-        $estadoTicket->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+        $estadoTicket->user()->associate(Auth::user()); // Cambiado
 
         $estadoTicket->save();
     }
@@ -135,9 +136,8 @@ class TicketObserver
     protected function finalizarTicketEntrada(Ticket $ticket): void
     {
         $movimiento = new Movimiento();
-//               $movimiento->user()->associate(Auth::user()); Pendiente para cuando este protegida la ruta
 
-        $movimiento->user()->associate(User::all()->first()); // TODO cambiar x usuario logueado
+        $movimiento->user()->associate(Auth::user()); // Cambiado
 
         $tipoMovimiento = TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_ENTRADA);
         $movimiento->tipoMovimiento()->associate($tipoMovimiento);
@@ -152,7 +152,7 @@ class TicketObserver
             ->exists();
 
         if ($noEsTrazable) {
-            /* Solo en caso que no sea trazable, puede existir deuda */
+
             $insumo = DB::table('ticket_entrada_insumo_no_trazable')
                 ->where('id', '=', $ticket->id)
                 ->select('insumo_nt_id')
@@ -160,6 +160,7 @@ class TicketObserver
 
             $idInsumo = $insumo->insumo_nt_id;
 
+            /* Solo en caso que no sea trazable, puede existir deuda */
             $cantRestante = PrestamosManager::registrarDevolucionInsumo(
                 $ticket->cliente_id, $idInsumo, $ticket->id, $ticket->neto
             );
@@ -211,7 +212,7 @@ class TicketObserver
         $movimiento = new Movimiento();
 //               $movimiento->user()->associate(Auth::user()); Pendiente para cuando este protegida la ruta
 
-        $movimiento->user()->associate(User::all()->first()); // TODO cambiar x usuario logueado
+        $movimiento->user()->associate(Auth::user()); // Cambiado
 
         $tipoMovimiento = TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_SALIDA);
         $movimiento->tipoMovimiento()->associate($tipoMovimiento);

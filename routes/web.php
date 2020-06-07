@@ -63,6 +63,19 @@ Route::get('/administracion/stock', 'StockController@index')->name('administraci
 Route::get('/administracion/stock/insumos', 'StockController@indexInsumos')->name('administracion.stock.insumos');
 Route::get('/administracion/stock/productos', 'StockController@indexProductos')->name('administracion.stock.productos');
 
+Route::get('/administracion/stock/insumos/aumentarNoTrazable/{id}/{cliente}',
+    'StockController@actualizarStockInsumoNoTrazable')->name('administracion.stock.insumos.ajustarNoTrazable');
+
+Route::get('/administracion/stock/insumos/aumentarTrazable/{lote}/{cliente}',
+    'StockController@actualizarStockInsumoTrazable')->name('administracion.stock.insumos.ajustarTrazable');
+
+Route::post('/administracion/stock/insumos/registrarAjusteTrazable/{lote}/{cliente}',
+    'StockController@registrarAjusteTrazable')
+    ->name('administracion.stock.insumos.ajustarInsumoTrazable.post');
+
+Route::post('/administracion/stock/insumos/registrarAjusteNoTrazable/{lote}/{cliente}',
+    'StockController@registrarAjusteNoTrazable')
+    ->name('administracion.stock.insumos.ajustarInsumoNoTrazable.post');
 
 Route::get('/administracion/empresas', 'EmpresasController@index')
     ->name('administracion.empresas');
@@ -97,8 +110,6 @@ Route::get('/parametros/capacidad', 'ParametrosController@indexCapacidad')->name
 Route::get('/parametros/credito', 'ParametrosController@indexCredito')->name('parametros.credito.index');
 Route::get('/parametros/credito/{id}', 'ParametrosController@renewCredito')->name('parametros.credito.edit');
 Route::post('/parametros/credito/save', 'ParametrosController@renewCreditoPost')->name('parametros.credito.post');
-
-
 
 
 // Rutas de errores

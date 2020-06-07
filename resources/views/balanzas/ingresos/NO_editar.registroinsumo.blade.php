@@ -2,7 +2,7 @@
 
 
 @section('publics')
-<script src="{{ asset('js/habilitarinput.js') }}"></script>
+<script src="{{ asset('js/habilitarInput.js') }}"></script>
 <script src="{{ asset('js/registroInsumo.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{{ asset('js/notifCartel.js') }}"></script>
