@@ -15,9 +15,9 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/" >Home</a></li>
                     <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}" >Administración</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('formula.index')}}" >Gestión de Formula</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('formula.index')}}" >Gestión de Fórmula</a></li>
 
-                    <li class="breadcrumb-item active">Nueva formula</li>
+                    <li class="breadcrumb-item active">Nueva fórmula</li>
 
                 </ol>
             </nav>
@@ -36,7 +36,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header text-md-center h2"> Registro de nueva formula</div>
+                <div class="card-header text-md-center h2"> Registro de nueva fórmula</div>
                 <div class="card-body">
                     <form action="{{route('formula.store')}}" method="POST">
                         @csrf
@@ -60,7 +60,7 @@
                             {{--insumo--}}
                             <label for="insumo" class="col-md-1 col-form-label text-md-right offset-md-1">Insumo</label> {{--solo traigo insumos no trazables--}}
                             <select name="insumo" id="insumo" class="insumo custom-select col-md-2" >
-                                <option value="">seleccione</option>
+                                <option value="">Seleccione...</option>
                             </select>
                             {{--<input type="text" class="form-control basicAutoComplete"  placeholder="type to search..." autocomplete="off"> PROBAR LUEGO--}}
 
