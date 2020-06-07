@@ -11,8 +11,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}">Administración</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('administracion.stock')}}">Stock</a></li>
-                        <li class="breadcrumb-item active">Gestión de Stock de Insumos</li>
+                        <li class="breadcrumb-item active">Gestión de Préstamos</li>
                     </ol>
                 </nav>
             </div>
@@ -51,29 +50,25 @@
             @endif
                     <thead>
                         <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fecha</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Insumo</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Lote</th>
-                            <th scope="col">Proveedor</th>
-                            <th scope="col">Stock (kgs)</th>
+                            <th scope="col">Cant. prestada</th>
+                            <th scope="col">Cant. devuelta</th>
+                            <th scope="col">Estado</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($insumos as $insumo)
+                    @foreach ($prestamos as $prestamo)
                         <tr>
-                            <td scope="row">{{$insumo->cliente}}</td>
-                            <td>{{$insumo->descripcion}}</td>
-                            @if (isset($insumo->nro_lote))
-                                <td>Trazable</td>
-                                <td>{{$insumo->nro_lote}}</td>
-                                <td>{{$insumo->proveedor}}</td>
-                            @else
-                                <td>No Trazable</td>
-                                <td>-</td>
-                                <td>-</td>
-                            @endif
-                            <td>{{$insumo->stock}}</td>
+                            <th scope="row">{{$prestamo->id}}</th>
+                            <td>{{$prestamo->fecha}}</td>
+                            <td>{{$prestamo->cliente}}</td>
+                            <td>{{$prestamo->insumo}}</td>
+                            <td>{{$prestamo->cantidad}}</td>
+                            <td>{{$prestamo->cancelado}}</td>
+                            <td>{{$prestamo->anulado ? "Anulado" : "Vigente"}}</td>
                         </tr>
                    @endforeach
                     </tbody>
@@ -84,7 +79,7 @@
             </div>
 
         </section>
-        <a class="btn btn-secondary btn-sm" href="{{route('administracion.stock')}}">Volver</a>{{--Cambiar en un futuro--}}
+        <a class="btn btn-secondary btn-sm" href="{{route('administracion.menu')}}">Volver</a>{{--Cambiar en un futuro--}}
 
     </section>
 @endsection

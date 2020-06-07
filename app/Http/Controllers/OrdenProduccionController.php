@@ -31,7 +31,19 @@ class OrdenProduccionController extends Controller
         $producto = $request->get('producto');
         $cliente = $request->get('cliente');
 
-        $ops = DB::select(DB::raw("select op.id as op_id,
+        $ops = $this->getAllOps($producto, $cliente);
+
+        return view('administracion.pedidos.index', compact('ops'));
+    }
+
+    /**
+     * @param $producto
+     * @param $cliente
+     * @return array
+     */
+    protected function getAllOps($producto, $cliente): array
+    {
+        return DB::select(DB::raw("select op.id as op_id,
                empresa.denominacion as empresa,
                op.fecha_fabricacion,
                alimento.descripcion as producto,
@@ -43,34 +55,6 @@ class OrdenProduccionController extends Controller
                     GROUP BY ord_pro_id) as e on e.ord_pro_id = op.id
                 inner join estado_ord_pro as eop on eop.id = e.estado_id
                 order by op_id desc"));
-
-//        $ops = DB::table('orden_de_produccion as op')
-//            ->join('alimento','op.producto_id','=','alimento.id')
-//            ->join('empresa','alimento.cliente_id','=','empresa.id')
-//            ->join(
-//                DB::raw('SELECT ord_pro_id, max(estado_id) as estado_id FROM estado_op_orden_de_produccion
-//GROUP BY ord_pro_id'),
-//                'e.ord_pro_id', 'op.id'
-//            )
-//            ->join('estado_ord_pro as eop','eop.id','e.estado_id')
-//            ->select('op.id as op_id','empresa.denominacion as empresa',
-//                'op.fecha_fabricacion','alimento.descripcion as producto',
-//                'op.cantidad', 'eop.descripcion')
-//            ->orderBy('op_id', 'desc')->get();
-
-//
-//        $ops = DB::table('orden_de_produccion as op')
-//            ->join('alimento','op.producto_id','=','alimento.id')
-//            ->join('empresa','alimento.cliente_id','=','empresa.id')
-//            ->join('estado_op_orden_de_produccion as e', 'e.ord_pro_id', 'op.id')
-//            ->join('estado_ord_pro as eop','eop.id','e.estado_id')
-//            ->select('op.id as op_id','empresa.denominacion as empresa',
-//                'op.fecha_fabricacion','alimento.descripcion as producto',
-//                'op.cantidad', /*'eop.descripcion'*/)
-//            ->orderBy('op_id', 'desc')
-//            ->paginate(10);
-
-        return view('administracion.pedidos.index', compact('ops'));
     }
 
     /**
@@ -85,7 +69,7 @@ class OrdenProduccionController extends Controller
             ->join('empresa', 'cliente.id', '=', 'empresa.id')
             ->select('cliente.id', 'empresa.denominacion')->get();
 
-        $precioFason = PrecioManager::getPrecioReferencia();
+        $precioFason = PrecioManager::getPrecioReferencia()[0];
 
         return view('administracion.pedidos.altaPedidosNew', compact('clientes', 'precioFason'));
     }
@@ -466,21 +450,21 @@ class OrdenProduccionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getPdfAll(Request $request)
+    public function getPdfAll()
     {
-        /* $name = $request->get('nombre');
-         $apellido = $request->get('apellido');
-         $doc = $request->get('documento');*/
-
         $pedidos = DB::table('orden_de_produccion')
             /*->name($name)
             ->apellido($apellido)
             ->nrodoc($doc)*/
             ->get();
 
+       $pedidos = $this->getAllOps(null, null);
+
         /*dd($pedidos);
         response()->json('pedidos')*/
-        return view('administracion.pedidos.pedidos-list', compact('pedidos'));
+//        return view('administracion.pedidos.pedidos-list', compact('pedidos'));
+
+        return view('administracion.pedidos.pedidos-list-re', compact('pedidos'));
     }
 
     /**
@@ -496,5 +480,7 @@ class OrdenProduccionController extends Controller
             ->get();
         return response()->json(json_encode($pedidos));
     }
+
+
 
 }

@@ -72,6 +72,9 @@ Route::resource('pedidos', 'OrdenProduccionController');
 Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
 Route::get('pedidos/cancel/{id}', 'OrdenProduccionController@cancel')->name('pedidos.cancel');
 
+Route::get('administracion/prestamos', 'PrestamoController@index')->name('administracion.prestamos.index');
+
+
 Route::resource('despachos', 'DespachoController');
 Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');
 Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
@@ -94,6 +97,8 @@ Route::get('/parametros/capacidad', 'ParametrosController@indexCapacidad')->name
 Route::get('/parametros/credito', 'ParametrosController@indexCredito')->name('parametros.credito.index');
 Route::get('/parametros/credito/{id}', 'ParametrosController@renewCredito')->name('parametros.credito.edit');
 Route::post('/parametros/credito/save', 'ParametrosController@renewCreditoPost')->name('parametros.credito.post');
+
+
 
 
 // Rutas de errores

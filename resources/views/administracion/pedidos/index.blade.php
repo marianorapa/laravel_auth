@@ -20,8 +20,10 @@
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
+
                     <a type="submit" class="btn btn-info btn-sm m-1 btn_pdf"
-                       href="{{ route('pedido.pdf') }}">Descargar PDF</a><!--todavia no anda, primera prueba-->
+                       href="{{route('pedido.pdf')}}" target="_blank">Descargar PDF</a>
+
                     <input name="producto" class="form-control mr-sm-2 productojs"
                            type="search" placeholder="Producto" aria-label="buscar por producto">
                     <input name="cliente" class="form-control mr-sm-2 clientejs"

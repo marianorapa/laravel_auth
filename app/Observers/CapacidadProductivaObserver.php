@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\CapacidadProductiva;
-use Illuminate\Support\Facades\DB;
 
 class CapacidadProductivaObserver
 {
@@ -18,24 +17,24 @@ class CapacidadProductivaObserver
         else {
             /* Es una capacidad temporal */
             // Tengo que verificar que no haya otra superpuesta para esa fecha
-            $existen = DB::table('capacidad_productiva')
-                ->where([
-                    ['fecha_desde','<=', $capacidadProductiva->fecha_desde],
-                    ['fecha_hasta', '>=', $capacidadProductiva->fecha_desde]
-                ])
-                ->orWhere([
-                    ['fecha_desde', '<=', $capacidadProductiva->fecha_hasta],
-                    ['fecha_hasta', '>=', $capacidadProductiva->fecha_hasta],
-                ])
-                ->orWhere([
-                    ['fecha_desde', '>=', $capacidadProductiva->fecha_desde],
-                    ['fecha_hasta', '<=', $capacidadProductiva->fecha_hasta],
-                ])
-                ->where('prioridad_id', '=', 1)
-                ->exists();
-            if ($existen){
-                return false;
-            }
+//            $existen = DB::table('capacidad_productiva')
+//                ->where([
+//                    ['fecha_desde','<=', $capacidadProductiva->fecha_desde],
+//                    ['fecha_hasta', '>=', $capacidadProductiva->fecha_desde]
+//                ])
+//                ->orWhere([
+//                    ['fecha_desde', '<=', $capacidadProductiva->fecha_hasta],
+//                    ['fecha_hasta', '>=', $capacidadProductiva->fecha_hasta],
+//                ])
+//                ->orWhere([
+//                    ['fecha_desde', '>=', $capacidadProductiva->fecha_desde],
+//                    ['fecha_hasta', '<=', $capacidadProductiva->fecha_hasta],
+//                ])
+//                ->where('prioridad_id', '=', 1)
+//                ->exists();
+//            if ($existen){
+//                return false;
+//            }
         }
     }
 

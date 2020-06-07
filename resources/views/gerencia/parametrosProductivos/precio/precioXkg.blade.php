@@ -29,7 +29,7 @@
     </div>
 @endif
 
-@if (session('mensaje'))
+@if (session('message'))
     <div class="">
         <p class="alertajs" style="display:none"> {{ session('mensaje') }} </p>
     </div>
@@ -49,9 +49,9 @@
                 <form action="{{route('parametros.precio.post')}}" method="POST" >
                     @csrf
                 <div class="form-group row">
-                        <label class="col-md-4 col-form-label text-md-right" for="precioXkg">Precio por KG</label>
+                        <label class="col-md-4 col-form-label text-md-right" for="precioXkg">Precio por tonelada</label>
                         <div class="col-md-6">
-                            <input class="precioxkg form-control" type="text" id="precio_por_kilo" name="precio_por_kilo" required>
+                            <input class="precioxkg form-control" type="text" id="precio_por_tn" name="precio_por_tn" required>
                         </div>
 
                         <span class="invalid-feedback">
