@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -11,7 +12,7 @@ class StockController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission');
+//        $this->middleware('permission');
     }
 
     public function index(){
@@ -35,6 +36,74 @@ class StockController extends Controller
         return view('administracion.stock.productos.index', compact('productos'));
     }
 
+    public function aumentarStockInsumoNoTrazable($id_cliente, $id_insumo){
+        $insumo = [];
+
+        $insumoDb = DB::table('insumo')->find($id_insumo)->descripcion;
+        $clienteDb = DB::table('empresa')->find($id_cliente)->denominacion;
+
+        if (!is_null($insumoDb)) {
+
+            $insumo['idInsumoNt'] = $id_insumo;
+            $insumo['nombreInsumo'] = $insumoDb;
+            $insumo['idCliente'] = $id_cliente;
+            $insumo['nombreCliente'] = $clienteDb;
+            $insumo['stock'] = StockManager::getStockInsumoNoTrazableCliente($id_insumo, $id_cliente);
+
+            return view('administracion.stock.insumos.aumentar', compact('insumo'));
+        }
+        return back()->with('error', 'No existe el insumo!');
+    }
+
+    public function actualizarStockInsumoNoTrazable($id_insumo, $id_cliente, $cantidad){
+
+    }
+
+    public function aumentarStockInsumoTrazable($idCliente, $idLoteInsumoEspecifico){
+        $clienteDb = DB::table('empresa')->find($idCliente)->denominacion;
+        $loteInsumoDb = DB::table('lote_insumo_especifico as lie')
+            ->join('insumo_especifico as ie', 'ie.gtin', 'lie.insumo_especifico')
+            ->join('insumo as i', 'i.id', 'ie.insumo_trazable_id')
+            ->select('i.descripcion', 'lie.nro_lote')->get()->first();
+
+        $insumo = [];
+        $insumo['idLoteInsumoEspecifico'] = $idLoteInsumoEspecifico;
+        $insumo['nombreInsumo'] = $loteInsumoDb->descripcion;
+        $insumo['nroLote'] = $loteInsumoDb->nro_lote;
+        $insumo['idCliente'] = $idCliente;
+        $insumo['nombreCliente'] = $clienteDb;
+        $insumo['stock'] = StockManager::getStockIdLoteCliente($idCliente, $idLoteInsumoEspecifico)->stock;
+
+        return view('administracion.stock.insumos.aumentar', compact('insumo'));
+    }
+
+    public function registrarAjusteTrazable($idLoteInsumo, $idCliente, Request $request){
+        $validated = $request->validate([
+           'ajuste' => ['numeric', 'required']
+        ]);
+
+        $ajuste = $validated['ajuste'];
+
+        StockManager::ajusteStockInsumoTrazable($idLoteInsumo, $idCliente, $ajuste);
+
+        return redirect()->action('StockController@indexInsumos')->with('message', 'Ajuste realizado con éxito');
+    }
+
+    public function registrarAjusteNoTrazable($idInsumo, $idCliente, Request $request){
+        $validated = $request->validate([
+            'ajuste' => ['numeric', 'required']
+        ]);
+
+        $ajuste = $validated['ajuste'];
+
+        StockManager::ajusteStockInsumoNoTrazable($idInsumo, $idCliente, $ajuste);
+
+        return redirect()->action('StockController@indexInsumos')->with('message', 'Ajuste realizado con éxito');
+    }
+
+    public function aumentarStockProducto($id){
+
+    }
 
 
 }

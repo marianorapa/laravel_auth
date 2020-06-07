@@ -33,6 +33,12 @@
                     <p class="alertajs" style="display:none">{{ session('message') }}</p>
                 </div>
             @endif
+
+            @if ($errors->any())
+                <div class="">
+                    <p class="errorjs" style="display:none">{{ $errors->first() }}</p>
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header text-center h2"> {{__('Alta de pedido de cliente') }}</div>
                 <div class="card-body">

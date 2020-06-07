@@ -39,5 +39,9 @@ class TipoMovimientoSeeder extends Seeder
         $tipoMov = new \App\TipoMovimiento();
         $tipoMov->descripcion = "Reintegro por cancelación de préstamo";
         $tipoMov->save();
+
+        $tipoMov = new \App\TipoMovimiento();
+        $tipoMov->descripcion = "Ajuste manual de stock";
+        $tipoMov->save();
     }
 }

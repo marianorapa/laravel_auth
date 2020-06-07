@@ -16,6 +16,7 @@ use App\PrestamoCliente;
 use App\PrestamoDevolucion;
 use App\TipoMovimiento;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StockManager
@@ -54,15 +55,24 @@ class StockManager
             ->sum('mi.cantidad');
     }
 
-
     public static function getStockLoteCliente($idCliente, $lote)
     {
         return DB::table('movimiento_insumo_ins_tra as mt')
-            ->join('lote_insumo_especifico as lie', 'lie.id', 'mt.id')
+            ->join('lote_insumo_especifico as lie', 'lie.id', 'mt.insumo_id')
             ->where('lie.nro_lote', '=', $lote)
             ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
             ->where('mi.cliente_id', '=', $idCliente)
-            ->get();
+            ->select(DB::raw('sum(mi.cantidad)'))->get()->first();
+    }
+
+    public static function getStockIdLoteCliente($idCliente, $id_lote)
+    {
+        return DB::table('movimiento_insumo_ins_tra as mt')
+            ->join('lote_insumo_especifico as lie', 'lie.id', 'mt.insumo_id')
+            ->where('lie.id', '=', $id_lote)
+            ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
+            ->where('mi.cliente_id', '=', $idCliente)
+            ->select(DB::raw('sum(mi.cantidad) as stock'))->get()->first();
     }
 
     public static function registrarDevolucionFabrica(PrestamoDevolucion $prestamoDevolucion)
@@ -224,7 +234,7 @@ class StockManager
     private static function createMovimientoInsumo($tipoMovimiento, $idCliente, $cantidad) : MovimientoInsumo
     {
         $movimiento = new Movimiento();
-        $movimiento->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+        $movimiento->user()->associate(Auth::user()); // Cambiado
         $movimiento->tipoMovimiento()->associate($tipoMovimiento);
         $movimiento->save();
 
@@ -244,8 +254,9 @@ class StockManager
             ->join('movimiento_insumo as mi', 'mi.cliente_id', 'c.id')
             ->join('movimiento_insumo_ins_no_tra as mnt', 'mnt.id', 'mi.id')
             ->join('insumo as i', 'mnt.insumo_id', 'i.id')
-            ->select(DB::raw('sum(mi.cantidad) as stock'), 'e.denominacion as cliente', 'i.descripcion')
-            ->groupBy('cliente')->groupBy('i.descripcion')->get();
+            ->select(DB::raw('sum(mi.cantidad) as stock'), 'e.denominacion as cliente', 'i.descripcion',
+                                'i.id as id_insumo', 'e.id as cliente_id')
+            ->groupBy('cliente')->groupBy('i.descripcion')->groupBy('i.id')->groupBy('e.id')->get();
 
         $stockT = DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
             ->where('e.denominacion', 'like', "%$cliente%")
@@ -257,8 +268,10 @@ class StockManager
             ->join('proveedor as p', 'p.id', 'ie.proveedor_id')
             ->join('empresa as e2', 'e2.id', 'p.id')
             ->select(DB::raw('sum(mi.cantidad) as stock'), 'e.denominacion as cliente',
-                'i.descripcion', 'lie.nro_lote', 'e2.denominacion as proveedor')
-            ->groupBy('cliente')->groupBy('i.descripcion')->groupBy('proveedor')->groupBy('lie.nro_lote')->get();
+                'i.descripcion', 'lie.nro_lote', 'e2.denominacion as proveedor',
+                'lie.id as id_lote_ins_especifico', 'e.id as cliente_id')
+            ->groupBy('cliente')->groupBy('i.descripcion')->groupBy('proveedor')
+            ->groupBy('lie.nro_lote')->groupBy('lie.id')->groupBy('e.id')->get();
 
 
         return $stockT->merge($stockNt)->sortBy('cliente');
@@ -274,6 +287,31 @@ class StockManager
             ->join('movimiento_producto as mp', 'mp.producto_id', 'a.id')
             ->select(DB::raw('sum(mp.cantidad) as stock'), 'a.descripcion as producto', 'e.denominacion as cliente')
             ->groupBy('a.descripcion', 'e.denominacion')->get();
+    }
+
+
+    public static function ajusteStockInsumoTrazable($idLoteInsumo, $idCliente, $ajuste)
+    {
+        $tipo = TipoMovimiento::AJUSTE_STOCK_MANUAL;
+        $movimientoInsumo = self::createMovimientoInsumo($tipo, $idCliente, $ajuste);
+
+        $movimientoInsumoTrazable = new MovimientoInsumoTrazable();
+        $movimientoInsumoTrazable->insumo_id = $idLoteInsumo;
+        $movimientoInsumoTrazable->movimientoInsumo()->associate($movimientoInsumo);
+
+        $movimientoInsumoTrazable->save();
+    }
+
+    public static function ajusteStockInsumoNoTrazable($idInsumo, $idCliente, $ajuste)
+    {
+        $tipo = TipoMovimiento::AJUSTE_STOCK_MANUAL;
+        $movimientoInsumo = self::createMovimientoInsumo($tipo, $idCliente, $ajuste);
+
+        $movimientoInsumoNoTrazable = new MovimientoInsumoNoTrazable();
+        $movimientoInsumoNoTrazable->insumo_id = $idInsumo;
+        $movimientoInsumoNoTrazable->movimientoInsumo()->associate($movimientoInsumo);
+
+        $movimientoInsumoNoTrazable->save();
     }
 
 }
