@@ -38,8 +38,8 @@ class PrecioManager
     public static function isPrecioValido($precioXtn)
     {
         $precioRef = self::getPrecioReferencia();
-        $precio = $precioRef->precio_por_tn;
-        $variacion = $precioRef->variacion_admitida;
+        $precio = $precioRef['precio_por_tn'];
+        $variacion = $precioRef['variacion_admitida'];
         $min = $precio - $variacion * $precio;
         $max = $precio + $variacion * $precio;
 
