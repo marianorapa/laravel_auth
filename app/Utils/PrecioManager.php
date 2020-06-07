@@ -15,7 +15,7 @@ class PrecioManager
         return DB::select(DB::raw("SELECT * FROM precio_fason
                         WHERE (fecha_desde <= CURDATE() AND fecha_hasta >= CURDATE())
                         OR (fecha_hasta IS NULL)
-                        ORDER BY id DESC LIMIT 1"));
+                        ORDER BY id DESC LIMIT 1"))[0];
 
 
 //        return DB::table('precio_fason')
@@ -38,8 +38,9 @@ class PrecioManager
     public static function isPrecioValido($precioXtn)
     {
         $precioRef = self::getPrecioReferencia();
-        $precio = $precioRef['precio_por_tn'];
-        $variacion = $precioRef['variacion_admitida'];
+
+        $precio = $precioRef->precio_por_tn;
+        $variacion = $precioRef->variacion_admitida;
         $min = $precio - $variacion * $precio;
         $max = $precio + $variacion * $precio;
 
