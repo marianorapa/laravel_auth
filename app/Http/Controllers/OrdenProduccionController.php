@@ -170,9 +170,9 @@ class OrdenProduccionController extends Controller
                                             restante para la fecha seleccionada");
         }
 
-        if (!PrecioManager::isPrecioValido($precioXtn)) {
+        /*if (!PrecioManager::isPrecioValido($precioXtn)) {
             return back()->with('error', "El precio ingresado no es válido.");
-        }
+        }*/
 
 
         // Si son correctos los insumos recibidos
@@ -482,5 +482,36 @@ class OrdenProduccionController extends Controller
     }
 
 
+
+    public function getPdfOne($id)
+    {
+        $pedidost = DB::table('orden_de_produccion as op')
+            ->where('op.id', '=', $id)
+            ->join('orden_de_produccion_detalle as detalle', 'op.id', 'detalle.op_id')
+            ->join('op_detalle_trazable as opt', 'detalle.id', 'opt.op_detalle_id') 
+            ->select('op.id', 'op.cantidad', 'op.saldo' , 'op.fecha_fabricacion' , 'op.precio_venta_por_tn', 'op.destino', 'op.created_at',
+            'opt.lote_insumo_id')
+            ->get();
+
+        $pedidosnt = DB::table('orden_de_produccion as op')
+            ->where('op.id', '=', $id)
+            ->join('orden_de_produccion_detalle as detalle', 'op.id', 'detalle.op_id')
+            ->join('op_detalle_no_trazable as nt', 'detalle.id', 'nt.op_detalle_id') 
+            ->select('op.id', 'op.cantidad', 'op.producto_id', 'op.saldo' , 'op.fecha_fabricacion' , 'op.precio_venta_por_tn', 'op.destino', 'op.created_at',
+            'detalle.cantidad as cant', 'detalle.id as prod_id', 'nt.cliente_id') 
+            /*->select('op.id', 'op.cantidad', 'op.saldo' , 'op.fecha_fabricacion' , 'op.precio_venta_por_tn', 'op.destino', 'op.created_at',
+            )*/
+            ->get();
+
+
+       // dd($pedidost);
+    //dd($pedidosnt);
+        
+
+        return view('administracion.pedidos.pedidos-unitlist', compact('pedidosnt'));
+
+
+
+    }
 
 }

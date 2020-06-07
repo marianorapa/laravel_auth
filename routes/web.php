@@ -170,12 +170,14 @@ route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp')->name("asinc.s
 
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
-//pdf pedidos
+//pdf informe pedidos
 route::get('/pedidopdf', 'OrdenProduccionController@getPdfAll')->name('pedido.pdf');
 //pdf ticket salida
 route::get('/ticketSalidapdf/{id}', 'DespachoController@getPdfAll')->name('ticketSalida.pdf');
 //pdf ticket entrada
 route::get('/ticketEntradapdf/{id}', 'EntradaController@getPdfAll')->name('ticketEntrada.pdf');
+//pdf pedido salida unitaria
+route::get('/oppdf/{id}', 'OrdenProduccionController@getPdfOne')->name('op.pdf');
 
 
 //peticion asincrona para create user
