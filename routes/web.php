@@ -100,6 +100,16 @@ Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('
 Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
 Route::get('despachos/cancel/{id}', 'DespachoController@destroy')->name('despachos.destroy');
 
+
+Route::get('gerencia', function () {
+    return view('gerencia.index');
+})->name('gerencia.index');//->middleware('permission'); Agregar junto a permiso
+
+
+Route::get('/informes/estadistico', 'InformesController@informeEstadistico')->name('informes.estadistico');
+Route::post('/informes/estadistico/generar', 'InformesController@generarInformeEstadistico')
+    ->name('informes.estadistico.generar');
+
 Route::get('/parametros', 'ParametrosController@index')->name('parametros.index');
 
 Route::get('/parametros/precio/definir', 'ParametrosController@definirPrecio')->name('parametros.precio.view');
