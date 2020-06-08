@@ -39,8 +39,8 @@
             <p>Cliente: {{ $pedidosnt->first()->nombre_cliente }}</p> 
             <p>Producto: {{ $pedidosnt->first()->prod }}</p>
         </article> 
-        <article id="central1-der">Kg: {{ $pedidosnt->first()->cantidad }}
-            <h2><br></h2>
+        <article id="central1-der">
+            <p> Kg: {{ $pedidosnt->first()->cantidad }}</p>
         </article>
     </section>
  </div>
