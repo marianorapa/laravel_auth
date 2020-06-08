@@ -503,10 +503,9 @@ class OrdenProduccionController extends Controller
             ->join('op_detalle_trazable as opt', 'detalle.id', 'opt.op_detalle_id') 
             ->join('lote_insumo_especifico as lote', 'lote.id', 'opt.lote_insumo_id') 
             ->join('insumo_especifico as insumo', 'lote.insumo_especifico', 'insumo.gtin')
-            ->select('insumo.gtin', 'insumo.descripcion', 'detalle.cantidad') 
+            ->join('lote_insumo_especifico as detallelote', 'detallelote.id', 'opt.lote_insumo_id')
+            ->select('insumo.gtin', 'insumo.descripcion', 'detalle.cantidad', 'detallelote.nro_lote') 
             ->get();
-
-        //dd($pedidosnt);
         
 
         return view('administracion.pedidos.pedidos-unitlist', compact('pedidosnt', 'pedidost'));

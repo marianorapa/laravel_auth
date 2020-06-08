@@ -56,14 +56,27 @@
                                 <th scope="col">Id</th>
                                 <th  scope="col">Producto</th>
                                 <th scope="col">Cantidad</th>
+                                <th scope="col">Dueño</th>
+                                <th scope="col">Lote</th>
+
                             </tr>
             </thead>          
                         <tbody>
                         @foreach ($pedidosnt as $op)
+
                             <tr>
                                 <th  class="fila">{{$op->prod_id}}</th>
                                 <th class="fila">{{$op->descripcion}}</th>
                                 <th class="fila">{{$op->cant}}</th>
+                                
+                                @if ($op->cliente_id == 1){                        
+                                    <th class="fila">Fabrica</th>
+                                }elseif{                               
+                                    <th class="fila">Cliente</th>
+                                }
+                                @endif
+                                <th class="fila"> lote</th>
+                               
                             </tr>
                         @endforeach
                         @foreach ($pedidost as $op)
@@ -71,6 +84,9 @@
                                 <th class="fila">{{$op->gtin}}</th>
                                 <th class="fila">{{$op->descripcion}}</th>
                                 <th class="fila">{{$op->cantidad}}</th>
+                                <th class="fila">Cliente</th>
+                                <th class="fila">lote</th>
+
                             </tr>
                         @endforeach
                         </tbody>
@@ -82,9 +98,6 @@
 
  <div id="wrapper2"> 
     <section> 
-        <article id="column4">
-            <p>Destino: {{ $pedidosnt->first()->destino }}</p>
-        </article> 
         <article id="column5">
             <p>Firma Responsable:</p>
         </article> 
