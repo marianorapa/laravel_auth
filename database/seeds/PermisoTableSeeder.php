@@ -25,6 +25,12 @@ class PermisoTableSeeder extends Seeder
         $this->seed_permisos_ordenProduccion();
         $this->seed_permisos_parametros();
         $this->seed_permisos_asincronos();
+
+//        $this->temp_seeder(); // Dejame comentado. Es temporal para hacer ajustes al agregar datos
+    }
+
+    public function temp_seeder(){
+
     }
 
     public function seed_permisos_users(): void
@@ -291,6 +297,31 @@ class PermisoTableSeeder extends Seeder
         $permiso->descr = 'Menu administración de stock de productos';
         $permiso->funcionalidad = 'Permite visualizar el menu de stock de productos del sector administración';
         $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.insumos.ajustarTrazable';
+        $permiso->descr = 'Formulario de ajuste insumo trazable';
+        $permiso->funcionalidad = 'Permite visualizar el formulario de ajustes de insumos trazables';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.insumos.ajustarNoTrazable';
+        $permiso->descr = 'Formulario de ajuste insumo no trazable';
+        $permiso->funcionalidad = 'Permite visualizar el formulario de ajustes de insumos no trazables';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.insumos.ajustarInsumoTrazable.post';
+        $permiso->descr = 'Registrar ajuste insumo trazable';
+        $permiso->funcionalidad = 'Permite realizar el ajuste de insumos trazables';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.insumos.ajustarInsumoNoTrazable.post';
+        $permiso->descr = 'Registrar ajuste insumo no trazable';
+        $permiso->funcionalidad = 'Permite realizar el ajuste de insumos no trazables';
+        $permiso->save();
+
 
         $permiso = new Permiso();
         $permiso->nombre_ruta = 'administracion.empresas';

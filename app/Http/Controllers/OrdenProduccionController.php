@@ -9,12 +9,12 @@ use App\OrdenProduccionDetalle;
 use App\OrdenProduccionDetalleNoTrazable;
 use App\OrdenProduccionDetalleTrazable;
 use App\PrestamoCliente;
-use App\User;
 use App\Utils\CapacidadProductivaManager;
 use App\Utils\PrecioManager;
 use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrdenProduccionController extends Controller
@@ -69,7 +69,7 @@ class OrdenProduccionController extends Controller
             ->join('empresa', 'cliente.id', '=', 'empresa.id')
             ->select('cliente.id', 'empresa.denominacion')->get();
 
-        $precioFason = PrecioManager::getPrecioReferencia()[0];
+        $precioFason = PrecioManager::getPrecioReferencia();
 
         return view('administracion.pedidos.altaPedidosNew', compact('clientes', 'precioFason'));
     }
@@ -302,7 +302,7 @@ class OrdenProduccionController extends Controller
             $estadoOpOrden = new EstadoOpOrdenProduccion();
             $estadoOpOrden->estado_id = EstadoOrdenProduccion::getEstadoFinalizada()->id;
             $estadoOpOrden->ord_pro_id = $id;
-            $estadoOpOrden->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+            $estadoOpOrden->user()->associate(Auth::user()); // Cambiado
             $estadoOpOrden->save();
             return redirect()->action('OrdenProduccionController@index')
                 ->with('message', 'Orden finalizada con éxito.');
@@ -482,5 +482,34 @@ class OrdenProduccionController extends Controller
     }
 
 
+
+    public function getPdfOne($id)
+    {
+        $pedidosnt = DB::table('orden_de_produccion as op')
+            ->where('op.id', '=', $id)
+            ->join('orden_de_produccion_detalle as detalle', 'op.id', 'detalle.op_id')
+            ->join('op_detalle_no_trazable as nt', 'detalle.id', 'nt.op_detalle_id') 
+            ->select('op.id', 'op.cantidad', 'op.producto_id', 'op.saldo' , 'op.fecha_fabricacion' , 'op.precio_venta_por_tn', 'op.destino', 'op.created_at',
+            'detalle.cantidad as cant', 'detalle.id as prod_id', 'nt.cliente_id') 
+            ->get();
+
+
+            $pedidost = DB::table('orden_de_produccion as op')
+            ->where('op.id', '=', $id)
+            ->join('orden_de_produccion_detalle as detalle', 'op.id', 'detalle.op_id')
+            ->join('op_detalle_trazable as opt', 'detalle.id', 'opt.op_detalle_id') 
+            ->join('lote_insumo_especifico as lote', 'lote.id', 'opt.lote_insumo_id') 
+            ->join('insumo_especifico as insumo', 'lote.insumo_especifico', 'insumo.gtin')
+            ->select('insumo.gtin', 'insumo.descripcion', 'detalle.cantidad') 
+            ->get();
+
+        //dd($pedidost);
+        
+
+        return view('administracion.pedidos.pedidos-unitlist', compact('pedidosnt', 'pedidost'));
+
+
+
+    }
 
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @mixin Builder
@@ -114,8 +115,7 @@ class OrdenProduccion extends Model
         $estadoOp = new EstadoOpOrdenProduccion();
         $estadoOp->ord_pro_id = $this->id;
         $estadoOp->estado_id = EstadoOrdenProduccion::getEstadoAnulada()->id;
-//        $estadoOp->user()->associate(Auth::user());
-        $estadoOp->user()->associate(User::all()->first());
+        $estadoOp->user()->associate(Auth::user()); //Cambiado
         $this->anulada = true;
         $this->save();
         $estadoOp->save();

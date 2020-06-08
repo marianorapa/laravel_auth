@@ -20,6 +20,7 @@ class TipoMovimiento extends Model
     const DEVOLUCION_INSUMO = 5;
     const FINALIZACION_SALIDA = 6;
     const REINTEGRO_CANCELACION_PRESTAMO = 7;
+    const AJUSTE_STOCK_MANUAL = 8;
 
     /**
      * The table associated with the model.

@@ -34,58 +34,10 @@ class EntradaController extends Controller
         $patente = $request->get('patente');
         $cliente = $request->get('cliente');
 
-
-        // Recuperar ultimos ingresos
-//        $ticketsEntrada = DB::table('ticket_entrada')->orderBy('ticket_entrada.id')->paginate(10);
         $ticketsEntrada = TicketEntrada::orderBy('ticket_entrada.id', 'desc')
                                         ->cliente($cliente)
                                         ->patente($patente)
                                         ->paginate(10);
-//        $ticketsEntrada = DB::table('ticket as t')->where('t.deleted_at', '=', null)
-//            ->join('ticket_entrada as te', 't.id', 'te.id')
-//            ->where('t.patente', 'like', "%$patente%")
-//            ->join('empresa as e', 'e.id', 't.cliente_id')
-//            ->where('e.denominacion', 'like', "%$cliente%")
-//            ->paginate(10);
-
-//        dd($ticketsEntrada);
-
-// Lo de abajo funciona pero es complicada la paginacion
-//        $ticketsEntradaNt =
-//            DB::table('ticket_entrada')
-//                ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
-//                ->join('empresa', 'empresa.id', '=', 'cliente_id')
-//                ->join('ticket_entrada_insumo_no_trazable as nt', 'nt.id', '=','ticket.id')
-//                ->join('insumo', 'insumo.id', '=', 'nt.insumo_nt_id')
-//                ->join('pesaje as p1', 'p1.id', '=', 'ticket.bruto')
-//                ->join('pesaje as p2', 'p2.id', '=', 'ticket.tara')
-//                ->select('ticket.id', 'empresa.denominacion', 'ticket.created_at', 'insumo.descripcion',
-//                    'p1.peso as bruto','p2.peso as tara', 'ticket.patente')
-//                ->orderBy('ticket.created_at', 'desc')
-////                ->paginate(5);
-//                ->get();
-//
-//                //
-//        $ticketsEntradaTra =
-//            DB::table('ticket_entrada')
-//                ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
-//                ->join('empresa', 'empresa.id', '=', 'cliente_id')
-//                ->join('ticket_entrada_insumo_trazable as tra', 'tra.id', '=','ticket.id')
-//                ->join('lote_insumo_especifico as li', 'li.id', '=', 'tra.insumo_t_id')
-//                ->join('insumo_especifico as ie','ie.gtin','=','li.insumo_especifico')
-//                ->join('insumo', 'insumo.id', '=', 'ie.insumo_trazable_id')
-//                ->join('pesaje as p1', 'p1.id', '=', 'ticket.bruto')
-//                ->join('pesaje as p2', 'p2.id', '=', 'ticket.tara')
-//                ->select('ticket.id', 'empresa.denominacion', 'ticket.created_at', 'insumo.descripcion',
-//                    'p1.peso as bruto','p2.peso as tara', 'ticket.patente')
-//                ->orderBy('ticket.created_at', 'desc')
-////                ->paginate(5);
-//                ->get();
-//
-//        $tickets = $ticketsEntradaNt->union($ticketsEntradaTra);
-
-//        $ticketsEntrada = new LengthAwarePaginator($tickets, count($ticketsEntrada), 1);
-
 
         return view('balanzas.ingresos.index', compact('ticketsEntrada'));
     }

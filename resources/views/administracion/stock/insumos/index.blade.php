@@ -57,6 +57,7 @@
                             <th scope="col">Lote</th>
                             <th scope="col">Proveedor</th>
                             <th scope="col">Stock (kgs)</th>
+                            <th scope="col">Ajuste</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,12 +69,28 @@
                                 <td>Trazable</td>
                                 <td>{{$insumo->nro_lote}}</td>
                                 <td>{{$insumo->proveedor}}</td>
+                                <td>{{$insumo->stock}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-info"
+                                       href="{{route('administracion.stock.insumos.ajustarTrazable',
+                                                [$insumo->cliente_id,
+                                                $insumo->id_lote_ins_especifico])}}">
+                                        Ajustar</a>
+                                </td>
                             @else
                                 <td>No Trazable</td>
                                 <td>-</td>
                                 <td>-</td>
+                                <td>{{$insumo->stock}}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-info"
+                                       href="{{route('administracion.stock.insumos.ajustarNoTrazable',
+                                                [$insumo->cliente_id,
+                                                $insumo->id_insumo])}}">Ajustar</a>
+                                </td>
                             @endif
-                            <td>{{$insumo->stock}}</td>
+
+
                         </tr>
                    @endforeach
                     </tbody>

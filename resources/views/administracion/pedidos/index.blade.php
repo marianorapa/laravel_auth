@@ -86,7 +86,9 @@
                         @else
                             @if ($op->descripcion == "Finalizada")
                                 <td>
-                                    <span class="btn btn-sm btn-outline-success disabled">Finalizado</span>
+                                    {{--<span class="btn btn-sm btn-outline-success disabled">Finalizado</span>--}}
+                                    <a href="{{ route('op.pdf', $op->op_id )}}" target="_blank"
+                                           class="btn btn-outline-success btn-sm">Imprimir</a>
                                 </td>
                             @else
                                 <td>
