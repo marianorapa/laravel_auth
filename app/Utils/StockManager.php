@@ -15,7 +15,6 @@ use App\MovimientoProductoOrdenProduccion;
 use App\PrestamoCliente;
 use App\PrestamoDevolucion;
 use App\TipoMovimiento;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -143,7 +142,7 @@ class StockManager
     {
         /* Creamos un movimiento, movimiento_producto, movimiento_producto_ord_pro */
         $movimiento = new Movimiento();
-        $movimiento->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+        $movimiento->user()->associate(Auth::user()); // Cambiado
         $movimiento->tipoMovimiento()->associate(TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_OP));
         $movimiento->save();
 

@@ -5,7 +5,7 @@ namespace App\Observers;
 use App\EstadoOpOrdenProduccion;
 use App\EstadoOrdenProduccion;
 use App\OrdenProduccion;
-use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class OrdenProduccionObserver
 {
@@ -22,7 +22,7 @@ class OrdenProduccionObserver
         $estado = EstadoOrdenProduccion::getEstadoPendiente();
 
         $estadoOpOrden = new EstadoOpOrdenProduccion();
-        $estadoOpOrden->user()->associate(User::all()->first());     // TODO cambiar por usuario logueado
+        $estadoOpOrden->user()->associate(Auth::user());     // Cambiado
         $estadoOpOrden->estado_id = $estado->id;
         $estadoOpOrden->ord_pro_id = $ordenProduccion->id;
         $estadoOpOrden->save();
