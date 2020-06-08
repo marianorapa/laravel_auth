@@ -1,15 +1,20 @@
-.tabla thead tr th {
-    width: 80%;
-    border: black 1px solid;
+table {
+    width: 100%;
+    border: 1px solid #5D5555;
+    border-spacing: 0;
 }
 
-.tabla tbody tr th {
-    width: 80%;
-    border: black 1px solid;
+tr,
+th {
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #5D5555;
+    border-spacing: 0;
 }
 
-.table {
-    width: 80%;
+.fila {
+    font-weight: lighter;
 }
 
 #wrapper {
@@ -76,12 +81,14 @@ article {
 #central1-izq {
     background-color: white;
     width: 50%;
+    height: 8em;
     text-align: left;
 }
 
 #central1-der {
     background-color: white;
     width: 50%;
+    height: 8em;
     text-align: right;
 }
 

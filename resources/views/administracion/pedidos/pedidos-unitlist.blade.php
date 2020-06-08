@@ -19,7 +19,7 @@
 <div id="wrapper"> 
     <section> 
         <article id="column2">
-            <h1>Vilumar S.A</h1>
+            <h1>VILUMAR S.A</h1>
             <h2><br> </h2>
             <h2><br></h2>
         </article> 
@@ -36,8 +36,8 @@
  <div id="wrappercentral1"> 
     <section>
         <article id="central1-izq">
-            <p>Cliente: {{ $pedidosnt->first()->cliente_id }}</p> 
-            <p>Producto id: {{ $pedidosnt->first()->producto_id }}</p>
+            <p>Cliente: {{ $pedidosnt->first()->nombre_cliente }}</p> 
+            <p>Producto: {{ $pedidosnt->first()->prod }}</p>
         </article> 
         <article id="central1-der">Kg: {{ $pedidosnt->first()->cantidad }}
             <h2><br></h2>
@@ -54,23 +54,23 @@
             <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Producto</th>
+                                <th  scope="col">Producto</th>
                                 <th scope="col">Cantidad</th>
                             </tr>
             </thead>          
                         <tbody>
                         @foreach ($pedidosnt as $op)
                             <tr>
-                                <th >{{$op->prod_id}}</th>
-                                <th id="producto">{{$op->prod_id}}</th>
-                                <th id="cantidad">{{$op->cant}}</th>
+                                <th  class="fila">{{$op->prod_id}}</th>
+                                <th class="fila">{{$op->descripcion}}</th>
+                                <th class="fila">{{$op->cant}}</th>
                             </tr>
                         @endforeach
                         @foreach ($pedidost as $op)
                             <tr>
-                                <th >{{$op->gtin}}</th>
-                                <th id="producto">{{$op->descripcion}}</th>
-                                <th id="cantidad">{{$op->cantidad}}</th>
+                                <th class="fila">{{$op->gtin}}</th>
+                                <th class="fila">{{$op->descripcion}}</th>
+                                <th class="fila">{{$op->cantidad}}</th>
                             </tr>
                         @endforeach
                         </tbody>
