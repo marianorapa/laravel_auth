@@ -198,7 +198,8 @@ route::get('/getpedidosjs', 'OrdenProduccionController@getpedidosjs')->name('all
 
 
 //productocreate
-Route::get('/createProducto', function () {
+/*Route::get('/createProducto', function () {
     return view('/administracion.producto.createProducto');
-})->name('producto.create');
+})->name('producto.create');*/
 //productoIndex
+Route::resource('producto', 'AlimentoController');

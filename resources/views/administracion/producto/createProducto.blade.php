@@ -8,8 +8,6 @@
 
 
 @section('content')
-    @inject('AlimentoTipo', 'App\alimentoTipo')
-
     <div class="container">
         <div class="bs-example">
             <nav>
@@ -38,14 +36,47 @@
         <div class="card-header text-center h2">{{ __('Registro de producto') }}</div>
 
         <div class="card-body">
-            <form method="POST" action="">
+            <form method="POST" action="{{route('producto.store')}}">
                 @csrf
 
                 <div class="form-group row">
-                    <label for="descripcion" class="col-md-3 col-form-label text-md-right">{{ __('Descripcion') }}</label>
+                    <label for="ClienteLabel" class="col-md-3 col-form-label text-md-right">{{ __('Cliente') }}</label>
 
                     <div class="col-md-6">
-                        <input id="descripcion" type="text" class="form-control" name="descripcion" value="{{old('descripcion')}}" required>
+                        {{--<input id="apellidos" type="text" class="apellidosjs form-control" name="apellidos"
+                                value="{{old('apellidos')}}" required>--}}
+                        <select name="cliente" id="cliente" class="custom-select @error('cliente') is-invalid @enderror">
+                            <option data-tokens=="0" selected="true" disabled="disabled">Seleccione</option>
+                            @foreach($clientes as $cliente)
+                                <option value="{{$cliente->id}}">{{$cliente->denominacion}}</option>
+
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="TipoLabel" class="col-md-3 col-form-label text-md-right">{{ __('Tipo') }}</label>
+
+                    <div class="col-md-6">
+                        {{--<input id="apellidos" type="text" class="apellidosjs form-control" name="apellidos"
+                                value="{{old('apellidos')}}" required>--}}
+                        <select name="tipo" id="tipo" class="custom-select @error('tipo') is-invalid @enderror">
+                            <option data-tokens=="0" selected="true" disabled="disabled">Seleccione</option>
+                            @foreach($tipos as $tipo)
+                                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="descripcionLabel" class="col-md-3 col-form-label text-md-right">{{ __('Descripcion') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="descripcion" type="text" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" value="{{old('descripcion')}}" required>
                         @error('descripcion')
                             <span class="invalid-feedback" role="alert">
                                 <strong>descripcion invalido</strong>
@@ -54,28 +85,14 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="Tipo" class="col-md-3 col-form-label text-md-right">{{ __('Tipo') }}</label>
 
-                    <div class="col-md-6">
-                        {{--<input id="apellidos" type="text" class="apellidosjs form-control" name="apellidos"
-                                value="{{old('apellidos')}}" required>--}}
-                        <select name="tipo" id="tipo" class="custom-select">
-                            @foreach($AlimentoTipo->getAlimentoTipo() as $index=> $tipo)
-                                <option value="{{$index}}">{{$tipo}}</option>
-
-                            @endforeach
-                        </select>
-
-                    </div>
-                </div>
 
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-3">
                         <button type="submit" class="btn btn-primary btn-block">
                             {{ __('Registrar') }}
                         </button>
-                        <a class="btn btn-secondary btn-block" href="">Volver</a>
+                        <a class="btn btn-secondary btn-block" href="{{route('producto.index')}}">Volver</a>
                     </div>
                 </div>
 
