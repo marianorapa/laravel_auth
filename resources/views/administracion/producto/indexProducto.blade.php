@@ -11,7 +11,9 @@
             <div class="bs-example">
                 <nav>
                     <ol class="breadcrumb">
-
+                        <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}" >Administración</a></li>
+                        <li class="breadcrumb-item active">Gestión de Productos</li>
                     </ol>
                 </nav>
             </div>
@@ -33,8 +35,10 @@
             </div>
             <div class="row justify-content-center mt-4 border-top border-bottom py-3">
                 <form class="form-inline">
-                    <input name="cliente" class="form-control mr-sm-2 clientejs" type="search" placeholder="Empresa" aria-label="buscar por Cliente">
-                    <input name="alimento" class="form-control mr-sm-2 productojs" type="search" placeholder="Alimento" aria-label="buscar por Alimento">
+                    <input name="cliente" class="form-control mr-sm-2 clientejs" type="search" placeholder="Cliente" aria-label="buscar por Cliente">
+                    <input name="alimento" class="form-control mr-sm-2 productojs" type="search" placeholder="Descripcion" aria-label="buscar por Alimento">
+                    <input name="tiposearch" class="form-control mr-sm-2 productojs" type="search" placeholder="Tipo" aria-label="buscar por Tipo">
+
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
@@ -64,12 +68,12 @@
                 </thead>
 
                 <tbody>
-                    @foreach($alimentos as $alimento)
+                    @foreach($alimentoss as $alimento)
                         <tr>
                             <th scope="row">{{$alimento->id}}</th>
                             <td>{{$alimento->descripcion}}</td>
-                            <td>{{$alimento->alimentoTipo()->first()->descripcion}}</td>
-                            <td>{{$alimento->cliente()->first()->empresa()->first()->denominacion}}</td>
+                            <td>{{$alimento->tipo}}</td>
+                            <td>{{$alimento->denominacion}}</td>
                             @if(empty($alimento->gtin))
                                 <td>no posee</td>
                             @else
@@ -83,7 +87,7 @@
 
             </table>
             <div class="row justify-content-center">
-
+                {{$alimentoss->links()}}
             </div>
         </section>
         <a class="btn btn-secondary btn-sm" href="{{route('administracion.menu')}}">Volver</a>

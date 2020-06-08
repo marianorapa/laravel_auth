@@ -285,7 +285,7 @@ class EntradaController extends Controller
         }
         return response()->json($data = [$arrayins,count($arrayins)]);
     }
-
+    
          /**
      * Store a newly created resource in storage.
      *
@@ -294,6 +294,9 @@ class EntradaController extends Controller
      */
 
     public function getPdfAll(Request $request , $id){
+
+        $ticketEntrada2 = TicketEntrada::findOrFail($id);
+        
         $ticketEntrada = DB::table('ticket_entrada')
                         ->where('ticket_entrada.id', '=', $id)
                         ->join('ticket', 'ticket.id', '=','ticket_entrada.id')
@@ -306,8 +309,21 @@ class EntradaController extends Controller
         $tara=DB::table("pesaje")
               ->where("pesaje.id","=",$ticketEntrada->tara) ->first() ;
 
-        //dd($ticketEntrada);
-        return view('balanzas.ingresos.ingresos-list',compact('ticketEntrada','transportista','bruto','tara'));
+
+        $insumo = $ticketEntrada2->ticketEntradaInsumoTrazable()->exists() ?
+              $ticketEntrada2->ticketEntradaInsumoTrazable()->first()
+                  ->loteInsumoEspecifico()->first()
+                  ->insumoEspecifico()->first()
+                  ->insumoTrazable()->first()
+                  ->insumo()->first()->descripcion :
+              $ticketEntrada2->ticketEntradaInsumoNoTrazable()->first()
+                  ->insumoNoTrazable()->first()
+                  ->insumo()->first()->descripcion;
+
+        $lote= $ticketEntrada2->ticketEntradaInsumoTrazable()->exists() ?
+                  $ticketEntrada2->ticketEntradaInsumoTrazable()->first()
+                      ->loteInsumoEspecifico()->first()->nro_lote : 'No aplica';
+        return view('balanzas.ingresos.ingresos-list',compact('ticketEntrada','transportista','bruto','tara', 'insumo','lote'));
         }
 
 }

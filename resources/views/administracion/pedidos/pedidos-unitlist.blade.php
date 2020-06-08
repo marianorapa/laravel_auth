@@ -25,10 +25,11 @@
         </article> 
         <article id="column3">
             <h2>ORDEN DE PRODUCCION</h2>
-            <p>Fecha: {{ $pedidosnt->first()->fecha_fabricacion }}</p>
+           
             <p>Numero:  {{ $pedidosnt->first()->id }}</p>
             <?php $fcha = date("Y-m-d");?>
-            <label for="">Fecha entrega: <?php echo date("Y-m-d");?></label>
+            <label for="">Fecha: <?php echo date("Y-m-d");?></label>
+            <p>Fecha entrega: {{ $pedidosnt->first()->fecha_fabricacion }}</p>
         </article> 
     </section>
  </div>
