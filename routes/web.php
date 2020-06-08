@@ -77,6 +77,13 @@ Route::post('/administracion/stock/insumos/registrarAjusteNoTrazable/{lote}/{cli
     'StockController@registrarAjusteNoTrazable')
     ->name('administracion.stock.insumos.ajustarInsumoNoTrazable.post');
 
+Route::get('/administracion/stock/productos/aumentar/{id}',
+    'StockController@actualizarStockProducto')->name('administracion.stock.productos.ajustar');
+
+Route::post('/administracion/stock/productos/registrarAumento/{id}',
+    'StockController@registrarAjusteStockProducto')->name('administracion.stock.productos.ajustar.post');
+
+
 Route::get('/administracion/empresas', 'EmpresasController@index')
     ->name('administracion.empresas');
 

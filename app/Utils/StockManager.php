@@ -62,7 +62,7 @@ class StockManager
             ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
             ->where('mi.cliente_id', '=', $idCliente)
             ->sum('mi.cantidad');
-            //->select(DB::raw('sum(mi.cantidad)'))->get()->first();
+        //->select(DB::raw('sum(mi.cantidad)'))->get()->first();
     }
 
     public static function getStockIdLoteCliente($idCliente, $id_lote)
@@ -73,7 +73,7 @@ class StockManager
             ->join('movimiento_insumo as mi', 'mi.id', 'mt.id')
             ->where('mi.cliente_id', '=', $idCliente)
             ->sum('mi.cantidad');
-            //->select(DB::raw('sum(mi.cantidad) as stock'))->get()->first();
+        //->select(DB::raw('sum(mi.cantidad) as stock'))->get()->first();
     }
 
     public static function registrarDevolucionFabrica(PrestamoDevolucion $prestamoDevolucion)
@@ -141,16 +141,7 @@ class StockManager
     public static function registrarFinalizacionOp($idProducto, $cantidad, $op)
     {
         /* Creamos un movimiento, movimiento_producto, movimiento_producto_ord_pro */
-        $movimiento = new Movimiento();
-        $movimiento->user()->associate(Auth::user()); // Cambiado
-        $movimiento->tipoMovimiento()->associate(TipoMovimiento::getMovimiento(TipoMovimiento::FINALIZACION_OP));
-        $movimiento->save();
-
-        $movimientoProducto = new MovimientoProducto();
-        $movimientoProducto->producto_id = $idProducto;
-        $movimientoProducto->movimiento()->associate($movimiento);
-        $movimientoProducto->cantidad = $cantidad;
-        $movimientoProducto->save();
+        $movimientoProducto = self::createMovimientoProducto($idProducto, $cantidad, TipoMovimiento::AJUSTE_STOCK_MANUAL);
 
         $movimientoProductoOrdPro = new MovimientoProductoOrdenProduccion();
         $movimientoProductoOrdPro->movimientoProducto()->associate($movimientoProducto);
@@ -176,14 +167,14 @@ class StockManager
         $detallesTrazables = DB::table('op_detalle_trazable as opdt')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', 'opdt.op_detalle_id')
             ->where('opd.op_id', '=', $op->id)
-            ->select('opd.id','opdt.lote_insumo_id', 'opd.cantidad')
+            ->select('opd.id', 'opdt.lote_insumo_id', 'opd.cantidad')
             ->get();
 
 
         foreach ($detallesTrazables as $detalle) {
             $movimientoInsumo = self::createMovimientoInsumo(
                 TipoMovimiento::getMovimiento(TipoMovimiento::ANULACION_OP),
-                    $idClienteOp, $detalle->cantidad
+                $idClienteOp, $detalle->cantidad
             );
 
             $movimientoInsumoTrazable = new MovimientoInsumoTrazable();
@@ -200,22 +191,22 @@ class StockManager
         /* Luego, lo mismo con los detalles no trazables */
         $detallesNoTrazables = DB::table('op_detalle_no_trazable as opnt')
             ->join('orden_de_produccion_detalle as opd', 'opd.id', 'opnt.op_detalle_id')
-            ->select('opnt.id as opnt_id', 'opd.id','opnt.insumo_id', 'opnt.cliente_id', 'opd.cantidad')
+            ->select('opnt.id as opnt_id', 'opd.id', 'opnt.insumo_id', 'opnt.cliente_id', 'opd.cantidad')
             ->where('opd.op_id', '=', $op->id)
             ->get();
 
 
-        foreach($detallesNoTrazables as $detalle){
+        foreach ($detallesNoTrazables as $detalle) {
             $movimientoInsumo = self::createMovimientoInsumo(
                 TipoMovimiento::getMovimiento(TipoMovimiento::ANULACION_OP),
                 $detalle->cliente_id, $detalle->cantidad
             );
 
-           /* Verifico si es un prestamo, que hay que anular */
-           $prestamo = PrestamoCliente::all()
-                    ->where('op_detalle_id', '=', $detalle->opnt_id)->first();
+            /* Verifico si es un prestamo, que hay que anular */
+            $prestamo = PrestamoCliente::all()
+                ->where('op_detalle_id', '=', $detalle->opnt_id)->first();
 
-            if (!is_null($prestamo)){
+            if (!is_null($prestamo)) {
                 $prestamo->anulado = true;
                 $prestamo->save();
             }
@@ -232,7 +223,7 @@ class StockManager
         }
     }
 
-    private static function createMovimientoInsumo($tipoMovimiento, $idCliente, $cantidad) : MovimientoInsumo
+    private static function createMovimientoInsumo($tipoMovimiento, $idCliente, $cantidad): MovimientoInsumo
     {
         $movimiento = new Movimiento();
         $movimiento->user()->associate(Auth::user()); // Cambiado
@@ -250,13 +241,13 @@ class StockManager
 
     public static function getListadoStockInsumos($cliente)
     {
-      $stockNt = DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
+        $stockNt = DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
             ->where('e.denominacion', 'like', "%$cliente%")
             ->join('movimiento_insumo as mi', 'mi.cliente_id', 'c.id')
             ->join('movimiento_insumo_ins_no_tra as mnt', 'mnt.id', 'mi.id')
             ->join('insumo as i', 'mnt.insumo_id', 'i.id')
             ->select(DB::raw('sum(mi.cantidad) as stock'), 'e.denominacion as cliente', 'i.descripcion',
-                                'i.id as id_insumo', 'e.id as cliente_id')
+                'i.id as id_insumo', 'e.id as cliente_id')
             ->groupBy('cliente')->groupBy('i.descripcion')->groupBy('i.id')->groupBy('e.id')->get();
 
         $stockT = DB::table('cliente as c')->join('empresa as e', 'c.id', 'e.id')
@@ -286,8 +277,16 @@ class StockManager
             ->where('e.denominacion', 'like', "%$cliente%")
             ->join('alimento as a', 'a.cliente_id', 'c.id')
             ->join('movimiento_producto as mp', 'mp.producto_id', 'a.id')
-            ->select(DB::raw('sum(mp.cantidad) as stock'), 'a.descripcion as producto', 'e.denominacion as cliente')
-            ->groupBy('a.descripcion', 'e.denominacion')->get();
+            ->select(DB::raw('sum(mp.cantidad) as stock'),
+                'a.descripcion as producto', 'e.denominacion as cliente', 'a.id')
+            ->groupBy('a.descripcion', 'e.denominacion', 'a.id')->get();
+    }
+
+    public static function getStockProducto($id): int
+    {
+        return DB::table('alimento as a')->where('a.id', '=', $id)
+            ->join('movimiento_producto as mp', 'mp.producto_id', 'a.id')
+            ->sum('mp.cantidad');
     }
 
 
@@ -313,6 +312,32 @@ class StockManager
         $movimientoInsumoNoTrazable->movimientoInsumo()->associate($movimientoInsumo);
 
         $movimientoInsumoNoTrazable->save();
+    }
+
+    public static function ajusteStockProducto($id, $ajuste)
+    {
+        $tipo = TipoMovimiento::AJUSTE_STOCK_MANUAL;
+        self::createMovimientoProducto($id, $ajuste, $tipo);
+    }
+
+    /**
+     * @param $idProducto
+     * @param $cantidad
+     * @return MovimientoProducto
+     */
+    protected static function createMovimientoProducto($idProducto, $cantidad, $tipoMovimiento): MovimientoProducto
+    {
+        $movimiento = new Movimiento();
+        $movimiento->user()->associate(Auth::user()); // Cambiado
+        $movimiento->tipoMovimiento()->associate(TipoMovimiento::getMovimiento($tipoMovimiento));
+        $movimiento->save();
+
+        $movimientoProducto = new MovimientoProducto();
+        $movimientoProducto->producto_id = $idProducto;
+        $movimientoProducto->movimiento()->associate($movimiento);
+        $movimientoProducto->cantidad = $cantidad;
+        $movimientoProducto->save();
+        return $movimientoProducto;
     }
 
 }
