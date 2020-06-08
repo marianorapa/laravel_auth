@@ -322,6 +322,18 @@ class PermisoTableSeeder extends Seeder
         $permiso->funcionalidad = 'Permite realizar el ajuste de insumos no trazables';
         $permiso->save();
 
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.productos.ajustar';
+        $permiso->descr = 'Formulario de ajuste de producto';
+        $permiso->funcionalidad = 'Permite visualizar el formulario de ajuste de productos';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'administracion.stock.productos.ajustar.post';
+        $permiso->descr = 'Registrar ajuste producto';
+        $permiso->funcionalidad = 'Permite realizar el ajuste de productos';
+        $permiso->save();
+
 
         $permiso = new Permiso();
         $permiso->nombre_ruta = 'administracion.empresas';

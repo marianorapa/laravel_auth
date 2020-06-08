@@ -12,7 +12,7 @@ class StockController extends Controller
 
     public function __construct()
     {
-//        $this->middleware('permission');
+        $this->middleware('permission');
     }
 
     public function index()
