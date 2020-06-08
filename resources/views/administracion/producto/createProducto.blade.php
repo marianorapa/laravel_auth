@@ -12,6 +12,11 @@
         <div class="bs-example">
             <nav>
                 <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('administracion.menu')}}" >Administración</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('producto.index')}}" >Gestión de Productos</a></li>
+
+                    <li class="breadcrumb-item active">Nuevo producto</li>
 
                 </ol>
             </nav>
@@ -25,7 +30,7 @@
                 </div>
             @endif
 
-            @if (session('mensaje'))
+            @if (session('message'))
                 <div class="" role="alert">
                     <p class="alertajs" style="display:none">{{ session('message') }}</p>
                 </div>
@@ -85,6 +90,18 @@
                     </div>
                 </div>
 
+                <div class="form-group row">
+                    <label for="gtinLabel" class="col-md-3 col-form-label text-md-right">{{ __('Gtin') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="gtin" type="text" class="form-control @error('gtin') is-invalid @enderror" name="gtin" value="{{old('gtin')}}" pattern="[0-9]{0,10}" >
+                        @error('gtin')
+                        <span class="invalid-feedback" role="alert">
+                                <strong>Gtin invalido</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
 
 
                 <div class="form-group row mb-0">
