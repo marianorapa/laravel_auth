@@ -69,7 +69,7 @@
 
                                 <label for="lote" class="col-form-label col-1">Lote</label>
                                 <input id="lote" type="text" class="form-control col-2" name="lote"
-                                       value="{{array_key_exists('nro_lote', $insumo) ? $insumo['nroLote'] : "-"}}"
+                                       value="{{array_key_exists('nroLote', $insumo) ? $insumo['nroLote'] : "-"}}"
                                        readonly>
                             </div>
 

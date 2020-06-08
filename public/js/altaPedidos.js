@@ -14,6 +14,17 @@ document.addEventListener("DOMContentLoaded", function(event)
     var cliente_id = document.querySelector(".cliente_id");
     cliente_id.addEventListener("change",function () {
         var id = cliente_id.value;
+
+        //seteo el cliente en el sessionStorage
+        if(sessionStorage.getItem("cliente") == null){
+
+            sessionStorage.setItem("cliente",cliente_id.value);
+        }else{
+            sessionStorage.removeItem("cliente");
+            sessionStorage.setItem("cliente",cliente_id.value);
+        }
+
+
         axios.get('/getProductoCliente',{
             params:{
                 id :id
@@ -91,7 +102,22 @@ document.addEventListener("DOMContentLoaded", function(event)
     btnCargar.addEventListener("click",function () {
 
         var productoId = productos.value;
+        ////seteo el producto en el sessionStorage
+        if(sessionStorage.getItem("producto") == null){
+            sessionStorage.setItem("producto",productos.value);
+        }else{
+            sessionStorage.removeItem("producto");
+            sessionStorage.setItem("producto",productos.value);
+        }
+
         var cantidad = document.querySelector('.cantidadjs').value;
+        ////seteo cantidad en el sessionStorage
+        if(sessionStorage.getItem("cantidad") == null){
+            sessionStorage.setItem("cantidad",cantidad);
+        }else{
+            sessionStorage.removeItem("cantidad");
+            sessionStorage.setItem("cantidad",cantidad);
+        }
         axios.get('/getFormulaProducto',{
             params:{
                 id :productoId,

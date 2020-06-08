@@ -9,12 +9,12 @@ use App\OrdenProduccionDetalle;
 use App\OrdenProduccionDetalleNoTrazable;
 use App\OrdenProduccionDetalleTrazable;
 use App\PrestamoCliente;
-use App\User;
 use App\Utils\CapacidadProductivaManager;
 use App\Utils\PrecioManager;
 use App\Utils\PrestamosManager;
 use App\Utils\StockManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrdenProduccionController extends Controller
@@ -171,7 +171,7 @@ class OrdenProduccionController extends Controller
         }
 
         if (!PrecioManager::isPrecioValido($precioXtn)) {
-            return back()->with('error', "El precio ingresado no es válido.");
+            return back()->with('error', "El precio ingresado no es válido.")->with(compact('validated'));//////////////////////////////////////////////////////
         }
 
 
@@ -302,7 +302,7 @@ class OrdenProduccionController extends Controller
             $estadoOpOrden = new EstadoOpOrdenProduccion();
             $estadoOpOrden->estado_id = EstadoOrdenProduccion::getEstadoFinalizada()->id;
             $estadoOpOrden->ord_pro_id = $id;
-            $estadoOpOrden->user()->associate(User::all()->first()); // TODO Cambiar por usuario logueado
+            $estadoOpOrden->user()->associate(Auth::user()); // Cambiado
             $estadoOpOrden->save();
             return redirect()->action('OrdenProduccionController@index')
                 ->with('message', 'Orden finalizada con éxito.');

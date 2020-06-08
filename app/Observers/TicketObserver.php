@@ -13,7 +13,6 @@ use App\MovimientoProducto;
 use App\MovimientoProductoTicketSalida;
 use App\Ticket;
 use App\TipoMovimiento;
-use App\User;
 use App\Utils\PrestamosManager;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +32,7 @@ class TicketObserver
         $estadoTicket = new EstadoTicketTicket();
         $estadoTicket->ticket()->associate($ticket);
         $estadoTicket->estadoTicket()->associate(EstadoTicket::getEstadoEnProceso());
-        $estadoTicket->user()->associate(User::all()->first()); // TODO Cambiar a usuario logueado
+        $estadoTicket->user()->associate(Auth::user()); // Cambiado
         $estadoTicket->save();
 
     }
@@ -71,7 +70,7 @@ class TicketObserver
         if ($ticket->ticketEntrada()->exists()) {
             /*Si es de entrada */
             if ($ticket->tara()->exists()){
-                // TODO mover esto a un pesajeObserver, para que solo se ejecute una vez al insertar el pesaje
+                // TODO mover esto a un pesajeObserver, para que solo se ejecute solo una vez al insertar el pesaje
                 $this->finalizarTicketEntrada($ticket);
             }
         }
