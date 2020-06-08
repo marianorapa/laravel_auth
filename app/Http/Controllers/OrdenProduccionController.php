@@ -506,7 +506,6 @@ class OrdenProduccionController extends Controller
             ->join('lote_insumo_especifico as detallelote', 'detallelote.id', 'opt.lote_insumo_id')
             ->select('insumo.gtin', 'insumo.descripcion', 'detalle.cantidad', 'detallelote.nro_lote') 
             ->get();
-        
 
         return view('administracion.pedidos.pedidos-unitlist', compact('pedidosnt', 'pedidost'));
 

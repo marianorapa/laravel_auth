@@ -24,8 +24,8 @@
             <h2><br></h2>
         </article> 
         <article id="column3">
-            <h2>VALE DE PRODUCCION</h2>
-            <p>Fecha Fabricacion:  {{ $pedidosnt->first()->fecha_fabricacion }}</p>
+            <h2>ORDEN DE PRODUCCION</h2>
+            <p>Fecha: {{ $pedidosnt->first()->fecha_fabricacion }}</p>
             <p>Numero:  {{ $pedidosnt->first()->id }}</p>
             <?php $fcha = date("Y-m-d");?>
             <label for="">Fecha entrega: <?php echo date("Y-m-d");?></label>
@@ -69,13 +69,13 @@
                                 <th class="fila">{{$op->descripcion}}</th>
                                 <th class="fila">{{$op->cant}}</th>
                                 
-                                @if ($op->cliente_id == 1){                        
+                                @if ( $op->cliente_id  == '1')                       
                                     <th class="fila">Fabrica</th>
-                                }elseif{                               
+                                @else                               
                                     <th class="fila">Cliente</th>
-                                }
+                                
                                 @endif
-                                <th class="fila"> lote</th>
+                                <th class="fila"> - </th>
                                
                             </tr>
                         @endforeach
@@ -85,7 +85,7 @@
                                 <th class="fila">{{$op->descripcion}}</th>
                                 <th class="fila">{{$op->cantidad}}</th>
                                 <th class="fila">Cliente</th>
-                                <th class="fila">lote</th>
+                                <th class="fila">{{ $op->nro_lote}}</th>
 
                             </tr>
                         @endforeach
