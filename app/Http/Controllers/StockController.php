@@ -15,11 +15,13 @@ class StockController extends Controller
         $this->middleware('permission');
     }
 
-    public function index(){
+    public function index()
+    {
         return view('administracion.stock.index');
     }
 
-    public function indexInsumos(Request $request){
+    public function indexInsumos(Request $request)
+    {
 
         $cliente = $request->get('cliente');
 
@@ -28,7 +30,8 @@ class StockController extends Controller
         return view('administracion.stock.insumos.index', compact('insumos'));
     }
 
-    public function indexProductos(Request $request){
+    public function indexProductos(Request $request)
+    {
 
         $cliente = $request->get('cliente');
         $productos = StockManager::getListadoStockProductos($cliente);
@@ -36,7 +39,8 @@ class StockController extends Controller
         return view('administracion.stock.productos.index', compact('productos'));
     }
 
-    public function actualizarStockInsumoNoTrazable($id_cliente, $id_insumo){
+    public function actualizarStockInsumoNoTrazable($id_cliente, $id_insumo)
+    {
         $insumo = [];
 
         $insumoDb = DB::table('insumo')->find($id_insumo)->descripcion;
@@ -56,7 +60,8 @@ class StockController extends Controller
     }
 
 
-    public function actualizarStockInsumoTrazable($idCliente, $idLoteInsumoEspecifico){
+    public function actualizarStockInsumoTrazable($idCliente, $idLoteInsumoEspecifico)
+    {
         $clienteDb = DB::table('empresa')->find($idCliente)->denominacion;
         $loteInsumoDb = DB::table('lote_insumo_especifico as lie')
             ->join('insumo_especifico as ie', 'ie.gtin', 'lie.insumo_especifico')
@@ -74,9 +79,10 @@ class StockController extends Controller
         return view('administracion.stock.insumos.aumentar', compact('insumo'));
     }
 
-    public function registrarAjusteTrazable($idLoteInsumo, $idCliente, Request $request){
+    public function registrarAjusteTrazable($idLoteInsumo, $idCliente, Request $request)
+    {
         $validated = $request->validate([
-           'ajuste' => ['numeric', 'required']
+            'ajuste' => ['numeric', 'required']
         ]);
 
         $ajuste = $validated['ajuste'];
@@ -91,7 +97,8 @@ class StockController extends Controller
         return redirect()->action('StockController@indexInsumos')->with('message', 'Ajuste realizado con éxito');
     }
 
-    public function registrarAjusteNoTrazable($idInsumo, $idCliente, Request $request){
+    public function registrarAjusteNoTrazable($idInsumo, $idCliente, Request $request)
+    {
         $validated = $request->validate([
             'ajuste' => ['numeric', 'required']
         ]);
@@ -100,7 +107,7 @@ class StockController extends Controller
 
         $stockActual = StockManager::getStockInsumoNoTrazableCliente($idInsumo, $idCliente);
 
-        if ($stockActual + $ajuste < 0){
+        if ($stockActual + $ajuste < 0) {
             return back()->with('error', 'El stock no puede quedar negativo');
         }
 
@@ -109,7 +116,34 @@ class StockController extends Controller
         return redirect()->action('StockController@indexInsumos')->with('message', 'Ajuste realizado con éxito');
     }
 
-    public function aumentarStockProducto($id){
+    public function actualizarStockProducto($id)
+    {
+        $producto = DB::table('alimento as a')->where('a.id', '=', $id)
+            ->join('empresa as e', 'e.id', 'a.cliente_id')
+            ->select('a.id', 'a.descripcion as producto', 'e.denominacion as cliente')->get()->first();
+
+        $producto->stock = StockManager::getStockProducto($id);
+
+        return view('administracion.stock.productos.aumentar', compact('producto'));
+    }
+
+    public function registrarAjusteStockProducto($id, Request $request)
+    {
+        $validated = $request->validate([
+            'ajuste' => 'required|numeric'
+        ]);
+
+        $ajuste = $validated['ajuste'];
+
+        $stockActual = StockManager::getStockProducto($id);
+
+        if ($stockActual + $ajuste < 0) {
+            return back()->with('error', 'El stock no puede quedar negativo!');
+        }
+
+        StockManager::ajusteStockProducto($id, $ajuste);
+
+        return redirect()->action('StockController@indexProductos')->with('message', 'Stock actualizado con éxito!');
 
     }
 
