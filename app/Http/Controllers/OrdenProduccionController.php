@@ -483,4 +483,33 @@ class OrdenProduccionController extends Controller
 
 
 
+    public function getPdfOne($id)
+    {
+        $pedidosnt = DB::table('orden_de_produccion as op')
+            ->where('op.id', '=', $id)
+            ->join('orden_de_produccion_detalle as detalle', 'op.id', 'detalle.op_id')
+            ->join('op_detalle_no_trazable as nt', 'detalle.id', 'nt.op_detalle_id') 
+            ->select('op.id', 'op.cantidad', 'op.producto_id', 'op.saldo' , 'op.fecha_fabricacion' , 'op.precio_venta_por_tn', 'op.destino', 'op.created_at',
+            'detalle.cantidad as cant', 'detalle.id as prod_id', 'nt.cliente_id') 
+            ->get();
+
+
+            $pedidost = DB::table('orden_de_produccion as op')
+            ->where('op.id', '=', $id)
+            ->join('orden_de_produccion_detalle as detalle', 'op.id', 'detalle.op_id')
+            ->join('op_detalle_trazable as opt', 'detalle.id', 'opt.op_detalle_id') 
+            ->join('lote_insumo_especifico as lote', 'lote.id', 'opt.lote_insumo_id') 
+            ->join('insumo_especifico as insumo', 'lote.insumo_especifico', 'insumo.gtin')
+            ->select('insumo.gtin', 'insumo.descripcion', 'detalle.cantidad') 
+            ->get();
+
+        //dd($pedidost);
+        
+
+        return view('administracion.pedidos.pedidos-unitlist', compact('pedidosnt', 'pedidost'));
+
+
+
+    }
+
 }
