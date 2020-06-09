@@ -3,6 +3,7 @@
 @section('publics')
     <script src="{{ asset('js/altaPedidos.js') }}"></script>
     <script src="{{ asset('js/altaPedidosValidar.js') }}"></script>
+    <script src="{{ asset('js/altaPedidosPrevenirInput.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/notifCartel.js') }}"></script>
     <script src="{{ asset('js/errorCartel.js') }}"></script>
@@ -50,7 +51,8 @@
                             <label for="cliente" class="col-md-1 col-form-label text-md-left">Cliente</label>
 
                             <select name="cliente" id="cliente"
-                                    class="cliente_id custom-select col-md-2 form-check-input:invalid" value="{{old("cliente")}}"> {{--checkear que form-check-input:invalid ande--}}
+                                    class="cliente_id custom-select col-md-2 form-check-input:invalid"
+                                    value="{{old("cliente")}}"> {{--checkear que form-check-input:invalid ande--}}
                                 <option data-tokens=="0" selected="true" disabled="disabled">Seleccione</option>
 
                                 @foreach ($clientes as $cliente)
@@ -75,8 +77,8 @@
                         </div>
 
 
-                        <div class="form-group row d-flex justify-content-center">
-                            <label for="insumosTrazables" class="h2 text-md-left mt-5">Insumos trazables
+                        <div class="form-group row d-flex justify-content-center border-top mt-5">
+                            <label for="insumosTrazables" class="h3 mt-4 col-10">Insumos trazables
                                 requeridos</label>
                             <table class="table mt-2 col-md-10">
                                 <thead>
@@ -100,8 +102,10 @@
 
 
                         <div class="form-group row d-flex justify-content-center">
-                            <label for="insumosNoTrazables" class="h2 text-md-left mt-5">Insumos no trazables
+                            <label for="insumosNoTrazables" class="h3 text-md-left mt-5 col-7">Insumos no trazables
                                 requeridos</label>
+                            <p class="mt-5 col-3 border-left">Crédito restante cliente: <span
+                                    id="creditoCliente"></span> kgs</p>
 
                             <table class="table mt-2 col-md-10">
                                 <thead>
@@ -129,24 +133,26 @@
                                 entrega</label>
                             <input id="fechaentrega" type="date" class="form-control col-md-2 fecha_entregajs"
                                    name="fechaentrega" value="{{old('fechaentrega')}}" required>
-                            <p class="ml-5 mt-2 col-md-2">Capacidad disp. día: <span class=""
-                                                                                     id="capacidad_restante">-</span>
-                                kgs</p>
+                            <p class="ml-3 mt-2 col-md-2">Disp. día:
+                                <span class="col-1" id="capacidad_restante">-</span>kgs</p>
 
-
-                            <label for="precioxkg" class="col-md-1 col-form-label text-md-right">Precio por tn.</label>
+                            <label for="precioxkg" class="col-md-2 col-form-label text-md-right">Precio por tn.</label>
                             <input id="precioxkg" type="number" class="form-control col-md-1 preciojs" placeholder="$"
                                    value="{{old('precioxkg')}}" name="precioxkg">
-                            <p class="col-3 mt-2">Precio min por tn.: $
+                            <p class="col-2 mt-2">Precio min: $
                                 <span class="">{{$precioFason->precio_por_tn}}</span> +-
                                 <span>${{$precioFason->variacion_admitida * $precioFason->precio_por_tn}}</span>
                             </p>
 
                         </div>
 
-                        <div class="form-inline row mt-5">
-                            <a href="{{route('pedidos.index')}}" class="btn btn-secondary col-sm-3">Cancelar</a>
-                            <button type="submit" class="btn btn-primary col-sm-3 offset-md-6">Registrar</button>
+                        <div class="form-inline row m-4">
+                            <a href="{{route('pedidos.index')}}" class="btn btn-secondary col-sm-2">Cancelar</a>
+                            <button type="submit" class="btn btn-primary col-2 offset-8"
+                                    id="submit">Registrar
+                            </button>
+                            <label class="justify-content-end col-12 text-info mt-2">
+                                El botón se habilitará cuando la fórmula sea válida</label>
                         </div>
                     </form>
                 </div>
