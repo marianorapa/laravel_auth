@@ -75,7 +75,7 @@ class AlimentoController extends Controller
             'cliente' =>'required',
             'tipo' => 'required',
             'descripcion' => 'required|max:255',
-            'gtin' => 'max:10'//no se cual es el verdadero rango del gtin (tambien esta validado en la vista con el atributo pattern)
+            'gtin' => 'max:10'//no se cual es el verdadero rango del gtin (tambien esta validado en la vista)
         ],$messages);
 
         if ($validator->fails()){
