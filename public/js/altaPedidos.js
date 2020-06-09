@@ -283,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         input_stock.name ='insumos_no_trazables['+i+'][stock_utilizar]';
         input_stock.value= (element.stock_cliente >= element.cantidad_requerida) ?
             element.cantidad_requerida: element.stock_cliente;
+        input_stock.type = "number";
         tdStockUtilizar.appendChild(input_stock);
         tdStockUtilizar.classList.add("cantidadUtilizarCliente");
 
@@ -292,6 +293,8 @@ document.addEventListener("DOMContentLoaded", function(event)
         tdStockUtilizarFabrica = document.createElement('td');
         input_stockFabrica = document.createElement('input');
         input_stockFabrica.name ='insumos_no_trazables['+i+'][stock_utilizar_Fabrica]';
+        input_stockFabrica.value=0;
+        input_stockFabrica.type = "number";
         if (element.cantidad_requerida>element.stock_cliente){
             input_stockFabrica.value=element.cantidad_requerida-element.stock_cliente;
         }

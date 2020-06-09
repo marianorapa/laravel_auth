@@ -18,8 +18,10 @@ class InformesController extends Controller
         $hasta = $request->get('hasta');
 
         $informe = InformesManager::getInformeEstadistico($desde, $hasta);
+        $informe['desde'] = $desde;
+        $informe['hasta'] = $hasta;
 
-        return view('gerencia.informes.estadistico.generado', compact('informe'));
+        return view('gerencia.informes.estadisticoGenerado', compact('informe'));
     }
 
 }

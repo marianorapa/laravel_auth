@@ -40,7 +40,7 @@ class InformesManager
                 'op.producto_id', 'a.descripcion', 'e.denominacion')
             ->groupBy('op.producto_id', 'a.descripcion', 'e.denominacion')->orderByDesc('count')->limit(1)->get();
 
-        $prodMasKg = DB::table('orden_de_produccion as op')
+        $prodMasKgs = DB::table('orden_de_produccion as op')
             ->where([
                 ['op.fecha_fabricacion', '>=', $desde],
                 ['op.fecha_fabricacion', '<=', $hasta],
@@ -52,6 +52,12 @@ class InformesManager
                 'op.producto_id', 'a.descripcion', 'e.denominacion')
             ->groupBy('op.producto_id', 'a.descripcion', 'e.denominacion')->orderByDesc('suma')->limit(1)->get();
 
-        dd($kgsFabricados, $kgsAnulados, $prodMasFreq, $prodMasKg);
+//        dd($kgsFabricados, $kgsAnulados, $prodMasFreq, $prodMasKg);
+
+        return ['kgsFabricados' => $kgsFabricados,
+                'kgsAnulados' => $kgsAnulados,
+                'prodMasFreq' => $prodMasFreq,
+                'prodMasKgs' => $prodMasKgs
+        ];
     }
 }
