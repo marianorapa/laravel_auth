@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\PrestamosManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -25,5 +26,11 @@ class PrestamoController extends Controller
                 'opd.cantidad', 'pc.cancelado', 'pc.anulado')->get();
 
         return view('administracion.prestamos.index', compact('prestamos'));
+    }
+
+    public function getCreditoCliente(Request $request){
+        $idCliente = $request->get('id');
+
+        return PrestamosManager::getLimiteRestanteCliente($idCliente);
     }
 }

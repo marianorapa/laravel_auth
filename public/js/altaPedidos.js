@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", function(event)
     var productos = document.querySelector(".productos");
     var btnCargar = document.getElementById("btnCalcular");
     var cliente_id = document.querySelector(".cliente_id");
+
+    let spanCredito = document.getElementById('creditoCliente');
+
     cliente_id.addEventListener("change",function () {
         var id = cliente_id.value;
 
@@ -48,6 +51,22 @@ document.addEventListener("DOMContentLoaded", function(event)
             .catch(function (err) {
                 console.log(err);
             });
+
+        axios.get('/getCreditoCliente', {
+            params:{
+                id: id
+            }
+        })
+
+            .then(function (res){
+                if (res.status == 200){
+                    spanCredito.innerText = res.data;
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
     })
 
 
@@ -168,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function(event)
 
         tdcantidadNecesaria = document.createElement('td');
         tdcantidadNecesaria.appendChild(document.createTextNode(element.cantidad_requerida.toString()));
+        tdcantidadNecesaria.classList.add("cantidadNecesaria");
 
         tdLote = document.createElement('td');
 
@@ -209,6 +229,7 @@ document.addEventListener("DOMContentLoaded", function(event)
             tdStockLote = document.createElement('td');
             tdStockLote.className="td"+i;
             tdStockLote.appendChild(document.createTextNode(element.lotes[0].cantidad));
+            tdStockLote.classList.add("cantidadStockCliente");
         }
         else {
             tdLote.appendChild(document.createTextNode("No existe"));
@@ -221,6 +242,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         input_stock.name ='insumos_trazables['+i+'][stock_utilizar]';
         input_stock.value=element.cantidad_requerida;
         tdStockUtilizar.appendChild(input_stock);
+        tdStockUtilizar.classList.add("cantidadUtilizarCliente");
 
         tr = document.createElement('tr');
         tr.appendChild(th);
@@ -229,6 +251,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         tr.appendChild(tdLote);
         tr.appendChild(tdStockLote);
         tr.appendChild(tdStockUtilizar);
+        tr.classList.add("filaInsumoTrazable")
 
         tablaInsumosTrazables.appendChild(tr);
     }
@@ -249,27 +272,36 @@ document.addEventListener("DOMContentLoaded", function(event)
 
         tdcantidadNecesaria = document.createElement('td');
         tdcantidadNecesaria.appendChild(document.createTextNode(element.cantidad_requerida.toString()));
+        tdcantidadNecesaria.classList.add("cantidadNecesaria");
 
         tdcantidadStockCliente = document.createElement('td');
         tdcantidadStockCliente.appendChild(document.createTextNode(element.stock_cliente.toString()));
+        tdcantidadStockCliente.classList.add("cantidadStockCliente");
 
         tdStockUtilizar = document.createElement('td');
         input_stock = document.createElement('input');
         input_stock.name ='insumos_no_trazables['+i+'][stock_utilizar]';
-        input_stock.value=element.cantidad_requerida;
+        input_stock.value= (element.stock_cliente >= element.cantidad_requerida) ?
+            element.cantidad_requerida: element.stock_cliente;
+        input_stock.type = "number";
         tdStockUtilizar.appendChild(input_stock);
-
+        tdStockUtilizar.classList.add("cantidadUtilizarCliente");
 
         tdcantidadStockfabrica = document.createElement('td');
         tdcantidadStockfabrica.appendChild(document.createTextNode(element.stock_fabrica.toString()));
+        tdcantidadStockfabrica.classList.add("cantidadStockFabrica");
 
         tdStockUtilizarFabrica = document.createElement('td');
         input_stockFabrica = document.createElement('input');
         input_stockFabrica.name ='insumos_no_trazables['+i+'][stock_utilizar_Fabrica]';
+        input_stockFabrica.value=0;
+        input_stockFabrica.type = "number";
         if (element.cantidad_requerida>element.stock_cliente){
             input_stockFabrica.value=element.cantidad_requerida-element.stock_cliente;
         }
         tdStockUtilizarFabrica.appendChild(input_stockFabrica);
+        tdStockUtilizarFabrica.classList.add("cantidadUtilizarFabrica");
+
 
         tr = document.createElement('tr');
         tr.appendChild(th);
@@ -279,6 +311,7 @@ document.addEventListener("DOMContentLoaded", function(event)
         tr.appendChild(tdStockUtilizar);
         tr.appendChild(tdcantidadStockfabrica);
         tr.appendChild(tdStockUtilizarFabrica);
+        tr.classList.add("filaInsumoNoTrazable")
 
         tablaInsumosNoTrazables.appendChild(tr);
 

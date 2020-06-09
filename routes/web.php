@@ -102,6 +102,16 @@ Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('
 Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
 Route::get('despachos/cancel/{id}', 'DespachoController@destroy')->name('despachos.destroy');
 
+
+Route::get('gerencia', function () {
+    return view('gerencia.index');
+})->name('gerencia.index');//->middleware('permission'); Agregar junto a permiso
+
+
+Route::get('/informes/estadistico', 'InformesController@informeEstadistico')->name('informes.estadistico');
+Route::post('/informes/estadistico/generar', 'InformesController@generarInformeEstadistico')
+    ->name('informes.estadistico.generar');
+
 Route::get('/parametros', 'ParametrosController@index')->name('parametros.index');
 
 Route::get('/parametros/precio/definir', 'ParametrosController@definirPrecio')->name('parametros.precio.view');
@@ -182,6 +192,7 @@ route::get('/insumostodosasinc', 'EntradaController@getInsumosNoTrazables')->nam
 route::get('/localidades', 'LocalidadController@getLocalidad')->name("asinc.localidades"); //cambiar a un controlador o ponerlo en el controlador de persona.
 route::get('/getProductoCliente', 'OrdenProduccionController@getProductoCliente')->name("asinc.productos");
 route::get('/getFormulaProducto', 'FormulaController@getFormulaProducto')->name("asinc.formulaProductos"); // este es el que se usa
+route::get('/getCreditoCliente', 'PrestamoController@getCreditoCliente')->name('asinc.creditoCliente');
 //route::get('/getFabricaProdForm', 'OrdenProduccionController@getFabricaProdForm')->name("asinc.fabricaProducto");
 route::get('/getCapacidadProductivaRestante', 'ParametrosController@getCapacidadRestante')->name("asinc.capacidadProductivaRestante");
 //peticion asincronica para despacho
