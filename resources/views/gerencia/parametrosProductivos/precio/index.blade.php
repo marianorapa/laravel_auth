@@ -23,15 +23,7 @@
 
             <a class="btn btn-primary btn-sm m-1" href="{{route('parametros.precio.view')}}">Agregar</a>
 
-            <nav class="float-right">
-                <form class="form-inline">
-                    <input name='name' class="form-control mr-sm-2 clientejs" type="search"
-                           placeholder="Nombre" aria-label="buscar por nombre">
-                    <input name='descr' class="form-control mr-sm-2 productojs" type="search"
-                           placeholder="Descr" aria-label="buscar por descripcion">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
-            </nav>
+
         </section>
 
         <section class="mt-3">
