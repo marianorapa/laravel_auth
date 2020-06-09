@@ -54,7 +54,7 @@
 
                         <div class="form-inline mt-5">
                             <a class="btn btn-secondary col-2"
-                               href="{{route('administracion.stock.insumos')}}">Cancelar</a>
+                               href="{{route('gerencia.index')}}">Cancelar</a>
                             <button type="submit" class="btn btn-primary col-2 offset-8">Generar</button>
                         </div>
                     </form>

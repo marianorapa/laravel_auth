@@ -122,11 +122,15 @@ class ParametrosController extends Controller
 
 
 
-    public function indexCredito(){
+    public function indexCredito(Request $request){
+
+        $cliente = $request->get('cliente');
 
         $creditos = DB::table('credito_cliente as c')
             ->join('empresa as e', 'e.id', 'c.cliente_id')
-            ->orderBy('c.created_at')
+            ->where('e.denominacion', 'like', "%$cliente%")
+            ->where('e.id', '<>', 1)
+            ->orderByDesc('c.limite')
             ->select('c.id', 'e.id as id_cliente', 'e.denominacion as cliente', 'c.limite', 'c.fecha_desde', 'c.fecha_hasta')
             ->get();
 
