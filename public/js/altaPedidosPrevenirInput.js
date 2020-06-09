@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
     let submitBtn = document.getElementById('submit');
-    let productos = document.querySelector(".productos");
-
     submitBtn.disabled = true;
 
     let btnCalcular = document.getElementById("btnCalcular");
+    let infoBtn = document.getElementById('info-btn');
+    infoBtn.visible = true;
 
     let detectValidFormula = function () {
 
@@ -38,18 +38,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         if (flag) {
+            let creditoCliente = parseInt(document.getElementById('creditoCliente').innerText);
+
             for (let item of filasNoTrazables) {
 
                 let cantidadNecesaria = parseInt(item.getElementsByClassName('cantidadNecesaria')[0].innerText) || 0;
-                let cantidadStockCliente = parseInt(item.getElementsByClassName('cantidadStockCliente')[0].innerText) || 0;
-                let cantidadStockUtilizar = parseInt(item.getElementsByClassName('cantidadUtilizarCliente')[0]
-                    .childNodes.item(0).value) || 0;
-                let cantidadStockFabrica = parseInt(item.getElementsByClassName('cantidadUtilizarFabrica')[0]
+
+                let cantidadStockCliente = parseInt(item.getElementsByClassName('cantidadStockCliente')[0]
+                    .innerText) || 0;
+
+                let cantidadUtilizarCliente = parseInt(item.getElementsByClassName('cantidadUtilizarCliente')[0]
                     .childNodes.item(0).value) || 0;
 
-                if (cantidadNecesaria === (cantidadStockUtilizar + cantidadStockFabrica)) {
-                    if (!cantidadStockCliente >= (cantidadNecesaria - cantidadStockFabrica)) {
-                        flag = false;
+                let cantidadStockFabrica = parseInt(item.getElementsByClassName('cantidadStockFabrica')[0]
+                    .innerText) || 0;
+
+                let cantidadUtilizarFabrica = parseInt(item.getElementsByClassName('cantidadUtilizarFabrica')[0]
+                    .childNodes.item(0).value) || 0;
+
+
+                if (cantidadNecesaria === (cantidadUtilizarCliente + cantidadUtilizarFabrica)) {
+                    if (cantidadUtilizarCliente > cantidadStockCliente
+                        || cantidadUtilizarFabrica > cantidadStockFabrica
+                        || cantidadUtilizarFabrica > creditoCliente){
+                            flag = false;
                     }
                 } else {
                     flag = false;
@@ -58,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         submitBtn.disabled = !flag;
+        flag ? infoBtn.classList.add('d-none'): infoBtn.classList.remove('d-none');
 
     }
 

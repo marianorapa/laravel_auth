@@ -289,6 +289,7 @@ document.addEventListener("DOMContentLoaded", function(event)
 
         tdcantidadStockfabrica = document.createElement('td');
         tdcantidadStockfabrica.appendChild(document.createTextNode(element.stock_fabrica.toString()));
+        tdcantidadStockfabrica.classList.add("cantidadStockFabrica");
 
         tdStockUtilizarFabrica = document.createElement('td');
         input_stockFabrica = document.createElement('input');

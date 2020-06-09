@@ -151,8 +151,8 @@
                             <button type="submit" class="btn btn-primary col-2 offset-8"
                                     id="submit">Registrar
                             </button>
-                            <label class="justify-content-end col-12 text-info mt-2">
-                                El botón se habilitará cuando la fórmula sea válida</label>
+                            <label class="justify-content-end col-12 text-danger mt-2 small" id="info-btn">
+                                El botón se habilitará cuando la fórmula sea válida y no supere el crédito del cliente</label>
                         </div>
                     </form>
                 </div>
