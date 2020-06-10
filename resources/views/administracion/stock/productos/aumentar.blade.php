@@ -71,11 +71,20 @@
                         <div class="form-inline mt-4">
                             <label for="ajuste" class="col-form-label col-2">*Ajuste:</label>
                             <input id="ajuste" type="number" class="form-control col-3" name="ajuste"
-                                   placeholder="Ej. 5000 o -3500">
+                                   placeholder="Ej. 5000 o -3500" required>
                             <label class="ml-2">kgs</label>
 
                         </div>
                         <label class="text-info mt-3 ml-4">*Cantidad negativa para restar stock</label>
+
+                        <div class="form-inline mt-4">
+                            <label for="observacion" class="col-form-label col-2">Motivo:</label>
+                            <textarea id="observacion" type="" class="form-control col-6" name="observacion"
+                                      placeholder="Explique el motivo del ajuste..." minlength="10"
+                                      maxlength="255"
+                                      required ></textarea>
+                        </div>
+
 
                         <div class="form-inline mt-5">
                             <a class="btn btn-secondary col-2"

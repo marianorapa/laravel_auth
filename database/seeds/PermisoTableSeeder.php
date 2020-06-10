@@ -495,6 +495,13 @@ class PermisoTableSeeder extends Seeder
         $permiso->funcionalidad = 'Permite cancelar pedidos en proceso';
 //        $permiso->activo = true;
         $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'op.pdf';
+        $permiso->descr = 'Imprimir orden de producción';
+        $permiso->funcionalidad = 'Permite imprimir la orden de producción finalizada';
+//        $permiso->activo = true;
+        $permiso->save();
     }
 
     public function seed_permisos_parametros(){
@@ -639,6 +646,8 @@ class PermisoTableSeeder extends Seeder
         $permiso->funcionalidad = 'Permite obtener los datos correspondientes para poder retornarlos en un pdf';
 //        $permiso->activo = true;
         $permiso->save();
+
+
 
         $permiso = new Permiso();
         $permiso->nombre_ruta = 'ticketSalida.pdf';

@@ -223,11 +223,13 @@ class StockManager
         }
     }
 
-    private static function createMovimientoInsumo($tipoMovimiento, $idCliente, $cantidad): MovimientoInsumo
+    private static function createMovimientoInsumo($tipoMovimiento, $idCliente, $cantidad, $observacion = "")
+    : MovimientoInsumo
     {
         $movimiento = new Movimiento();
         $movimiento->user()->associate(Auth::user()); // Cambiado
         $movimiento->tipoMovimiento()->associate($tipoMovimiento);
+        $movimiento->observacion = $observacion;
         $movimiento->save();
 
         $movimientoInsumo = new MovimientoInsumo();
@@ -290,10 +292,10 @@ class StockManager
     }
 
 
-    public static function ajusteStockInsumoTrazable($idLoteInsumo, $idCliente, $ajuste)
+    public static function ajusteStockInsumoTrazable($idLoteInsumo, $idCliente, $ajuste, $observacion = "")
     {
         $tipo = TipoMovimiento::AJUSTE_STOCK_MANUAL;
-        $movimientoInsumo = self::createMovimientoInsumo($tipo, $idCliente, $ajuste);
+        $movimientoInsumo = self::createMovimientoInsumo($tipo, $idCliente, $ajuste, $observacion);
 
         $movimientoInsumoTrazable = new MovimientoInsumoTrazable();
         $movimientoInsumoTrazable->insumo_id = $idLoteInsumo;
@@ -302,10 +304,10 @@ class StockManager
         $movimientoInsumoTrazable->save();
     }
 
-    public static function ajusteStockInsumoNoTrazable($idInsumo, $idCliente, $ajuste)
+    public static function ajusteStockInsumoNoTrazable($idInsumo, $idCliente, $ajuste, $observacion = "")
     {
         $tipo = TipoMovimiento::AJUSTE_STOCK_MANUAL;
-        $movimientoInsumo = self::createMovimientoInsumo($tipo, $idCliente, $ajuste);
+        $movimientoInsumo = self::createMovimientoInsumo($tipo, $idCliente, $ajuste, $observacion);
 
         $movimientoInsumoNoTrazable = new MovimientoInsumoNoTrazable();
         $movimientoInsumoNoTrazable->insumo_id = $idInsumo;
@@ -314,10 +316,10 @@ class StockManager
         $movimientoInsumoNoTrazable->save();
     }
 
-    public static function ajusteStockProducto($id, $ajuste)
+    public static function ajusteStockProducto($id, $ajuste, $observacion = "")
     {
         $tipo = TipoMovimiento::AJUSTE_STOCK_MANUAL;
-        self::createMovimientoProducto($id, $ajuste, $tipo);
+        self::createMovimientoProducto($id, $ajuste, $tipo, $observacion);
     }
 
     /**
@@ -325,11 +327,13 @@ class StockManager
      * @param $cantidad
      * @return MovimientoProducto
      */
-    protected static function createMovimientoProducto($idProducto, $cantidad, $tipoMovimiento): MovimientoProducto
+    protected static function createMovimientoProducto($idProducto, $cantidad, $tipoMovimiento, $observacion = "")
+    : MovimientoProducto
     {
         $movimiento = new Movimiento();
         $movimiento->user()->associate(Auth::user()); // Cambiado
         $movimiento->tipoMovimiento()->associate(TipoMovimiento::getMovimiento($tipoMovimiento));
+        $movimiento->observacion = $observacion;
         $movimiento->save();
 
         $movimientoProducto = new MovimientoProducto();

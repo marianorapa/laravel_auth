@@ -17,6 +17,7 @@ class CreateMovimientoTable extends Migration
             $table->id();
             $table->foreignId('tipo_movimiento_id')->constrained('tipo_movimiento');
             $table->foreignId('user_id')->constrained('users');
+            $table->string('observacion')->nullable(true);
             $table->timestamps();
         });
     }

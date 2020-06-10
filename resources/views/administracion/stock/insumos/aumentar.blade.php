@@ -51,51 +51,60 @@
                         <form action="{{route('administracion.stock.insumos.ajustarInsumoTrazable.post',
                                                 [$insumo['idLoteInsumoEspecifico'],
                                                 $insumo['idCliente']])}}" method="POST">
-                    @else
-                        <form action="{{route('administracion.stock.insumos.ajustarInsumoNoTrazable.post',
+                            @else
+                                <form action="{{route('administracion.stock.insumos.ajustarInsumoNoTrazable.post',
                                 [$insumo['idInsumoNt'], $insumo['idCliente']])}}" method="POST">
-                    @endif
-                            @csrf
-                            <div class="form-inline">
-                                <label for="cliente" class="col-form-label col-2">Cliente</label>
-                                <input id="cliente" type="text" class="form-control col-9" name="cliente"
-                                       value="{{$insumo['nombreCliente']}}" readonly>
-                            </div>
+                                    @endif
+                                    @csrf
+                                    <div class="form-inline">
+                                        <label for="cliente" class="col-form-label col-2">Cliente</label>
+                                        <input id="cliente" type="text" class="form-control col-9" name="cliente"
+                                               value="{{$insumo['nombreCliente']}}" readonly>
+                                    </div>
 
-                            <div class="form-inline mt-4">
-                                <label for="insumo" class="col-form-label col-2">Insumo</label>
-                                <input id="insumo" type="text" class="form-control col-6" name="insumo"
-                                       value="{{$insumo['nombreInsumo']}}" readonly>
+                                    <div class="form-inline mt-4">
+                                        <label for="insumo" class="col-form-label col-2">Insumo</label>
+                                        <input id="insumo" type="text" class="form-control col-6" name="insumo"
+                                               value="{{$insumo['nombreInsumo']}}" readonly>
 
-                                <label for="lote" class="col-form-label col-1">Lote</label>
-                                <input id="lote" type="text" class="form-control col-2" name="lote"
-                                       value="{{array_key_exists('nroLote', $insumo) ? $insumo['nroLote'] : "-"}}"
-                                       readonly>
-                            </div>
+                                        <label for="lote" class="col-form-label col-1">Lote</label>
+                                        <input id="lote" type="text" class="form-control col-2" name="lote"
+                                               value="{{array_key_exists('nroLote', $insumo) ? $insumo['nroLote'] : "-"}}"
+                                               readonly>
+                                    </div>
 
-                            <div class="form-inline mt-4">
-                                <label for="stock" class="col-form-label col-2">Stock actual</label>
-                                <input id="stock" type="text" class="form-control col-2" name="stock"
-                                       value="{{$insumo['stock']}}" readonly>
-                                <label class="ml-2">kgs</label>
-                            </div>
+                                    <div class="form-inline mt-4">
+                                        <label for="stock" class="col-form-label col-2">Stock actual</label>
+                                        <input id="stock" type="text" class="form-control col-2" name="stock"
+                                               value="{{$insumo['stock']}}" readonly>
+                                        <label class="ml-2">kgs</label>
+                                    </div>
 
-                            <div class="form-inline mt-4">
-                                <label for="ajuste" class="col-form-label col-2">*Ajuste:</label>
-                                <input id="ajuste" type="number" class="form-control col-3" name="ajuste"
-                                       placeholder="Ej. 5000 o -3500">
-                                <label class="ml-2">kgs</label>
+                                    <div class="form-inline mt-4">
+                                        <label for="ajuste" class="col-form-label col-2">*Ajuste:</label>
+                                        <input id="ajuste" type="number" class="form-control col-3" name="ajuste"
+                                               placeholder="Ej. 5000 o -3500" required>
+                                        <label class="ml-2">kgs</label>
+                                    </div>
 
-                            </div>
-                            <label class="text-info mt-3 ml-4">*Cantidad negativa para restar stock</label>
+                                    <label class="text-info mt-3 ml-4">*Cantidad negativa para restar stock</label>
 
-                            <div class="form-inline mt-5">
-                                <a class="btn btn-secondary col-2"
-                                   href="{{route('administracion.stock.insumos')}}">Cancelar</a>
-                                <button type="submit" class="btn btn-primary col-2 offset-8">Registrar</button>
-                            </div>
+                                    <div class="form-inline mt-4">
+                                        <label for="observacion" class="col-form-label col-2">Motivo:</label>
+                                        <textarea id="observacion" type="" class="form-control col-6" name="observacion"
+                                                  placeholder="Explique el motivo del ajuste..." minlength="10"
+                                                  maxlength="255"
+                                                  required ></textarea>
+                                    </div>
 
-                        </form>
+                                    <div class="form-inline mt-5">
+                                        <a class="btn btn-secondary col-2"
+                                           content="{{old('motivo')}}"
+                                           href="{{route('administracion.stock.insumos')}}">Cancelar</a>
+                                        <button type="submit" class="btn btn-primary col-2 offset-8">Registrar</button>
+                                    </div>
+
+                                </form>
 
 
                 </div>

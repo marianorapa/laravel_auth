@@ -82,17 +82,20 @@ class StockController extends Controller
     public function registrarAjusteTrazable($idLoteInsumo, $idCliente, Request $request)
     {
         $validated = $request->validate([
-            'ajuste' => ['numeric', 'required']
+            'ajuste' => ['numeric', 'required'],
+            'observacion' => ['required']
         ]);
 
         $ajuste = $validated['ajuste'];
+        $observacion = $validated['observacion'];
+
         $stockActual = StockManager::getStockIdLoteCliente($idCliente, $idLoteInsumo);
 
         if ($stockActual + $ajuste < 0) {
             return back()->with('error', 'El stock no puede quedar negativo');
         }
 
-        StockManager::ajusteStockInsumoTrazable($idLoteInsumo, $idCliente, $ajuste);
+        StockManager::ajusteStockInsumoTrazable($idLoteInsumo, $idCliente, $ajuste, $observacion);
 
         return redirect()->action('StockController@indexInsumos')->with('message', 'Ajuste realizado con éxito');
     }
@@ -100,10 +103,12 @@ class StockController extends Controller
     public function registrarAjusteNoTrazable($idInsumo, $idCliente, Request $request)
     {
         $validated = $request->validate([
-            'ajuste' => ['numeric', 'required']
+            'ajuste' => ['numeric', 'required'],
+            'observacion' => ['required']
         ]);
 
         $ajuste = $validated['ajuste'];
+        $observacion = $validated['observacion'];
 
         $stockActual = StockManager::getStockInsumoNoTrazableCliente($idInsumo, $idCliente);
 
@@ -111,7 +116,7 @@ class StockController extends Controller
             return back()->with('error', 'El stock no puede quedar negativo');
         }
 
-        StockManager::ajusteStockInsumoNoTrazable($idInsumo, $idCliente, $ajuste);
+        StockManager::ajusteStockInsumoNoTrazable($idInsumo, $idCliente, $ajuste, $observacion);
 
         return redirect()->action('StockController@indexInsumos')->with('message', 'Ajuste realizado con éxito');
     }
@@ -130,10 +135,12 @@ class StockController extends Controller
     public function registrarAjusteStockProducto($id, Request $request)
     {
         $validated = $request->validate([
-            'ajuste' => 'required|numeric'
+            'ajuste' => 'required|numeric',
+            'observacion' => 'required'
         ]);
 
         $ajuste = $validated['ajuste'];
+        $observacion = $validated['observacion'];
 
         $stockActual = StockManager::getStockProducto($id);
 
@@ -141,7 +148,7 @@ class StockController extends Controller
             return back()->with('error', 'El stock no puede quedar negativo!');
         }
 
-        StockManager::ajusteStockProducto($id, $ajuste);
+        StockManager::ajusteStockProducto($id, $ajuste, $observacion);
 
         return redirect()->action('StockController@indexProductos')->with('message', 'Stock actualizado con éxito!');
 

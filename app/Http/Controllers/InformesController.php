@@ -9,6 +9,8 @@ class InformesController extends Controller
 {
     //
 
+
+
     public function informeEstadistico(){
         return view('gerencia.informes.estadistico');
     }
