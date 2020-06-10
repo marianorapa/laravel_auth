@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('publics')
     <script src="{{ asset('js/pesajeFinalDespacho.js') }}"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ asset('js/notifCartel.js') }}"></script>
+    <script src="{{ asset('js/errorCartel.js') }}"></script>
 @endsection
 
 @section('content')
@@ -19,13 +21,35 @@
     </div>
 
     <div class="form-group row d-flex justify-content-center">
+
+        @if (session('error'))
+            <div class="">
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
+            </div>
+        @endif
+
+        @if (session('mensaje'))
+            <div class="" role="alert">
+                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
+            </div>
+        @endif
         <div class="col-md-7">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    {{$errors->first()}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="card">
+
                 <div class="card-header text-center h2">
                     {{__('Pesaje final de despacho')}}
                 </div>
 
                 <div class="card-body">
+
                     <form action="{{route('despachos.finalize.post')}}" method="POST">
                         @csrf
                         <div class="form-group row">
