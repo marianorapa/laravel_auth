@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
         input_fe.value=element.fecha_fabricacion;
         input_fe.type = "text";
         fecha_entrega.appendChild(input_fe);*/
-        fecha_entrega.innerText = element.fecha_fabricacion;
+        fecha_entrega.innerText = element.fecha_fabricacion.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1');
 
 
         producto = document.createElement('td');
