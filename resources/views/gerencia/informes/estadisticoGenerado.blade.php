@@ -42,28 +42,33 @@
             </thead>
             <tbody>
 
-            <tr>
-                <td>Desde</td>
-                <td>{{$informe['desde']}}</td>
-            </tr>
-
-            <tr>
-                <td>Hasta</td>
-                <td>{{$informe['hasta']}}</td>
+            <tr class="table-dark">
+                <td>Período</td>
+                <td>{{date('d/m/Y', strtotime($informe['desde']))}} <span class="px-3">-</span> {{date('d/m/Y', strtotime($informe['hasta']))}}</td>
             </tr>
 
             <tr>
                 <td>Kgs. fabricados</td>
-                <td>{{$informe['kgsFabricados']}}</td>
+                <td>{{$informe['kgsFabricados']}} kgs.</td>
+            </tr>
+
+            <tr>
+                <td>Ingresos por kgs. fabricados</td>
+                <td>$ {{number_format($informe['ingresosFabricados'], 2)}}</td>
             </tr>
 
             <tr>
                 <td>Kgs. anulados</td>
-                <td>{{$informe['kgsAnulados']}}</td>
+                <td>{{$informe['kgsAnulados']}} kgs.</td>
+            </tr>
+
+            <tr>
+                <td>Ingresos perdidos por kgs. anulados</td>
+                <td>$ {{number_format($informe['ingresosAnulados'],2)}}</td>
             </tr>
 
             @if (sizeof($informe['prodMasFreq']) > 0)
-                <tr>
+                <tr class="table-dark">
                     <td>Producto más veces vendido</td>
                     <td>{{$informe['prodMasFreq'][0]->descripcion}}</td>
                 </tr>
@@ -84,7 +89,7 @@
                 </tr>
 
 
-                <tr>
+                <tr class="table-dark">
                     <td>Producto más kgs. vendidos</td>
                     <td>{{$informe['prodMasKgs'][0]->descripcion}}</td>
                 </tr>

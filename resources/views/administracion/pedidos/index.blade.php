@@ -18,17 +18,23 @@
             <div class="row justify-content-center mt-4">
                 <a class="btn btn-primary btn m-1 col-3" href="{{route('pedidos.create')}}">Nuevo Pedido</a>
             </div>
-            <div class="row justify-content-center mt-4 border-top border-bottom py-3">
-                <form class="form-inline">
+            <div class="row mt-4 border-top border-bottom py-3">
+                <form class="form-inline w-100">
+                    <div class="col-2">
+                        <a type="submit" class="btn btn-info btn-sm m-1 btn_pdf"
+                           href="{{route('pedido.pdf')}}"
+                           target="_blank">Descargar PDF</a>
+                    </div>
+                    <div class="col-8 text-center">
+                        <input name="producto" class="form-control productojs"
+                               type="search" placeholder="Producto" aria-label="buscar por producto"
+                               value="{{$producto}}">
+                        <input name="cliente" class="form-control  clientejs"
+                               type="search" placeholder="Cliente" aria-label="buscar por cliente" value="{{$cliente}}">
 
-                    <a type="submit" class="btn btn-info btn-sm m-1 btn_pdf"
-                       href="{{route('pedido.pdf')}}" target="_blank">Descargar PDF</a>
-
-                    <input name="producto" class="form-control mr-sm-2 productojs"
-                           type="search" placeholder="Producto" aria-label="buscar por producto">
-                    <input name="cliente" class="form-control mr-sm-2 clientejs"
-                           type="search" placeholder="Cliente" aria-label="buscar por cliente">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        <button class="btn btn-outline-success " type="submit">Buscar</button>
+                    </div>
+                    <a class="" href="{{route('pedidos.index')}}">Borrar búsqueda</a>
                 </form>
             </div>
         </section>
@@ -70,7 +76,7 @@
                     <tr>
                         <th scope="row">{{$op->op_id}}</th>
                         <td>{{$op->empresa}}</td>
-                        <td>{{$op->fecha_fabricacion}}</td>
+                        <td>{{date('d-m-Y', strtotime($op->fecha_fabricacion))}}</td>
                         <td id="producto">{{$op->producto}}</td>
                         <td id="cantidad">{{$op->cantidad}}</td>
                         @if ($op->descripcion == "Pendiente")
@@ -88,7 +94,7 @@
                                 <td>
                                     {{--<span class="btn btn-sm btn-outline-success disabled">Finalizado</span>--}}
                                     <a href="{{ route('op.pdf', $op->op_id )}}" target="_blank"
-                                           class="btn btn-outline-success btn-sm">Imprimir</a>
+                                       class="btn btn-outline-success btn-sm">Imprimir</a>
                                 </td>
                             @else
                                 <td>

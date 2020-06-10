@@ -200,7 +200,8 @@ route::get('/getSaldoOp', 'OrdenProduccionController@getSaldoOp')->name("asinc.s
 //pdf
 route::get('/personapdf', 'PersonaController@getPdfAll')->name('persona.pdf');
 //pdf informe pedidos
-route::get('/pedidopdf', 'OrdenProduccionController@getPdfAll')->name('pedido.pdf');
+
+route::get('/pedidopdf/{cliente?}/{producto?}', 'OrdenProduccionController@getPdfAll')->name('pedido.pdf');
 //pdf ticket salida
 route::get('/ticketSalidapdf/{id}', 'DespachoController@getPdfAll')->name('ticketSalida.pdf');
 //pdf ticket entrada

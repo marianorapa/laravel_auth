@@ -18,7 +18,8 @@ class InformesManager
                 ['op.fecha_fabricacion', '<=', $hasta],
                 ['op.anulada', '=', false]
                 ])
-            ->sum('op.cantidad');
+            ->select(DB::raw('sum(op.cantidad) as cantidad'),
+                DB::raw('sum(op.precio_venta_por_tn*cantidad/1000) as ingresos'))->get();
 
         $kgsAnulados = DB::table('orden_de_produccion as op')
             ->where([
@@ -26,7 +27,8 @@ class InformesManager
                 ['op.fecha_fabricacion', '<=', $hasta],
                 ['op.anulada', '=', true]
             ])
-            ->sum('op.cantidad');
+            ->select(DB::raw('sum(op.cantidad) as cantidad'),
+                DB::raw('sum(op.precio_venta_por_tn*cantidad/1000) as ingresos'))->get();
 
         $prodMasFreq = DB::table('orden_de_produccion as op')
             ->where([
@@ -52,10 +54,12 @@ class InformesManager
                 'op.producto_id', 'a.descripcion', 'e.denominacion')
             ->groupBy('op.producto_id', 'a.descripcion', 'e.denominacion')->orderByDesc('suma')->limit(1)->get();
 
-//        dd($kgsFabricados, $kgsAnulados, $prodMasFreq, $prodMasKg);
+//        dd($kgsFabricados, $kgsAnulados, $prodMasFreq, $prodMasKgs);
 
-        return ['kgsFabricados' => $kgsFabricados,
-                'kgsAnulados' => $kgsAnulados,
+        return ['kgsFabricados' => $kgsFabricados[0]->cantidad,
+                'ingresosFabricados' => $kgsFabricados[0]->ingresos,
+                'kgsAnulados' => $kgsAnulados[0]->cantidad,
+                'ingresosAnulados' => $kgsAnulados[0]->ingresos,
                 'prodMasFreq' => $prodMasFreq,
                 'prodMasKgs' => $prodMasKgs
         ];

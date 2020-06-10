@@ -74,7 +74,7 @@
                         <tr>
                             <th scope="row">{{$despacho->id}}</th>
                             <td>{{$despacho->denominacion}}</td>
-                            <td>{{$despacho->fecha}}</td>
+                            <td>{{date('d-m-Y h:i', strtotime($despacho->fecha))}}</td>
                             <td>{{$despacho->descripcion}}</td>
                             <td>{{$despacho->cantidad}}</td>
                             <td>{{$despacho->patente}}</td>

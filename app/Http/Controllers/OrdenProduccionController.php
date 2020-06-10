@@ -39,7 +39,7 @@ class OrdenProduccionController extends Controller
 
         $ops = $this->getAllOps($producto, $cliente);
 
-        return view('administracion.pedidos.index', compact('ops'));
+        return view('administracion.pedidos.index', compact('ops', 'producto', 'cliente'));
     }
 
     /**
@@ -456,19 +456,10 @@ class OrdenProduccionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getPdfAll()
+    public function getPdfAll($cliente = "", $producto = "")
     {
-        $pedidos = DB::table('orden_de_produccion')
-            /*->name($name)
-            ->apellido($apellido)
-            ->nrodoc($doc)*/
-            ->get();
 
-       $pedidos = $this->getAllOps(null, null);
-
-        /*dd($pedidos);
-        response()->json('pedidos')*/
-//        return view('administracion.pedidos.pedidos-list', compact('pedidos'));
+       $pedidos = $this->getAllOps($producto, $cliente);
 
         return view('administracion.pedidos.pedidos-list-re', compact('pedidos'));
     }
