@@ -88,6 +88,8 @@ Route::get('/administracion/empresas', 'EmpresasController@index')
     ->name('administracion.empresas');
 
 
+Route::resource('empresas', 'EmpresasController');
+
 Route::resource('pedidos', 'OrdenProduccionController');
 Route::get('pedidos/finalize/{id}', 'OrdenProduccionController@finalize')->name('pedidos.finalize');
 Route::get('pedidos/cancel/{id}', 'OrdenProduccionController@cancel')->name('pedidos.cancel');
@@ -235,3 +237,7 @@ route::get('/getpedidosjs', 'OrdenProduccionController@getpedidosjs')->name('all
 })->name('producto.create');*/
 //productoIndex
 Route::resource('producto', 'AlimentoController');
+
+
+//prueba validacion pedidos
+route::get('/validar', 'OrdenProduccionController@validacionAsincrona')->name("asinc.validacionop");
