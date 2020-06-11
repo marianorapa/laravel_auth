@@ -19,7 +19,7 @@
         </nav>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header text-center h2">
                     Editar rol
@@ -56,21 +56,23 @@
                             </div>
                         @enderror
 
-                        <div class="form-group">
-                            <label for="username">Nombre</label>
+                        <div class="row ml-2">
+                            <div class="form-group col-6">
+                                <label for="username">Nombre</label>
 
-                            <input type="text" name="name" id="name"
-                            value="{{$rol->name}}" placeholder="Nombre"
-                            class="usernamejs form-control mb-2" required>
+                                <input type="text" name="name" id="name"
+                                value="{{$rol->name}}" placeholder="Nombre"
+                                class="usernamejs form-control mb-2" required>
+                            </div>
+
+
+                            <div class="form-group col-6">
+                                <label for="descripcion">Descripción</label>
+                                <input type="text" name="descr" id="descr"
+                                value="{{$rol->descr}}"
+                                placeholder="Descripcion"  class="observacionjs form-control mb-2" required>
+                             </div>
                         </div>
-
-
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <input type="text" name="descr" id="descr"
-                            value="{{$rol->descr}}"
-                            placeholder="Descripcion"  class="observacionjs form-control mb-2" required>
-                         </div>
 
 
 {{--                        <p>Seleccione los permisos de los roles:</p>--}}
