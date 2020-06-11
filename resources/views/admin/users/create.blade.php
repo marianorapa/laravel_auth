@@ -72,12 +72,12 @@
                                         <option value="{{$persona->id}}">{{"$persona->nombres $persona->apellidos"}}</option>
                                     @endforeach
                                 </select>
-                                <div class="col-10 mt-2">
+                                {{--<div class="col-10 mt-2">
                                     <div class="mb-3 divautjs">
                                         <input type="text" class="custom-select autocompletarjs"  placeholder="ingrese nombre">
 
                                     </div>
-                                </div>
+                                </div>--}}
                                 <p class="mt-2 mb-3"><a class="" href="{{route('personas.create')}}" target="_blank">Nueva persona</a></p>
                             </div>
 

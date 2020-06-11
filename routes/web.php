@@ -241,3 +241,8 @@ Route::resource('producto', 'AlimentoController');
 
 //prueba validacion pedidos
 route::get('/validar', 'OrdenProduccionController@validacionAsincrona')->name("asinc.validacionop");
+
+
+Route::get('/showpedidos', function () {
+    return view('administracion.pedidos.verPedido');
+});

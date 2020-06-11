@@ -329,6 +329,7 @@ class OrdenProduccionController extends Controller
     public function show($id)
     {
         //
+        return view('administracion.pedidos.verPedido');
     }
 
     /**
