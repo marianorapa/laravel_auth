@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
 use App\Domicilio;
 use App\Empresa;
 use App\PersonaTipo;
+use App\Proveedor;
 use App\TipoDocumento;
+use App\Transportista;
 use App\Utils\DomicilioManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\VarDumper\Caster\TraceStub;
 
 class EmpresasController extends Controller
 {
@@ -45,6 +49,7 @@ class EmpresasController extends Controller
 
         $validator = Validator::make($request->input(),[
            'denominacion' => 'required|max:255',
+           'tipo_empresa' => 'required',
            'id_tipo_documento' =>'required',
            'nro_documento' => 'required',
            'email'=>'required',
@@ -101,6 +106,20 @@ class EmpresasController extends Controller
                 $empresaNew->personaTipo()->associate($persona_tipo);
                 $empresaNew->fecha_inicio_actividades = now();
                 $empresaNew->save();
+
+                if ($request->get('tipo_empresa') == 'cliente'){
+                    $cliente = new Cliente();
+                    $cliente->id=$empresaNew->id;
+                    $cliente->save();
+                }elseif ($request->get('tipo_empresa') == 'proveedor'){
+                    $Proveedor = new Proveedor();
+                    $Proveedor->id= $empresaNew->id;
+                    $Proveedor->save();
+                }elseif($request->get('tipo_empresa') == 'transportista'){
+                        $transportista = new Transportista();
+                        $transportista->id = $empresaNew->id;
+                        $transportista->save();
+                }
 
 
                 return back()->with('message','Empresa Registrada con exito!');

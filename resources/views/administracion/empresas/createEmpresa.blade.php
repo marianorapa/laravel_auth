@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="tipo_empresa" class="col-md-4 col-form-label text-md-right">Tipo de Empresa</label>
                             <div class="col-md-6">
-                                <select name="tipo_empresa" id="tipo_empresa" class="form-control">
+                                <select name="tipo_empresa" id="tipo_empresa" class="form-control" required>
                                     <option data-tokens=="0" selected="true" disabled="disabled">Seleccione</option>
                                     <option value="cliente">Cliente</option>
                                     <option value="proveedor">Proveedor</option>
