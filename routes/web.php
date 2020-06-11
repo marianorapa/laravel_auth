@@ -105,7 +105,7 @@ Route::get('despachos/cancel/{id}', 'DespachoController@destroy')->name('despach
 
 Route::get('gerencia', function () {
     return view('gerencia.index');
-})->name('gerencia.index')->middleware('auth'); //Agregar junto a permiso
+})->name('gerencia.index')->middleware('permission'); //Agregar junto a permiso
 
 
 Route::get('/informes/estadistico', 'InformesController@informeEstadistico')->name('informes.estadistico');

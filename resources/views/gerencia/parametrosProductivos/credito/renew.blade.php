@@ -11,6 +11,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" >Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('gerencia.index')}}">Gerencia</a></li>
                 <li class="breadcrumb-item"><a href="/gestionParametrosProductivos" >Parámetros</a></li>
                 <li class="breadcrumb-item"><a href="{{route('parametros.credito.index')}}" >Gestion de crédito</a></li>
                 <li class="breadcrumb-item active">Renovar crédito cliente</li>

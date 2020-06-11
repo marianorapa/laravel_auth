@@ -19,11 +19,11 @@ class PermisoTableSeeder extends Seeder
         $this->seed_permisos_roles();
         $this->seed_permisos_balanzas();
         $this->seed_permisos_administracion();
+        $this->seed_permisos_gerencia();
         $this->seed_permisos_entrada();
         $this->seed_permisos_despacho();
         $this->seed_permisos_formulas();
         $this->seed_permisos_ordenProduccion();
-        $this->seed_permisos_parametros();
         $this->seed_permisos_asincronos();
 
 //        $this->temp_seeder(); // Dejame comentado. Es temporal para hacer ajustes al agregar datos
@@ -504,7 +504,27 @@ class PermisoTableSeeder extends Seeder
         $permiso->save();
     }
 
-    public function seed_permisos_parametros(){
+    public function seed_permisos_gerencia(){
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'gerencia.index';
+        $permiso->descr = 'Ver menu de gerencia';
+        $permiso->funcionalidad = 'Permite ver el menu de gerencia';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'informes.estadistico';
+        $permiso->descr = 'Ver menu de generación informe';
+        $permiso->funcionalidad = 'Permite ver el menu de generación de informe estadístico';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'informes.estadistico.generar';
+        $permiso->descr = 'Generar informe estadístico';
+        $permiso->funcionalidad = 'Permite generar el informe estadístico de pedios, ingresos, etc.';
+        $permiso->save();
+
+
+
         $permiso = new Permiso();
         $permiso->nombre_ruta = 'parametros.index';
         $permiso->descr = 'Ver menu de parametros';

@@ -11,7 +11,7 @@ class InformesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('permission');
     }
 
 
@@ -20,8 +20,13 @@ class InformesController extends Controller
     }
 
     public function generarInformeEstadistico(Request $request){
-        $desde = $request->get('desde');
-        $hasta = $request->get('hasta');
+        $validated = $request->validate([
+            'desde' => 'required | date',
+            'hasta' => 'required | date'
+        ]);
+
+        $desde = $validated['desde'];
+        $hasta = $validated['hasta'];
 
         $informe = InformesManager::getInformeEstadistico($desde, $hasta);
         $informe['desde'] = $desde;

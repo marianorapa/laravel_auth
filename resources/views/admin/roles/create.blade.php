@@ -19,10 +19,10 @@
         </nav>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             @if (session('error'))
             <div class="" role="alert">
-                <p class="errorjs" style="display:none">{{ session('error') }}</p> 
+                <p class="errorjs" style="display:none">{{ session('error') }}</p>
             </div>
             @endif
             <div class="card">
@@ -50,7 +50,7 @@
 
                             @if (session('mensaje'))
                             <div class="" role="alert">
-                                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p> 
+                                <p class="alertajs" style="display:none">{{ session('mensaje') }}</p>
                             </div>
                             @endif
 
@@ -108,8 +108,8 @@
 
                             </script>
 
-                            <label class="col-md-10">Seleccione los permisos del rol:</label>
-                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleCheckboxes()">
+                            <label class="col-md-11">Seleccione los permisos del rol:</label>
+                            <input type="checkbox" class="" id="selectAllCheckbox" onchange="toggleCheckboxes()">
 
                             <div class="form-group row mx-5 ">
 

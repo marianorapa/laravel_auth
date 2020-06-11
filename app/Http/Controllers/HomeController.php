@@ -27,6 +27,10 @@ class HomeController extends Controller
             return redirect(route('admin.menu'));
         }
 
+        if (Auth::user()->hasPermiso('gerencia.index')){
+            return redirect(route('gerencia.index'));
+        }
+
         if (Auth::user()->hasPermiso('balanzas.menu')){
             return redirect(route('balanzas.menu'));
         }
@@ -34,12 +38,5 @@ class HomeController extends Controller
         if (Auth::user()->hasPermiso('administracion.menu')){
             return redirect(route('administracion.menu'));
         }
-
-        if (Auth::user()->hasPermiso('parametros.index')){
-            return redirect(route('parametros.index'));
-        }
-
-
-
     }
 }

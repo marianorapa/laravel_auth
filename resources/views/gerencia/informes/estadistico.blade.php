@@ -46,16 +46,18 @@
                         @csrf
                         <div class="form-inline mt-4">
                             <label for="desde" class="col-form-label col-2">Fecha desde</label>
-                            <input id="desde" type="date" class="form-control col-3" name="desde">
+                            <input id="desde" type="date" value="{{old('desde')}}"
+                                   class="form-control col-3" name="desde" required>
 
                             <label for="hasta" class="col-form-label col-2 offset-1">Fecha hasta</label>
-                            <input id="hasta" type="date" class="form-control col-3" name="hasta">
+                            <input id="hasta" type="date" value="{{old('hasta')}}"
+                                class="form-control col-3" name="hasta" required>
                         </div>
 
                         <div class="form-inline mt-5">
                             <a class="btn btn-secondary col-2"
                                href="{{route('gerencia.index')}}">Cancelar</a>
-                            <button type="submit" class="btn btn-primary col-2 offset-8">Generar</button>
+                            <button type="submit" formtarget="_blank" class="btn btn-primary col-2 offset-8">Generar</button>
                         </div>
                     </form>
                 </div>
