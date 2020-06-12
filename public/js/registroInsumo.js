@@ -20,13 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
         var hoy = new Date();
         var mes;
         var meshoy = hoy.getMonth() + 1;
-        var diahoy = hoy.getDay();
+        var diahoy = hoy.getDate();
         if (meshoy < 10) {
             meshoy = '0' + meshoy;
         }
         if (diahoy < 10) {
             diahoy = '0' + diahoy;
         }
+
         var formato_hoy = hoy.getFullYear() + "-" + meshoy + "-" + diahoy;
         if (validar_fecha_elab.value === "") {
             validar_fecha_elab.style.background = "#ffffff";
