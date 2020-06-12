@@ -63,7 +63,7 @@
                         <th scope="col">Tipo</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Gtin</th>
-                        <th scope="col">Acciones</th>
+{{--                        <th scope="col">Acciones</th>--}}
                     </tr>
                 </thead>
 
@@ -75,7 +75,7 @@
                             <td>{{$alimento->tipo}}</td>
                             <td>{{$alimento->denominacion}}</td>
                             @if(empty($alimento->gtin))
-                                <td>no posee</td>
+                                <td>No posee</td>
                             @else
                                 <td>{{$alimento->gtin}}</td>
                             @endif

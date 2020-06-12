@@ -23,7 +23,8 @@ class PrestamoController extends Controller
             ->join('empresa as e', 'e.id', 'a.cliente_id')
             ->where('e.denominacion', 'like', "%$cliente%")
             ->select('pc.id', 'pc.created_at as fecha', 'e.denominacion as cliente', 'i.descripcion as insumo',
-                'opd.cantidad', 'pc.cancelado', 'pc.anulado')->get();
+                'opd.cantidad', 'pc.cancelado', 'pc.anulado')
+            ->orderByDesc('fecha')->get();
 
         return view('administracion.prestamos.index', compact('prestamos'));
     }
