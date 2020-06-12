@@ -43,6 +43,7 @@ class EmpresasController extends Controller
 
     public function store(Request $request){
 
+
         $messages = [
             'required' => 'el campo :attribute es requerido',
         ];
@@ -54,7 +55,6 @@ class EmpresasController extends Controller
            'nro_documento' => 'required',
            'email'=>'required',
            'telefono' =>'required',
-           'observaciones' => 'required',
            'calle' => 'required',
            'numero' => 'required',
            'provincia' => 'required',
