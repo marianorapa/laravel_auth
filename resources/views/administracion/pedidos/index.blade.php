@@ -85,9 +85,12 @@
                                       action="{{route('pedidos.cancel', $op->op_id)}}"
                                       onSubmit="return confirm('Desea eliminar?');">
                                     <a class="btn btn-success btn-sm" href="{{route('pedidos.finalize', $op->op_id)}}">Finalizar</a>
+                                    <a class="btn btn-warning btn-sm" href="{{route('pedidos.show', $op->op_id)}}">Ver</a>
                                     <button class="btn btn-danger btn-sm" type="submit" form="destroy-appointment">X
                                     </button>
                                 </form>
+
+
                             </td>
                         @else
                             @if ($op->descripcion == "Finalizada")

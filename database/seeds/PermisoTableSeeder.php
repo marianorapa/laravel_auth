@@ -502,6 +502,13 @@ class PermisoTableSeeder extends Seeder
         $permiso->funcionalidad = 'Permite imprimir la orden de producción finalizada';
 //        $permiso->activo = true;
         $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'pedidos.show';
+        $permiso->descr = 'Muestra una orden de produccion';
+        $permiso->funcionalidad = 'Permite visualizar una orden de produccion';
+//        $permiso->activo = true;
+        $permiso->save();
     }
 
     public function seed_permisos_gerencia(){

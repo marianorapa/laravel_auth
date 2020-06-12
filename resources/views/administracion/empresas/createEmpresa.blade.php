@@ -66,6 +66,18 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="gln" class="col-md-4 col-form-label text-md-right">GLN</label>
+                            <div class="col-md-6">
+                            <input id="gln" type="text" class="form-control" name="denominacion" value="{{old('gln')}}">
+                                @error('gln')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>GLN invalida</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
                         @include('comun.personas_tipo.inputs-create')
                         @include('comun.domicilios.inputs-create')
 
