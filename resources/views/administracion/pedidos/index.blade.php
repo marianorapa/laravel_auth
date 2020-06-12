@@ -67,7 +67,7 @@
                     <th scope="col">Cliente</th>
                     <th scope="col">Fecha Entrega</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
+                    <th scope="col" class="">Cant. (kgs)</th>
                     <th scope="col">Acciones</th>
                 </tr>
                 </thead>

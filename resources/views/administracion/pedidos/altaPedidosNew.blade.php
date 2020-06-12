@@ -138,7 +138,7 @@
 
                             <label for="precioxkg" class="col-md-2 col-form-label text-md-right">Precio por tn.</label>
                             <input id="precioxkg" type="number" class="form-control col-md-1 preciojs" placeholder="$"
-                                   value="{{old('precioxkg')}}" name="precioxkg">
+                                   value="{{old('precioxkg')}}" name="precioxkg" required>
                             <p class="col-2 mt-2">Precio min: $
                                 <span class="">{{$precioFason->precio_por_tn}}</span> +-
                                 <span>${{$precioFason->variacion_admitida * $precioFason->precio_por_tn}}</span>

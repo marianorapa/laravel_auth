@@ -17,11 +17,10 @@
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{route('gerencia.index')}}">Gerencia</a></li>
                         <li class="breadcrumb-item"><a href="{{route('parametros.index')}}">Parámetros</a></li>
-                        <li class="breadcrumb-item active">Gestion de crédito</li>
+                        <li class="breadcrumb-item active">Gestión de crédito</li>
                     </ol>
                 </nav>
             </div>
-
 
             <nav class="float-right">
                 <form class="form-inline">
@@ -58,7 +57,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Cliente</th>
-                    <th scope="col">Crédito</th>
+                    <th scope="col">Crédito (kgs)</th>
                     <th scope="col">Desde</th>
                     <th scope="col">Hasta</th>
                     <th scope="col">Acción</th>

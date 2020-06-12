@@ -67,8 +67,8 @@
                         <td>{{$prestamo->fecha}}</td>
                         <td>{{$prestamo->cliente}}</td>
                         <td>{{$prestamo->insumo}}</td>
-                        <td>{{$prestamo->cantidad}}</td>
-                        <td>{{$prestamo->cancelado}}</td>
+                        <td>{{$prestamo->cantidad}} kgs</td>
+                        <td>{{$prestamo->cancelado}} kgs</td>
                         @if ($prestamo->anulado)
                             <td class="text-danger">Anulado*</td>
                         @else

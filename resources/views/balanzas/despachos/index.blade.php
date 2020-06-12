@@ -30,6 +30,7 @@
                     <input name='cliente' class="form-control mr-sm-2 clientejs" type="search" placeholder="Cliente" aria-label="buscar por cliente">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
+                <a class="mt-2 ml-2" href="{{route('despachos.index')}}">Borrar</a>
             </div>
         </section>
 
@@ -63,7 +64,7 @@
                         <th scope="col">Cliente</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
+                        <th scope="col">Cant. kgs</th>
                         <th scope="col">Patente</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -76,7 +77,7 @@
                             <td>{{$despacho->denominacion}}</td>
                             <td>{{date('d-m-Y h:i', strtotime($despacho->fecha))}}</td>
                             <td>{{$despacho->descripcion}}</td>
-                            <td>{{$despacho->cantidad}}</td>
+                            <td>{{$despacho->neto}}</td>
                             <td>{{$despacho->patente}}</td>
                             @if ($despacho->deleted_at)
                                 <td>

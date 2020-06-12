@@ -38,7 +38,7 @@ class DespachoController extends Controller
             ->join('orden_de_produccion', 'orden_de_produccion.id','=','ticket_salida.op_id')
             ->join('alimento','alimento.id','=','orden_de_produccion.producto_id')
             ->select('ticket_salida.id', 'empresa.denominacion', 'ticket.created_at as fecha',
-                'alimento.descripcion', 'orden_de_produccion.cantidad', 'ticket.patente', 'ticket.bruto',
+                'alimento.descripcion', 'orden_de_produccion.cantidad', 'ticket.patente', 'ticket.neto','ticket.bruto',
                 'ticket.deleted_at')
             ->orderByDesc('ticket.created_at')
             ->paginate(10);

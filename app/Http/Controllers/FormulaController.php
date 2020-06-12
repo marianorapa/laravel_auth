@@ -62,7 +62,7 @@ class FormulaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -97,8 +97,11 @@ class FormulaController extends Controller
             ->where('fecha_hasta', '=', null)
             ->first();
 
-        $formula->fecha_hasta = $fechaDesde;
-        $formula->save();
+        // Si es null es porque no existia formula todavia
+        if (!is_null($formula)) {
+            $formula->fecha_hasta = $fechaDesde;
+            $formula->save();
+        }
 
         $nuevaFormula = new AlimentoFormula();
         $nuevaFormula->alimento_id = $idProducto;
