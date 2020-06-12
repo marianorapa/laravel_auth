@@ -50,6 +50,12 @@
         </div>
         <p class="mb-1">Menú de gestión de fórmulas de productos.</p>
     </a>
+    <a href="{{route('insumos.index')}}" class="list-group-item list-group-item-action flex-column align-items-start">{{--por ahora solo lleva al index de formula--}}
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Insumos</h5>
+        </div>
+        <p class="mb-1">Menú de gestión de insumos.</p>
+    </a>
 
 </section>
 @endsection

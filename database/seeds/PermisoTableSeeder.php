@@ -23,6 +23,7 @@ class PermisoTableSeeder extends Seeder
         $this->seed_permisos_entrada();
         $this->seed_permisos_despacho();
         $this->seed_permisos_formulas();
+        $this->seed_permisos_insumos();
         $this->seed_permisos_ordenProduccion();
         $this->seed_permisos_asincronos();
 
@@ -270,6 +271,38 @@ class PermisoTableSeeder extends Seeder
         $permiso->nombre_ruta = 'balanzas.menu';
         $permiso->descr = 'Menu balanzas';
         $permiso->funcionalidad = 'Permite visualizar el menu del sector balanzas';
+        $permiso->save();
+    }
+
+    public function seed_permisos_insumos(): void {
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'insumos.index';
+        $permiso->descr = 'Menu insumos';
+        $permiso->funcionalidad = 'Permite visualizar el menu de gestión de insumos';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'insumos.create.normal';
+        $permiso->descr = 'Formulario de creación insumo';
+        $permiso->funcionalidad = 'Permite visualizar el formulario de creación de insumos';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'insumos.create.especifico';
+        $permiso->descr = 'Formulario de creación insumo específico';
+        $permiso->funcionalidad = 'Permite visualizar el formulario de creación de insumos específicos';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'insumos.store.normal';
+        $permiso->descr = 'Guardar insumos';
+        $permiso->funcionalidad = 'Permite guardar insumos';
+        $permiso->save();
+
+        $permiso = new Permiso();
+        $permiso->nombre_ruta = 'insumos.store.especifico';
+        $permiso->descr = 'Guardar insumos específicos';
+        $permiso->funcionalidad = 'Permite guardar insumos específicos';
         $permiso->save();
     }
 

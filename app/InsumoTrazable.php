@@ -47,4 +47,9 @@ class InsumoTrazable extends Model
     {
         return $this->hasMany('App\InsumoEspecifico');
     }
+
+    public function scopeNombre($query, $nombre){
+        return $query->join('insumo as i', 'i.id', 'insumo_trazable.id')
+            ->where('i.descripcion', '=', $nombre);
+    }
 }

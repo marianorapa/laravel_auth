@@ -12,15 +12,12 @@ Route::get('/', function () {
 Route::get('/register', 'Auth\RegisterController@getRegisterUser')->name('register');
 Route::post('/register', 'Auth\RegisterController@RegisterUser')->middleware('checkUserExistence');
 
-//Route::get('/register', 'Auth\RegisterController@CheckUserExistence');
 
 Route::get('/login', 'Auth\LoginController@login')->name('auth.login');
 Route::post('/login', 'Auth\LoginController@authenticate')->name('login');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
-//Auth::routes()->middleware('checkUserExistence');
 
 /*
  * Rutas protegidas
@@ -40,6 +37,8 @@ Route::resource('roles', 'RoleController');
 Route::resource('permisos', 'PermisoController');
 Route::resource('personas', 'PersonaController');
 
+/* Rutas de balanzas, ingresos y despachos --------------------------------------------------------------------------*/
+
 Route::get('balanzas', 'BalanzaController@index')->name('balanzas.menu');
 
 Route::resource('ingresos', 'EntradaController');
@@ -56,6 +55,18 @@ Route::get('/balanzas/ingreso/finalizar/{id}', 'EntradaController@registroInsumo
 
 Route::post('/balanzas/ingreso/finalizar', 'EntradaController@finalizarEntradaInsumo')
     ->name('balanzas.ingresos.final.guardar');
+
+
+Route::resource('despachos', 'DespachoController');
+Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');
+Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
+Route::get('despachos/cancel/{id}', 'DespachoController@destroy')->name('despachos.destroy');
+
+
+/*
+ *  Rutas de administracion, pedidos, empresas -----------------------------------------------------------------------
+ * */
+
 
 Route::get('/administracion', 'AdministracionController@index')->name('administracion.menu');
 
@@ -88,6 +99,12 @@ Route::get('/administracion/empresas', 'EmpresasController@index')
     ->name('administracion.empresas');
 
 
+
+Route::get('/showpedidos', function () {
+    return view('administracion.pedidos.verPedido');
+});
+
+
 Route::resource('empresas', 'EmpresasController');
 
 Route::resource('pedidos', 'OrdenProduccionController');
@@ -97,11 +114,16 @@ Route::get('pedidos/cancel/{id}', 'OrdenProduccionController@cancel')->name('ped
 Route::get('administracion/prestamos', 'PrestamoController@index')->name('administracion.prestamos.index');
 
 
-Route::resource('despachos', 'DespachoController');
-Route::get('despachos/finalize/{id}', 'DespachoController@finalizeView')->name('despachos.finalize.view');
-Route::post('despachos/finalize', 'DespachoController@finalizeDespacho')->name('despachos.finalize.post');
-Route::get('despachos/cancel/{id}', 'DespachoController@destroy')->name('despachos.destroy');
+Route::get('/insumos', 'InsumoController@index')->name('insumos.index');
+Route::get('/insumos/crear', 'InsumoController@createNormal')->name('insumos.create.normal');
+Route::get('/insumos/especifico/crear', 'InsumoController@createEspecifico')->name('insumos.create.especifico');
 
+Route::post('/insumos/guardar', 'InsumoController@storeNormal')->name('insumos.store.normal');
+Route::post('/insumos/especifico/guardar', 'InsumoController@storeEspecifico')->name('insumos.store.especifico');
+
+/*
+    * Rutas de gerencia, informes, parametros -----------------------------------------------------------------------
+*/
 
 Route::get('gerencia', function () {
     return view('gerencia.index');
@@ -134,6 +156,8 @@ Route::post('/parametros/credito/save', 'ParametrosController@renewCreditoPost')
 // Rutas de errores
 Route::get('/error/not_allowed', 'ErrorController@notAllowed')->name('error.not_permission');
 
+
+// TODO Revisar si estas rutas siguen siendo necesarias o se pueden sacar pq las cubren los controllers de arriba
 
 //definir precio x kg
 Route::get('/precioXkg', function () {
@@ -243,6 +267,3 @@ Route::resource('producto', 'AlimentoController');
 route::get('/validar', 'OrdenProduccionController@validacionAsincrona')->name("asinc.validacionop");
 
 
-Route::get('/showpedidos', function () {
-    return view('administracion.pedidos.verPedido');
-});

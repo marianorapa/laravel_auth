@@ -73,4 +73,8 @@ class InsumoEspecifico extends Model
     {
         return $this->hasMany('App\LoteInsumoEspecifico', 'insumo_especifico', 'gtin');
     }
+
+    public function scopeDescripcion($query, $descripcion){
+        return $query->where('descripcion', 'like', "%$descripcion%");
+    }
 }

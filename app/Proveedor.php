@@ -60,4 +60,9 @@ class Proveedor extends Model
     {
         return $this->hasMany('App\TicketEntradaInsumoNoTrazable');
     }
+
+    public function scopeNombre($query, $nombre){
+        return $query->join('empresa', 'empresa.id', 'proveedor.id')
+            ->where('empresa.denominacion', '=', $nombre);
+    }
 }
