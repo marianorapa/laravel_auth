@@ -56,7 +56,9 @@
                             <th scope="col">Fecha inicio actividades</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">GLN</th>
+                            {{--
                             <th scope="col">Acciones</th>
+                            --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -67,10 +69,12 @@
                             <td scope="row">{{$empresa->fecha_inicio_actividades}}</td>
                             <td scope="row">{{$empresa->tipo}}</td>
                             <td scope="row">{{$empresa->gln == null ? '-' : $empresa->gln}}</td>
+                            {{--
                             <td>
                                 <a href="#" class="btn btn-warning btn-sm">Editar</a>
                                 <a class="btn btn-danger btn-sm" href="">X</a>
                             </td>
+                            --}}
 {{--                            @if ($op->descripcion == "Pendiente")--}}
 {{--                                <td>--}}
 {{--                                    <a href="#" class="btn btn-warning btn-sm">Editar</a>--}}{{--es update? lo dejo asi cualquier cosa--}}
@@ -87,7 +91,7 @@
             </table>
 
             <div class="row justify-content-center mt-5">
-{{--                {{$ops->links()}}--}}
+                {{$empresas->links()}}
             </div>
 
         </section>

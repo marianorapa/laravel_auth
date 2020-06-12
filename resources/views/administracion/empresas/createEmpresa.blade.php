@@ -23,7 +23,14 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    {{$errors->first()}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             @if (session('error'))
                 <div class="" role="alert">
                     <p class="errorjs" style="display:none">{{ session('error') }}</p>
@@ -70,7 +77,7 @@
                         <div class="form-group row">
                             <label for="gln" class="col-md-4 col-form-label text-md-right">GLN</label>
                             <div class="col-md-6">
-                            <input id="gln" type="text" class="form-control" name="denominacion" value="{{old('gln')}}">
+                            <input id="gln" type="text" class="form-control" name="gln" value="{{old('gln')}}">
                                 @error('gln')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>GLN invalida</strong>

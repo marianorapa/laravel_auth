@@ -32,7 +32,7 @@ class EmpresasController extends Controller
             ->select('e.id', 'e.denominacion', 'e.fecha_inicio_actividades',
                 DB::raw('null as col1'), DB::raw("'Transporte' as tipo"));
 
-        $empresas = $proveedores->union($clientes)->union($transportistas)->get();
+        $empresas = $proveedores->union($clientes)->union($transportistas)->paginate(10);
 
         return view('administracion.empresas.index', compact('empresas'));
     }
@@ -42,6 +42,7 @@ class EmpresasController extends Controller
     }
 
     public function store(Request $request){
+
 
         $messages = [
             'required' => 'el campo :attribute es requerido',
@@ -54,7 +55,6 @@ class EmpresasController extends Controller
            'nro_documento' => 'required',
            'email'=>'required',
            'telefono' =>'required',
-           'observaciones' => 'required',
            'calle' => 'required',
            'numero' => 'required',
            'provincia' => 'required',
