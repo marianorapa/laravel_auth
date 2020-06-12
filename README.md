@@ -5,19 +5,18 @@
 [![MIT License][license-shield]][license-url]
 
 
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/marianorapa/laravel_auth">
-    <img src="images/unlu.png" alt="Logo" width="100" height="100">
+    <img src="images/unlu.png" alt="Logo" width="160" height="160">
   </a>
 
   <h5 align="center">Universidad Nacional de Luján</h5>
 
-  <h3 align="center">Seminario de Integración Profesional Edición (11087)</h3>
+  <h2 align="center">Seminario de Integración Profesional Edición (11087)</h2>
 
-  <h4 align="center">Trabajo Práctico de Campo</h4>
+  <h3 align="center">Trabajo Práctico de Campo</h3>
   
   <h4 align="center">Edición 2020</h4>
 
@@ -28,99 +27,99 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-
+<!-- Índice -->
+## Índice
 * [Equipo docente](#equipo-docente)
 * [Integrantes del grupo](#integrantes-del-grupo)
-* [Acerca del proyecto](#Acerca del Proyecto)
-  * [Demo en vivo](#demo-en-vivo)
+* [Acerca del proyecto](#acerca-del-proyecto)
   * [Desarollado con](#desarrollado-con)
-* [Getting Started](#getting-started)
-  * [Prerequisitos](#Prerequisitos)
-  * [Instalación](#instalacin)
-* [Documentación](#documentacin)
+  * [Demo en vivo](#demo-en-vivo)
+* [Instalación desde el código fuente](#instalacion-desde-el-codigo-fuente)
+* [Documentación](#documentacion)
+* [Licencia](#licencia)
 
 
 
 <!-- EQUIPO DOCENTE -->
 ## Equipo docente
-
-* Bibiana D. Rossi
-* David M. Petrocelli
-* Viviana P. Chapetto
+| Profesor  | Cargo  |
+| :------------ |:---------------:|
+| Bibiana D. Rossi      | Titular |
+| David M. Petrocelli      | Ayudante        |
+| Viviana P. Chapetto | Ayudante        |
 
 
 
 <!-- INTEGRANTES DEL GRUPO -->
 ## Integrantes del grupo
-
-* César G. Ferrarotti (113145) 
-* Dilan M. Bernabe Riegel (143852)
-* Emanuel Rodriguez (143050)
-* Luciano Palmieri (148478)
-* Mariano Rapaport (155671)
+| Alumno  | Legajo  |
+| :------------ |:---------------:|
+| César G. Ferrarotti      | 113145 |
+| Dilan M. Bernabe Riegel      | 143852        |
+| Emanuel Rodriguez | 143050        |
+| Luciano Palmieri | 148478        |
+| Mariano Rapaport | 155671        |
 
 
 
 <!-- ACERCA DEL PROYECTO -->
 ## Acerca del proyecto
 
-[![Product Name Screen Shot][product-screenshot]](https://pacific-savannah-37454.herokuapp.com/)
+<!--[![Vilumar][product-screenshot]]-->
+![VILUMAR][product-screenshot]
 
 **VILUMAR S.A.** es una fábrica de alimento para el consumo animal (principalmente pollos y cerdos) ubicada en San Andrés de Giles, Buenos Aires.
 
 Este sistema web tiene como principal objetivo facilitar las operaciones diarias de la empresa, desde que ingresan los insumos hasta el despacho de los productos finalizados.
 
 Las funcionalidades incluyen atender la entrada de camiones, gestionar los pedidos de producción, realizar préstamos a clientes, administrar el stock, entre otras.
-
-### Demo
-
-[![Product Name Screen Shot][heroku-logo]](https://www.heroku.com/)
-
-Es posible probar la aplicación desde [aquí]([demo-url]). 
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
+<br />
 
 ### Desarrollado con
+<br />
+<p align="center">
+  <a href="https://www.php.net/"><img src="images/php.png" alt="PHP" alt="PHP" width=120></img></a>
+  <img src="images/blank.png" width=40></img>
+  <a href="https://laravel.com"><img src="images/laravel.png" alt="Laravel" width=240></img></a>
+  <img src="images/blank.png" width=40></img>
+  <a href="https://mariadb.org/"><img src="images/mariadb.png" alt="MariaDB" width=220></img></a>
+</p>
+<br />
 
-[![Product Name Screen Shot][laravel-logo]](https://laravel.com)
+### Demo en vivo
+Es posible probar la aplicación desde [aquí][demo-url].
+
+<!--[![Heroku][heroku-logo]](https://www.heroku.com/)-->
+<p align="left"><a href="https://www.heroku.com/"><img src="images/heroku.png" alt="Logo" width="300"></a></p>
+
+Deben utilizarse las siguientes credenciales para operar:
+* Usuario: *administrator*
+* Contraseña: *admin01*
 
 
+<!-- Instalación -->
+## Instalacion desde el codigo fuente
 
-<!-- GETTING STARTED -->
-### Prerequisitos
+### Windows
+- Descargar e instalar las siguientes dependencias (las imágenes son enlaces de descarga): <p align="center"><a href="https://git-scm.com/download/win"><img src="images/git.png" alt="Logo" width="180"></a><img src="images/blank.png" width=60></img><a href="https://getcomposer.org/Composer-Setup.exe"><img src="images/composer.png" alt="Logo" width="60"></a><img src="images/blank.png" width=60></img><a href="https://sourceforge.net/projects/xampp/files/latest/download"><img src="images/xampp.png" alt="Logo" width="260"></a></p>
+- Crear una base de datos con codificación `utf8mb4_general_ci` 
+- Clonar el repositorio utilizando `git clone https://github.com/marianorapa/laravel_auth.git`
+- Ejecutar `composer install` para instalar las dependencias
+- Renombrar el archivo de configuración con el comando `copy .env.example .env` (debe actualizarse para que apunte a la base de datos creada anteriormente) 
+- Generar una clave ejecutando `php artisan key:generate`
+- Migrar la base de datos con `php artisan migrate` 
+- Correr los seeders con `php artisan db:seed`
+- Levantar el servidor mediante `php artisan serve` 
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
-
-### Instalación
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-```sh
-git clone https://github.com/your_username_/Project-Name.git
-```
-3. Install NPM packages
-```sh
-npm install
-```
-4. Enter your API in `config.js`
-```JS
-const API_KEY = 'ENTER YOUR API';
-```
+NOTA: *Para la instalación en entorno producción, referirse al manual correspondiente de la sección siguiente.*
 
 
 
 <!-- DOCUMENTACION -->
-## Documentación
+## Documentacion
 * Especificación General de Requerimientos
-  * [Leer documento](documentation/egr/vilumar.pdf)
-  * [Descargar proyecto de Enterprise Architect](documentation/egr/vilumar.eap)
+  * [Documento en formato PDF](documentation/egr/vilumar.pdf)
+  * [Proyecto de Enterprise Architect](https://github.com/marianorapa/laravel_auth/raw/master/documentation/egr/vilumar.eap)
 * Manuales
   * [De instalación](documentation/manuales/instalacion.pdf)
   * [De uso](documentation/manuales/uso.pdf)
@@ -128,10 +127,13 @@ const API_KEY = 'ENTER YOUR API';
   * [Formulario de aceptación](documentation/pps/aceptacion.pdf)
   * [Formulario de cumplimiento](documentation/pps/cumplimiento.pdf)
 * Presentaciones
-  * [Modelo de negocio](documentation/presentaciones/mneg.pptx)
-  * [Ventas](documentation/presentaciones/ventas.pptx)
+  * [Modelo de negocio](https://github.com/marianorapa/laravel_auth/raw/master/documentation/presentaciones/mneg.pptx)
+  * [Ventas](https://github.com/marianorapa/laravel_auth/raw/master/documentation/presentaciones/ventas.pptx)
 
 
+
+## Licencia
+The Laravel framework is open-sourced software licensed under the [MIT license](https://github.com/laravel/framework/raw/master/LICENSE.md).
 
 
 
@@ -147,7 +149,20 @@ const API_KEY = 'ENTER YOUR API';
 [issues-url]: https://github.com/marianorapa/laravel_auth/issues
 [license-shield]: https://img.shields.io/github/license/marianorapa/laravel_auth.svg?style=flat-square
 [license-url]: https://github.com/marianorapa/laravel_auth/blob/master/LICENSE.txt
+[unlu-logo]: images/unlu.png
 [product-screenshot]: images/screenshot.gif
-[demo-url]:https://pacific-savannah-37454.herokuapp.com/
 [heroku-logo]: images/heroku.png
+[heroku-url]: https://www.heroku.com/
+[demo-url]: https://pacific-savannah-37454.herokuapp.com/
+[php-logo]: images/php.png
+[php-url]: https://www.php.net/
 [laravel-logo]: images/laravel.png
+[laravel-url]: https://laravel.com
+[mariadb-logo]: images/mariadb.png
+[mariadb-url]: https://mariadb.org/
+[xampp-logo]: images/xampp.png
+[xampp-url]: https://sourceforge.net/projects/xampp/files/latest/download
+[git-logo]: images/git.png
+[git-url]: https://git-scm.com/download/win
+[composer-logo]: images/composer.png
+[composer-url]: https://getcomposer.org/Composer-Setup.exe
