@@ -193,6 +193,54 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            22 => 
+            array (
+                'id' => 26,
+                'denominacion' => 'LERDA GUSTAVO',
+                'fecha_inicio_actividades' => NULL,
+                'created_at' => '2020-06-13 00:46:51',
+                'updated_at' => '2020-06-13 00:46:51',
+            ),
+            23 => 
+            array (
+                'id' => 27,
+                'denominacion' => 'LOPEZ NICOLAS',
+                'fecha_inicio_actividades' => NULL,
+                'created_at' => '2020-06-13 00:46:51',
+                'updated_at' => '2020-06-13 00:46:51',
+            ),
+            24 => 
+            array (
+                'id' => 28,
+                'denominacion' => 'TRAVERSO NESTOR TQD',
+                'fecha_inicio_actividades' => NULL,
+                'created_at' => '2020-06-13 00:46:51',
+                'updated_at' => '2020-06-13 00:46:51',
+            ),
+            25 => 
+            array (
+                'id' => 29,
+                'denominacion' => 'DIPAOLA FABIAN',
+                'fecha_inicio_actividades' => NULL,
+                'created_at' => '2020-06-13 00:46:51',
+                'updated_at' => '2020-06-13 00:46:51',
+            ),
+            26 => 
+            array (
+                'id' => 30,
+                'denominacion' => 'TOURNIE JUAN',
+                'fecha_inicio_actividades' => NULL,
+                'created_at' => '2020-06-13 00:46:51',
+                'updated_at' => '2020-06-13 00:46:51',
+            ),
+            27 => 
+            array (
+                'id' => 31,
+                'denominacion' => 'TRAVERZO CARLOS',
+                'fecha_inicio_actividades' => NULL,
+                'created_at' => '2020-06-13 00:46:51',
+                'updated_at' => '2020-06-13 00:46:51',
+            ),
         ));
         
         
