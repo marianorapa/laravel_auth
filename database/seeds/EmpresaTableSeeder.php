@@ -12,12 +12,12 @@ class EmpresaTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('empresa')->delete();
-        
+
         \DB::table('empresa')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'denominacion' => 'VILUMAR S.A',
@@ -25,7 +25,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-05-21 03:45:49',
                 'updated_at' => '2020-05-21 03:45:49',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'denominacion' => 'ACME SA',
@@ -33,7 +33,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-05-21 03:45:49',
                 'updated_at' => '2020-05-21 03:45:49',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'denominacion' => 'TRANSPORTES SA',
@@ -41,7 +41,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-05-21 03:45:49',
                 'updated_at' => '2020-05-21 03:45:49',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'denominacion' => 'PROVEEDOR SA',
@@ -49,7 +49,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-05-21 03:45:49',
                 'updated_at' => '2020-05-21 03:45:49',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'denominacion' => 'FabricARG SRL',
@@ -57,7 +57,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-05-21 03:45:49',
                 'updated_at' => '2020-05-21 03:45:49',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 7,
                 'denominacion' => 'ALIGAFA SA',
@@ -65,7 +65,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 8,
                 'denominacion' => 'LIZMAN SA',
@@ -73,7 +73,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 9,
                 'denominacion' => 'LA PASTORAL DEL PLATA S.A.',
@@ -81,7 +81,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 10,
                 'denominacion' => 'PRODUCTOS DE GRANJA LA LUISA SRL',
@@ -89,7 +89,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 11,
                 'denominacion' => 'GALLUS-GALLUS S.R.L.',
@@ -97,7 +97,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 12,
                 'denominacion' => 'THE GOOD PIG SA',
@@ -105,7 +105,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 13,
                 'denominacion' => 'CTS S.R.L.',
@@ -113,7 +113,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 14,
                 'denominacion' => 'LEPOULET SRL',
@@ -121,7 +121,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 15,
                 'denominacion' => 'REGRINT S.A.',
@@ -129,7 +129,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 16,
                 'denominacion' => 'SERVICIOS JGV',
@@ -137,7 +137,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 17,
                 'denominacion' => 'ESTANCIAS Y CABANA LAS LILAS SA',
@@ -145,7 +145,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 18,
                 'denominacion' => 'EL IMPERIO DEL POLLO',
@@ -153,7 +153,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 19,
                 'denominacion' => 'NUTREMAS S R L',
@@ -161,7 +161,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 20,
                 'denominacion' => 'CLADAN SA',
@@ -169,7 +169,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 21,
                 'denominacion' => 'PRONUT  SRL',
@@ -177,7 +177,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 22,
                 'denominacion' => 'BIOFARMA S A',
@@ -185,7 +185,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 23,
                 'denominacion' => 'HERLUDAMA S.A.',
@@ -193,7 +193,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 26,
                 'denominacion' => 'LERDA GUSTAVO',
@@ -201,7 +201,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-06-13 00:46:51',
                 'updated_at' => '2020-06-13 00:46:51',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 27,
                 'denominacion' => 'LOPEZ NICOLAS',
@@ -209,15 +209,15 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-06-13 00:46:51',
                 'updated_at' => '2020-06-13 00:46:51',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 28,
-                'denominacion' => 'TRAVERSO NESTOR TQD',
+                'denominacion' => 'TRAVERSO NESTOR',
                 'fecha_inicio_actividades' => NULL,
                 'created_at' => '2020-06-13 00:46:51',
                 'updated_at' => '2020-06-13 00:46:51',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 29,
                 'denominacion' => 'DIPAOLA FABIAN',
@@ -225,7 +225,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-06-13 00:46:51',
                 'updated_at' => '2020-06-13 00:46:51',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 30,
                 'denominacion' => 'TOURNIE JUAN',
@@ -233,7 +233,7 @@ class EmpresaTableSeeder extends Seeder
                 'created_at' => '2020-06-13 00:46:51',
                 'updated_at' => '2020-06-13 00:46:51',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 31,
                 'denominacion' => 'TRAVERZO CARLOS',
@@ -242,7 +242,7 @@ class EmpresaTableSeeder extends Seeder
                 'updated_at' => '2020-06-13 00:46:51',
             ),
         ));
-        
-        
+
+
     }
 }

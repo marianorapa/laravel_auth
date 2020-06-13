@@ -113,13 +113,13 @@ NOTA: *Para la instalación en entorno producción, referirse al manual correspo
   * [Proyecto de Enterprise Architect](https://github.com/marianorapa/laravel_auth/raw/master/documentation/egr/vilumar.eap)
 * Manuales
   * [De instalación](documentation/manuales/instalacion.pdf)
-  * [De uso](documentation/manuales/uso.pdf)
+  * [De usuario](documentation/manuales/usuario.pdf)
 * Prácticas Profesionales Supervisadas
   * [Formulario de aceptación](documentation/pps/aceptacion.pdf)
   * [Formulario de cumplimiento](documentation/pps/cumplimiento.pdf)
 * Presentaciones
   * [Modelo de negocio](https://github.com/marianorapa/laravel_auth/raw/master/documentation/presentaciones/mneg.pptx)
-  * [Ventas](https://github.com/marianorapa/laravel_auth/raw/master/documentation/presentaciones/ventas.pptx)
+  * [De venta](https://github.com/marianorapa/laravel_auth/raw/master/documentation/presentaciones/venta.pptx)
 
 
 
