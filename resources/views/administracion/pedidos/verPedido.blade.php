@@ -54,9 +54,6 @@
                                     <th class="fila">{{$op->descripcion}}</th>
                                     <th class="fila">-</th>
                                     <th class="fila">{{$op->cant}}</th>
-
-
-                                    <th class="fila"> -</th>
                                     @if ( $op->cliente_id  == '1')
                                         <th class="fila">Fabrica</th>
                                     @else
