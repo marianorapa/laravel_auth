@@ -52,6 +52,7 @@
                                 <tr>
                                     <th class="fila">{{$op->prod_id}}</th>
                                     <th class="fila">{{$op->descripcion}}</th>
+                                    <th class="fila">-</th>
                                     <th class="fila">{{$op->cant}}</th>
 
 
