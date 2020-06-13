@@ -14,6 +14,12 @@ class InsumoController extends Controller
 {
     //
 
+
+    public function __construct()
+    {
+        $this->middleware('permission');
+    }
+
     public function index(Request $request){
 
         $descripcion = $request->get('descripcion');
